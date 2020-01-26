@@ -8,64 +8,71 @@ using PrivateOfficeAPI.Models;
 
 namespace PrivateOfficeAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class CourseController : Controller
     {
-	    private readonly HttpClientHandler _clientHandler;
 	    private readonly HttpClient _httpClient;
 
 	    public CourseController()
 	    {
-			_clientHandler = new HttpClientHandler();
-			_clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
-			{
-				return true;
-			};
-			_httpClient = new HttpClient(_clientHandler);
+		    var clientHandler = new HttpClientHandler
+		    {
+			    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+		    };
+		    _httpClient = new HttpClient(clientHandler);
 	    }
 
-        [HttpGet("{id}")]
+        [HttpGet("Course&id={id}")]
         public async Task<Course> GetCourse(int id)
         {
-            var course = new Course();
-            HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/"+id.ToString());
-
+	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/"+id.ToString());
             string jsonString = await response.Content.ReadAsStringAsync();
-            course = JsonConvert.DeserializeObject<Course>(jsonString);
- 
+            var course = JsonConvert.DeserializeObject<Course>(jsonString);
             return course;
         }
         
-        [HttpGet]
-        public async Task<List<Course>> GetCourses()
+        [HttpGet("Courses&id_teacher={idTeacher}")]
+        public async Task<List<Course>> GetCourses(int idTeacher)
         {
+	        var response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var coursesResponse = JsonConvert.DeserializeObject<List<Course>>(jsonString);
             var courses = new List<Course>();
-            HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
-
-            string jsonString = await response.Content.ReadAsStringAsync();
-            courses = JsonConvert.DeserializeObject<List<Course>>(jsonString);
+            foreach (var course in coursesResponse)
+            {
+	            if (course.IdTeacher == idTeacher)
+		            courses.Add(course);
+            }
             return courses;
         }
 
-        [HttpPost]
+        [HttpPost("Course")]
         public async void CreateCourse(Course course)
         {
-            
-            string jsonString = JsonConvert.SerializeObject(course);
+            var jsonString = JsonConvert.SerializeObject(course);
             HttpContent httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync("https://localhost:44316/api/Courses", httpContent);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Course&id={id}")]
         public async Task<Course> UpdateCourse(int id, Course course)
         {
-            string jsonRequest= JsonConvert.SerializeObject(course);
+            var jsonRequest= JsonConvert.SerializeObject(course);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PutAsync("https://localhost:44316/api/Courses/" + id.ToString(), httpContent);
-            string jsonResponse = await response.Content.ReadAsStringAsync();
+            var response = await _httpClient.PutAsync("https://localhost:44316/api/Courses/" + id.ToString(), httpContent);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
             course = JsonConvert.DeserializeObject<Course>(jsonResponse);
             return course;
+        }
+
+        [HttpDelete("Course&id={id}")]
+        public async Task<Course> DeleteCourse(int id)
+        {
+	        var response = await _httpClient.DeleteAsync("https://localhost:44316/api/Courses/" + id.ToString());
+	        var jsonResponse = await response.Content.ReadAsStringAsync();
+	        var course = JsonConvert.DeserializeObject<Course>(jsonResponse);
+	        return course;
         }
     }
 }

@@ -7,31 +7,28 @@ using PrivateOfficeAPI.Models;
 
 namespace PrivateOfficeAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class TeacherController : Controller
     {
-        private readonly HttpClientHandler _clientHandler;
         private readonly HttpClient _httpClient;
 
         public TeacherController()
         {
-            _clientHandler = new HttpClientHandler();
-            _clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
+            var clientHandler = new HttpClientHandler
             {
-                return true;
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
             };
-            _httpClient = new HttpClient(_clientHandler);
+            _httpClient = new HttpClient(clientHandler);
         }
         
         // GET: api/Teacher
-        [HttpGet]
+        [HttpGet("Teachers")]
         public async Task<List<Teacher>> GetTeacher()
         {
-            var teachers = new List<Teacher>();
             HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Teachers");
             string jsonString = await response.Content.ReadAsStringAsync();
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(jsonString);
+            var teachers = JsonConvert.DeserializeObject<List<Teacher>>(jsonString);
             return teachers;
         }
     }
