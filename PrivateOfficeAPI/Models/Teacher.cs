@@ -21,5 +21,6 @@ namespace PrivateOfficeAPI.Models
         public string Patronymic { get; set; }
         [JsonProperty("course")]
         public virtual List<Course> Course { get; set; }
+
     }
 }
