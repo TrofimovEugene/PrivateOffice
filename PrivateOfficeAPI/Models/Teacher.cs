@@ -19,6 +19,7 @@ namespace PrivateOfficeAPI.Models
         public string SecondName { get; set; }
         [JsonProperty("patronymic")]
         public string Patronymic { get; set; }
-        //public virtual List<Course> Course { get; set; }
+        [JsonProperty("course")]
+        public virtual List<Course> Course { get; set; }
     }
 }
