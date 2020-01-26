@@ -10,5 +10,7 @@ namespace PrivateOfficeAPI.Models
         public int IdCourse { get; set; }
         [JsonProperty("nameCourse")]
         public string NameCourse { get; set; }
+        [JsonProperty("idTeacher")]
+		public int IdTeacher { get; set; }
     }
 }
