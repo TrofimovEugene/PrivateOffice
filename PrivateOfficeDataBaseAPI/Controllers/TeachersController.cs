@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrivateOfficeDataBaseAPI.Data;
@@ -31,8 +29,10 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 
 		// GET: api/Teachers/GetTeacherDetails/5
 		[HttpGet("GetTeacherDetails/{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacherDetails(int id)
-        {
+#pragma warning disable 1998
+		public async Task<ActionResult<Teacher>> GetTeacherDetails(int id)
+#pragma warning restore 1998
+		{
             var teachers = _context.Teacher
                 .Include(course => course.Course)
                 .ThenInclude(classes => classes.Classes)
