@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrivateOfficeDataBaseAPI.Data;
 
 namespace PrivateOfficeDataBaseAPI.Migrations
 {
     [DbContext(typeof(PrivateOfficeDataBaseAPIContext))]
-    partial class PrivateOfficeDataBaseAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200128134419_DataBaseProverka")]
+    partial class DataBaseProverka
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +37,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.Property<int>("IdCourse")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdTypeClasses")
-                        .HasColumnType("int");
-
                     b.Property<string>("NameClasses")
                         .HasColumnType("nvarchar(max)");
 
@@ -47,9 +46,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.HasKey("IdClasses");
 
                     b.HasIndex("IdCourse");
-
-                    b.HasIndex("IdTypeClasses")
-                        .IsUnique();
 
                     b.ToTable("Classes");
                 });
@@ -72,49 +68,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.HasIndex("IdTeacher");
 
                     b.ToTable("Course");
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Group", b =>
-                {
-                    b.Property<int>("IdGroup")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("IdClasses")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NameGroup")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdGroup");
-
-                    b.HasIndex("IdClasses");
-
-                    b.ToTable("Group");
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Student", b =>
-                {
-                    b.Property<int>("IdStudent")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdGroup")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecondName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdStudent");
-
-                    b.HasIndex("IdGroup");
-
-                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Teacher", b =>
@@ -144,32 +97,11 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.ToTable("Teacher");
                 });
 
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.TypeClasses", b =>
-                {
-                    b.Property<int>("IdTypeClasses")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TypeClass")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdTypeClasses");
-
-                    b.ToTable("TypeClasses");
-                });
-
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Classes", b =>
                 {
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Course", "Course")
                         .WithMany("Classes")
                         .HasForeignKey("IdCourse")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.TypeClasses", "TypeClasses")
-                        .WithOne("Classes")
-                        .HasForeignKey("PrivateOfficeDataBaseAPI.Models.Classes", "IdTypeClasses")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -179,24 +111,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Teacher", "Teacher")
                         .WithMany("Course")
                         .HasForeignKey("IdTeacher")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Group", b =>
-                {
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.Classes", "Classes")
-                        .WithMany("Group")
-                        .HasForeignKey("IdClasses")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Student", b =>
-                {
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.Group", "Group")
-                        .WithMany("Student")
-                        .HasForeignKey("IdGroup")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
