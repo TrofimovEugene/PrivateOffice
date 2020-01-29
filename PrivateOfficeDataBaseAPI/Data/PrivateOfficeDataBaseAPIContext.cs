@@ -20,6 +20,7 @@ namespace PrivateOfficeDataBaseAPI.Data
         public Microsoft.EntityFrameworkCore.DbSet<Group> Group { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Student> Student { get; set; }
 
+        public Microsoft.EntityFrameworkCore.DbSet<Report> Report { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
