@@ -25,6 +25,8 @@ namespace PrivateOfficeDataBaseAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+        
+
             /*связь один ко многим между Teacher and Course*/
             modelBuilder.Entity<Teacher>()
                 .HasMany(course => course.Course)
@@ -68,17 +70,12 @@ namespace PrivateOfficeDataBaseAPI.Data
             modelBuilder.Entity<Student>()
                 .HasMany(report => report.Report)
                 .WithOne(student => student.Student)
-                .IsRequired().HasForeignKey(report => report.IdStudent)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
-            /*связь один ко многим между Classes and Report*/
+               .HasForeignKey(report => report.IdStudent);
 
             modelBuilder.Entity<Classes>()
                 .HasMany(report => report.Report)
                 .WithOne(classes => classes.Classes)
-                .IsRequired().HasForeignKey(report => report.IdClasses)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(report => report.IdClasses);
 
             base.OnModelCreating(modelBuilder);
         }

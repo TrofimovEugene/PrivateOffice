@@ -24,5 +24,6 @@ namespace PrivateOfficeDataBaseAPI.Models
 
         public virtual ICollection<Group> Group { get; set; }
         public virtual ICollection<Report> Report { get; set; }
+   
     }
 }

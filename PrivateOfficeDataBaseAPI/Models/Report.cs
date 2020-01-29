@@ -13,11 +13,12 @@ namespace PrivateOfficeDataBaseAPI.Models
         [Key]
         public int IdReport { get; set; }
         [ForeignKey("Student")]
-        public int IdStudent { get; set; }
-        [ForeignKey("Classes")]
-        public int IdClasses { get; set; }
+        public int? IdStudent { get; set; }
+        [ForeignKey("Course")]
+        public int? IdClasses { get; set; }      
         public string NameReport { get; set; }
         public virtual Student Student { get; set; }
         public virtual Classes Classes { get; set; }
+     
     }
 }

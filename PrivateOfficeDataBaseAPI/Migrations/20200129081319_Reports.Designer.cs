@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrivateOfficeDataBaseAPI.Data;
 
 namespace PrivateOfficeDataBaseAPI.Migrations
 {
     [DbContext(typeof(PrivateOfficeDataBaseAPIContext))]
-    partial class PrivateOfficeDataBaseAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200129081319_Reports")]
+    partial class Reports
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,9 +103,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("IdClasses")
-                        .HasColumnType("int");
-
                     b.Property<int?>("IdStudent")
                         .HasColumnType("int");
 
@@ -111,8 +110,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdReport");
-
-                    b.HasIndex("IdClasses");
 
                     b.HasIndex("IdStudent");
 
@@ -219,10 +216,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
 
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Report", b =>
                 {
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.Classes", "Classes")
-                        .WithMany("Report")
-                        .HasForeignKey("IdClasses");
-
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Student", "Student")
                         .WithMany("Report")
                         .HasForeignKey("IdStudent");

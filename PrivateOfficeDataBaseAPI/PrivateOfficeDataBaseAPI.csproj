@@ -5,6 +5,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200129071421_Reports.cs" />
+    <Compile Remove="Migrations\20200129071421_Reports.Designer.cs" />
+    <Compile Remove="Migrations\20200129071954_Report.cs" />
+    <Compile Remove="Migrations\20200129071954_Report.Designer.cs" />
+    <Compile Remove="Migrations\20200129081022_Report1.cs" />
+    <Compile Remove="Migrations\20200129081022_Report1.Designer.cs" />
+    <Compile Remove="Migrations\20200129081146_Report1s.cs" />
+    <Compile Remove="Migrations\20200129081146_Report1s.Designer.cs" />
+    <Compile Remove="Migrations\20200129084830_UpdateLink.cs" />
+    <Compile Remove="Migrations\20200129084830_UpdateLink.Designer.cs" />
+    <Compile Remove="Migrations\20200129085154_UpdateLink.cs" />
+    <Compile Remove="Migrations\20200129085154_UpdateLink.Designer.cs" />
+    <Compile Remove="Migrations\20200129085345_UpdateLink.cs" />
+    <Compile Remove="Migrations\20200129085345_UpdateLink.Designer.cs" />
+    <Compile Remove="Migrations\20200129085851_UpdateLink.cs" />
+    <Compile Remove="Migrations\20200129085851_UpdateLink.Designer.cs" />
+    <Compile Remove="Migrations\20200129090521_UpdateLink.cs" />
+    <Compile Remove="Migrations\20200129090521_UpdateLink.Designer.cs" />
+    <Compile Remove="Migrations\20200129090832_UpdateLink.cs" />
+    <Compile Remove="Migrations\20200129090832_UpdateLink.Designer.cs" />
+    <Compile Remove="Migrations\20200129091202_UpdateLink.cs" />
+    <Compile Remove="Migrations\20200129091202_UpdateLink.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
