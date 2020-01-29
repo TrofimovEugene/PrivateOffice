@@ -39,6 +39,28 @@ namespace PrivateOfficeDataBaseAPI.Data
                 .HasForeignKey(course => course.IdCourse)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            /*связь один к одному между Classes and TypeClasses*/
+            modelBuilder.Entity<Classes>()
+                .HasOne(typeClasses => typeClasses.TypeClasses)
+                .WithOne(classes => classes.Classes)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            /*связь один ко многим между Classes and Group*/
+            modelBuilder.Entity<Classes>()
+                .HasMany(group => group.Group)
+                .WithOne(classes => classes.Classes)
+                .IsRequired()
+                .HasForeignKey(group => group.IdClasses)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            /*связь один ко многим между Group and Student*/
+         
+            modelBuilder.Entity<Group>()
+                .HasMany(student => student.Student)
+                .WithOne(group => group.Group)
+                .IsRequired().HasForeignKey(student => student.IdGroup)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
