@@ -23,5 +23,6 @@ namespace PrivateOfficeDataBaseAPI.Models
         public virtual TypeClasses TypeClasses { get; set; }
 
         public virtual ICollection<Group> Group { get; set; }
+        public virtual ICollection<Report> Report { get; set; }
     }
 }

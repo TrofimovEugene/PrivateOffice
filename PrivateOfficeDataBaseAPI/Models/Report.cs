@@ -17,5 +17,7 @@ namespace PrivateOfficeDataBaseAPI.Models
         [ForeignKey("Classes")]
         public int IdClasses { get; set; }
         public string NameReport { get; set; }
+        public virtual Student Student { get; set; }
+        public virtual Classes Classes { get; set; }
     }
 }
