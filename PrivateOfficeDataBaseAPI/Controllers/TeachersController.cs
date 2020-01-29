@@ -33,9 +33,17 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 		public async Task<ActionResult<Teacher>> GetTeacherDetails(int id)
 #pragma warning restore 1998
 		{
+
+            var classes = _context.Classes
+                .Include(typeClasses => typeClasses.TypeClasses);
             var teachers = _context.Teacher
                 .Include(course => course.Course)
-                .ThenInclude(classes => classes.Classes)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(group => group.Group)
+                            .ThenInclude(student => student.Student)
+                .Include(course => course.Course)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(typeClasses => typeClasses.TypeClasses)
                 .FirstOrDefault(teacher => teacher.IdTeacher == id);
 
             if (teachers == null)
