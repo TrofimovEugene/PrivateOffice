@@ -41,9 +41,13 @@ namespace PrivateOfficeDataBaseAPI.Controllers
                     .ThenInclude(classes => classes.Classes)
                         .ThenInclude(group => group.Group)
                             .ThenInclude(student => student.Student)
+                                .ThenInclude(report => report.Report)
                 .Include(course => course.Course)
                     .ThenInclude(classes => classes.Classes)
                         .ThenInclude(typeClasses => typeClasses.TypeClasses)
+                 .Include(course => course.Course)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(report => report.Report)
                 .FirstOrDefault(teacher => teacher.IdTeacher == id);
 
             if (teachers == null)
