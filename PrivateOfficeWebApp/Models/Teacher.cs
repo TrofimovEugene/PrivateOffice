@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json;
 
-namespace PrivateOfficeAPI.Models
+namespace PrivateOfficeWebApp.Models
 {
     [JsonObject]
     public class Teacher

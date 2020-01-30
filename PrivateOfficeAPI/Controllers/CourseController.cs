@@ -23,12 +23,12 @@ namespace PrivateOfficeAPI.Controllers
 		    _httpClient = new HttpClient(clientHandler);
 	    }
 
-        [HttpGet("Course&id={id}")]
-        public async Task<Course> GetCourse(int id)
+        [HttpGet("Courses")]
+        public async Task<List<Course>> GetCourse()
         {
-	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/"+id.ToString());
+	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
             string jsonString = await response.Content.ReadAsStringAsync();
-            var course = JsonConvert.DeserializeObject<Course>(jsonString);
+            var course = JsonConvert.DeserializeObject<List<Course>>(jsonString);
             return course;
         }
         
