@@ -1,101 +1,100 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
 
-  <div>
-    <nav class="navbar" style="background-color: #0866C6">
-      <a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-      <!-- <form class="form-inline">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
-      </form> -->
-    </nav>
-  </div>
-  <div class="container-fluid mt-3">
-    <div class="row">
-      @foreach (var item in Model.Courses)
-      {
-        <div class="col-xl-3  col-md-4 col-sm-6  p-4">
-          <div class="card " style="min-height: 300px; border-radius: 5%;">
-            <div class="card-body">
-              <div class="card-university">
-                <div class="d-flex bd-highlight">
-                  <h5 class="card-title mr-auto  bd-highlight"> Иргупс</h5>
-                  <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                    </button>
-                    <div class="dropdown-menu border border-secondary" aria-labelledby="dropdownMenu2">
-                      <button class="dropdown-item" type="button">Подробнее</button>
-                      <button class="dropdown-item" type="button">Изменить</button>
-                      <button class="dropdown-item" type="button">Удалить</button>
-                    </div>
-                  </div>
-                </div>
-                <hr class="bg-black m-0 pb-3"/>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(Model => item.NameCourse)</h6></li>
-                <li class="list-group-item card-text p-1 ">ПИ-16</li>
-                <li class="pl-0">Расписание:
-                <li class="pl-0">Cуббота 8:30-10:00-Еженедельно</li>
-                <li class="pl-0">Cуббота 10:10-11:40-Еженедельно</li>
-                <li class="list-group-item pl-0 pb-0">c 13.01.2020 по 05.04.2020</li>
-              </ul>
-            </div>
-            </div>
-        </div>
-      }
-      <div class="col-xl-3  col-md-4 col-sm-6  p-4">
-        <button type="button" class="btn-outline-primary" style="width: 100%; min-height: 300px;" data-toggle="modal"
-                data-target="#exampleModalCenter">
-          <i class="fas fa-plus" style="font-size: 4rem;"></i>
-        </button>
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Добавление нового курса</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-university">
-                    <label for="InputUniveristy">Университет</label>
-                    <input type="text" class="form-control" id="InputUniveristy">
-                  </div>
-                  <div class="form-nameCourse">
-                    <label for="InputGroup">Название курса</label>
-                    <input type="text" class="form-control" id="InputNameCourse">
-                    <span asp-validation-for="Course.NameCourse" class="text-danger"></span>
-                  </div>
-                  <div class="form-group">
-                    <label for="InputGroup">Группа</label>
-                    <input type="text" class="form-control" id="InputGroup">
-                  </div>
-                  <div id="timetable">
-                    <label for="InputTimetable">Расписание</label>
-                    <input type="text" class="form-control" id="InputTimetable">
-                  </div>
-                  <div class="counter" onclick="addInput()">+</div>
-                  <div class="counter" onclick="delInput()">-</div>
-                  <div class="form-data">
-                    <label for="InputCourse">Длительность курса</label>
-                    <input type="text" class="form-control" id="InputCourse">
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                <input type="submit" class="btn btn-primary" value="Добавить курс" asp-route="OnPostAsync"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div>
+	<nav class="navbar" style="background-color: #0866C6">
+		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+		<!-- <form class="form-inline">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+		</form> -->
+	</nav>
+</div>
+<div class="container-fluid mt-3">
+	<div class="row">
+		@foreach (var item in Model.Courses)
+		{
+			<div class="col-xl-3  col-md-4 col-sm-6  p-4">
+				<div class="card " style="min-height: 300px; border-radius: 5%;">
+					<div class="card-body">
+						<div class="card-university">
+							<div class="d-flex bd-highlight">
+								<h5 class="card-title mr-auto  bd-highlight"> Иргупс</h5>
+								<div class="dropdown">
+									<button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">
+									</button>
+									<div class="dropdown-menu border border-secondary" aria-labelledby="dropdownMenu2">
+										<button class="dropdown-item" type="button">Подробнее</button>
+										<button class="dropdown-item" type="button">Изменить</button>
+										<button class="dropdown-item" type="button">Удалить</button>
+									</div>
+								</div>
+							</div>
+							<hr class="bg-black m-0 pb-3" />
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
+							<li class="list-group-item card-text p-1 ">ПИ-16</li>
+							<li class="pl-0">Расписание:
+							<li class="pl-0">Cуббота 8:30-10:00-Еженедельно</li>
+							<li class="pl-0">Cуббота 10:10-11:40-Еженедельно</li>
+							<li class="list-group-item pl-0 pb-0">c 13.01.2020 по 05.04.2020</li>
+						</ul>
+					</div>
+				</div>
+			</div>		
+		}
+			<div class="col-xl-3  col-md-4 col-sm-6  p-4">
+				<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 300px;" data-toggle="modal"
+						data-target="#exampleModalCenter">
+					<i class="fas fa-plus" style="font-size: 4rem;"></i>
+				</button>
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+					 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<form method="post">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalCenterTitle">Добавление нового курса</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+
+									<div class="form-university">
+										<label for="InputUniveristy">Университет</label>
+										<input type="text" class="form-control" id="InputUniveristy">
+									</div>
+
+									<div class="form-nameCourse">
+										<label for="InputGroup">Название курса</label>
+										<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse">
+									</div>
+									<div class="form-group">
+										<label for="InputGroup">Группа</label>
+										<input type="text" class="form-control" id="InputGroup">
+									</div>
+									<div id="timetable">
+										<label for="InputTimetable">Расписание</label>
+										<input type="text" class="form-control" id="InputTimetable">
+									</div>
+									<div class="counter" onclick="addInput()">+</div>
+									<div class="counter" onclick="delInput()">-</div>
+									<div class="form-data">
+										<label for="InputCourse">Длительность курса</label>
+										<input type="text" class="form-control" id="InputCourse">
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+									<input type="submit" class="btn btn-primary" value="Добавить курс" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

@@ -23,25 +23,35 @@ namespace PrivateOfficeWebApp.Pages
 			};
 			_httpClient = new HttpClient(clientHandler);
 		}
-		
+		[BindProperty]
 		public IList<Course> Courses { get; set; }
 		
-		public async Task OnGetAsync()
+		public async Task<IActionResult> OnGet()
 		{
 			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44328/api/Courses");
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<IList<Course>>(jsonResponse);
+			return Page();
 		}
+
 		[BindProperty]
-		public Course Course { get; set; }
+		public RequestCourse Course { get; set; }
+
 		public async Task<IActionResult> OnPostAsync()
 		{
-			Course.IdCourse = null;
 			Course.IdTeacher = 1;
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-			await _httpClient.PostAsync("https://localhost:44328/api/Courses", httpContent);
-			return Page();
+			await _httpClient.PostAsync("https://localhost:44328/api/Course", httpContent);
+			return RedirectToPage("./Index");
+		}
+		[JsonObject]
+		public class RequestCourse
+		{
+			[JsonProperty("idTeacher")]
+			public int IdTeacher { get; set; }
+			[JsonProperty("nameCourse")]
+			public string NameCourse { get; set; }
 		}
 	}
 }
