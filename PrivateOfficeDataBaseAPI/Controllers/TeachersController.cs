@@ -34,8 +34,6 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 #pragma warning restore 1998
 		{
 
-            var classes = _context.Classes
-                .Include(typeClasses => typeClasses.TypeClasses);
             var teachers = _context.Teacher
                 .Include(course => course.Course)
                     .ThenInclude(classes => classes.Classes)

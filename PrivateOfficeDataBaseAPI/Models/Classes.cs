@@ -16,6 +16,8 @@ namespace PrivateOfficeDataBaseAPI.Models
         public string NameClasses { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public string DaysWeek { get; set; }
+        public string CountClasses { get; set; }
         public int CountTime { get; set; }
 
  
