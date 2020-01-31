@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using PrivateOfficeDataBaseAPI.Data;
 using PrivateOfficeDataBaseAPI.Models;
 
@@ -21,9 +22,10 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 
         // GET: api/Courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourse()
+        public async Task<List<Course>> GetCourse()
         {
-            return await _context.Course.ToListAsync();
+	        var courses = _context.Course.Include(classes => classes.Classes).ToList();
+            return courses;
         }
 
         // GET: api/Courses/5

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 
 namespace PrivateOfficeAPI.Models
@@ -12,5 +14,13 @@ namespace PrivateOfficeAPI.Models
         public string NameCourse { get; set; }
         [JsonProperty("idTeacher")]
 		public int IdTeacher { get; set; }
+		[JsonProperty("startDate")]
+        public DateTime StartDate { get; set; }
+        [JsonProperty("endDate")]
+        public DateTime EndDate { get; set; }
+        [JsonProperty("nameUniversity")]
+        public string NameUniversity { get; set; }
+        [JsonProperty("classes")]
+        public virtual ICollection<Classes> Classes { get; set; }
     }
 }

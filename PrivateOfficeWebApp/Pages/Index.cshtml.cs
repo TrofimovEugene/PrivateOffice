@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +53,14 @@ namespace PrivateOfficeWebApp.Pages
 			public int IdTeacher { get; set; }
 			[JsonProperty("nameCourse")]
 			public string NameCourse { get; set; }
+			[JsonProperty("startDate")]
+			public DateTime StartDate { get; set; }
+			[JsonProperty("endDate")]
+			public DateTime EndDate { get; set; }
+			[JsonProperty("nameUniversity")]
+			public string NameUniversity { get; set; }
+			//[JsonProperty("classes")]
+			//public virtual IList<Classes> Classes { get; set; } = new List<Classes>();
 		}
 	}
 }
