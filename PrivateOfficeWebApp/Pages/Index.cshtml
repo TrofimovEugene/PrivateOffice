@@ -18,7 +18,7 @@
 					<div class="card-body">
 						<div class="card-university">
 							<div class="d-flex bd-highlight">
-								<h5 class="card-title mr-auto  bd-highlight"> Иргупс</h5>
+								<h5 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameUniversity)</h5>
 								<div class="dropdown">
 									<button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">
@@ -35,10 +35,15 @@
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
 							<li class="list-group-item card-text p-1 ">ПИ-16</li>
-							<li class="pl-0">Расписание:
-							<li class="pl-0">Cуббота 8:30-10:00-Еженедельно</li>
-							<li class="pl-0">Cуббота 10:10-11:40-Еженедельно</li>
-							<li class="list-group-item pl-0 pb-0">c 13.01.2020 по 05.04.2020</li>
+							<li class="pl-0">Расписание:</li>
+							@foreach (var classes in item.Classes)
+							{
+								<li class="pl-0">@Html.DisplayFor(classesModel => classes.NameClasses)</li>
+								<li class="pl-0">@Html.DisplayFor(classesModel => classes.DaysWeek)</li>
+								<li class="pl-0">@Html.DisplayFor(classesModel => classes.StartTime)-@Html.DisplayFor(classesModel => classes.EndTime)-Еженедельно</li>
+							}
+							<li class="pl-0">Продолжительность курса</li>
+							<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>
 						</ul>
 					</div>
 				</div>
@@ -64,7 +69,7 @@
 
 									<div class="form-university">
 										<label for="InputUniveristy">Университет</label>
-										<input type="text" class="form-control" id="InputUniveristy">
+										<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy">
 									</div>
 
 									<div class="form-nameCourse">
@@ -75,15 +80,16 @@
 										<label for="InputGroup">Группа</label>
 										<input type="text" class="form-control" id="InputGroup">
 									</div>
-									<div id="timetable">
+									<!--<div id="timetable">
 										<label for="InputTimetable">Расписание</label>
 										<input type="text" class="form-control" id="InputTimetable">
-									</div>
-									<div class="counter" onclick="addInput()">+</div>
-									<div class="counter" onclick="delInput()">-</div>
+									</div>-->
+									<!--<div class="counter" onclick="addInput()">+</div>
+									<div class="counter" onclick="delInput()">-</div>-->
 									<div class="form-data">
 										<label for="InputCourse">Длительность курса</label>
-										<input type="text" class="form-control" id="InputCourse">
+										<input asp-for="Course.StartDate" type="date" class="form-control" id="InputCourse">
+										<input asp-for="Course.EndDate" type="date" class="form-control" id="InputCourse">
 									</div>
 
 								</div>
