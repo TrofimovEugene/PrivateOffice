@@ -15,14 +15,16 @@ namespace PrivateOfficeWebApp.Models
 		[JsonProperty("nameClasses")]
 		public string NameClasses { get; set; }
 		[JsonProperty("startTime")]
-		public DateTime StartTime { get; set; }
+		public TimeSpan StartTime { get; set; }
 		[JsonProperty("endTime")]
-		public DateTime EndTime { get; set; }
+		public TimeSpan EndTime { get; set; }
 		[JsonProperty("daysWeek")]
 		public string DaysWeek { get; set; }
 		[JsonProperty("countClasses")]
 		public string CountClasses { get; set; }
 		[JsonProperty("countTime")]
 		public int CountTime { get; set; }
+		[JsonProperty("typeClasses")]
+		public virtual TypeClasses TypeClasses { get; set; }
     }
 }

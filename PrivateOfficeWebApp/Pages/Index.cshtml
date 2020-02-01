@@ -16,35 +16,32 @@
 			<div class="col-xl-3  col-md-4 col-sm-6  p-4">
 				<div class="card " style="min-height: 300px; border-radius: 5%;">
 					<div class="card-body">
-						<div class="card-university">
-							<div class="d-flex bd-highlight">
-								<h5 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameUniversity)</h5>
-								<div class="dropdown">
-									<button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">
-									</button>
-									<div class="dropdown-menu border border-secondary" aria-labelledby="dropdownMenu2">
-										<button class="dropdown-item" type="button">Подробнее</button>
-										<button class="dropdown-item" type="button">Изменить</button>
-										<button class="dropdown-item" type="button">Удалить</button>
-									</div>
+						<form method="get">
+							<div class="card-university">
+								<div class="d-flex bd-highlight">
+									<h5 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameUniversity)</h5>
+									<!--<div class="dropdown">
+				<button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+				</button>
+				<div class="dropdown-menu border border-secondary" aria-labelledby="dropdownMenu2">
+					<button class="dropdown-item" type="button">Подробнее</button>
+					<button class="dropdown-item" type="button">Изменить</button>
+					<button class="dropdown-item" type="button">Удалить</button>
+				</div>
+			</div>-->
 								</div>
+								<hr class="bg-black m-0 pb-3" />
 							</div>
-							<hr class="bg-black m-0 pb-3" />
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
-							<li class="list-group-item card-text p-1 ">ПИ-16</li>
-							<li class="pl-0">Расписание:</li>
-							@foreach (var classes in item.Classes)
-							{
-								<li class="pl-0">@Html.DisplayFor(classesModel => classes.NameClasses)</li>
-								<li class="pl-0">@Html.DisplayFor(classesModel => classes.DaysWeek)</li>
-								<li class="pl-0">@Html.DisplayFor(classesModel => classes.StartTime)-@Html.DisplayFor(classesModel => classes.EndTime)-Еженедельно</li>
-							}
-							<li class="pl-0">Продолжительность курса</li>
-							<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>
-						</ul>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
+								
+								<li class="list-group-item card-text p-1 ">ПИ-16</li>
+								<li class="list-group-item card-text p-1 ">Продолжительность курса</li>
+								<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>
+							</ul>
+							<a asp-page="./Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
+						</form>
 					</div>
 				</div>
 			</div>		
@@ -80,16 +77,10 @@
 										<label for="InputGroup">Группа</label>
 										<input type="text" class="form-control" id="InputGroup">
 									</div>
-									<!--<div id="timetable">
-										<label for="InputTimetable">Расписание</label>
-										<input type="text" class="form-control" id="InputTimetable">
-									</div>-->
-									<!--<div class="counter" onclick="addInput()">+</div>
-									<div class="counter" onclick="delInput()">-</div>-->
 									<div class="form-data">
 										<label for="InputCourse">Длительность курса</label>
-										<input asp-for="Course.StartDate" type="date" class="form-control" id="InputCourse">
-										<input asp-for="Course.EndDate" type="date" class="form-control" id="InputCourse">
+										<input asp-for="Course.StartDate" type="date" class="form-control" id="InputStartCourse">
+										<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse">
 									</div>
 
 								</div>

@@ -1,0 +1,67 @@
+﻿@page
+@model PrivateOfficeWebApp.Pages.Courses.EditModel
+
+<div>
+	<nav class="navbar" style="background-color: #0866C6">
+		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+		<!-- <form class="form-inline">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+		</form> -->
+	</nav>
+</div>
+<div>
+	<div class="row">
+			<div class="col-md-4">
+				<form method="post">
+					<div class="form-group">
+						<label for="InputUniveristy">Университет</label>
+						<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy">
+					</div>
+					<div class="form-group">
+						<label for="InputGroup">Название курса</label>
+						<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse">
+					</div>
+					<div class="form-group">
+						<label for="InputGroup">Группа</label>
+						<input type="text" class="form-control" id="InputGroup">
+					</div>
+					<div class="form-group">
+						<label for="InputCourse">Длительность курса</label>
+						<input asp-for="Course.StartDate" type="date" class="form-control" id="InputCourse">
+						<input asp-for="Course.EndDate" type="date" class="form-control" id="InputCourse">
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Сохранить" />
+					</div>
+				</form>
+			</div>
+		</div>
+	<form method="get">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>
+					Название занятия(тема)
+				</th>
+				<th>
+					Тип занятия
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var item in Model.Course.Classes)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.NameClasses)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</form>
+</div>
+

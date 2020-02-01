@@ -29,7 +29,7 @@ namespace PrivateOfficeWebApp.Pages
 		
 		public async Task<IActionResult> OnGet()
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44328/api/Courses");
+			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<IList<Course>>(jsonResponse);
 			return Page();
@@ -43,7 +43,7 @@ namespace PrivateOfficeWebApp.Pages
 			Course.IdTeacher = 1;
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-			await _httpClient.PostAsync("https://localhost:44328/api/Course", httpContent);
+			await _httpClient.PostAsync("https://localhost:44316/api/Courses", httpContent);
 			return RedirectToPage("./Index");
 		}
 		[JsonObject]
