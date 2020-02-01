@@ -62,5 +62,11 @@ namespace PrivateOfficeWebApp.Pages
 			//[JsonProperty("classes")]
 			//public virtual IList<Classes> Classes { get; set; } = new List<Classes>();
 		}
+
+		public async Task<IActionResult> OnGetDelete(int? id)
+		{
+			HttpResponseMessage response = await _httpClient.DeleteAsync("https://localhost:44316/api/Courses/" + id);
+			return Page();
+		}
 	}
 }
