@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using PrivateOfficeDataBaseAPI.Data;
 using PrivateOfficeDataBaseAPI.Models;
 
@@ -34,7 +33,8 @@ namespace PrivateOfficeDataBaseAPI.Controllers
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
             var course = await _context.Course.FindAsync(id);
-            foreach (var item in await _context.Classes.ToListAsync())
+            var classes = await _context.Classes.ToListAsync();
+            foreach (var item in classes)
             {
 	            if (1 == item.IdTypeClasses)
 		            item.TypeClasses = await _context.TypeClasses.FindAsync(1);

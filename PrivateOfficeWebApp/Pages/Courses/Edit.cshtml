@@ -39,18 +39,29 @@
 	<form method="get">
 		<table class="table">
 			<thead>
-			<tr>
-				<th>
-					Название занятия(тема)
-				</th>
-				<th>
-					Тип занятия
-				</th>
-			</tr>
+				<tr>
+					<th>
+						Название занятия(тема)
+					</th>
+					<th>
+						Тип занятия
+					</th>
+					<th>
+						День недели
+					</th>
+					<th>
+						Время начала
+					</th>
+					<th>
+						Время окончания
+					</th>
+				</tr>
 			</thead>
 			<tbody>
-			@foreach (var item in Model.Course.Classes)
-			{
+				@if (Model.Course.Classes != null)
+				{
+					@foreach (var item in Model.Course.Classes)
+					{
 				<tr>
 					<td>
 						@Html.DisplayFor(modelItem => item.NameClasses)
@@ -58,8 +69,18 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
 					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DaysWeek)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.StartTime)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.EndTime)
+					</td>
 				</tr>
-			}
+					}
+				}
 			</tbody>
 		</table>
 	</form>
