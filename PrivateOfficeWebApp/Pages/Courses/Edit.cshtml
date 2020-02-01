@@ -9,59 +9,75 @@
 		</form> -->
 	</nav>
 </div>
-<div>
-	<div class="row">
-			<div class="col-md-4">
-				<form method="post">
-					<div class="form-group">
-						<label for="InputUniveristy">Университет</label>
-						<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy">
-					</div>
-					<div class="form-group">
-						<label for="InputGroup">Название курса</label>
-						<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse">
-					</div>
-					<div class="form-group">
-						<label for="InputGroup">Группа</label>
-						<input type="text" class="form-control" id="InputGroup">
-					</div>
-					<div class="form-group">
-						<label for="InputCourse">Длительность курса</label>
-						<input asp-for="Course.StartDate" type="date" class="form-control" id="InputCourse">
-						<input asp-for="Course.EndDate" type="date" class="form-control" id="InputCourse">
-					</div>
-					<div class="form-group">
-						<input type="submit" class="btn btn-primary" value="Сохранить" />
-					</div>
-				</form>
+
+
+<div class=" mt-3  ml-1 mb-1">
+	<button type="button" class="btn mb-2" style="background: #0866C6" data-toggle="modal"
+			data-target="#addNewClass">
+		<a style="color: white">Добавить новое занятие</a>
+	</button>
+
+	<div class="modal fade" id="addNewClass" tabindex="-1" role="dialog" aria-labelledby="addNewClass"
+		 aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addNewClass">Добавление нового занятия</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body pb-0">
+					<form method="post">
+						<div class="form-group">
+							<label for="InputUniveristy">Тема занятия</label>
+							<!--в нижнюю строчку вставить тэг asp-for="?" -->
+							<input  type="text" class="form-control" id="InputTheme">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Тип занятия</label>
+							<!--в нижнюю строчку вставить тэг asp-for="?" -->
+							<input type="text" class="form-control" id="InputType">
+						</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+		<!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
+							<button type="button" class="btn btn-primary">Добавить</button>
+						</div>
+				</div>
 			</div>
 		</div>
-	<form method="get">
-		<table class="table">
-			<thead>
-			<tr>
-				<th>
-					Название занятия(тема)
-				</th>
-				<th>
-					Тип занятия
-				</th>
-			</tr>
-			</thead>
-			<tbody>
-			@foreach (var item in Model.Course.Classes)
-			{
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.NameClasses)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
-					</td>
-				</tr>
-			}
-			</tbody>
-		</table>
-	</form>
-</div>
+		<form method="get">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							Название занятия(тема)
+						</th>
+						<th>
+							Тип занятия
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.Course.Classes != null)
+					{
+						@foreach (var item in Model.Course.Classes)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.NameClasses)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
+								</td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+		</form>
+	</div>
 
