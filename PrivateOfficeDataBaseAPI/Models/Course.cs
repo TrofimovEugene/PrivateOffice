@@ -10,7 +10,9 @@ namespace PrivateOfficeDataBaseAPI.Models
         [Key] 
         public int IdCourse { get; set; }
         public string NameCourse { get; set; }
-        
+        [ForeignKey("Group")]
+        public int? IdGroup { get; set; }
+
         [ForeignKey("Teacher")]
         public int IdTeacher { get; set; }
         [Column(TypeName = "date")]
@@ -20,6 +22,7 @@ namespace PrivateOfficeDataBaseAPI.Models
         
         public string NameUniversity { get; set; }
         public virtual Teacher Teacher { get; set; }
+        public virtual Group Group { get; set; }
    
         public virtual ICollection<Classes> Classes { get; set; }
 

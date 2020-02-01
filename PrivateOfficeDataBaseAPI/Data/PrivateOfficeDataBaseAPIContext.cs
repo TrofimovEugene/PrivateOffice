@@ -50,20 +50,25 @@ namespace PrivateOfficeDataBaseAPI.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Classes and Group*/
-            modelBuilder.Entity<Classes>()
-                .HasMany(group => group.Group)
-                .WithOne(classes => classes.Classes)
+            modelBuilder.Entity<Group>()
+                .HasMany(classes => classes.Classes)
+                .WithOne(group => group.Group)
                 .IsRequired()
-                .HasForeignKey(group => group.IdClasses)
+                .HasForeignKey(classes => classes.IdGroup)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            /*связь один ко многим между Course and Group*/
+            modelBuilder.Entity<Group>()
+                .HasMany(course => course.Course)
+                .WithOne(group => group.Group)
+                .HasForeignKey(course => course.IdGroup);
+
             /*связь один ко многим между Group and Student*/
-         
+
             modelBuilder.Entity<Group>()
                 .HasMany(student => student.Student)
                 .WithOne(group => group.Group)
-                .IsRequired().HasForeignKey(student => student.IdGroup)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(student => student.IdGroup);
 
             /*связь один ко многим между Student and Report*/
 

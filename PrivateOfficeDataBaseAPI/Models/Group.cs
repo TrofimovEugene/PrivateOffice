@@ -11,10 +11,10 @@ namespace PrivateOfficeDataBaseAPI.Models
     {
         [Key]
         public int IdGroup { get; set; }
-        [ForeignKey("Classes")]
-        public int IdClasses { get; set; }
+
         public string NameGroup { get; set; }
-        public virtual Classes Classes { get; set; }
+        public virtual ICollection<Course> Course { get; set; }
+        public virtual ICollection<Classes> Classes { get; set; }
         public virtual ICollection<Student> Student { get; set; }
     }
 }
