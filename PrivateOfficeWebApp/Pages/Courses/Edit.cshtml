@@ -32,52 +32,86 @@
 						<div class="form-group">
 							<label for="InputUniveristy">Тема занятия</label>
 							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input  type="text" class="form-control" id="InputTheme">
+							<input type="text" class="form-control" id="InputTheme">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Тип занятия</label>
 							<!--в нижнюю строчку вставить тэг asp-for="?" -->
 							<input type="text" class="form-control" id="InputType">
 						</div>
-		</form>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-		<!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
-							<button type="button" class="btn btn-primary">Добавить</button>
+						<div class="form-group">
+							<label for="InputGroup">День недели</label>
+							<!--в нижнюю строчку вставить тэг asp-for="?" -->
+							<input type="text" class="form-control" id="InputDay">
 						</div>
+						<div class="form-group">
+							<label for="InputGroup">Время начала</label>
+							<!--в нижнюю строчку вставить тэг asp-for="?" -->
+							<input type="text" class="form-control" id="InputTimeBegin">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Время окончания</label>
+							<!--в нижнюю строчку вставить тэг asp-for="?" -->
+							<input type="text" class="form-control" id="InputTimeEnd">
+						</div>
+					</form>
+			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+					<!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
+					<button type="button" class="btn btn-primary">Добавить</button>
 				</div>
 			</div>
 		</div>
-		<form method="get">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>
-							Название занятия(тема)
-						</th>
-						<th>
-							Тип занятия
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					@if (Model.Course.Classes != null)
-					{
-						@foreach (var item in Model.Course.Classes)
-						{
-							<tr>
-								<td>
-									@Html.DisplayFor(modelItem => item.NameClasses)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
-								</td>
-							</tr>
-						}
-					}
-				</tbody>
-			</table>
-		</form>
 	</div>
+	<form method="get">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						Название занятия(тема)
+					</th>
+					<th>
+						Тип занятия
+					</th>
+					<th>
+						День недели
+					</th>
+					<th>
+						Время начала
+					</th>
+					<th>
+						Время окончания
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model.Course.Classes != null)
+				{
+					@foreach (var item in Model.Course.Classes)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.NameClasses)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.DaysWeek)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.StartTime)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.EndTime)
+							</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+	</form>
+</div>
+
 
