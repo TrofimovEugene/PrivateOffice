@@ -1,5 +1,7 @@
 ﻿@page
+@using PrivateOfficeWebApp.Models
 @model PrivateOfficeWebApp.Pages.Courses.EditModel
+
 
 <div>
 	<nav class="navbar" style="background-color: #0866C6">
@@ -16,55 +18,66 @@
 			data-target="#addNewClass">
 		<span style="color: white">Добавить новое занятие</span>
 	</button>
+	<form method="post">
+		<div class="modal fade" id="addNewClass" tabindex="-1" role="dialog" aria-labelledby="addNewClass"
+			 aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addNewClass">Добавление нового занятия</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 
-	<div class="modal fade" id="addNewClass" tabindex="-1" role="dialog" aria-labelledby="addNewClass"
-		 aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="addNewClass">Добавление нового занятия</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form method="post">
 					<div class="modal-body pb-0">
 
 						<div class="form-group">
+							<label hidden="hidden">ID курса</label>
+							<input type="text" class="form-control" id="InputTheme" asp-for="Classes.IdCourse" value="@Model.Course.IdCourse" hidden="hidden"/>
 							<label for="InputUniveristy">Тема занятия</label>
-							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input type="text" class="form-control" id="InputTheme">
+							<input type="text" class="form-control" id="InputTheme" asp-for="Classes.NameClasses">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Тип занятия</label>
 							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input type="text" class="form-control" id="InputType">
+							<input type="number" class="form-control" id="InputType" asp-for="Classes.IdTypeClasses">
+							<select id="TypeClass" name="TypeClass" asp-for="Classes.IdTypeClasses">
+								<option value="1" tabindex="1">Лабораторная работа</option>
+								<option value="2" tabindex="2">Лекция</option>
+								<option value="3" tabindex="3">Семинар</option>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">День недели</label>
-							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input type="text" class="form-control" id="InputDay">
+							<input type="text" class="form-control" id="InputDay" asp-for="Classes.DaysWeek">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Время начала</label>
-							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input type="text" class="form-control" id="InputTimeBegin">
+							<input type="text" class="form-control" id="InputTimeBegin" asp-for="Classes.StartTime">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Время окончания</label>
-							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input type="text" class="form-control" id="InputTimeEnd">
+							<input type="text" class="form-control" id="InputTimeEnd" asp-for="Classes.EndTime">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Количество часов</label>
+							<input type="text" class="form-control" id="InputСountTime" asp-for="Classes.CountTime">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Количество занятий в неделю</label>
+							<input type="text" class="form-control" id="InputСountClass" asp-for="Classes.CountClasses">
 						</div>
 					</div>
-				</form>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-					<!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
-					<button type="button" class="btn btn-primary">Добавить</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+						<!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
+						<input type="submit" class="btn btn-primary" value="Добавить"/>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 	<form method="get">
 		<table class="table">
 			<thead>
