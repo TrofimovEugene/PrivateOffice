@@ -19,6 +19,7 @@ namespace PrivateOfficeDataBaseAPI.Models
         public DateTime StartDate { get; set; }
         [Column(TypeName = "date")]
         public DateTime EndDate { get; set; }
+        public int CountTime { get; set;}
         
         public string NameUniversity { get; set; }
         public virtual Teacher Teacher { get; set; }

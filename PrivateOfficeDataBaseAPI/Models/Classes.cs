@@ -19,10 +19,8 @@ namespace PrivateOfficeDataBaseAPI.Models
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string DaysWeek { get; set; }
-        public string CountClasses { get; set; }
-        public int CountTime { get; set; }
+        public string ReplayClasses { get; set; }
 
- 
         public virtual Course Course { get; set; }
         public virtual TypeClasses TypeClasses { get; set; }
 
