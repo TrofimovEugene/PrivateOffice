@@ -25,13 +25,13 @@ namespace PrivateOfficeWebApp.Pages
 			_httpClient = new HttpClient(clientHandler);
 		}
 		[BindProperty]
-		public IList<Course> Courses { get; set; }
+		public List<Course> Courses { get; set; }
 		
 		public async Task<IActionResult> OnGet()
 		{
 			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
 			var jsonResponse = await response.Content.ReadAsStringAsync();
-			Courses = JsonConvert.DeserializeObject<IList<Course>>(jsonResponse);
+			Courses = JsonConvert.DeserializeObject<List<Course>>(jsonResponse);
 			return Page();
 		}
 
@@ -44,7 +44,7 @@ namespace PrivateOfficeWebApp.Pages
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync("https://localhost:44316/api/Courses", httpContent);
-			return Page();
+			return RedirectToPage("./Index");
 		}
 		[JsonObject]
 		public class RequestCourse
@@ -59,6 +59,8 @@ namespace PrivateOfficeWebApp.Pages
 			public DateTime EndDate { get; set; }
 			[JsonProperty("nameUniversity")]
 			public string NameUniversity { get; set; }
+			[JsonProperty("countTime")]
+			public int CountTime { get; set; }
 		}
 
 		public async Task<IActionResult> OnGetDelete(int? id)

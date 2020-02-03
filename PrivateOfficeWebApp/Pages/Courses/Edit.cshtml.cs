@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -25,6 +26,8 @@ namespace PrivateOfficeWebApp
 
 	    [BindProperty]
 	    public Course Course { get; set; }
+	    [BindProperty]
+		public Group Group { get; set; }
 		public async Task<IActionResult> OnGet(int? id)
         {
 	        if (id == null)
@@ -34,9 +37,54 @@ namespace PrivateOfficeWebApp
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
+	        response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + Course.IdGroup);
+	        jsonResponse = await response.Content.ReadAsStringAsync();
+	        var group = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
+	        Group = group[0];
+
 	        if (Course == null)
 		        return NotFound();
 	        return Page();
         }
+
+		public async Task<IActionResult> OnPostAsync()
+		{
+			var reqCourse = new RequestCourse
+			{
+				IdCourse = Course.IdCourse,
+				NameCourse = Course.NameCourse,
+				NameUniversity = Course.NameUniversity,
+				StartDate = Course.StartDate,
+				EndDate = Course.EndDate,
+				CountTime = Course.CountTime,
+				IdGroup = Course.IdGroup,
+				IdTeacher = 1
+			};
+			var jsonRequest = JsonConvert.SerializeObject(reqCourse);
+			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+			await _httpClient.PutAsync("https://localhost:44316/api/Courses/" + Course.IdCourse, httpContent);
+			return RedirectToPage("../Index");
+		}
+		[JsonObject]
+		public class RequestCourse
+		{
+			[JsonProperty("idCourse")]
+			public int IdCourse { get; set; }
+			[JsonProperty("nameCourse")]
+			public string NameCourse { get; set; }
+			[JsonProperty("idTeacher")]
+			public int IdTeacher { get; set; }
+			[JsonProperty("startDate")]
+			public DateTime StartDate { get; set; }
+			[JsonProperty("endDate")]
+			public DateTime EndDate { get; set; }
+			[JsonProperty("nameUniversity")]
+			public string NameUniversity { get; set; }
+			[JsonProperty("countTime")]
+			public int CountTime { get; set; }
+			[JsonProperty("idGroup")]
+			public int? IdGroup { get; set; }
+		}
+
     }
 }

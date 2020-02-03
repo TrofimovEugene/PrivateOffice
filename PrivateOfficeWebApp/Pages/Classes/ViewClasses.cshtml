@@ -34,16 +34,16 @@
 
 						<div class="form-group">
 							<label hidden="hidden">ID курса</label>
-							<input type="text" class="form-control" id="InputTheme" asp-for="Classes.IdCourse" value="@Model.Course.IdCourse" hidden="hidden" />
+							<input type="text" class="form-control" id="InputTheme" asp-for="Class.IdCourse" value="@Model.Course.IdCourse" hidden="hidden" />
 							<label>Тема занятия</label>
-							<input type="text" class="form-control" id="InputTheme" asp-for="Classes.NameClasses">
+							<input type="text" class="form-control" id="InputTheme" asp-for="Class.NameClasses">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Тип занятия</label>
 
 							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input type="number" class="form-control" id="InputType" asp-for="Classes.IdTypeClasses">
-							<select id="TypeClass" name="TypeClass" asp-for="Classes.IdTypeClasses">
+							<input type="number" class="form-control" id="InputType" asp-for="Class.IdTypeClasses">
+							<select id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
 								<option value="1" tabindex="1">Лабораторная работа</option>
 								<option value="2" tabindex="2">Лекция</option>
 								<option value="3" tabindex="3">Семинар</option>
@@ -51,23 +51,19 @@
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">День недели</label>
-							<input type="text" class="form-control" id="InputDay" asp-for="Classes.DaysWeek">
+							<input type="text" class="form-control" id="InputDay" asp-for="Class.DaysWeek">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Время начала</label>
-							<input type="text" class="form-control" id="InputTimeBegin" asp-for="Classes.StartTime">
+							<input type="text" class="form-control" id="InputTimeBegin" asp-for="Class.StartTime">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Время окончания</label>
-							<input type="text" class="form-control" id="InputTimeEnd" asp-for="Classes.EndTime">
-						</div>
-						<div class="form-group">
-							<label for="InputGroup">Количество часов</label>
-							<input type="text" class="form-control" id="InputСountTime" asp-for="Classes.CountTime">
+							<input type="text" class="form-control" id="InputTimeEnd" asp-for="Class.EndTime">
 						</div>
 						<div class="form-group">
 							<label for="InputGroup">Количество занятий в неделю</label>
-							<input type="text" class="form-control" id="InputСountClass" asp-for="Classes.CountClasses">
+							<input type="text" class="form-control" id="InputСountClass" asp-for="Class.ReplayClasses">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -80,50 +76,51 @@
 		</div>
 	</form>
 	<form method="get">
+		<!--TODO:Добавить информацию о курсе(без редактирования)-->
 		<table class="table">
 			<thead>
-				<tr>
-					<th>
-						Название занятия(тема)
-					</th>
-					<th>
-						Тип занятия
-					</th>
-					<th>
-						День недели
-					</th>
-					<th>
-						Время начала
-					</th>
-					<th>
-						Время окончания
-					</th>
-				</tr>
+			<tr>
+				<th>
+					Название занятия(тема)
+				</th>
+				<th>
+					Тип занятия
+				</th>
+				<th>
+					День недели
+				</th>
+				<th>
+					Время начала
+				</th>
+				<th>
+					Время окончания
+				</th>
+			</tr>
 			</thead>
 			<tbody>
-				@if (Model.Course.Classes != null)
+			@if (Model.Classes != null)
+			{
+				@foreach (var item in Model.Classes)
 				{
-					@foreach (var item in Model.Course.Classes)
-					{
-						<tr>
-							<td>
-								@Html.DisplayFor(modelItem => item.NameClasses)
-							</td>
-							<td>
-								@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
-							</td>
-							<td>
-								@Html.DisplayFor(modelItem => item.DaysWeek)
-							</td>
-							<td>
-								@Html.DisplayFor(modelItem => item.StartTime)
-							</td>
-							<td>
-								@Html.DisplayFor(modelItem => item.EndTime)
-							</td>
-						</tr>
-					}
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.NameClasses)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.DaysWeek)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.StartTime)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.EndTime)
+						</td>
+					</tr>
 				}
+			}
 			</tbody>
 		</table>
 	</form>
