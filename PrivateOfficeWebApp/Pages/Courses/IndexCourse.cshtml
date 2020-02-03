@@ -30,8 +30,8 @@
 								<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>
 								<!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
 							</ul>
-							<a asp-page="/Courses/Edit" asp-route-id="@item.IdCourse">Редактировать</a>
-							<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>
+							<a asp-page="/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
+							<!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
 						</form>
 						<form method="post">
 							<input hidden="hidden" type="number" name="id" value="@item.IdCourse" />

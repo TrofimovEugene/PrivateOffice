@@ -26,7 +26,6 @@ namespace PrivateOfficeWebApp.Pages
 		}
 		[BindProperty]
 		public List<Course> Courses { get; set; }
-		
 		public async Task<IActionResult> OnGet(int? id)
 		{
 			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
@@ -37,7 +36,6 @@ namespace PrivateOfficeWebApp.Pages
 
 		[BindProperty]
 		public RequestCourse Course { get; set; }
-
 		public async Task<IActionResult> OnPostAsync()
 		{
 			Course.IdTeacher = 1;

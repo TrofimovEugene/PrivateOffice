@@ -84,9 +84,6 @@
 					Название занятия(тема)
 				</th>
 				<th>
-					Тип занятия
-				</th>
-				<th>
 					День недели
 				</th>
 				<th>
@@ -107,9 +104,6 @@
 							@Html.DisplayFor(modelItem => item.NameClasses)
 						</td>
 						<td>
-							@Html.DisplayFor(modelItem => item.TypeClasses.TypeClass)
-						</td>
-						<td>
 							@Html.DisplayFor(modelItem => item.DaysWeek)
 						</td>
 						<td>
@@ -117,6 +111,9 @@
 						</td>
 						<td>
 							@Html.DisplayFor(modelItem => item.EndTime)
+						</td>
+						<td>
+							<a asp-page="/Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a>
 						</td>
 					</tr>
 				}
