@@ -22,6 +22,14 @@ namespace PrivateOfficeDataBaseAPI.Data
 
         public Microsoft.EntityFrameworkCore.DbSet<Report> Report { get; set; }
 
+        public Microsoft.EntityFrameworkCore.DbSet<ControlMeasures> ControlMeasures { get; set; }
+
+        public Microsoft.EntityFrameworkCore.DbSet<Ticket> Ticket { get; set; }
+
+        public Microsoft.EntityFrameworkCore.DbSet<Task> Task { get; set; }
+
+        public Microsoft.EntityFrameworkCore.DbSet<Questions> Questions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -77,10 +85,13 @@ namespace PrivateOfficeDataBaseAPI.Data
                 .WithOne(student => student.Student)
                .HasForeignKey(report => report.IdStudent);
 
+
+            /*связь один ко многим между Classes and Report*/
             modelBuilder.Entity<Classes>()
                 .HasMany(report => report.Report)
                 .WithOne(classes => classes.Classes)
                 .HasForeignKey(report => report.IdClasses);
+
 
             base.OnModelCreating(modelBuilder);
         }
