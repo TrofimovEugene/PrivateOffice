@@ -24,14 +24,14 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 
         // GET: api/Tasks
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Models.Task>>> GetTask()
+        public async Task<ActionResult<IEnumerable<Task>>> GetTask()
         {
             return await _context.Task.ToListAsync();
         }
 
         // GET: api/Tasks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Models.Task>> GetTask(int id)
+        public async Task<ActionResult<Task>> GetTask(int id)
         {
             var task = await _context.Task.FindAsync(id);
 
@@ -47,9 +47,9 @@ namespace PrivateOfficeDataBaseAPI.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTask(int id, Models.Task task)
+        public async Task<IActionResult> PutTask(int id, Task task)
         {
-            if (id != task.IdQuestions)
+            if (id != task.IdTask)
             {
                 return BadRequest();
             }
@@ -84,7 +84,7 @@ namespace PrivateOfficeDataBaseAPI.Controllers
             _context.Task.Add(task);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTask", new { id = task.IdQuestions }, task);
+            return CreatedAtAction("GetTask", new { id = task.IdTask }, task);
         }
 
         // DELETE: api/Tasks/5
@@ -105,7 +105,7 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 
         private bool TaskExists(int id)
         {
-            return _context.Task.Any(e => e.IdQuestions == id);
+            return _context.Task.Any(e => e.IdTask == id);
         }
     }
 }

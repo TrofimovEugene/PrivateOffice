@@ -10,14 +10,15 @@ namespace PrivateOfficeDataBaseAPI.Models
     public class Task
     {
         [Key]
-        public int IdQuestions { get; set; }
+        public int IdTask { get; set; }
 
         [ForeignKey("Ticket")]
         public int IdTicket { get; set; }
         [ForeignKey("ControlMeasures")]
         public int IdControlMeasures { get; set; }
-        public string TaskName { get; set; }
+        public string ContentTask { get; set; }
         public int CountTask { get; set; }
+        [Column(TypeName = "real")]
         public double Point { get; set; }
         public virtual ControlMeasures ControlMeasures { get; set; }
         public virtual Ticket Ticket { get; set; }

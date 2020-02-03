@@ -9,7 +9,7 @@ namespace PrivateOfficeDataBaseAPI.Models
 {
     public class ControlMeasures
     {
-        [Key]
+           [Key]
         public int IdControlMeasures { get; set; }
           [ForeignKey("Classes")]
         public int IdClasses { get; set; }

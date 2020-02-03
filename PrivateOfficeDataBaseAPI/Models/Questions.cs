@@ -18,6 +18,7 @@ namespace PrivateOfficeDataBaseAPI.Models
         public int IdControlMeasures { get; set; }
         public string ContentQuestions { get; set; }
         public int CountQuestions { get; set; }
+        [Column(TypeName = "real")]
         public double Point { get; set; }
 
         public virtual Ticket Ticket { get; set; }
