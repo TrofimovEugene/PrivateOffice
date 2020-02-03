@@ -51,10 +51,11 @@ namespace PrivateOfficeDataBaseAPI.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один к одному между Classes and TypeClasses*/
-            modelBuilder.Entity<Classes>()
-                .HasOne(typeClasses => typeClasses.TypeClasses)
-                .WithOne(classes => classes.Classes)
+            modelBuilder.Entity<TypeClasses>()
+                .HasMany(classes => classes.Classes)
+                .WithOne(typeClasses => typeClasses.TypeClasses)
                 .IsRequired()
+                .HasForeignKey(classes => classes.IdTypeClasses)
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Classes and Group*/
