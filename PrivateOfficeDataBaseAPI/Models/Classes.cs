@@ -28,6 +28,8 @@ namespace PrivateOfficeDataBaseAPI.Models
 
         public virtual Group Group { get; set; }
         public virtual ICollection<Report> Report { get; set; }
-   
+
+        public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
+
     }
 }

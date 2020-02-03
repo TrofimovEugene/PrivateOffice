@@ -20,6 +20,8 @@ namespace PrivateOfficeDataBaseAPI.Models
         public virtual ICollection<Task> Task { get; set; }
         public virtual ICollection<Questions> Questions { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
+        public virtual Classes Classes { get; set; }
+        public virtual Student Student { get; set; }
 
     }
 }

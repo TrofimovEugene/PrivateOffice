@@ -92,6 +92,47 @@ namespace PrivateOfficeDataBaseAPI.Data
                 .WithOne(classes => classes.Classes)
                 .HasForeignKey(report => report.IdClasses);
 
+            /*связь один ко многим между ControlMeasures and Classes*/
+            modelBuilder.Entity<Classes>()
+                .HasMany(controlMeasures => controlMeasures.ControlMeasures)
+                .WithOne(classes => classes.Classes)
+                .HasForeignKey(controlMeasures => controlMeasures.IdClasses);
+
+            /*связь один ко многим между ControlMeasures and Student*/
+            modelBuilder.Entity<Student>()
+                .HasMany(controlMeasures => controlMeasures.ControlMeasures)
+                .WithOne(student => student.Student)
+                .HasForeignKey(controlMeasures => controlMeasures.IdStudent);
+
+            /*связь один ко многим между ControlMeasures and Task*/
+            modelBuilder.Entity<ControlMeasures>()
+                .HasMany(task => task.Task)
+                .WithOne(controlMeasures => controlMeasures.ControlMeasures)
+                .HasForeignKey(task => task.IdControlMeasures);
+
+            /*связь один ко многим между ControlMeasures and Ticket*/
+            modelBuilder.Entity<ControlMeasures>()
+                .HasMany(ticket => ticket.Ticket)
+                .WithOne(controlMeasures => controlMeasures.ControlMeasures)
+                .HasForeignKey(ticket => ticket.IdControlMeasures);
+
+            /*связь один ко многим между ControlMeasures and Questions*/
+            modelBuilder.Entity<ControlMeasures>()
+                .HasMany(questions => questions.Questions)
+                .WithOne(controlMeasures => controlMeasures.ControlMeasures)
+                .HasForeignKey(questions => questions.IdControlMeasures);
+
+            /*связь один ко многим между Ticket and Questions*/
+            modelBuilder.Entity<Ticket>()
+                .HasMany(questions => questions.Questions)
+                .WithOne(ticket => ticket.Ticket)
+                .HasForeignKey(questions => questions.IdTicket);
+
+            /*связь один ко многим между Ticket and Task*/
+            modelBuilder.Entity<Ticket>()
+                .HasMany(task => task.Task)
+                .WithOne(ticket => ticket.Ticket)
+                .HasForeignKey(task => task.IdTicket);
 
             base.OnModelCreating(modelBuilder);
         }

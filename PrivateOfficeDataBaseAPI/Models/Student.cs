@@ -17,5 +17,8 @@ namespace PrivateOfficeDataBaseAPI.Models
         public string SecondName { get; set; }
         public virtual Group Group { get; set; }
         public virtual ICollection<Report> Report { get; set; }
+        public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
+
+        
     }
 }
