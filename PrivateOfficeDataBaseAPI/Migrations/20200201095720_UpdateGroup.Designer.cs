@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrivateOfficeDataBaseAPI.Data;
 
 namespace PrivateOfficeDataBaseAPI.Migrations
 {
     [DbContext(typeof(PrivateOfficeDataBaseAPIContext))]
-    partial class PrivateOfficeDataBaseAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200201095720_UpdateGroup")]
+    partial class UpdateGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +27,12 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CountClasses")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CountTime")
+                        .HasColumnType("int");
 
                     b.Property<string>("DaysWeek")
                         .HasColumnType("nvarchar(max)");
@@ -45,9 +53,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.Property<string>("NameClasses")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReplayClasses")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
@@ -57,37 +62,10 @@ namespace PrivateOfficeDataBaseAPI.Migrations
 
                     b.HasIndex("IdGroup");
 
-                    b.HasIndex("IdTypeClasses");
+                    b.HasIndex("IdTypeClasses")
+                        .IsUnique();
 
                     b.ToTable("Classes");
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.ControlMeasures", b =>
-                {
-                    b.Property<int>("IdControlMeasures")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CountControlMeasures")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdClasses")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdStudent")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NameControlMeasures")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdControlMeasures");
-
-                    b.HasIndex("IdClasses");
-
-                    b.HasIndex("IdStudent");
-
-                    b.ToTable("ControlMeasures");
                 });
 
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Course", b =>
@@ -96,9 +74,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CountTime")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("date");
@@ -142,37 +117,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.ToTable("Group");
                 });
 
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Questions", b =>
-                {
-                    b.Property<int>("IdQuestions")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentQuestions")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CountQuestions")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdControlMeasures")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdTicket")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Point")
-                        .HasColumnType("real");
-
-                    b.HasKey("IdQuestions");
-
-                    b.HasIndex("IdControlMeasures");
-
-                    b.HasIndex("IdTicket");
-
-                    b.ToTable("Questions");
-                });
-
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Report", b =>
                 {
                     b.Property<int>("IdReport")
@@ -205,9 +149,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("ConfirmVisit")
-                        .HasColumnType("bit");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -217,45 +158,11 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Visited")
-                        .HasColumnType("bit");
-
                     b.HasKey("IdStudent");
 
                     b.HasIndex("IdGroup");
 
                     b.ToTable("Student");
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Task", b =>
-                {
-                    b.Property<int>("IdTask")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentTask")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CountTask")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdControlMeasures")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdTicket")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Point")
-                        .HasColumnType("real");
-
-                    b.HasKey("IdTask");
-
-                    b.HasIndex("IdControlMeasures");
-
-                    b.HasIndex("IdTicket");
-
-                    b.ToTable("Task");
                 });
 
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Teacher", b =>
@@ -283,29 +190,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.HasKey("IdTeacher");
 
                     b.ToTable("Teacher");
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Ticket", b =>
-                {
-                    b.Property<int>("IdTicket")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CountTicket")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdControlMeasures")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberTicket")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdTicket");
-
-                    b.HasIndex("IdControlMeasures");
-
-                    b.ToTable("Ticket");
                 });
 
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.TypeClasses", b =>
@@ -338,23 +222,10 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.TypeClasses", "TypeClasses")
-                        .WithMany("Classes")
-                        .HasForeignKey("IdTypeClasses")
+                        .WithOne("Classes")
+                        .HasForeignKey("PrivateOfficeDataBaseAPI.Models.Classes", "IdTypeClasses")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.ControlMeasures", b =>
-                {
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.Classes", "Classes")
-                        .WithMany("ControlMeasures")
-                        .HasForeignKey("IdClasses")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.Student", "Student")
-                        .WithMany("ControlMeasures")
-                        .HasForeignKey("IdStudent");
                 });
 
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Course", b =>
@@ -368,19 +239,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .HasForeignKey("IdTeacher")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Questions", b =>
-                {
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.ControlMeasures", "ControlMeasures")
-                        .WithMany("Questions")
-                        .HasForeignKey("IdControlMeasures")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.Ticket", "Ticket")
-                        .WithMany("Questions")
-                        .HasForeignKey("IdTicket");
                 });
 
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Report", b =>
@@ -399,28 +257,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Group", "Group")
                         .WithMany("Student")
                         .HasForeignKey("IdGroup")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Task", b =>
-                {
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.ControlMeasures", "ControlMeasures")
-                        .WithMany("Task")
-                        .HasForeignKey("IdControlMeasures")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.Ticket", "Ticket")
-                        .WithMany("Task")
-                        .HasForeignKey("IdTicket");
-                });
-
-            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Ticket", b =>
-                {
-                    b.HasOne("PrivateOfficeDataBaseAPI.Models.ControlMeasures", "ControlMeasures")
-                        .WithMany("Ticket")
-                        .HasForeignKey("IdControlMeasures")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

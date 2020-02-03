@@ -13,19 +13,21 @@ namespace PrivateOfficeDataBaseAPI.Models
         public int IdTypeClasses { get; set; }
         [ForeignKey("Course")]
         public int IdCourse { get; set; }
+        [ForeignKey("Group")]
+        public int? IdGroup { get; set; }
         public string NameClasses { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string DaysWeek { get; set; }
-        public string CountClasses { get; set; }
-        public int CountTime { get; set; }
+        public string ReplayClasses { get; set; }
 
- 
         public virtual Course Course { get; set; }
         public virtual TypeClasses TypeClasses { get; set; }
 
-        public virtual ICollection<Group> Group { get; set; }
+        public virtual Group Group { get; set; }
         public virtual ICollection<Report> Report { get; set; }
-   
+
+        public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
+
     }
 }

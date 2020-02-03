@@ -22,6 +22,14 @@ namespace PrivateOfficeDataBaseAPI.Data
 
         public Microsoft.EntityFrameworkCore.DbSet<Report> Report { get; set; }
 
+        public Microsoft.EntityFrameworkCore.DbSet<ControlMeasures> ControlMeasures { get; set; }
+
+        public Microsoft.EntityFrameworkCore.DbSet<Ticket> Ticket { get; set; }
+
+        public Microsoft.EntityFrameworkCore.DbSet<Task> Task { get; set; }
+
+        public Microsoft.EntityFrameworkCore.DbSet<Questions> Questions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -43,27 +51,33 @@ namespace PrivateOfficeDataBaseAPI.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один к одному между Classes and TypeClasses*/
-            modelBuilder.Entity<Classes>()
-                .HasOne(typeClasses => typeClasses.TypeClasses)
-                .WithOne(classes => classes.Classes)
+            modelBuilder.Entity<TypeClasses>()
+                .HasMany(classes => classes.Classes)
+                .WithOne(typeClasses => typeClasses.TypeClasses)
                 .IsRequired()
+                .HasForeignKey(classes => classes.IdTypeClasses)
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Classes and Group*/
-            modelBuilder.Entity<Classes>()
-                .HasMany(group => group.Group)
-                .WithOne(classes => classes.Classes)
+            modelBuilder.Entity<Group>()
+                .HasMany(classes => classes.Classes)
+                .WithOne(group => group.Group)
                 .IsRequired()
-                .HasForeignKey(group => group.IdClasses)
+                .HasForeignKey(classes => classes.IdGroup)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            /*связь один ко многим между Course and Group*/
+            modelBuilder.Entity<Group>()
+                .HasMany(course => course.Course)
+                .WithOne(group => group.Group)
+                .HasForeignKey(course => course.IdGroup);
+
             /*связь один ко многим между Group and Student*/
-         
+
             modelBuilder.Entity<Group>()
                 .HasMany(student => student.Student)
                 .WithOne(group => group.Group)
-                .IsRequired().HasForeignKey(student => student.IdGroup)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(student => student.IdGroup);
 
             /*связь один ко многим между Student and Report*/
 
@@ -72,10 +86,54 @@ namespace PrivateOfficeDataBaseAPI.Data
                 .WithOne(student => student.Student)
                .HasForeignKey(report => report.IdStudent);
 
+
+            /*связь один ко многим между Classes and Report*/
             modelBuilder.Entity<Classes>()
                 .HasMany(report => report.Report)
                 .WithOne(classes => classes.Classes)
                 .HasForeignKey(report => report.IdClasses);
+
+            /*связь один ко многим между ControlMeasures and Classes*/
+            modelBuilder.Entity<Classes>()
+                .HasMany(controlMeasures => controlMeasures.ControlMeasures)
+                .WithOne(classes => classes.Classes)
+                .HasForeignKey(controlMeasures => controlMeasures.IdClasses);
+
+            /*связь один ко многим между ControlMeasures and Student*/
+            modelBuilder.Entity<Student>()
+                .HasMany(controlMeasures => controlMeasures.ControlMeasures)
+                .WithOne(student => student.Student)
+                .HasForeignKey(controlMeasures => controlMeasures.IdStudent);
+
+            /*связь один ко многим между ControlMeasures and Task*/
+            modelBuilder.Entity<ControlMeasures>()
+                .HasMany(task => task.Task)
+                .WithOne(controlMeasures => controlMeasures.ControlMeasures)
+                .HasForeignKey(task => task.IdControlMeasures);
+
+            /*связь один ко многим между ControlMeasures and Ticket*/
+            modelBuilder.Entity<ControlMeasures>()
+                .HasMany(ticket => ticket.Ticket)
+                .WithOne(controlMeasures => controlMeasures.ControlMeasures)
+                .HasForeignKey(ticket => ticket.IdControlMeasures);
+
+            /*связь один ко многим между ControlMeasures and Questions*/
+            modelBuilder.Entity<ControlMeasures>()
+                .HasMany(questions => questions.Questions)
+                .WithOne(controlMeasures => controlMeasures.ControlMeasures)
+                .HasForeignKey(questions => questions.IdControlMeasures);
+
+            /*связь один ко многим между Ticket and Questions*/
+            modelBuilder.Entity<Ticket>()
+                .HasMany(questions => questions.Questions)
+                .WithOne(ticket => ticket.Ticket)
+                .HasForeignKey(questions => questions.IdTicket);
+
+            /*связь один ко многим между Ticket and Task*/
+            modelBuilder.Entity<Ticket>()
+                .HasMany(task => task.Task)
+                .WithOne(ticket => ticket.Ticket)
+                .HasForeignKey(task => task.IdTicket);
 
             base.OnModelCreating(modelBuilder);
         }

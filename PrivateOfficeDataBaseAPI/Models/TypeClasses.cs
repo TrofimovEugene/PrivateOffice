@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -10,6 +11,6 @@ namespace PrivateOfficeDataBaseAPI.Models
         [Key]
         public int IdTypeClasses { get; set; }
         public string TypeClass { get; set; }
-        public virtual Classes Classes { get; set; }
+        public virtual ICollection<Classes> Classes { get; set; }
     }
 }
