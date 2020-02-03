@@ -14,7 +14,7 @@ namespace PrivateOfficeDataBaseAPI.Models
           [ForeignKey("Classes")]
         public int IdClasses { get; set; }
           [ForeignKey("Student")]
-        public int IdStudent { get; set; }
+        public int? IdStudent { get; set; }
         public string NameControlMeasures { get; set; }
         public int CountControlMeasures { get; set; }
         public virtual ICollection<Task> Task { get; set; }

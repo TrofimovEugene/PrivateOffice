@@ -33,6 +33,12 @@
     <Compile Remove="Migrations\20200201095140_UpdateGroup.Designer.cs" />
     <Compile Remove="Migrations\20200201095251_UpdateGroup.cs" />
     <Compile Remove="Migrations\20200201095251_UpdateGroup.Designer.cs" />
+    <Compile Remove="Migrations\20200203082112_FinishedDB.cs" />
+    <Compile Remove="Migrations\20200203082112_FinishedDB.Designer.cs" />
+    <Compile Remove="Migrations\20200203082706_FinishedDB.cs" />
+    <Compile Remove="Migrations\20200203082706_FinishedDB.Designer.cs" />
+    <Compile Remove="Migrations\20200203082901_FinishedDB.cs" />
+    <Compile Remove="Migrations\20200203082901_FinishedDB.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -13,7 +13,7 @@ namespace PrivateOfficeDataBaseAPI.Models
         public int IdTask { get; set; }
 
         [ForeignKey("Ticket")]
-        public int IdTicket { get; set; }
+        public int? IdTicket { get; set; }
         [ForeignKey("ControlMeasures")]
         public int IdControlMeasures { get; set; }
         public string ContentTask { get; set; }
