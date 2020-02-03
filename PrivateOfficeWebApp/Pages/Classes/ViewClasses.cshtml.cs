@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace PrivateOfficeWebApp.Pages.Courses
 
 		[BindProperty]
         public Course Course { get; set; }
+        [BindProperty]
+		public List<Models.Classes> Classes { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
 	        if (id == null)
@@ -33,25 +36,29 @@ namespace PrivateOfficeWebApp.Pages.Courses
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
+	        response = await _httpClient.GetAsync("https://localhost:44316/api/Classes/id=" + id);
+	        jsonResponse = await response.Content.ReadAsStringAsync();
+	        Classes = JsonConvert.DeserializeObject<List<Models.Classes>>(jsonResponse);
+
 	        if (Course == null)
 		        return NotFound();
 	        return Page();
         }
         [BindProperty]
-		public RequestClasses Classes { get; set; }
+		public RequestClasses Class { get; set; }
 		public async Task<IActionResult> OnPostAsync()
 		{
-			var jsonRequest = JsonConvert.SerializeObject(Classes);
+			var jsonRequest = JsonConvert.SerializeObject(Class);
 	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 	        await _httpClient.PostAsync("https://localhost:44316/api/Classes", httpContent);
-	        return Redirect("https://localhost:44326/Courses/Edit?id=" + Classes.IdCourse);
+	        return Redirect("https://localhost:44326/Courses/Edit?id=" + Class.IdCourse);
         }
 
 		[JsonObject]
 		public class RequestClasses
 		{
 			[JsonProperty("idTypeClasses")]
-			public string IdTypeClasses { get; set; }
+			public int IdTypeClasses { get; set; }
 			[JsonProperty("idCourse")]
 			public int IdCourse { get; set; }
 			[JsonProperty("nameClasses")]
@@ -62,10 +69,8 @@ namespace PrivateOfficeWebApp.Pages.Courses
 			public TimeSpan EndTime { get; set; }
 			[JsonProperty("daysWeek")]
 			public string DaysWeek { get; set; }
-			[JsonProperty("countClasses")]
-			public string CountClasses { get; set; }
-			[JsonProperty("countTime")]
-			public int CountTime { get; set; }
+			[JsonProperty("replayClasses")]
+			public string ReplayClasses { get; set; }
 		}
 	}
 }

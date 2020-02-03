@@ -39,14 +39,14 @@ namespace PrivateOfficeDataBaseAPI.Data
             modelBuilder.Entity<Teacher>()
                 .HasMany(course => course.Course)
                 .WithOne(teacher => teacher.Teacher)
-                .IsRequired().HasForeignKey(course => course.IdTeacher)
+                .IsRequired()
+               .HasForeignKey(course => course.IdTeacher)
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Course and Classes*/
             modelBuilder.Entity<Course>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(course => course.Course)
-                .IsRequired()
                 .HasForeignKey(course => course.IdCourse)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -54,7 +54,6 @@ namespace PrivateOfficeDataBaseAPI.Data
             modelBuilder.Entity<TypeClasses>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(typeClasses => typeClasses.TypeClasses)
-                .IsRequired()
                 .HasForeignKey(classes => classes.IdTypeClasses)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -62,7 +61,6 @@ namespace PrivateOfficeDataBaseAPI.Data
             modelBuilder.Entity<Group>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(group => group.Group)
-                .IsRequired()
                 .HasForeignKey(classes => classes.IdGroup)
                 .OnDelete(DeleteBehavior.Cascade);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using Newtonsoft.Json;
 
 namespace PrivateOfficeWebApp.Models
@@ -20,11 +21,10 @@ namespace PrivateOfficeWebApp.Models
 		public TimeSpan EndTime { get; set; }
 		[JsonProperty("daysWeek")]
 		public string DaysWeek { get; set; }
-		[JsonProperty("countClasses")]
-		public string CountClasses { get; set; }
-		[JsonProperty("countTime")]
-		public int CountTime { get; set; }
+		[JsonProperty("replayClasses")]
+		public string ReplayClasses { get; set; }
 		[JsonProperty("typeClasses")]
-		public virtual TypeClasses TypeClasses { get; set; }
+		public virtual TypeClasses? TypeClasses { get; set; }
+		
     }
 }

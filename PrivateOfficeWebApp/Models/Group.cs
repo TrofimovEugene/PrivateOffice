@@ -10,7 +10,7 @@ namespace PrivateOfficeWebApp.Models
 	public class Group
 	{
 		[JsonProperty("idGroup")]
-		public int IdGroup { get; set; }
+		public int? IdGroup { get; set; }
 		[JsonProperty("idClasses")]
 		public int IdClasses { get; set; }
 		[JsonProperty("nameGroup")]
@@ -18,6 +18,9 @@ namespace PrivateOfficeWebApp.Models
 		[JsonProperty("classes")]
 		public virtual Classes Classes { get; set; }
 		[JsonProperty("student")]
-		public virtual ICollection<Student> Student { get; set; }
-    }
+		public virtual IList<Student> Student { get; set; }
+		[JsonProperty("course")]
+		public virtual IList<Course> Course { get; set; }
+
+	}
 }

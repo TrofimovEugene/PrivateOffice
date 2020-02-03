@@ -1,6 +1,6 @@
 ﻿@page
 @model IndexModel
-
+@* ReSharper disable MarkupTextTypo *@
 <div>
 	<nav class="navbar" style="background-color: #0866C6">
 		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
@@ -30,59 +30,64 @@
 								<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>
 								<!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
 							</ul>
-	<a asp-page="./Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
-	<!--<input type="button" id="deleteButton + @item.IdCourse" value="Удалить" />-->
-</form>
-					</div>
-				</div>
-			</div>		
-		}
-			<div class="col-xl-3  col-md-4 col-sm-6  p-4">
-				<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 300px;" data-toggle="modal"
-						data-target="#exampleModalCenter">
-					<i class="fas fa-plus" style="font-size: 4rem;"></i>
-				</button>
-				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-					 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<form method="post">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalCenterTitle">Добавление нового курса</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-
-									<div class="form-university">
-										<label for="InputUniveristy">Университет</label>
-										<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy">
-									</div>
-
-									<div class="form-nameCourse">
-										<label for="InputGroup">Название курса</label>
-										<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse">
-									</div>
-									<div class="form-group">
-										<label for="InputGroup">Группа</label>
-										<input type="text" class="form-control" id="InputGroup">
-									</div>
-									<div class="form-data">
-										<label for="InputCourse">Длительность курса</label>
-										<input asp-for="Course.StartDate" type="date" class="form-control" id="InputStartCourse">
-										<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse">
-									</div>
-
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-									<input type="submit" class="btn btn-primary" value="Добавить курс" />
-								</div>
-							</div>
+							<a asp-page="./Courses/Edit" asp-route-id="@item.IdCourse">Редактировать</a>
+							<a asp-page="./Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>
+							<!--<input type="button" id="deleteButton + @item.IdCourse" value="Удалить" />-->
 						</form>
 					</div>
 				</div>
 			</div>
+		}
+		<div class="col-xl-3  col-md-4 col-sm-6  p-4">
+			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 300px;" data-toggle="modal"
+					data-target="#exampleModalCenter">
+				<i class="fas fa-plus" style="font-size: 4rem;"></i>
+			</button>
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+				 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<form method="post">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalCenterTitle">Добавление нового курса</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-university">
+									<label for="InputUniveristy">Университет</label>
+									<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy">
+								</div>
+
+								<div class="form-nameCourse">
+									<label for="InputGroup">Название курса</label>
+									<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse">
+								</div>
+								<div class="form-group">
+									<label for="InputGroup">Группа</label>
+									<input type="text" class="form-control" id="InputGroup">
+								</div>
+								<div class="form-data">
+									<label for="InputCourse">Длительность курса</label>
+									<input asp-for="Course.StartDate" type="date" class="form-control" id="InputStartCourse">
+									<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse">
+								</div>
+								<div class="form-time">
+									<label for="InputGroup">Количество часов</label>
+									<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime">
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<input type="submit" class="btn btn-primary" value="Добавить курс" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
+	</div>
 </div>

@@ -23,9 +23,7 @@ namespace PrivateOfficeDataBaseAPI.Controllers
         [HttpGet]
         public async Task<List<Course>> GetCourses()
         {
-	        var courses = _context.Course.Include(classes => classes.Classes)
-													.ThenInclude(group => group.Group).ToList();
-            return courses;
+	        return await _context.Course.ToListAsync();
         }
 
         // GET: api/Courses/5
@@ -33,19 +31,6 @@ namespace PrivateOfficeDataBaseAPI.Controllers
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
             var course = await _context.Course.FindAsync(id);
-            var classes = await _context.Classes.ToListAsync();
-            foreach (var item in classes)
-            {
-	            if (1 == item.IdTypeClasses)
-		            item.TypeClasses = await _context.TypeClasses.FindAsync(1);
-	            if (2 == item.IdTypeClasses)
-		            item.TypeClasses = await _context.TypeClasses.FindAsync(2);
-	            if (3 == item.IdTypeClasses)
-		            item.TypeClasses = await _context.TypeClasses.FindAsync(3);
-
-                if (id == item.IdCourse)
-                    course.Classes.Add(item);
-	        }
             if (course == null)
             {
                 return NotFound();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -19,7 +20,15 @@ namespace PrivateOfficeWebApp.Models
         public DateTime EndDate { get; set; }
         [JsonProperty("nameUniversity")]
         public string NameUniversity { get; set; }
+        [JsonProperty("countTime")]
+        public int CountTime { get; set; }
+        [JsonProperty("idGroup")]
+        public int? IdGroup { get; set; }
         [JsonProperty("classes")]
-        public virtual IList<Classes> Classes { get; set; }
+        public virtual ICollection<Classes>? Classes { get; set; }
+        [JsonProperty("group")]
+        public virtual Group? Group { get; set; }
+        [JsonProperty("teacher")]
+        public virtual Teacher? Teacher { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace PrivateOfficeWebApp.Models
 		public int IdTypeClasses { get; set; }
 		[JsonProperty("typeClass")]
 		public string TypeClass { get; set; }
-		[JsonProperty("classes")]
-		public virtual Classes Classes { get; set; }
+		//[JsonProperty("classes")]
+		//public virtual Classes Classes { get; set; }
 	}
 }
