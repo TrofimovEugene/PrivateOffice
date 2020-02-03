@@ -19,7 +19,7 @@
 						<form method="get">
 							<div class="card-university">
 								<div class="d-flex bd-highlight">
-									<h5 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameUniversity)</h5>
+									<h4 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameUniversity)</h4>
 								</div>
 								<hr class="bg-black m-0 pb-3" />
 							</div>
@@ -27,12 +27,12 @@
 								<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
 
 								<li class="list-group-item card-text p-1 ">ПИ-16</li>
-								<li class="list-group-item card-text p-1 ">Продолжительность курса</li>
-								<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>
+								<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>
+								<!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
 							</ul>
-							<a asp-page="./Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
-							<!--<input type="button" id="deleteButton + @item.IdCourse" value="Удалить" />-->
-						</form>
+	<a asp-page="./Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
+	<!--<input type="button" id="deleteButton + @item.IdCourse" value="Удалить" />-->
+</form>
 					</div>
 				</div>
 			</div>		
