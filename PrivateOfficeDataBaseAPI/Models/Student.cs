@@ -14,8 +14,13 @@ namespace PrivateOfficeDataBaseAPI.Models
         [ForeignKey("Group")]
         public int IdGroup { get; set; }
         public string FirstName { get; set; }
+        public bool Visited { get; set; }
+        public bool ConfirmVisit { get; set; }
         public string SecondName { get; set; }
         public virtual Group Group { get; set; }
         public virtual ICollection<Report> Report { get; set; }
+        public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
+
+        
     }
 }
