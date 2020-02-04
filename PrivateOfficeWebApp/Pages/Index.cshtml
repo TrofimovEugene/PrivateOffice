@@ -1,5 +1,5 @@
 ﻿@page
-@model PrivateOfficeWebApp.AuthorizationModel
+@model PrivateOfficeWebApp.IndexModel
 @{
     ViewData["Title"] = "Authorization";
 }
@@ -30,11 +30,11 @@
 
                             <div class="form-group">
                                 <label for="inputTeacherLogin">Логин</label>
-                                <input type="text" class="form-control" id="inputTeacherLogin">
+                                <input type="text" class="form-control" name="login" id="inputTeacherLogin">
                             </div>
                             <div class="form-group">
                                 <label for="inputTeacherPassword">Пароль</label>
-                                <input type="password" class="form-control" id="inputTeacherPassword">
+                                <input type="password" class="form-control" name="password" id="inputTeacherPassword">
                             </div>
                             <div class="form-group form-check">
                             </div>
