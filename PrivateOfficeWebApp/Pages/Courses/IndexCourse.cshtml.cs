@@ -11,11 +11,11 @@ using PrivateOfficeWebApp.Models;
 
 namespace PrivateOfficeWebApp.Pages
 {
-	public class IndexModel : PageModel
+	public class IndexCourseModel : PageModel
 	{
 		private readonly ILogger<IndexModel> _logger;
 		private readonly HttpClient _httpClient;
-		public IndexModel(ILogger<IndexModel> logger)
+		public IndexCourseModel(ILogger<IndexModel> logger)
 		{
 			_logger = logger;
 			var clientHandler = new HttpClientHandler

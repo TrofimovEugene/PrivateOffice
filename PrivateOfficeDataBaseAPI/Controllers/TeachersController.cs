@@ -69,18 +69,29 @@ namespace PrivateOfficeDataBaseAPI.Controllers
             return teachers;
         }
 
+		public class RequestLogin
+		{
+			public string login { get; set; }
+            public string password { get; set; }
+		} 
         // GET: api/Teachers/Julia 
-        [HttpGet("GetTeacherLogin/{login}")]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeacherLogin(string login)
+        [HttpPost("GetTeacherLogin")]
+        public async Task<ActionResult<Teacher>> GetTeacherLogin(RequestLogin requestLogin)
         {
-            var teacher = await _context.Teacher.Where(teacher => teacher.Login == login)
-                .ToListAsync();
-            if (teacher == null)
+            var teachers = await _context.Teacher.ToListAsync();
+
+            if (teachers == null)
             {
-                return NotFound();
+	            return NotFound();
+            }
+            foreach (var teacher in teachers)
+            {
+	            if(teacher.Login == requestLogin.login)
+		            if (teacher.Password == requestLogin.password)
+			            return teacher;
             }
 
-            return teacher;
+            return NotFound();
         }
 
         // GET: api/Teachers/5
