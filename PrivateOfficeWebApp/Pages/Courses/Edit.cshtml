@@ -28,8 +28,12 @@
 					<label>Количество студентов в группе: 20</label>
 				</div>
 				<div class="form-time mb-1">
+					<label>Ближайшее занятие: </label>
+				</div>
+				<div class="form-time mb-1">
 					<label>Количество часов: @Html.DisplayFor(model => model.Course.CountTime)</label>
 				</div>
+				
 				<div class="form-data mb-2">
 					<label>Длительность курса: </label>
 					<label>с @Html.DisplayFor(model => model.Course.StartDate)</label>
@@ -38,6 +42,7 @@
 				<div class="d-flex justify-content-between">
 					<button type="button" class="btn btn-outline-primary" asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse">Просмотреть все занятия</button>
 					<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#editCourse">Редактировать</button>
+					<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#studentTable">Открыть таблицу студентов</button>
 				</div>
 			</div>
 			<div class="modal fade" id="editCourse" tabindex="-1" role="dialog" aria-labelledby="editCourseTitle" aria-hidden="true">
