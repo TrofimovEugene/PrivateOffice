@@ -39,6 +39,8 @@ namespace PrivateOfficeWebApp
 
 	        response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + Course.IdGroup);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
+	        jsonResponse.Replace(']', ' ');
+	        jsonResponse.Replace('[', ' ');
 	        Group = JsonConvert.DeserializeObject<Group>(jsonResponse);
 	        
 
