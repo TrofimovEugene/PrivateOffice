@@ -59,6 +59,8 @@ namespace PrivateOfficeWebApp.Pages
 			public string NameUniversity { get; set; }
 			[JsonProperty("countTime")]
 			public int CountTime { get; set; }
+			[JsonProperty("idGroup")]
+			public int IdGroup { get; set; }
 		}
 
 		public async Task<IActionResult> OnPostDelete(int id)
