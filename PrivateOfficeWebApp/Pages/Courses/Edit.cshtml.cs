@@ -36,13 +36,9 @@ namespace PrivateOfficeWebApp
 	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
-
 	        response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + Course.IdGroup);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
-	        jsonResponse.Replace(']', ' ');
-	        jsonResponse.Replace('[', ' ');
 	        Group = JsonConvert.DeserializeObject<Group>(jsonResponse);
-	        
 
 	        if (Course == null)
 		        return NotFound();
