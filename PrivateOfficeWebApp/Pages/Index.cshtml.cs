@@ -50,6 +50,32 @@ namespace PrivateOfficeWebApp
             }
             
         }
+        [BindProperty]
+        public RequestTeacher Teacher { get; set; }
+        public async Task<IActionResult> OnPostRegistryTeacher()
+        {
+	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PostAsync("https://localhost:44316/api/Teachers", httpContent);
+	        return Page();
+        }
+        [JsonObject]
+        public class RequestTeacher
+        {
+	        [JsonProperty("login")]
+	        public string Login { get; set; }
+	        [JsonProperty("password")]
+	        public string Password { get; set; }
+	        [JsonProperty("firstName")]
+	        public string FirstName { get; set; }
+	        [JsonProperty("secondName")]
+	        public string SecondName { get; set; }
+	        [JsonProperty("patronymic")]
+	        public string Patronymic { get; set; }
+	        //[JsonProperty("course")]
+	        //public virtual List<Course> Course { get; set; }
+
+        }
         public async Task<IActionResult> OnPostLoginStudent()
         {
 

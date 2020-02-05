@@ -3,66 +3,98 @@
 @{
     ViewData["Title"] = "Authorization";
 }
-    <div>
-        <nav class="navbar" style="background-color: #0866C6">
+<div>
+	<nav class="navbar" style="background-color: #0866C6">
 
-            <a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-            <!-- <form class="form-inline">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
-        </form> -->
-        </nav>
-    </div>
-    <div class="container">
-        <div class="row d-flex justify-content-center align-items-center" style="height: 80vh">
-            <div class="col-4 ">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-teacher-tab" data-toggle="tab" href="#nav-teacher"
-                           role="tab" aria-controls="nav-teacher" aria-selected="true">Преподаватель</a>
-                        <a class="nav-item nav-link" id="nav-student-tab" data-toggle="tab" href="#nav-student"
-                           role="tab" aria-controls="nav-student" aria-selected="false">Студент</a>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-teacher" role="tabpanel"
-                         aria-labelledby="nav-teacher-tab">
-                        <form class="p-4" style="border: solid #0866C6 1px; background-color:white" method="post">
+		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+		<!-- <form class="form-inline">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+		</form> -->
+	</nav>
+</div>
+<div class="container">
+	<form action="" id="add_students" method="post" onsubmit="addRow();return false;">
+		<div class="modal fade" id="addTeacher" tabindex="-1" role="dialog"
+		     aria-labelledby="addTeacherTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addTeacherTitle">Регистрация</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<label for="name">Имя</label>
+						<input type="text" class="form-control" asp-for="Teacher.FirstName" />
+						<label for="name">Фамилия</label>
+						<input type="text" class="form-control" asp-for="Teacher.SecondName" />
+						<label for="name">Отчество</label>
+						<input type="text" class="form-control" asp-for="Teacher.Patronymic" />
+						<label for="group">Логин</label>
+						<input type="text" class="form-control" asp-for="Teacher.Login" />
+						<label for="group">Пароль</label>
+						<input type="password" class="form-control" asp-for="Teacher.Password" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+						<input type="submit" class="btn btn-primary" value="Зарегистрироваться" asp-page-handler="RegistryTeacher" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="row d-flex justify-content-center align-items-center" style="height: 80vh">
+		<div class="col-4 ">
+			<nav>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<a class="nav-item nav-link active" id="nav-teacher-tab" data-toggle="tab" href="#nav-teacher"
+					   role="tab" aria-controls="nav-teacher" aria-selected="true">Преподаватель</a>
+					<a class="nav-item nav-link" id="nav-student-tab" data-toggle="tab" href="#nav-student"
+					   role="tab" aria-controls="nav-student" aria-selected="false">Студент</a>
+				</div>
+			</nav>
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="nav-teacher" role="tabpanel"
+					 aria-labelledby="nav-teacher-tab">
+					<form class="p-4" style="border: solid #0866C6 1px; background-color: white" method="post">
 
-                            <div class="form-group">
-                                <label for="inputTeacherLogin">Логин</label>
-                                <input type="text" class="form-control" name="login" id="inputTeacherLogin">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputTeacherPassword">Пароль</label>
-                                <input type="password" class="form-control" name="password" id="inputTeacherPassword">
-                            </div>
-                            <div class="form-group form-check">
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <input type="submit" class="btn btn-primary" asp-page-handler="LoginTeacher" value="Войти"/>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="nav-student" role="tabpanel" aria-labelledby="nav-student-tab">
-                        <form class="p-4" style="border: solid #0866C6 1px; background-color:white" method="post">
+						<div class="form-group">
+							<label for="inputTeacherLogin">Логин</label>
+							<input type="text" class="form-control" name="login" id="inputTeacherLogin">
+						</div>
+						<div class="form-group">
+							<label for="inputTeacherPassword">Пароль</label>
+							<input type="password" class="form-control" name="password" id="inputTeacherPassword">
+						</div>
+						<div class="form-group form-check">
+						</div>
+						<div class="d-flex justify-content-end">
+							<input type="button" class="btn btn-secondary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addTeacher" value="Регистрация"/>
+							<input type="submit" class="btn btn-primary" asp-page-handler="LoginTeacher" value="Войти" />
+						</div>
+					</form>
+				</div>
+				<div class="tab-pane fade" id="nav-student" role="tabpanel" aria-labelledby="nav-student-tab">
+					<form class="p-4" style="border: solid #0866C6 1px; background-color: white" method="post">
 
-                            <div class="form-group">
-                                <label for="inputStudentLogin">Логин</label>
-                                <input type="login" class="form-control" id="inputStudentLogin">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputStudentPassword">Пароль</label>
-                                <input type="password" class="form-control" id="inputStudentPassword">
-                            </div>
-                            <div class="form-group form-check">
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary" asp-page-handler="LoginStudent">Войти</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="form-group">
+							<label for="inputStudentLogin">Логин</label>
+							<input type="login" class="form-control" id="inputStudentLogin">
+						</div>
+						<div class="form-group">
+							<label for="inputStudentPassword">Пароль</label>
+							<input type="password" class="form-control" id="inputStudentPassword">
+						</div>
+						<div class="form-group form-check">
+						</div>
+						<div class="d-flex justify-content-end">
+							<button type="submit" class="btn btn-primary" asp-page-handler="LoginStudent">Войти</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
