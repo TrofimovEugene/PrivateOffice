@@ -19,11 +19,23 @@
     <table id="tab1" class="table">
         <thead>
             <tr>
-                <th scope="col">ФИО</th>
-                <th scope="col">Группа</th>
+	            <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+	            <th scope="col">Группа</th>
             </tr>
         </thead>
         <tbody>
+            @if (Model.Students != null)
+            {
+	            @foreach (var student in Model.Students)
+	            {
+		            <tr>
+			            <td>@Html.DisplayFor(item => student.FirstName)</td>
+			            <td>@Html.DisplayFor(item => student.SecondName)</td>
+			            <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
+		            </tr>
+	            }
+            }
         </tbody>
     </table>
 </div>
@@ -39,12 +51,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label for="name">ФИО</label>
-                    <input type="text" class="form-control" name="name" id="name" value="" />
+	                <label for="name">Имя</label>
+	                <input type="text" class="form-control" asp-for="Student.FirstName"/>
+                    <label for="name">Фамилия</label>
+                    <input type="text" class="form-control" asp-for="Student.SecondName"/>
                     <label for="group">Группа</label>
-                    <input type="text" name="group" class="form-control" id="group" value="" />
-
-
+	                <select name="idgroup">
+		                @foreach (var group in Model.Groups)
+		                {
+			                <option value="@group.IdGroup">@Html.DisplayFor(item => group.NameGroup)</option>
+		                }
+	                </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

@@ -1,0 +1,49 @@
+﻿@page
+@model PrivateOfficeWebApp.ViewGroupsModel
+@{
+    ViewData["Title"] = "ViewGroups";
+}
+
+<div>
+	<nav class="navbar" style="background-color: #0866C6">
+		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+		<!-- <form class="form-inline">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+		</form> -->
+	</nav>
+</div>
+
+<form method="get">
+	<table class="table">
+		<thead>
+		<tr>
+			<th>
+				Название группы
+			</th>
+			<th>
+				Количество студентов
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		@if (true)
+		{
+			@foreach (var item in Model.Groups)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.NameGroup)
+					</td>
+					<td>
+						1
+					</td>
+					<td>
+						<a asp-page="/StudentsTable/StudentsTable" asp-route-id="@item.IdGroup">Подробнее</a> |
+						<a asp-page="/StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Редактировать</a>
+					</td>
+				</tr>
+			}
+		}
+		</tbody>
+	</table>
+</form>

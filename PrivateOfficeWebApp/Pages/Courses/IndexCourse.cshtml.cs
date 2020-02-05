@@ -26,19 +26,36 @@ namespace PrivateOfficeWebApp.Pages
 		}
 		[BindProperty]
 		public List<Course> Courses { get; set; }
+		[BindProperty]
+		public List<Group> Groups { get; set; }
 		public async Task<IActionResult> OnGet(int? id)
 		{
 			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<List<Course>>(jsonResponse);
+
+			foreach (var itemCourse in Courses)
+			{
+				response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + itemCourse.IdGroup);
+				jsonResponse = await response.Content.ReadAsStringAsync();
+				var @group = JsonConvert.DeserializeObject<Group>(jsonResponse);
+				itemCourse.Group = @group;
+			}
+
+			response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/");
+			jsonResponse = await response.Content.ReadAsStringAsync();
+			Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
+
 			return Page();
 		}
 
 		[BindProperty]
 		public RequestCourse Course { get; set; }
-		public async Task<IActionResult> OnPostAsync()
+		// ReSharper disable once IdentifierTypo
+		public async Task<IActionResult> OnPostCreateCourse(int idgroup)
 		{
 			Course.IdTeacher = 1;
+			Course.IdGroup = idgroup;
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync("https://localhost:44316/api/Courses", httpContent);
