@@ -34,12 +34,9 @@ namespace PrivateOfficeWebApp
             try
             {
 	            var jsonResponse = JsonConvert.DeserializeObject<Teacher>(responseStr);
-                if (jsonResponse.Login == login && jsonResponse.Password == password)
-					return RedirectToPage("./Courses/IndexCourse");
-                else
-                {
-	                return NotFound();
-                }
+	            if (jsonResponse.Login == login && jsonResponse.Password == password)
+		            return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+	            return NotFound();
             }
             catch
             {
