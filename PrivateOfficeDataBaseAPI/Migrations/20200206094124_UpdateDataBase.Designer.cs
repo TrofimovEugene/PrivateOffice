@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrivateOfficeDataBaseAPI.Data;
 
 namespace PrivateOfficeDataBaseAPI.Migrations
 {
     [DbContext(typeof(PrivateOfficeDataBaseAPIContext))]
-    partial class PrivateOfficeDataBaseAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20200206094124_UpdateDataBase")]
+    partial class UpdateDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
