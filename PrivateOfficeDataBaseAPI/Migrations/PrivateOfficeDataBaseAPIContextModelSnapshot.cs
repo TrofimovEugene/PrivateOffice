@@ -39,6 +39,9 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<int>("IdTypeClasses")
+                        .HasColumnType("int");
+
                     b.Property<string>("NameClasses")
                         .HasColumnType("nvarchar(max)");
 
@@ -48,14 +51,13 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
-                    b.Property<string>("TypeClasses")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("IdClasses");
 
                     b.HasIndex("IdCourse");
 
                     b.HasIndex("IdGroup");
+
+                    b.HasIndex("IdTypeClasses");
 
                     b.ToTable("Classes");
                 });
@@ -306,6 +308,21 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.ToTable("Ticket");
                 });
 
+            modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.TypeClasses", b =>
+                {
+                    b.Property<int>("IdTypeClasses")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TypeClass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdTypeClasses");
+
+                    b.ToTable("TypeClasses");
+                });
+
             modelBuilder.Entity("PrivateOfficeDataBaseAPI.Models.Classes", b =>
                 {
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Course", "Course")
@@ -317,6 +334,12 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Group", "Group")
                         .WithMany("Classes")
                         .HasForeignKey("IdGroup")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PrivateOfficeDataBaseAPI.Models.TypeClasses", "TypeClasses")
+                        .WithMany("Classes")
+                        .HasForeignKey("IdTypeClasses")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
