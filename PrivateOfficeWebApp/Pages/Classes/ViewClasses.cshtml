@@ -42,8 +42,7 @@
 							<label for="InputGroup">Тип занятия</label>
 
 							<!--в нижнюю строчку вставить тэг asp-for="?" -->
-							<input type="number" class="form-control" id="InputType" asp-for="Class.IdTypeClasses">
-							<select id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
+							<select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
 								<option value="1" tabindex="1">Лабораторная работа</option>
 								<option value="2" tabindex="2">Лекция</option>
 								<option value="3" tabindex="3">Семинар</option>
