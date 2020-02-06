@@ -33,16 +33,16 @@ namespace PrivateOfficeWebApp
 	        if (id == null)
 		        return NotFound();
 
-	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/" + id);
+	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
-	        response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + Course.IdGroup);
+	        response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Course.IdGroup);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
 	        Course.Group = group;
 
-	        response = await _httpClient.GetAsync("https://localhost:44316/api/Groups");
+	        response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups");
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
@@ -66,7 +66,7 @@ namespace PrivateOfficeWebApp
 			};
 			var jsonRequest = JsonConvert.SerializeObject(reqCourse);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-			await _httpClient.PutAsync("https://localhost:44316/api/Courses/" + Course.IdCourse, httpContent);
+			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Courses/" + Course.IdCourse, httpContent);
 			return RedirectToPage("./IndexCourse");
 		}
 		[JsonObject]

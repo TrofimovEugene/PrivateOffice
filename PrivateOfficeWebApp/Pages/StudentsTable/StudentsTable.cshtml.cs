@@ -27,19 +27,19 @@ namespace PrivateOfficeWebApp
 		public List<Student> Students { get; set; }
         public async Task<IActionResult> OnGet(int id)
         {
-	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Students");
+	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students");
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Students = JsonConvert.DeserializeObject<List<Student>>(jsonResponse);
 
 	        foreach (var student in Students)
 	        {
-				response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + student.IdGroup);
+				response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + student.IdGroup);
 				jsonResponse = await response.Content.ReadAsStringAsync();
 				var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
 				student.Group = group;
 	        }
 	        
-			response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/");
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
@@ -54,7 +54,7 @@ namespace PrivateOfficeWebApp
 	        Student.IdGroup = idgroup;
 	        var jsonRequest = JsonConvert.SerializeObject(Student);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-			await _httpClient.PostAsync("https://localhost:44316/api/Students", httpContent);
+			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students", httpContent);
 
 			return RedirectToPage("./StudentsTable");
         }
