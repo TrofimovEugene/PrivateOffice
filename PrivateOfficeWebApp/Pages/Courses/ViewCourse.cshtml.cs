@@ -30,7 +30,7 @@ namespace PrivateOfficeWebApp
 			if (id == null)
 				return NotFound();
 
-			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/" + id);
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
