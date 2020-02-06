@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PrivateOfficeWebApp.Models;
 
-namespace PrivateOfficeWebApp.Pages
+namespace PrivateOfficeWebApp.Pages.Courses
 {
 	public class IndexCourseModel : PageModel
 	{
@@ -55,12 +55,13 @@ namespace PrivateOfficeWebApp.Pages
 		// ReSharper disable once IdentifierTypo
 		public async Task<IActionResult> OnPostCreateCourse(int idgroup)
 		{
-			Course.IdTeacher = 1;
+			if (Request.Cookies["idTeacher"] != null)
+				Course.IdTeacher = Convert.ToInt32(Request.Cookies["idTeacher"]);
 			Course.IdGroup = idgroup;
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Courses", httpContent);
-			return RedirectToPage("./IndexCourse");
+			return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + Course.IdTeacher);
 		}
 		[JsonObject]
 		public class RequestCourse

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using PrivateOfficeWebApp.Models;
+using System;
 
 namespace PrivateOfficeWebApp
 {
@@ -35,7 +36,11 @@ namespace PrivateOfficeWebApp
             {
 	            var jsonResponse = JsonConvert.DeserializeObject<Teacher>(responseStr);
 	            if (jsonResponse.Login == login && jsonResponse.Password == password)
-		            return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+	            {
+		            Response.Cookies.Append("login", jsonResponse.Login);
+                    Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
+                    return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+	            }
 	            return NotFound();
             }
             catch
