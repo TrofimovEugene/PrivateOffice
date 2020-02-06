@@ -27,7 +27,7 @@ namespace PrivateOfficeWebApp
 	    [BindProperty]
 	    public Course Course { get; set; }
 	    [BindProperty]
-		public Group Group { get; set; }
+		public List<Group> Groups { get; set; }
 		public async Task<IActionResult> OnGet(int? id)
         {
 	        if (id == null)
@@ -36,16 +36,22 @@ namespace PrivateOfficeWebApp
 	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
+
 	        response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + Course.IdGroup);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
-	        Group = JsonConvert.DeserializeObject<Group>(jsonResponse);
+	        var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
+	        Course.Group = group;
+
+	        response = await _httpClient.GetAsync("https://localhost:44316/api/Groups");
+	        jsonResponse = await response.Content.ReadAsStringAsync();
+	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
 	        if (Course == null)
 		        return NotFound();
 	        return Page();
         }
 
-		public async Task<IActionResult> OnPostAsync()
+		public async Task<IActionResult> OnPostAsync(int idgroup)
 		{
 			var reqCourse = new RequestCourse
 			{
@@ -55,7 +61,7 @@ namespace PrivateOfficeWebApp
 				StartDate = Course.StartDate,
 				EndDate = Course.EndDate,
 				CountTime = Course.CountTime,
-				IdGroup = Course.IdGroup,
+				IdGroup = idgroup,
 				IdTeacher = 1
 			};
 			var jsonRequest = JsonConvert.SerializeObject(reqCourse);
