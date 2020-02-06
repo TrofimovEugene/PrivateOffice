@@ -32,11 +32,11 @@ namespace PrivateOfficeWebApp.Pages.Courses
 	        if (id == null)
 				return NotFound();
 
-	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses/" + id);
+	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
-	        response = await _httpClient.GetAsync("https://localhost:44316/api/Classes/id=" + id);
+	        response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/id=" + id);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        Classes = JsonConvert.DeserializeObject<List<Models.Classes>>(jsonResponse);
 
@@ -51,7 +51,7 @@ namespace PrivateOfficeWebApp.Pages.Courses
 			Class.IdTypeClasses = TypeClass;
 			var jsonRequest = JsonConvert.SerializeObject(Class);
 	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-	        await _httpClient.PostAsync("https://localhost:44316/api/Classes", httpContent);
+	        await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Classes", httpContent);
 	        return Redirect("https://localhost:44326/Classes/ViewClasses?id=" + Class.IdCourse);
         }
 

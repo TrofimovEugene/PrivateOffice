@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +29,7 @@ namespace PrivateOfficeWebApp
 	        RequestLogin requestLogin = new RequestLogin {login = login, password = password};
 	        var jsonRequest = JsonConvert.SerializeObject(requestLogin);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync("https://localhost:44316/api/Teachers/GetTeacherLogin", httpContent);
+            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers/GetTeacherLogin", httpContent);
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
@@ -56,7 +53,7 @@ namespace PrivateOfficeWebApp
         {
 	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync("https://localhost:44316/api/Teachers", httpContent);
+            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
 	        return Page();
         }
         [JsonObject]
