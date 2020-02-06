@@ -28,19 +28,20 @@ namespace PrivateOfficeWebApp.Pages
 		public List<Course> Courses { get; set; }
 		[BindProperty]
 		public List<Group> Groups { get; set; }
-		public async Task<IActionResult> OnGet(int? id)
+		public async Task<IActionResult> OnGet(int? idTeacher)
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses");
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/WithTeacher&id=" + idTeacher);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<List<Course>>(jsonResponse);
-
-			foreach (var itemCourse in Courses)
-			{
-				response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + itemCourse.IdGroup);
-				jsonResponse = await response.Content.ReadAsStringAsync();
-				var @group = JsonConvert.DeserializeObject<Group>(jsonResponse);
-				itemCourse.Group = @group;
-			}
+			
+			if (Courses != null)
+				foreach (var itemCourse in Courses)
+				{
+					response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + itemCourse.IdGroup);
+					jsonResponse = await response.Content.ReadAsStringAsync();
+					var @group = JsonConvert.DeserializeObject<Group>(jsonResponse);
+					itemCourse.Group = @group;
+				}
 
 			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
 			jsonResponse = await response.Content.ReadAsStringAsync();
@@ -82,7 +83,7 @@ namespace PrivateOfficeWebApp.Pages
 
 		public async Task<IActionResult> OnPostDelete(int id)
 		{
-			await _httpClient.DeleteAsync("https://localhost:44316/api/Courses/" + id);
+			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 			return RedirectToPage("./IndexCourse");
 		}
 	}
