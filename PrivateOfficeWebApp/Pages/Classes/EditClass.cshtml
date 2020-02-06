@@ -4,7 +4,7 @@
 	ViewData["Title"] = "EditClass";
 }
 @* ReSharper disable MarkupTextTypo *@
-<<div class="row">
+<div class="row">
 	 <form method="get">
 	 	<div class="modal-body">
 	 		<div class="form-class">
@@ -45,8 +45,17 @@
 							<label for="InputUniveristy">Тема занятия</label>
 							<input asp-for="Class.NameClasses" type="text" class="form-control" id="InputUniveristy">
 						</div>
+						<div class="form-typeclass">
+							<label for="InputTypeClass">Тип занятия</label>
+							<select>
+								<option>Выберите тип занятия</option>
+								<option>Лабораторная работа</option>
+								<option>Лекция</option>
+								<option>Секция</option>
+							</select>
+						</div>
 						<div class="form-dayWeek">
-							<label for="InputUniveristy">Тема занятия</label>
+							<label for="InputUniveristy">День недели</label>
 							<input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy">
 						</div>
 						<div class="form-nameCourse">
@@ -70,4 +79,4 @@
 			</div>
 		</div>
 	</div>
-</div>>
+</div>

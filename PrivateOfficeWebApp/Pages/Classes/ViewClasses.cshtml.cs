@@ -46,8 +46,9 @@ namespace PrivateOfficeWebApp.Pages.Courses
         }
         [BindProperty]
 		public RequestClasses Class { get; set; }
-		public async Task<IActionResult> OnPostAsync()
+		public async Task<IActionResult> OnPostAsync(int TypeClass)
 		{
+			Class.IdTypeClasses = TypeClass;
 			var jsonRequest = JsonConvert.SerializeObject(Class);
 	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 	        await _httpClient.PostAsync("https://localhost:44316/api/Classes", httpContent);
