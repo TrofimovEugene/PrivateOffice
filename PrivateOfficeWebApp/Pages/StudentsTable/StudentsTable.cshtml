@@ -22,6 +22,7 @@
 	            <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
 	            <th scope="col">Группа</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -29,17 +30,27 @@
             {
 	            @foreach (var student in Model.Students)
 	            {
-		            <tr>
-			            <td>@Html.DisplayFor(item => student.FirstName)</td>
-			            <td>@Html.DisplayFor(item => student.SecondName)</td>
-			            <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
-		            </tr>
+            <tr>
+                <td>@Html.DisplayFor(item => student.FirstName)</td>
+                <td>@Html.DisplayFor(item => student.SecondName)</td>
+                <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
+                <td>
+                    <button type="button" class="edit" id="editStudent" aria-label="Edit">
+                        <span aria-hidden="true">&#9998;</span>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="close" id="deleteStudent" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </td>
+            </tr>
 	            }
             }
         </tbody>
     </table>
 </div>
-<form action="" id="add_students" method="post" onsubmit="addRow();return false;">
+<form action="" id="add_students" method="post" onsubmit="checkStudent(this);return false;">
     <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
          aria-labelledby="addStudentTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -51,17 +62,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-	                <label for="name">Имя</label>
-	                <input type="text" class="form-control" asp-for="Student.FirstName"/>
+                    <div class="alert alert-warning" role="alert" id="Alert">
+                         Введите имя и фамилию студента.
+                    </div>
+                    <label for="name">Имя</label>
+                    <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" />
                     <label for="name">Фамилия</label>
-                    <input type="text" class="form-control" asp-for="Student.SecondName"/>
+                    <input type="text" id="SurnameStudent" class="form-control mb-2" asp-for="Student.SecondName" />
                     <label for="group">Группа</label>
-	                <select name="idgroup">
-		                @foreach (var group in Model.Groups)
-		                {
-			                <option value="@group.IdGroup">@Html.DisplayFor(item => group.NameGroup)</option>
-		                }
-	                </select>
+                    <select class="custom-select mb-1" name="idgroup">
+                        @foreach (var group in Model.Groups)
+                        {
+                            <option value="@group.IdGroup">@Html.DisplayFor(item => group.NameGroup)</option>
+                        }
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -72,6 +86,23 @@
     </div>
 </form>
 <script>
+    $("#Alert").hide();
+    function checkStudent(event) {    
+        if ($('#NameStudent').val() == "" || $('#SurnameStudent').val() == "") {
+            $("#Alert").show(1000);
+            setTimeout(() => {
+        $('#Alert').hide(1000)
+    }, 3000)
+        } else {
+            addRow();
+            event.submit();
+                }
+    }
+
+
+
+
+
         var d = document;
 
         var name;
@@ -99,6 +130,9 @@
            
             td1.innerHTML = name;
             td2.innerHTML = group;
-        }
+    }
+
+
+    
 </script>
 

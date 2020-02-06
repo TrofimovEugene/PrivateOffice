@@ -36,7 +36,7 @@
 						<label for="group">Пароль</label>
 						<input type="password" class="form-control" asp-for="Teacher.Password" />
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer d-flex justify-content-between">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
 						<input type="submit" class="btn btn-primary" value="Зарегистрироваться" asp-page-handler="RegistryTeacher" />
 					</div>
@@ -69,9 +69,9 @@
 						</div>
 						<div class="form-group form-check">
 						</div>
-						<div class="d-flex justify-content-end">
+						<div class="d-flex justify-content-between">
 							<input type="button" class="btn btn-secondary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addTeacher" value="Регистрация"/>
-							<input type="submit" class="btn btn-primary" asp-page-handler="LoginTeacher" value="Войти" />
+							<input type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" asp-page-handler="LoginTeacher" value="Войти" />
 						</div>
 					</form>
 				</div>
@@ -80,7 +80,7 @@
 
 						<div class="form-group">
 							<label for="inputStudentLogin">Логин</label>
-							<input type="login" class="form-control" id="inputStudentLogin">
+							<input type="text" class="form-control" id="inputStudentLogin">
 						</div>
 						<div class="form-group">
 							<label for="inputStudentPassword">Пароль</label>
@@ -89,7 +89,7 @@
 						<div class="form-group form-check">
 						</div>
 						<div class="d-flex justify-content-end">
-							<button type="submit" class="btn btn-primary" asp-page-handler="LoginStudent">Войти</button>
+							<button type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" asp-page-handler="LoginStudent">Войти</button>
 						</div>
 					</form>
 				</div>

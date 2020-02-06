@@ -16,6 +16,7 @@ namespace PrivateOfficeDataBaseAPI.Data
         public Microsoft.EntityFrameworkCore.DbSet<Course> Course { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Classes> Classes { get; set; }
 
+        public Microsoft.EntityFrameworkCore.DbSet<TypeClasses> TypeClasses { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Group> Group { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Student> Student { get; set; }
 
@@ -38,23 +39,28 @@ namespace PrivateOfficeDataBaseAPI.Data
             modelBuilder.Entity<Teacher>()
                 .HasMany(course => course.Course)
                 .WithOne(teacher => teacher.Teacher)
-                .IsRequired().HasForeignKey(course => course.IdTeacher)
+                .IsRequired()
+               .HasForeignKey(course => course.IdTeacher)
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Course and Classes*/
             modelBuilder.Entity<Course>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(course => course.Course)
-                .IsRequired()
                 .HasForeignKey(course => course.IdCourse)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            /*связь один к одному между Classes and TypeClasses*/
+            modelBuilder.Entity<TypeClasses>()
+                .HasMany(classes => classes.Classes)
+                .WithOne(typeClasses => typeClasses.TypeClasses)
+                .HasForeignKey(classes => classes.IdTypeClasses)
+                .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Classes and Group*/
             modelBuilder.Entity<Group>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(group => group.Group)
-                .IsRequired()
                 .HasForeignKey(classes => classes.IdGroup)
                 .OnDelete(DeleteBehavior.Cascade);
 
