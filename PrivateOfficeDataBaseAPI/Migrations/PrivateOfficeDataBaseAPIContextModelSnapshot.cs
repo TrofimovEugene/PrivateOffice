@@ -36,7 +36,6 @@ namespace PrivateOfficeDataBaseAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("IdGroup")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("IdTypeClasses")
@@ -333,9 +332,7 @@ namespace PrivateOfficeDataBaseAPI.Migrations
 
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Group", "Group")
                         .WithMany("Classes")
-                        .HasForeignKey("IdGroup")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdGroup");
 
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.TypeClasses", "TypeClasses")
                         .WithMany("Classes")

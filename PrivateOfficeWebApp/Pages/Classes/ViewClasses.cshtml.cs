@@ -36,7 +36,7 @@ namespace PrivateOfficeWebApp.Pages.Courses
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
-	        response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/id=" + id);
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/id=" + id);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        Classes = JsonConvert.DeserializeObject<List<Models.Classes>>(jsonResponse);
 
@@ -46,13 +46,15 @@ namespace PrivateOfficeWebApp.Pages.Courses
         }
         [BindProperty]
 		public RequestClasses Class { get; set; }
-		public async Task<IActionResult> OnPostAsync(int TypeClass)
-		{
+		public async Task<IActionResult> OnPostAsync(int TypeClass, int Idgroup)
+        { 
+            Class.IdGroup = Idgroup;
 			Class.IdTypeClasses = TypeClass;
 			var jsonRequest = JsonConvert.SerializeObject(Class);
 	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 	        await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Classes", httpContent);
-	        return Redirect("https://localhost:44326/Classes/ViewClasses?id=" + Class.IdCourse);
+            //return Redirect(jsonRequest);
+            return Redirect("https://localhost:44326/Classes/ViewClasses?id=" + Class.IdCourse);
         }
 
 		[JsonObject]
@@ -72,6 +74,8 @@ namespace PrivateOfficeWebApp.Pages.Courses
 			public string DaysWeek { get; set; }
 			[JsonProperty("replayClasses")]
 			public string ReplayClasses { get; set; }
+            [JsonProperty("idGroup")]
+            public int? IdGroup { get; set; }
 		}
 	}
 }
