@@ -47,49 +47,55 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form method="post">
-					<div class="form-id">
-						<label hidden="hidden" for="InputIdCourse">Id занятия</label>
-						<input hidden="hidden" asp-for="Class.IdClasses" type="text" class="form-control"
-							   id="InputIdCourse">
-					</div>
-					<div class="form-university pt-0 mb-1">
-						<label for="InputUniveristy">Тема занятия</label>
-						<input asp-for="Class.NameClasses" type="text" class="form-control"
-							   id="InputUniveristy">
-					</div>
-					<div class="form-typeclass mb-1">
-						<label for="InputTypeClass">Тип занятия</label>
-						<select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
-							<option>Лабораторная работа</option>
-							<option>Лекция</option>
-							<option>Семинар</option>
-						</select>
-					</div>
-					<div class="form-dayWeek mb-1">
-						<label for="InputUniveristy">День недели</label>
-						<input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy">
-					</div>
-					<div class="form-nameCourse mb-1">
-						<label for="InputGroup">Время начала</label>
-						<input asp-for="Class.StartTime" type="time" class="form-control" id="InputNameCourse">
-					</div>
-					<div class="form-group mb-1">
-						<label for="InputGroup">Время окончания</label>
-						<input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup">
-					</div>
-					<div class="form-time mb-1">
-						<label for="InputGroup">Занятий в неделю</label>
-						<input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime">
-					</div>
+                <form method="post">
+                    <div class="form-id">
+                        <label hidden="hidden" for="InputIdCourse">Id занятия</label>
+                        <input hidden="hidden" asp-for="Class.IdClasses" type="text" class="form-control"
+                               id="InputIdCourse">
+                    </div>
+                    <div class="form-university pt-0 mb-1">
+                        <label for="InputUniveristy">Тема занятия</label>
+                        <input asp-for="Class.NameClasses" type="text" class="form-control"
+                               id="InputUniveristy">
+                    </div>
+                    <div class="form-typeClass mb-1">
+                        <label for="InputGroup">Тип занятия</label>
+                        <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
+                            <option value="1" tabindex="1">Лабораторная работа</option>
+                            <option value="2" tabindex="2">Лекция</option>
+                            <option value="3" tabindex="3">Семинар</option>
+                        </select>
+                    </div>
+                    <div class="form-dayWeek mb-1">
+                        <label for="InputUniveristy">День недели</label>
+                        <input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy">
+                    </div>
+                    <div class="form-nameCourse mb-1">
+                        <label for="InputGroup">Время начала</label>
+                        <input asp-for="Class.StartTime" type="time" class="form-control" id="InputNameCourse">
+                    </div>
+                    <div class="form-group mb-1">
+                        <label for="InputGroup">Время окончания</label>
+                        <input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup">
+                    </div>
+                    <div class="form-time mb-1">
+                        <label for="InputGroup">Занятий в неделю</label>
+                        <input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime">
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
+                        <!-- -->
+                        <input type="submit" class="btn btn-primary" value="Редактировать" asp-page-handler="EditClass" />
 
-				</form>
+                    </div>
+                    <div class="form-group">
+                        <input hidden="hidden" type="number" id="idgroup" value="@Model.Class.IdGroup" />
+                    </div>
+                    <div class="form-group">
+                        <input hidden="hidden" type="number" class="form-control" id="idCourse" value="@Model.Class.IdCourse"  />
+                    </div>
+                </form>
 			</div>
-			<div class="modal-footer">
-				<input type="submit" class="btn btn-secondary" asp-page="./ViewClasses"
-					   asp-route-id="@Model.Class.IdClasses" value="Закрыть" />
-				<input type="submit" class="btn btn-primary" value="Редактировать" />
-			</div>
-		</div>
+        </div>
 	</div>
 </div>

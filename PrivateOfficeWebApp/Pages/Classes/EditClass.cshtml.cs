@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -32,9 +33,27 @@ namespace PrivateOfficeWebApp
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostEditClass(int TypeClass, int Idgroup, int idCourse)
         {
-	        return RedirectToPage("https://localhost:44326/Classes/EditClass?id=" + Class.IdCourse);
-        }
+
+			var reqClasses = new Classes
+            {
+                IdClasses = Class.IdClasses,
+                IdTypeClasses = TypeClass,
+                NameClasses = Class.NameClasses,
+                IdGroup =  Class.IdGroup,
+                IdCourse = Class.IdCourse,
+                StartTime = Class.StartTime,
+                EndTime = Class.EndTime,
+                DaysWeek = Class.DaysWeek,
+                ReplayClasses = Class.ReplayClasses
+            };
+
+            var jsonRequest = JsonConvert.SerializeObject(reqClasses);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PutAsync("https://localhost:44316/api/Classes/" + Class.IdClasses, httpContent);
+
+            return RedirectToPage(jsonRequest);
+		}
     }
 }

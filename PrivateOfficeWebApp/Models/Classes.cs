@@ -13,6 +13,8 @@ namespace PrivateOfficeWebApp.Models
 		public int IdTypeClasses { get; set; }
 		[JsonProperty("idCourse")]
 		public int IdCourse { get; set; }
+        [JsonProperty("idGroup")]
+        public int IdGroup { get; set; }
 		[JsonProperty("nameClasses")]
 		public string NameClasses { get; set; }
 		[JsonProperty("startTime")]
@@ -25,6 +27,6 @@ namespace PrivateOfficeWebApp.Models
 		public string ReplayClasses { get; set; }
 		[JsonProperty("typeClasses")]
 		public virtual TypeClasses? TypeClasses { get; set; }
-		
-    }
+
+	}
 }
