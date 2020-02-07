@@ -21,9 +21,22 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 
         // GET: api/Courses
         [HttpGet]
-        public async Task<List<Course>> GetCourses()
+        public async Task<ActionResult<List<Course>>> GetCourses()
         {
 	        return await _context.Course.ToListAsync();
+        }
+
+        //GET: api/Courses/WithTeacher&id=5
+        [HttpGet("WithTeacher&id={id}")]
+        public async Task<List<Course>> GetCourseWithTeacher(int id)
+        {
+	        var courses = new List<Course>();
+	        foreach (var course in await _context.Course.ToListAsync())
+	        {
+		        if (course.IdTeacher == id)
+			        courses.Add(course);
+	        }
+	        return courses;
         }
 
         // GET: api/Courses/5

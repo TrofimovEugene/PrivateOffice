@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using PrivateOfficeWebApp.Models;
+using System;
 
 namespace PrivateOfficeWebApp
 {
@@ -32,17 +30,18 @@ namespace PrivateOfficeWebApp
 	        RequestLogin requestLogin = new RequestLogin {login = login, password = password};
 	        var jsonRequest = JsonConvert.SerializeObject(requestLogin);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync("https://localhost:44316/api/Teachers/GetTeacherLogin", httpContent);
+            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers/GetTeacherLogin", httpContent);
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
 	            var jsonResponse = JsonConvert.DeserializeObject<Teacher>(responseStr);
-                if (jsonResponse.Login == login && jsonResponse.Password == password)
-					return RedirectToPage("./Courses/IndexCourse");
-                else
-                {
-	                return NotFound();
-                }
+	            if (jsonResponse.Login == login && jsonResponse.Password == password)
+	            {
+		            Response.Cookies.Append("login", jsonResponse.Login);
+                    Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
+                    return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+	            }
+	            return NotFound();
             }
             catch
             {
@@ -56,7 +55,7 @@ namespace PrivateOfficeWebApp
         {
 	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync("https://localhost:44316/api/Teachers", httpContent);
+            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
 	        return Page();
         }
         [JsonObject]

@@ -26,7 +26,7 @@ namespace PrivateOfficeWebApp
 		public Classes Class { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
-	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Classes/"+ id);
+	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Class = JsonConvert.DeserializeObject<Classes>(jsonResponse);
             return Page();

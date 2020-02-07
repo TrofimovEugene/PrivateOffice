@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PrivateOfficeWebApp.Models;
 
-namespace PrivateOfficeWebApp.Pages
+namespace PrivateOfficeWebApp.Pages.Courses
 {
 	public class IndexCourseModel : PageModel
 	{
@@ -28,21 +28,22 @@ namespace PrivateOfficeWebApp.Pages
 		public List<Course> Courses { get; set; }
 		[BindProperty]
 		public List<Group> Groups { get; set; }
-		public async Task<IActionResult> OnGet(int? id)
+		public async Task<IActionResult> OnGet(int? idTeacher)
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Courses");
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/WithTeacher&id=" + idTeacher);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<List<Course>>(jsonResponse);
+			
+			if (Courses != null)
+				foreach (var itemCourse in Courses)
+				{
+					response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + itemCourse.IdGroup);
+					jsonResponse = await response.Content.ReadAsStringAsync();
+					var @group = JsonConvert.DeserializeObject<Group>(jsonResponse);
+					itemCourse.Group = @group;
+				}
 
-			foreach (var itemCourse in Courses)
-			{
-				response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + itemCourse.IdGroup);
-				jsonResponse = await response.Content.ReadAsStringAsync();
-				var @group = JsonConvert.DeserializeObject<Group>(jsonResponse);
-				itemCourse.Group = @group;
-			}
-
-			response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/");
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
@@ -54,12 +55,13 @@ namespace PrivateOfficeWebApp.Pages
 		// ReSharper disable once IdentifierTypo
 		public async Task<IActionResult> OnPostCreateCourse(int idgroup)
 		{
-			Course.IdTeacher = 1;
+			if (Request.Cookies["idTeacher"] != null)
+				Course.IdTeacher = Convert.ToInt32(Request.Cookies["idTeacher"]);
 			Course.IdGroup = idgroup;
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-			await _httpClient.PostAsync("https://localhost:44316/api/Courses", httpContent);
-			return RedirectToPage("./IndexCourse");
+			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Courses", httpContent);
+			return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + Course.IdTeacher);
 		}
 		[JsonObject]
 		public class RequestCourse
@@ -82,7 +84,7 @@ namespace PrivateOfficeWebApp.Pages
 
 		public async Task<IActionResult> OnPostDelete(int id)
 		{
-			await _httpClient.DeleteAsync("https://localhost:44316/api/Courses/" + id);
+			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 			return RedirectToPage("./IndexCourse");
 		}
 	}
