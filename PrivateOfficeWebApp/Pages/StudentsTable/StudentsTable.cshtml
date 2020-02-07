@@ -35,14 +35,15 @@
                 <td>@Html.DisplayFor(item => student.SecondName)</td>
                 <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
                 <td>
-                    <button type="button" class="edit" id="editStudent" aria-label="Edit">
-                        <span aria-hidden="true">&#9998;</span>
-                    </button>
+                    <form method="post">
+                        <a asp-page="/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a> 
+                    </form>
                 </td>
                 <td>
-                    <button type="button" class="close" id="deleteStudent" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <form method="post">
+                        <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
+                        <input type="submit" value="Удалить" asp-page-handler="Delete" />
+                    </form>
                 </td>
             </tr>
 	            }
@@ -50,6 +51,7 @@
         </tbody>
     </table>
 </div>
+
 <form action="" id="add_students" method="post" onsubmit="checkStudent(this);return false;">
     <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
          aria-labelledby="addStudentTitle" aria-hidden="true">
@@ -66,7 +68,7 @@
                          Введите имя и фамилию студента.
                     </div>
                     <label for="name">Имя</label>
-                    <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" />
+                    <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" value="" />
                     <label for="name">Фамилия</label>
                     <input type="text" id="SurnameStudent" class="form-control mb-2" asp-for="Student.SecondName" />
                     <label for="group">Группа</label>
@@ -79,12 +81,15 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateStudent"/>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+
+
 <script>
     $("#Alert").hide();
     function checkStudent(event) {    
