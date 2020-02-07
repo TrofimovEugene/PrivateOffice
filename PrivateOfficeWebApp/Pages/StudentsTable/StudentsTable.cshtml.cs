@@ -25,23 +25,23 @@ namespace PrivateOfficeWebApp
 		}
 		[BindProperty]
 		public List<Student> Students { get; set; }
-        public async Task<IActionResult> OnGet(int id)
-        {
-	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students");
-	        var jsonResponse = await response.Content.ReadAsStringAsync();
-	        Students = JsonConvert.DeserializeObject<List<Student>>(jsonResponse);
+		public async Task<IActionResult> OnGet(int id)
+		{
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students");
+			var jsonResponse = await response.Content.ReadAsStringAsync();
+			Students = JsonConvert.DeserializeObject<List<Student>>(jsonResponse);
 
-	        foreach (var student in Students)
-	        {
+			foreach (var student in Students)
+			{
 				response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + student.IdGroup);
 				jsonResponse = await response.Content.ReadAsStringAsync();
 				var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
 				student.Group = group;
-	        }
-	        
+			}
+
 			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
-	        jsonResponse = await response.Content.ReadAsStringAsync();
-	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
+			jsonResponse = await response.Content.ReadAsStringAsync();
+			Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
 			return Page();
 		}
@@ -71,7 +71,7 @@ namespace PrivateOfficeWebApp
 		}
 		public async Task<IActionResult> OnPostDelete(int id)
 		{
-			await _httpClient.DeleteAsync("https://localhost:44316/api/Students/" + id);
+			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			return RedirectToPage("./StudentsTable");
 		}
 	}
