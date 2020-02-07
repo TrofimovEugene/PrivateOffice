@@ -34,17 +34,17 @@ namespace PrivateOfficeWebApp
 			if (id == null)
 				return NotFound();
 
-			HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Students/" + id);
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Student = JsonConvert.DeserializeObject<Student>(jsonResponse);
 
-			response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/" + Student.IdGroup);
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Student.IdGroup);
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
 			Student.Group = group;
 
 
-			response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/");
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/"); ;
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 			if (Student == null)
