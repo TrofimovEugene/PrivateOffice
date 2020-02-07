@@ -15,7 +15,7 @@
 <div class="container">
 	<form action="" id="add_students" method="post" onsubmit="addRow();return false;">
 		<div class="modal fade" id="addTeacher" tabindex="-1" role="dialog"
-		     aria-labelledby="addTeacherTitle" aria-hidden="true">
+			 aria-labelledby="addTeacherTitle" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -57,34 +57,46 @@
 			<div class="tab-content" id="nav-tabContent">
 				<div class="tab-pane fade show active" id="nav-teacher" role="tabpanel"
 					 aria-labelledby="nav-teacher-tab">
-					<form class="p-4" style="border: solid #0866C6 1px; background-color: white" method="post">
+					<form class="p-4 needs-validation" style="border: solid #0866C6 1px; background-color: white" method="post" novalidate>
 
 						<div class="form-group">
 							<label for="inputTeacherLogin">Логин</label>
-							<input type="text" class="form-control" name="login" id="inputTeacherLogin">
+							<input type="text" class="form-control" name="login" id="inputTeacherLogin" required>
+							<div class="invalid-feedback">
+								Пожалуйста введите логин
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputTeacherPassword">Пароль</label>
-							<input type="password" class="form-control" name="password" id="inputTeacherPassword">
+							<input type="password" class="form-control" name="password" id="inputTeacherPassword" required>
+							<div class="invalid-feedback">
+								Пожалуйста введите пароль
+							</div>
 						</div>
 						<div class="form-group form-check">
 						</div>
 						<div class="d-flex justify-content-between">
-							<input type="button" class="btn btn-secondary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addTeacher" value="Регистрация"/>
+							<input type="button" class="btn btn-secondary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addTeacher" value="Регистрация" />
 							<input type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" asp-page-handler="LoginTeacher" value="Войти" />
 						</div>
 					</form>
 				</div>
 				<div class="tab-pane fade" id="nav-student" role="tabpanel" aria-labelledby="nav-student-tab">
-					<form class="p-4" style="border: solid #0866C6 1px; background-color: white" method="post">
+					<form class="p-4 needs-validation" style="border: solid #0866C6 1px; background-color: white" method="post" novalidate>
 
 						<div class="form-group">
 							<label for="inputStudentLogin">Логин</label>
-							<input type="text" class="form-control" id="inputStudentLogin">
+							<input type="text" class="form-control" id="inputStudentLogin" required>
+							<div class="invalid-feedback">
+								Пожалуйста введите логин
+							</div>	
 						</div>
 						<div class="form-group">
 							<label for="inputStudentPassword">Пароль</label>
-							<input type="password" class="form-control" id="inputStudentPassword">
+							<input type="password" class="form-control" id="inputStudentPassword" required>
+							<div class="invalid-feedback">
+								Пожалуйста введите пароль
+							</div>
 						</div>
 						<div class="form-group form-check">
 						</div>
@@ -96,5 +108,22 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		(function () {
+			'use strict';
+			window.addEventListener('load', function () {
+				var forms = document.getElementsByClassName('needs-validation');
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+					}, false);
+				});
+			}, false);
+		})();
+	</script>
 </div>
 
