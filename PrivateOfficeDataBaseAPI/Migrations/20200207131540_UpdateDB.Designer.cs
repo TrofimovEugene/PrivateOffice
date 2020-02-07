@@ -10,8 +10,8 @@ using PrivateOfficeDataBaseAPI.Data;
 namespace PrivateOfficeDataBaseAPI.Migrations
 {
     [DbContext(typeof(PrivateOfficeDataBaseAPIContext))]
-    [Migration("20200203083116_FinishedDB")]
-    partial class FinishedDB
+    [Migration("20200207131540_UpdateDB")]
+    partial class UpdateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -334,9 +334,7 @@ namespace PrivateOfficeDataBaseAPI.Migrations
 
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.Group", "Group")
                         .WithMany("Classes")
-                        .HasForeignKey("IdGroup")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdGroup");
 
                     b.HasOne("PrivateOfficeDataBaseAPI.Models.TypeClasses", "TypeClasses")
                         .WithMany("Classes")
