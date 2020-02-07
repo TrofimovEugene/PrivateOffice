@@ -13,15 +13,15 @@ namespace PrivateOfficeWebApp
 {
     public class StudentsTableModel : PageModel
     {
-	    private readonly HttpClient _httpClient;
+		private readonly HttpClient _httpClient;
 
-	    public StudentsTableModel()
-	    {
-		    var clientHandler = new HttpClientHandler
-		    {
-			    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-		    };
-		    _httpClient = new HttpClient(clientHandler);
+		public StudentsTableModel()
+		{
+			var clientHandler = new HttpClientHandler
+			{
+				ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+			};
+			_httpClient = new HttpClient(clientHandler);
 		}
 		[BindProperty]
 		public List<Student> Students { get; set; }
@@ -44,30 +44,35 @@ namespace PrivateOfficeWebApp
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
 			return Page();
-        }
+		}
 		[BindProperty]
 		public ResponseStudent Student { get; set; }
 		[BindProperty]
 		public List<Group> Groups { get; set; }
-        public async Task<IActionResult> OnPost(int idgroup)
-        {
-	        Student.IdGroup = idgroup;
-	        var jsonRequest = JsonConvert.SerializeObject(Student);
+		public async Task<IActionResult> OnPostCreateStudent(int idgroup)
+		{
+			Student.IdGroup = idgroup;
+			var jsonRequest = JsonConvert.SerializeObject(Student);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students", httpContent);
 
 			return RedirectToPage("./StudentsTable");
-        }
+		}
 
-        [JsonObject]
-        public class ResponseStudent
-        {
-	        [JsonProperty("idGroup")] 
-	        public int IdGroup { get; set; }
-	        [JsonProperty("firstName")] 
-	        public string FirstName { get; set; }
-	        [JsonProperty("secondName")] 
-	        public string SecondName { get; set; }
-        }
-    }
+		[JsonObject]
+		public class ResponseStudent
+		{
+			[JsonProperty("idGroup")]
+			public int IdGroup { get; set; }
+			[JsonProperty("firstName")]
+			public string FirstName { get; set; }
+			[JsonProperty("secondName")]
+			public string SecondName { get; set; }
+		}
+		public async Task<IActionResult> OnPostDelete(int id)
+		{
+			await _httpClient.DeleteAsync("https://localhost:44316/api/Students/" + id);
+			return RedirectToPage("./StudentsTable");
+		}
+	}
 }
