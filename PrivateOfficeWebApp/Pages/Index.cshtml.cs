@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
-using System;
 
-namespace PrivateOfficeWebApp
+namespace PrivateOfficeWebApp.Pages
 {
     public class IndexModel : PageModel
     {
@@ -34,12 +32,12 @@ namespace PrivateOfficeWebApp
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-	            var jsonResponse = JsonConvert.DeserializeObject<Teacher>(responseStr);
+	            var jsonResponse = JsonConvert.DeserializeObject<Models.Teacher>(responseStr);
 	            if (jsonResponse.Login == login && jsonResponse.Password == password)
 	            {
 		            Response.Cookies.Append("login", jsonResponse.Login);
                     Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
-                    return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+                    return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
 	            }
 	            return NotFound();
             }

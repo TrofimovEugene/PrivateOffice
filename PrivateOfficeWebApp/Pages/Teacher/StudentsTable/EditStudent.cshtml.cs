@@ -66,7 +66,7 @@ namespace PrivateOfficeWebApp
 
 			var jsonRequest = JsonConvert.SerializeObject(reqStudent);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-			await _httpClient.PutAsync("https://localhost:44316/api/Students/" + Student.IdStudent, httpContent);
+			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Students/" + Student.IdStudent, httpContent);
 
 			return RedirectToPage("./StudentsTable");
 		}

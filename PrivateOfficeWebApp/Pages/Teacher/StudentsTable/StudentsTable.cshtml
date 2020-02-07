@@ -33,7 +33,7 @@
                         <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
                         <td>
                             <form method="post"  class="d-flex justify-content-between" >
-                                <a asp-page="/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a> 
+                                <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a> 
                                 <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
                                 <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />
                             </form>

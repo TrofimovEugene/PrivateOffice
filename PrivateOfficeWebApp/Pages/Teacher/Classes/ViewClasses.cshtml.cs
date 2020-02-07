@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using PrivateOfficeWebApp.Models;
 
-namespace PrivateOfficeWebApp.Pages.Courses
+namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 {
     public class EditModel : PageModel
     {
@@ -54,7 +54,7 @@ namespace PrivateOfficeWebApp.Pages.Courses
 	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 	        await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Classes", httpContent);
             //return Redirect(jsonRequest);
-            return Redirect("https://localhost:44326/Classes/ViewClasses?id=" + Class.IdCourse);
+            return Redirect("https://localhost:44326/Teacher/Classes/ViewClasses?id=" + Class.IdCourse);
         }
 
 		[JsonObject]

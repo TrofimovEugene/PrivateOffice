@@ -23,7 +23,7 @@ namespace PrivateOfficeWebApp
         public List<Group> Groups { get; set; }
         public async Task<IActionResult> OnGet()
         {
-	        HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/Groups/");
+	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 	        return Page();
