@@ -32,7 +32,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
         public async Task<IActionResult> OnPostEditClass(int TypeClass, int Idgroup, int idCourse)
         {
 
-			var reqClasses = new Classes
+            var reqClasses = new Models.Classes
             {
                 IdClasses = Class.IdClasses,
                 IdTypeClasses = TypeClass,
