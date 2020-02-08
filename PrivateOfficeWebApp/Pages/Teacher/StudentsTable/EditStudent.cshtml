@@ -23,8 +23,8 @@
                         <label>Группа: @Html.DisplayFor(model => model.Student.Group.NameGroup)</label>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="button" class="edit" data-toggle="modal" data-target="#editStudent" aria-label="Edit">
-                            <span aria-hidden="true">&#9998;</span>
+                        <button type="button" class="edit btn btn-outline-primary"  style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editStudent" aria-label="Edit">
+                            Редактировать
                         </button>
                     </div>
                 </div>
@@ -33,28 +33,28 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editStudentTitle">Редактирование инфорации о студенте</h5>
+                            <h5 class="modal-title" id="editStudentTitle">Редактирование</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <form method="post">
-                            <div class="madal-body pt-0">
+                            <div class="madal-body p-2 m-2">
                                 <div class="form-id">
                                     <label hidden="hidden" for="InputIdStudent">Id студента</label>
                                     <input hidden="hidden" asp-for="Student.IdStudent" type="text" class="form-control" id="InputIdStudent">
                                 </div>
-                                <div class="form-firstName">
-                                    <label for="InputFirstName">Имя студента</label>
+                                <div class="form-firstName mb-2">
+                                    <label for="InputFirstName">Имя</label>
                                     <input asp-for="Student.FirstName" type="text" class="form-control" id="InputFirstName">
                                 </div>
-                                <div class="form-secondName">
-                                    <label for="InputSecondName">Фамилия студента</label>
+                                <div class="form-secondName mb-2">
+                                    <label for="InputSecondName">Фамилия</label>
                                     <input asp-for="Student.SecondName" type="text" class="form-control" id="InputSecondName">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputGroup">Группа</label>
-                                    <select name="idgroup">
+                                    <select name="idgroup" class="form-control">
                                         @if (Model.Groups != null)
                                         {
                                             @foreach (var group in Model.Groups)
@@ -68,7 +68,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                                 <!-- -->
-                                <input type="submit" class="btn btn-primary" value="Принять" asp-page-handler="EditStudent"/>
+                                <input type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" value="Принять" asp-page-handler="EditStudent"/>
                             </div>
 
                         </form>
