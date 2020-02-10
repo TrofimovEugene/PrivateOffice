@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrivateOfficeDataBaseAPI.Data;
@@ -31,11 +29,39 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 
 		// GET: api/Teachers/GetTeacherDetails/5
 		[HttpGet("GetTeacherDetails/{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacherDetails(int id)
-        {
+#pragma warning disable 1998
+		public async Task<ActionResult<Teacher>> GetTeacherDetails(int id)
+#pragma warning restore 1998
+		{
+
             var teachers = _context.Teacher
                 .Include(course => course.Course)
-                .ThenInclude(classes => classes.Classes)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(group => group.Group)
+                            .ThenInclude(student => student.Student)
+                                .ThenInclude(report => report.Report)
+                .Include(course => course.Course)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(typeClasses => typeClasses.TypeClasses)
+                .Include(course => course.Course)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(controlMeasures => controlMeasures.ControlMeasures)
+                            .ThenInclude(task => task.Task)
+                .Include(course => course.Course)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(controlMeasures => controlMeasures.ControlMeasures)
+                            .ThenInclude(questions => questions.Questions)
+                .Include(course => course.Course)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(controlMeasures => controlMeasures.ControlMeasures)
+                             .ThenInclude(ticket => ticket.Ticket)
+                                 .ThenInclude(questions => questions.Questions)
+                .Include(course => course.Course)
+                    .ThenInclude(classes => classes.Classes)
+                        .ThenInclude(controlMeasures => controlMeasures.ControlMeasures)
+                             .ThenInclude(ticket => ticket.Ticket)
+                                .ThenInclude(task => task.Task)
+
                 .FirstOrDefault(teacher => teacher.IdTeacher == id);
 
             if (teachers == null)
@@ -44,6 +70,31 @@ namespace PrivateOfficeDataBaseAPI.Controllers
             }
 
             return teachers;
+        }
+
+		public class RequestLogin
+		{
+			public string login { get; set; }
+            public string password { get; set; }
+		} 
+        // GET: api/Teachers/Julia 
+        [HttpPost("GetTeacherLogin")]
+        public async Task<ActionResult<Teacher>> GetTeacherLogin(RequestLogin requestLogin)
+        {
+            var teachers = await _context.Teacher.ToListAsync();
+
+            if (teachers == null)
+            {
+	            return NotFound();
+            }
+            foreach (var teacher in teachers)
+            {
+	            if(teacher.Login == requestLogin.login)
+		            if (teacher.Password == requestLogin.password)
+			            return teacher;
+            }
+
+            return NotFound();
         }
 
         // GET: api/Teachers/5

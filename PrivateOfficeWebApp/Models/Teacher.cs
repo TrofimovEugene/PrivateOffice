@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json;
 
-namespace PrivateOfficeAPI.Models
+namespace PrivateOfficeWebApp.Models
 {
     [JsonObject]
     public class Teacher
@@ -19,6 +17,8 @@ namespace PrivateOfficeAPI.Models
         public string SecondName { get; set; }
         [JsonProperty("patronymic")]
         public string Patronymic { get; set; }
+        //[JsonProperty("course")]
         //public virtual List<Course> Course { get; set; }
+
     }
 }

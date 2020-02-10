@@ -1,0 +1,136 @@
+﻿@page
+@model PrivateOfficeWebApp.StudentsTableModel
+@{
+    ViewData["Title"] = "StudentsTable";
+}
+
+<div>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+    </nav>
+</div>
+<button type="button" class="btn  mt-2" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addStudent">
+    Добавить студента
+</button>
+<div class=" mt-4">
+    <table id="tab1" class="table table-bordered" style=" background-color:white; width:190vh">
+        <thead>
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Группа</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Students != null)
+            {
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(item => student.FirstName)</td>
+                        <td>@Html.DisplayFor(item => student.SecondName)</td>
+                        <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
+                        <td>
+                            <form method="post"  class="d-flex justify-content-between" >
+                                <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a> 
+                                <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
+                                <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<form action="" id="add_students" method="post" onsubmit="checkStudent(this);return false;">
+    <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
+         aria-labelledby="addStudentTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentTitle">Добавить студента</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning" role="alert" id="Alert">
+                         Введите имя и фамилию студента.
+                    </div>
+                    <label for="name">Имя</label>
+                    <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" value="" />
+                    <label for="name">Фамилия</label>
+                    <input type="text" id="SurnameStudent" class="form-control mb-2" asp-for="Student.SecondName" />
+                    <label for="group">Группа</label>
+                    <select class="custom-select mb-1" name="idgroup">
+                        @foreach (var group in Model.Groups)
+                        {
+                            <option value="@group.IdGroup">@Html.DisplayFor(item => group.NameGroup)</option>
+                        }
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateStudent"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<script>
+    $("#Alert").hide();
+    function checkStudent(event) {    
+        if ($('#NameStudent').val() == "" || $('#SurnameStudent').val() == "") {
+            $("#Alert").show(1000);
+            setTimeout(() => {
+        $('#Alert').hide(1000)
+    }, 3000)
+        } else {
+            addRow();
+            event.submit();
+                }
+    }
+
+
+
+
+
+        var d = document;
+
+        var name;
+        var group;
+
+        function addRow() {
+            
+            name = d.getElementById('name').value;
+            group = d.getElementById('group').value;
+
+          
+            var tbody = d.getElementById('tab1').getElementsByTagName('TBODY')[0];
+
+            
+            var row = d.createElement("TR");
+            tbody.appendChild(row);
+
+           
+            var td1 = d.createElement("TD");
+            var td2 = d.createElement("TD");
+
+            row.appendChild(td1);
+            row.appendChild(td2);
+
+           
+            td1.innerHTML = name;
+            td2.innerHTML = group;
+    }
+
+
+    
+</script>
+

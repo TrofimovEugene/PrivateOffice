@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrivateOfficeDataBaseAPI.Data;
@@ -23,9 +22,29 @@ namespace PrivateOfficeDataBaseAPI.Controllers
 
         // GET: api/Courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourse()
+        public async Task<ActionResult<List<Course>>> GetCourses()
         {
-            return await _context.Course.ToListAsync();
+	        return await _context.Course.ToListAsync();
+        }
+
+        //GET: api/Courses/WithTeacher&id=5
+        [HttpGet("WithTeacher&id={id}")]
+        public async Task<List<Course>> GetCourseWithTeacher(int id)
+        {
+	        var courses = new List<Course>();
+	        foreach (var course in await _context.Course.ToListAsync())
+	        {
+		        if (course.IdTeacher == id)
+			        courses.Add(course);
+                foreach (var Class in await _context.Classes.ToListAsync())
+                {
+                    if (Class.IdCourse == course.IdCourse)
+                    {
+                        course.Classes.Add(Class);   
+                    }
+                }
+	        }
+	        return courses;
         }
 
         // GET: api/Courses/5
@@ -33,7 +52,6 @@ namespace PrivateOfficeDataBaseAPI.Controllers
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
             var course = await _context.Course.FindAsync(id);
-
             if (course == null)
             {
                 return NotFound();
