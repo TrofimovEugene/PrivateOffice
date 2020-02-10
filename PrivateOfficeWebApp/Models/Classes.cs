@@ -27,6 +27,10 @@ namespace PrivateOfficeWebApp.Models
 		public string ReplayClasses { get; set; }
 		[JsonProperty("typeClasses")]
 		public virtual TypeClasses? TypeClasses { get; set; }
+        [JsonProperty("group")]
+        public virtual Group? Group { get; set; }
+        [JsonProperty("course")]
+		public virtual Course Course { get; set; }
 
 	}
 }

@@ -25,15 +25,32 @@ namespace PrivateOfficeWebApp
 		}
 		[BindProperty]
 		public Classes Class { get; set; }
+
+        [BindProperty]
+        public List<Group> Groups { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
-	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
+            if (id == null)
+                return NotFound();
+
+            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Class = JsonConvert.DeserializeObject<Classes>(jsonResponse);
-            return Page();
-        }
 
-        public async Task<IActionResult> OnPostEditClass(int TypeClass, int Idgroup, int idCourse)
+
+          //  response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Class.IdGroup);
+            //jsonResponse = await response.Content.ReadAsStringAsync();
+           // var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
+          //  Class.Group = group;
+
+          //  response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups");
+          //  jsonResponse = await response.Content.ReadAsStringAsync();
+          //  Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
+
+            return Page();
+            }
+
+        public async Task<IActionResult> OnPostEditClass(int TypeClass, int idgroup, int idCourse)
         {
 
 			var reqClasses = new Classes
@@ -41,8 +58,8 @@ namespace PrivateOfficeWebApp
                 IdClasses = Class.IdClasses,
                 IdTypeClasses = TypeClass,
                 NameClasses = Class.NameClasses,
-                IdGroup =  Class.IdGroup,
-                IdCourse = Class.IdCourse,
+                IdGroup = idgroup,
+                IdCourse = idCourse,
                 StartTime = Class.StartTime,
                 EndTime = Class.EndTime,
                 DaysWeek = Class.DaysWeek,
@@ -53,7 +70,7 @@ namespace PrivateOfficeWebApp
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync("https://localhost:44316/api/Classes/" + Class.IdClasses, httpContent);
 
-            return RedirectToPage(jsonRequest);
+            return RedirectToPage("https://localhost:44326/Classes/ViewClasses?id=" + idCourse);
 		}
     }
 }
