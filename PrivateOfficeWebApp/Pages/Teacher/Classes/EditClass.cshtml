@@ -11,24 +11,27 @@
 </div>
 <div class="row">
 	<form method="get">
-		<div class="modal-body">
-			<div class="form-class">
-				<label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
-			</div>
-			<div class="form-nameCourse">
-				<label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
-			</div>
-			<div class="form-startTime">
-				<label>Время начала: @Html.DisplayFor(model => model.Class.StartTime)</label>
-			</div>
-			<div class="form-data">
-				<label>Время окончания: @Html.DisplayFor(model => model.Class.EndTime)</label>
-			</div>
-			<div class="form-time">
-                <label>Периодичность: @Html.DisplayFor(model => model.Class.ReplayClasses)</label>
-			</div>
-			<a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Class.IdClasses">Просмотреть все занятия</a>
-		</div>
+        <div class="modal-body">
+            <div class="form-class">
+                <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
+            </div>
+            <div class="form-nameCourse">
+                <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
+            </div>
+            <div class="form-startTime">
+                <label>Время начала: @Html.DisplayFor(model => model.Class.StartTime)</label>
+            </div>
+            <div class="form-data">
+                <label>Время окончания: @Html.DisplayFor(model => model.Class.EndTime)</label>
+            </div>
+            <div class="form-time">
+                <label>Занятий в неделю: @Html.DisplayFor(model => model.Class.ReplayClasses)</label>
+            </div>
+            <div class="form-group">
+                <input hidden="hidden" type="number" id="idgroup" value="@Model.Class.IdGroup" />
+            </div>
+            <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Class.IdCourse">Просмотреть все занятия</a>
+        </div>
 	</form>
 </div>
 
@@ -48,6 +51,12 @@
 			</div>
 			<div class="modal-body">
                 <form method="post">
+                    <div class="form-group">
+                        <input hidden="hidden" type="number" id="idCourse" name="idCourse" value="@Model.Class.IdCourse" />
+                    </div>
+                    <div class="form-group">
+                        <input hidden="hidden" type="number" id="idgroup" name="idgroup" value="@Model.Class.IdGroup" />
+                    </div>
                     <div class="form-id">
                         <label hidden="hidden" for="InputIdCourse">Id занятия</label>
                         <input hidden="hidden" asp-for="Class.IdClasses" type="text" class="form-control"
@@ -87,12 +96,6 @@
                         <!-- -->
                         <input type="submit" class="btn btn-primary" value="Редактировать" asp-page-handler="EditClass" />
 
-                    </div>
-                    <div class="form-group">
-                        <input hidden="hidden" type="number" id="idgroup" value="@Model.Class.IdGroup" />
-                    </div>
-                    <div class="form-group">
-                        <input hidden="hidden" type="number" class="form-control" id="idCourse" value="@Model.Class.IdCourse"  />
                     </div>
                 </form>
 			</div>

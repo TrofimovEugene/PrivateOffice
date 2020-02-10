@@ -23,13 +23,16 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		public Models.Classes Class { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
-	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
+            if (id == null)
+                return NotFound();
+
+            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Class = JsonConvert.DeserializeObject<Models.Classes>(jsonResponse);
             return Page();
-        }
+            }
 
-        public async Task<IActionResult> OnPostEditClass(int TypeClass, int Idgroup, int idCourse)
+        public async Task<IActionResult> OnPostEditClass(int TypeClass, int idgroup, int idCourse)
         {
 
             var reqClasses = new Models.Classes
@@ -37,8 +40,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 IdClasses = Class.IdClasses,
                 IdTypeClasses = TypeClass,
                 NameClasses = Class.NameClasses,
-                IdGroup =  Class.IdGroup,
-                IdCourse = Class.IdCourse,
+                IdGroup = idgroup,
+                IdCourse = idCourse,
                 StartTime = Class.StartTime,
                 EndTime = Class.EndTime,
                 DaysWeek = Class.DaysWeek,
@@ -49,7 +52,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync("https://localhost:44316/api/Classes/" + Class.IdClasses, httpContent);
 
-            return RedirectToPage(jsonRequest);
+            return Redirect("https://localhost:44326/Classes/ViewClasses?id=" + idCourse);
 		}
     }
 }
