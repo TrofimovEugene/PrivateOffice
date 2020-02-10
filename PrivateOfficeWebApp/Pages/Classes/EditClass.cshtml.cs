@@ -37,16 +37,6 @@ namespace PrivateOfficeWebApp
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Class = JsonConvert.DeserializeObject<Classes>(jsonResponse);
 
-
-          //  response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Class.IdGroup);
-            //jsonResponse = await response.Content.ReadAsStringAsync();
-           // var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
-          //  Class.Group = group;
-
-          //  response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups");
-          //  jsonResponse = await response.Content.ReadAsStringAsync();
-          //  Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
-
             return Page();
             }
 
@@ -70,7 +60,7 @@ namespace PrivateOfficeWebApp
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync("https://localhost:44316/api/Classes/" + Class.IdClasses, httpContent);
 
-            return RedirectToPage("https://localhost:44326/Classes/ViewClasses?id=" + idCourse);
+            return Redirect("https://localhost:44326/Classes/ViewClasses?id=" + idCourse);
 		}
     }
 }
