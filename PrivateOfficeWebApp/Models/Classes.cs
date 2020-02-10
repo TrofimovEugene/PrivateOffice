@@ -14,7 +14,7 @@ namespace PrivateOfficeWebApp.Models
 		[JsonProperty("idCourse")]
 		public int IdCourse { get; set; }
         [JsonProperty("idGroup")]
-        public int IdGroup { get; set; }
+        public int? IdGroup { get; set; }
 		[JsonProperty("nameClasses")]
 		public string NameClasses { get; set; }
 		[JsonProperty("startTime")]
