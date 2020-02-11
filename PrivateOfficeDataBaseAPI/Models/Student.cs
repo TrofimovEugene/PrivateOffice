@@ -17,6 +17,8 @@ namespace PrivateOfficeDataBaseAPI.Models
         public bool Visited { get; set; }
         public bool ConfirmVisit { get; set; }
         public string SecondName { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         public virtual Group Group { get; set; }
         public virtual ICollection<Report> Report { get; set; }
         public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
