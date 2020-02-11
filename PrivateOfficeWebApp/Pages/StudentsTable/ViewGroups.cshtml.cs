@@ -41,10 +41,11 @@ namespace PrivateOfficeWebApp
             //return Redirect(jsonRequest);
              return Redirect("https://localhost:44326/StudentsTable/ViewGroups");
         }
-		public async Task<IActionResult> OnPostDelete(int id)
+
+        public async Task<IActionResult> OnPostDelete(int id)
         {
-            await _httpClient.DeleteAsync("https://localhost:44316/api/Groups/" + id);
-            return RedirectToPage("https://localhost:44316/api/Groups/");
+            await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Groups/" + id);
+            return RedirectToPage("./ViewGroups");
         }
 	}
 }
