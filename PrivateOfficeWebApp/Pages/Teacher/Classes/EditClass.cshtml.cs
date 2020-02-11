@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using PrivateOfficeWebApp.PagesModels;
 
 namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 {
@@ -20,7 +21,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		    _httpClient = new HttpClient(clientHandler);
 		}
 		[BindProperty]
-		public Models.Classes Class { get; set; }
+		public PagesModels.Classes Class { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
             if (id == null)
@@ -28,7 +29,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
             HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
-	        Class = JsonConvert.DeserializeObject<Models.Classes>(jsonResponse);
+	        Class = JsonConvert.DeserializeObject<PagesModels.Classes>(jsonResponse);
             return Page();
             }
 

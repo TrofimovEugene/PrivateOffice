@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
+using PrivateOfficeWebApp.PagesModels;
 
 namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 {

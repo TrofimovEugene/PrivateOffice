@@ -26,7 +26,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		[BindProperty]
         public Course Course { get; set; }
         [BindProperty]
-		public List<Models.Classes> Classes { get; set; }
+		public List<PagesModels.Classes> Classes { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
 	        if (id == null)
@@ -38,7 +38,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
 			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/id=" + id);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
-	        Classes = JsonConvert.DeserializeObject<List<Models.Classes>>(jsonResponse);
+	        Classes = JsonConvert.DeserializeObject<List<PagesModels.Classes>>(jsonResponse);
 
 	        if (Course == null)
 		        return NotFound();

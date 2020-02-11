@@ -1,35 +1,41 @@
-﻿using System.Data.Entity;
-using Microsoft.EntityFrameworkCore;
-using PrivateOfficeDataBaseAPI.DataBaseModels;
-using PrivateOfficeDataBaseAPI.Models;
-using DbContext = Microsoft.EntityFrameworkCore.DbContext;
+﻿using Microsoft.EntityFrameworkCore;
+using PrivateOfficeWebApp.Models;
+using Classes = PrivateOfficeWebApp.Models.Classes;
+using Course = PrivateOfficeWebApp.Models.Course;
+using Group = PrivateOfficeWebApp.Models.Group;
+using Report = PrivateOfficeWebApp.Models.Report;
+using Student = PrivateOfficeWebApp.Models.Student;
+using Teacher = PrivateOfficeWebApp.Models.Teacher;
+using TypeClasses = PrivateOfficeWebApp.Models.TypeClasses;
 
-namespace PrivateOfficeDataBaseAPI.Data
+namespace PrivateOfficeWebApp.Data
 {
-    public class PrivateOfficeDataBaseAPIContext : DbContext
+    public class PrivateOfficeWebAppContext : DbContext
     {
-        public PrivateOfficeDataBaseAPIContext (DbContextOptions<PrivateOfficeDataBaseAPIContext> options)
-            : base(options)
-        { }
+	    public PrivateOfficeWebAppContext(DbContextOptions<PrivateOfficeWebAppContext> options)
+		    : base(options)
+	    {
+		    Database.EnsureCreated();
+	    }
         /*сущности модели*/
-		public Microsoft.EntityFrameworkCore.DbSet<Teacher> Teacher { get; set; }
+		public DbSet<Teacher> Teacher { get; set; }
 
-        public Microsoft.EntityFrameworkCore.DbSet<Course> Course { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Classes> Classes { get; set; }
+        public DbSet<Course> Course { get; set; }
+        public DbSet<Classes> Classes { get; set; }
 
-        public Microsoft.EntityFrameworkCore.DbSet<TypeClasses> TypeClasses { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Group> Group { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Student> Student { get; set; }
+        public DbSet<TypeClasses> TypeClasses { get; set; }
+        public DbSet<Group> Group { get; set; }
+        public DbSet<Student> Student { get; set; }
 
-        public Microsoft.EntityFrameworkCore.DbSet<Report> Report { get; set; }
+        public DbSet<Report> Report { get; set; }
 
-        public Microsoft.EntityFrameworkCore.DbSet<ControlMeasures> ControlMeasures { get; set; }
+        public DbSet<ControlMeasures> ControlMeasures { get; set; }
 
-        public Microsoft.EntityFrameworkCore.DbSet<Ticket> Ticket { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
 
-        public Microsoft.EntityFrameworkCore.DbSet<Task> Task { get; set; }
+        public DbSet<Task> Task { get; set; }
 
-        public Microsoft.EntityFrameworkCore.DbSet<Questions> Questions { get; set; }
+        public DbSet<Questions> Questions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PrivateOfficeDataBaseAPI.Models;
 
-namespace PrivateOfficeDataBaseAPI.Models
+namespace PrivateOfficeDataBaseAPI.DataBaseModels
 {
     public class Course
     {

@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PrivateOfficeDataBaseAPI.Data;
-using PrivateOfficeDataBaseAPI.DataBaseModels;
-using PrivateOfficeDataBaseAPI.Models;
+using PrivateOfficeWebApp.Data;
+using PrivateOfficeWebApp.Models;
 
-namespace PrivateOfficeDataBaseAPI.Controllers
+namespace PrivateOfficeWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class QuestionsController : ControllerBase
     {
-        private readonly PrivateOfficeDataBaseAPIContext _context;
+        private readonly PrivateOfficeWebAppContext _context;
 
-        public QuestionsController(PrivateOfficeDataBaseAPIContext context)
+        public QuestionsController(PrivateOfficeWebAppContext context)
         {
             _context = context;
         }

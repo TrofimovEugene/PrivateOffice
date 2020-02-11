@@ -1,10 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
-
-namespace PrivateOfficeDataBaseAPI.Models
+namespace PrivateOfficeDataBaseAPI.DataBaseModels
 {
     public class TypeClasses
     {

@@ -1,30 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PrivateOfficeDataBaseAPI.Data;
-using PrivateOfficeDataBaseAPI.Models;
-using Task = PrivateOfficeDataBaseAPI.DataBaseModels.Task;
+using PrivateOfficeWebApp.Data;
+using Task = PrivateOfficeWebApp.Models.Task;
 
-namespace PrivateOfficeDataBaseAPI.Controllers
+namespace PrivateOfficeWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class TasksController : ControllerBase
     {
-        private readonly PrivateOfficeDataBaseAPIContext _context;
+        private readonly PrivateOfficeWebAppContext _context;
 
-        public TasksController(PrivateOfficeDataBaseAPIContext context)
+        public TasksController(PrivateOfficeWebAppContext context)
         {
             _context = context;
         }
 
         // GET: api/Tasks
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Task>>> GetTask()
+        public async Task<List<Task>> GetTask()
         {
             return await _context.Task.ToListAsync();
         }

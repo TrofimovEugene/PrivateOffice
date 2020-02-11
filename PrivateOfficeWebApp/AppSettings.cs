@@ -2,6 +2,6 @@
 {
 	public static class AppSettings
 	{
-		public static string DataBaseUrl { get; } = "https://localhost:44316";
+		public static string DataBaseUrl { get; } = "https://localhost:44326";
 	}
 }

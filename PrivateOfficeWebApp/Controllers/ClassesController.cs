@@ -5,19 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PrivateOfficeDataBaseAPI.Data;
-using PrivateOfficeDataBaseAPI.DataBaseModels;
-using PrivateOfficeDataBaseAPI.Models;
+using PrivateOfficeWebApp.Data;
+using PrivateOfficeWebApp.Models;
 
-namespace PrivateOfficeDataBaseAPI.Controllers
+namespace PrivateOfficeWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ClassesController : ControllerBase
     {
-        private readonly PrivateOfficeDataBaseAPIContext _context;
+        private readonly PrivateOfficeWebAppContext _context;
 
-        public ClassesController(PrivateOfficeDataBaseAPIContext context)
+        public ClassesController(PrivateOfficeWebAppContext context)
         {
             _context = context;
         }

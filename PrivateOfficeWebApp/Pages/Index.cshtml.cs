@@ -32,7 +32,7 @@ namespace PrivateOfficeWebApp.Pages
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-	            var jsonResponse = JsonConvert.DeserializeObject<Models.Teacher>(responseStr);
+	            var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Teacher>(responseStr);
 	            if (jsonResponse.Login == login && jsonResponse.Password == password)
 	            {
 		            Response.Cookies.Append("login", jsonResponse.Login);
