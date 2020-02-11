@@ -7,46 +7,39 @@
 <div>
     <nav class="navbar" style="background-color: #0866C6">
         <a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-        <form class="form-inline">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
-        </form>
     </nav>
 </div>
 <button type="button" class="btn  mt-2" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addStudent">
     Добавить студента
 </button>
 <div class=" mt-4">
-    <table id="tab1" class="table">
+    <table id="tab1" class="table table-bordered" style=" background-color:white; width:190vh">
         <thead>
             <tr>
-	            <th scope="col">Имя</th>
+                <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
-	            <th scope="col">Группа</th>
+                <th scope="col">Группа</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @if (Model.Students != null)
             {
-	            @foreach (var student in Model.Students)
-	            {
-            <tr>
-                <td>@Html.DisplayFor(item => student.FirstName)</td>
-                <td>@Html.DisplayFor(item => student.SecondName)</td>
-                <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
-                <td>
-                    <form method="post">
-                        <a asp-page="/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a> 
-                    </form>
-                </td>
-                <td>
-                    <form method="post">
-                        <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
-                        <input type="submit" value="Удалить" asp-page-handler="Delete" />
-                    </form>
-                </td>
-            </tr>
-	            }
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(item => student.FirstName)</td>
+                        <td>@Html.DisplayFor(item => student.SecondName)</td>
+                        <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
+                        <td>
+                            <form method="post"  class="d-flex justify-content-between" >
+                                <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a> 
+                                <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
+                                <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PrivateOfficeWebApp.Models;
 
-namespace PrivateOfficeWebApp.Pages.Courses
+namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 {
 	public class IndexCourseModel : PageModel
 	{
@@ -61,7 +61,7 @@ namespace PrivateOfficeWebApp.Pages.Courses
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Courses", httpContent);
-			return Redirect("https://localhost:44326/Courses/IndexCourse?idTeacher=" + Course.IdTeacher);
+			return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher=" + Course.IdTeacher);
 		}
 		[JsonObject]
 		public class RequestCourse

@@ -1,5 +1,5 @@
 ﻿@page
-@model PrivateOfficeWebApp.EditClassModel
+@model PrivateOfficeWebApp.Pages.Teacher.Classes.EditClassModel
 @{
 	ViewData["Title"] = "EditClass";
 }
@@ -88,7 +88,7 @@
                         <input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup">
                     </div>
                     <div class="form-time mb-1">
-                        <label for="InputGroup">Занятий в неделю</label>
+                        <label for="InputGroup">Периодичность</label>
                         <input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime">
                     </div>
                     <div class="modal-footer">

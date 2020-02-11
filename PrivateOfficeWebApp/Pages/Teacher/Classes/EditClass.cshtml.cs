@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
 
-namespace PrivateOfficeWebApp
+namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 {
     public class EditClassModel : PageModel
     {
@@ -24,10 +20,7 @@ namespace PrivateOfficeWebApp
 		    _httpClient = new HttpClient(clientHandler);
 		}
 		[BindProperty]
-		public Classes Class { get; set; }
-
-        [BindProperty]
-        public List<Group> Groups { get; set; }
+		public Models.Classes Class { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
             if (id == null)
@@ -35,15 +28,14 @@ namespace PrivateOfficeWebApp
 
             HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
-	        Class = JsonConvert.DeserializeObject<Classes>(jsonResponse);
-
+	        Class = JsonConvert.DeserializeObject<Models.Classes>(jsonResponse);
             return Page();
             }
 
         public async Task<IActionResult> OnPostEditClass(int TypeClass, int idgroup, int idCourse)
         {
 
-			var reqClasses = new Classes
+            var reqClasses = new Models.Classes
             {
                 IdClasses = Class.IdClasses,
                 IdTypeClasses = TypeClass,

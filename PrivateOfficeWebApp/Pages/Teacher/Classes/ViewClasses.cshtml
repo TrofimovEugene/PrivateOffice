@@ -1,5 +1,5 @@
 ﻿@page
-@model PrivateOfficeWebApp.Pages.Courses.EditModel
+@model PrivateOfficeWebApp.Pages.Teacher.Classes.EditModel
 @* ReSharper disable CommentTypo *@
 @* ReSharper disable MarkupTextTypo *@
 	<div>
@@ -58,7 +58,7 @@
                             <input type="text" class="form-control" id="InputTimeEnd" asp-for="Class.EndTime">
                         </div>
                         <div class="form-group">
-                            <label for="InputGroup">Количество занятий в неделю</label>
+                            <label for="InputGroup">Периодичность</label>
                             <input type="text" class="form-control" id="InputСountClass" asp-for="Class.ReplayClasses">
                         </div>
                     </div>
@@ -112,7 +112,7 @@
 								@Html.DisplayFor(modelItem => item.EndTime)
 							</td>
 							<td>
-                                <a asp-page="/Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a>
+                                <a asp-page="../Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a>
 							</td>
 						</tr>
 					}

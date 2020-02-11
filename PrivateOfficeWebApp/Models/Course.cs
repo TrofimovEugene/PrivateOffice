@@ -25,7 +25,7 @@ namespace PrivateOfficeWebApp.Models
         [JsonProperty("idGroup")]
         public int? IdGroup { get; set; }
         [JsonProperty("classes")]
-        public virtual ICollection<Classes>? Classes { get; set; }
+        public virtual IList<Classes>? Classes { get; set; }
         [JsonProperty("group")]
         public virtual Group? Group { get; set; }
         [JsonProperty("teacher")]

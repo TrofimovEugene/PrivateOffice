@@ -18,6 +18,8 @@ namespace PrivateOfficeDataBaseAPI.Models
         public string NameClasses { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime DateClasses { get; set; }
         public string DaysWeek { get; set; }
         public string ReplayClasses { get; set; }
 
