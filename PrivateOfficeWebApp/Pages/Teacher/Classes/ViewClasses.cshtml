@@ -30,38 +30,42 @@
                         </button>
                     </div>
 
-                    <div class="modal-body pb-0">
-                        <div class="form-group">
-                            <label hidden="hidden">ID курса</label>
-                            <input type="text" class="form-control" id="InputTheme" asp-for="Class.IdCourse" value="@Model.Course.IdCourse" hidden="hidden" />
-                            <label>Тема занятия</label>
-                            <input type="text" class="form-control" id="InputTheme" asp-for="Class.NameClasses">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Тип занятия</label>
-                            <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
-                                <option value="1" tabindex="1">Лабораторная работа</option>
-                                <option value="2" tabindex="2">Лекция</option>
-                                <option value="3" tabindex="3">Семинар</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">День недели</label>
-                            <input type="text" class="form-control" id="InputDay" asp-for="Class.DaysWeek">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Время начала</label>
-                            <input type="text" class="form-control" id="InputTimeBegin" asp-for="Class.StartTime">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Время окончания</label>
-                            <input type="text" class="form-control" id="InputTimeEnd" asp-for="Class.EndTime">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Периодичность</label>
-                            <input type="text" class="form-control" id="InputСountClass" asp-for="Class.ReplayClasses">
-                        </div>
-                    </div>
+					<div class="modal-body pb-0">
+						<div class="form-group">
+							<label hidden="hidden">ID курса</label>
+							<input type="text" class="form-control" id="InputTheme" asp-for="Class.IdCourse" value="@Model.Course.IdCourse" hidden="hidden" />
+							<label>Тема занятия</label>
+							<input type="text" class="form-control" id="InputTheme" asp-for="Class.NameClasses">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Тип занятия</label>
+							<select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
+								<option value="1" tabindex="1">Лабораторная работа</option>
+								<option value="2" tabindex="2">Лекция</option>
+								<option value="3" tabindex="3">Семинар</option>
+							</select>
+						</div>
+						<div class="form-DateClass">
+							<label>Дата занятия</label>
+							<input asp-for="Class.DateClasses" type="date" class="form-control" id="InputDateClass" />
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">День недели</label>
+							<input type="text" class="form-control" id="InputDay" asp-for="Class.DaysWeek">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Время начала</label>
+							<input type="time" class="form-control" id="InputTimeBegin" asp-for="Class.StartTime">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Время окончания</label>
+							<input type="time" class="form-control" id="InputTimeEnd" asp-for="Class.EndTime">
+						</div>
+						<div class="form-group">
+							<label for="InputGroup">Периодичность</label>
+							<input type="text" class="form-control" id="InputСountClass" asp-for="Class.ReplayClasses">
+						</div>
+					</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
                         <!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
@@ -83,6 +87,9 @@
 						Название занятия(тема)
 					</th>
 					<th>
+						Дата занятия
+					</th>
+					<th>
 						День недели
 					</th>
 					<th>
@@ -101,6 +108,9 @@
 						<tr>
 							<td>
 								@Html.DisplayFor(modelItem => item.NameClasses)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.DateClasses)
 							</td>
 							<td>
 								@Html.DisplayFor(modelItem => item.DaysWeek)

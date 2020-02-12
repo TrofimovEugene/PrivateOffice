@@ -85,7 +85,9 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 		public async Task<IActionResult> OnPostDelete(int id)
 		{
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
-			return RedirectToPage("./IndexCourse");
+			if(Request.Cookies["idTeacher"] != null)
+				return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher="+ Request.Cookies["idTeacher"]);
+			return NotFound();
 		}
 	}
 }

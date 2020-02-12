@@ -15,9 +15,12 @@
             <div class="form-class">
                 <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
             </div>
-            <div class="form-nameCourse">
-                <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
-            </div>
+	        <div class="form-nameCourse">
+		        <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
+	        </div>
+	        <div class="form-DateClass">
+                <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
+	        </div>
             <div class="form-startTime">
                 <label>Время начала: @Html.DisplayFor(model => model.Class.StartTime)</label>
             </div>
@@ -67,14 +70,18 @@
                         <input asp-for="Class.NameClasses" type="text" class="form-control"
                                id="InputUniveristy">
                     </div>
-                    <div class="form-typeClass mb-1">
-                        <label for="InputGroup">Тип занятия</label>
-                        <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
-                            <option value="1" tabindex="1">Лабораторная работа</option>
-                            <option value="2" tabindex="2">Лекция</option>
-                            <option value="3" tabindex="3">Семинар</option>
-                        </select>
-                    </div>
+	                <div class="form-typeClass mb-1">
+		                <label for="InputGroup">Тип занятия</label>
+		                <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
+			                <option value="1" tabindex="1">Лабораторная работа</option>
+			                <option value="2" tabindex="2">Лекция</option>
+			                <option value="3" tabindex="3">Семинар</option>
+		                </select>
+	                </div>
+	                <div class="form-DateClass">
+		                <label>Дата занятия</label>
+                        <input asp-for="Class.DateClasses" type="date" class="form-control" id="InputDateClass"/>
+	                </div>
                     <div class="form-dayWeek mb-1">
                         <label for="InputUniveristy">День недели</label>
                         <input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy">
