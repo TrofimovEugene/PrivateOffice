@@ -50,6 +50,21 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     table.PrimaryKey("PK_TypeClasses", x => x.IdTypeClasses);
                 });
+            migrationBuilder.InsertData(
+                table: "TypeClasses",
+                column: "TypeClass",
+                value: "Лабораторная работа"
+                );
+            migrationBuilder.InsertData(
+                table: "TypeClasses",
+                column: "TypeClass",
+                value: "Лекции"
+                );
+            migrationBuilder.InsertData(
+                table: "TypeClasses",
+                column: "TypeClass",
+                value: "Семинар"
+                );
 
             migrationBuilder.CreateTable(
                 name: "Student",
