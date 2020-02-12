@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +38,9 @@ namespace PrivateOfficeWebApp.Controllers
 			        courses.Add(course);
                 foreach (var Class in await _context.Classes.ToListAsync())
                 {
-                    if (Class.IdCourse == course.IdCourse)
-                    {
-                        course.Classes.Add(Class);   
-                    }
+	                Class.DateClasses += Class.StartTime;
+                    if(Class.IdCourse == course.IdCourse)
+						course.Classes.Add(Class);
                 }
 	        }
 	        return courses;

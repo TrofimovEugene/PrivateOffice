@@ -70,6 +70,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 			public TimeSpan StartTime { get; set; }
 			[JsonProperty("endTime")]
 			public TimeSpan EndTime { get; set; }
+			[JsonProperty("dateClasses")]
+			public DateTime DateClasses { get; set; }
 			[JsonProperty("daysWeek")]
 			public string DaysWeek { get; set; }
 			[JsonProperty("replayClasses")]

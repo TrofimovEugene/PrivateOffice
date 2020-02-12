@@ -41,6 +41,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 IdClasses = Class.IdClasses,
                 IdTypeClasses = TypeClass,
                 NameClasses = Class.NameClasses,
+                DateClasses = Class.DateClasses,
                 IdGroup = idgroup,
                 IdCourse = idCourse,
                 StartTime = Class.StartTime,
@@ -51,9 +52,9 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
             var jsonRequest = JsonConvert.SerializeObject(reqClasses);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PutAsync("https://localhost:44316/api/Classes/" + Class.IdClasses, httpContent);
+            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Classes/" + Class.IdClasses, httpContent);
 
-            return Redirect("https://localhost:44326/Classes/ViewClasses?id=" + idCourse);
+            return Redirect("https://localhost:44326/Teacher/Classes/ViewClasses?id=" + idCourse);
 		}
     }
 }
