@@ -14,9 +14,7 @@ namespace PrivateOfficeWebApp.Data
     {
 	    public PrivateOfficeWebAppContext(DbContextOptions<PrivateOfficeWebAppContext> options)
 		    : base(options)
-	    {
-		    Database.EnsureCreated();
-	    }
+        { }  
         /*сущности модели*/
 		public DbSet<Teacher> Teacher { get; set; }
 
