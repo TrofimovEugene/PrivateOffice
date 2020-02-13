@@ -76,7 +76,7 @@ namespace PrivateOfficeWebApp.Pages
         public async Task<IActionResult> OnPostLoginStudent()
         {
 
-	        return RedirectToPage("./Courses/IndexCourse");
+            return Redirect("https://localhost:44326/Student/StudentCourses/IndexStudentCourse");
         }
     }
 }
