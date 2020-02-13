@@ -39,7 +39,7 @@ namespace PrivateOfficeWebApp.Pages
                     Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
                     return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
 	            }
-	            return NotFound();
+	            return Redirect("https://localhost:44326"); 
             }
             catch
             {

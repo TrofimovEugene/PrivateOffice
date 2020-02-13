@@ -39,7 +39,7 @@ namespace PrivateOfficeWebApp
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Groups", httpContent);
             //return Redirect(jsonRequest);
-             return Redirect("https://localhost:44326/StudentsTable/ViewGroups");
+             return Redirect("https://localhost:44326/Teacher/StudentsTable/ViewGroups");
         }
 
         public async Task<IActionResult> OnPostDelete(int id)
