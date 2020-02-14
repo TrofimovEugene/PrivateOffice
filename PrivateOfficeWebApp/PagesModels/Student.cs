@@ -12,6 +12,10 @@ namespace PrivateOfficeWebApp.PagesModels
 		public int IdGroup { get; set; }
 		[JsonProperty("firstName")]
 		public string FirstName { get; set; }
+		[JsonProperty("visited")]
+		public bool Visited { get; set; }
+		[JsonProperty("confirmVisit")]
+		public bool ConfirmVisit { get; set; }
 		[JsonProperty("secondName")]
 		public string SecondName { get; set; }
 		[JsonProperty("group")]

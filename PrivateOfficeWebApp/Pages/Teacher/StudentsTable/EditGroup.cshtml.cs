@@ -41,9 +41,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             };
             var jsonRequest = JsonConvert.SerializeObject(reqGroup);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PutAsync("https://localhost:44316/api/Groups/" + Group.IdGroup, httpContent);
-           
-            return Redirect("https://localhost:44326/StudentsTable/ViewGroups");
+            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Group.IdGroup, httpContent);
+            return Redirect("./ViewGroups");
         }
     }
 }
