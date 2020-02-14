@@ -87,11 +87,11 @@
                         <label for="InputGroup">Время окончания</label>
                         <input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup">
                     </div>
-                    <div class="form-time mb-1">
+                    <div class="form-time mb-4">
                         <label for="InputGroup">Периодичность</label>
                         <input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime">
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer m-0 p-0 pt-2">
                         <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
                         <!-- -->
                         <input type="submit" class="btn btn-primary" value="Редактировать" asp-page-handler="EditClass" />
