@@ -24,7 +24,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 
 
 		[BindProperty]
-		public Student Student { get; set; }
+		public PagesModels.Student Student { get; set; }
 		[BindProperty]
 		public List<Group> Groups { get; set; }
 		public async Task<IActionResult> OnGet(int? id)
@@ -34,7 +34,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
-			Student = JsonConvert.DeserializeObject<Student>(jsonResponse);
+			Student = JsonConvert.DeserializeObject<PagesModels.Student>(jsonResponse);
 
 			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Student.IdGroup);
 			jsonResponse = await response.Content.ReadAsStringAsync();
@@ -53,7 +53,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 
 		public async Task<IActionResult> OnPostEditStudent(int idgroup)
 		{
-			var reqStudent = new Student
+			var reqStudent = new PagesModels.Student
 			{
 				IdStudent = Student.IdStudent,
 				FirstName = Student.FirstName,

@@ -12,9 +12,12 @@
 <div class="row">
 	<form method="get">
         <div class="modal-body">
-            <div class="form-class">
-                <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
-            </div>
+	        <div class="form-class">
+		        <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
+	        </div>
+	        <div class="form-class">
+                <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
+	        </div>
 	        <div class="form-nameCourse">
 		        <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
 	        </div>

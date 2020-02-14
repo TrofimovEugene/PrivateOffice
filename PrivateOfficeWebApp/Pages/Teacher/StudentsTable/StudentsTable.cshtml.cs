@@ -22,12 +22,12 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			_httpClient = new HttpClient(clientHandler);
 		}
 		[BindProperty]
-		public List<Student> Students { get; set; }
+		public List<PagesModels.Student> Students { get; set; }
 		public async Task<IActionResult> OnGet(int id)
 		{
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students");
 			var jsonResponse = await response.Content.ReadAsStringAsync();
-			Students = JsonConvert.DeserializeObject<List<Student>>(jsonResponse);
+			Students = JsonConvert.DeserializeObject<List<PagesModels.Student>>(jsonResponse);
 
 			foreach (var student in Students)
 			{

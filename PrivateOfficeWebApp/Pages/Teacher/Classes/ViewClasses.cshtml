@@ -51,18 +51,25 @@
                                 Пожалуйста введите тип занятия
                             </div>
                         </div>
+	                    <div class="form-group">
+		                    <label for="InputGroup">День недели</label>
+		                    <select class="custom-select" id="InputDay" asp-for="Class.DaysWeek" required>
+			                    <option value="Понедельник" tabindex="1">Понедельник</option>
+			                    <option value="Вторник" tabindex="2">Вторник</option>
+			                    <option value="Среда" tabindex="3">Среда</option>
+			                    <option value="Четверг" tabindex="1">Четверг</option>
+			                    <option value="Пятница" tabindex="2">Пятница</option>
+			                    <option value="Суббота" tabindex="3">Суббота</option>
+		                    </select>
+		                    <div class="invalid-feedback">
+			                    Пожалуйста введите день недели
+		                    </div>
+	                    </div>
                         <div class="form-group">
-                            <label for="InputGroup">День недели</label>
-                            <select class="custom-select" id="InputDay" asp-for="Class.DaysWeek" required>
-        <option value="Понедельник" tabindex="1">Понедельник</option>
-        <option value="Вторник" tabindex="2">Вторник</option>
-        <option value="Среда" tabindex="3">Среда</option>
-        <option value="Четверг" tabindex="1">Четверг</option>
-        <option value="Пятница" tabindex="2">Пятница</option>
-        <option value="Суббота" tabindex="3">Суббота</option>
-    </select>
+                            <label for="InputDate">Дата занятия</label>
+                            <input type="date" class="form-control" id="InputDate" asp-for="Class.DateClasses" />
                             <div class="invalid-feedback">
-                                Пожалуйста введите день недели
+	                            Пожалуйста введите дату занятия
                             </div>
                         </div>
                         <div class="form-group">
@@ -107,6 +114,9 @@
                     <th>
                         Название занятия(тема)
                     </th>
+	                <th>
+                        Дата занятия
+	                </th>
                     <th>
                         День недели
                     </th>
@@ -125,9 +135,12 @@
                     @foreach (var item in Model.Classes)
                     {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NameClasses)
-                            </td>
+	                        <td>
+		                        @Html.DisplayFor(modelItem => item.NameClasses)
+	                        </td>
+	                        <td>
+                                @Html.DisplayFor(modelItem => item.DateClasses)
+	                        </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DaysWeek)
                             </td>
