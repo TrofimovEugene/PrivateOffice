@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
+using PrivateOfficeWebApp.PagesModels;
 
-namespace PrivateOfficeWebApp
+namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 {
     public class StudentsTableModel : PageModel
     {
@@ -24,12 +22,12 @@ namespace PrivateOfficeWebApp
 			_httpClient = new HttpClient(clientHandler);
 		}
 		[BindProperty]
-		public List<Student> Students { get; set; }
+		public List<PagesModels.Student> Students { get; set; }
 		public async Task<IActionResult> OnGet(int id)
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students");
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentFromGroup&id=" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
-			Students = JsonConvert.DeserializeObject<List<Student>>(jsonResponse);
+			Students = JsonConvert.DeserializeObject<List<PagesModels.Student>>(jsonResponse);
 
 			foreach (var student in Students)
 			{
@@ -56,7 +54,7 @@ namespace PrivateOfficeWebApp
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students", httpContent);
 
-			return RedirectToPage("./StudentsTable");
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}
 
 		[JsonObject]

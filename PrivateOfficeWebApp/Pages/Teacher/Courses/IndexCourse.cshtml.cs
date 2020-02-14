@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
+using PrivateOfficeWebApp.PagesModels;
 
 namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 {
@@ -61,7 +61,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Courses", httpContent);
-			return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher=" + Course.IdTeacher);
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + Course.IdTeacher);
 		}
 		[JsonObject]
 		public class RequestCourse
@@ -85,7 +85,9 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 		public async Task<IActionResult> OnPostDelete(int id)
 		{
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
-			return RedirectToPage("./IndexCourse");
+			if(Request.Cookies["idTeacher"] != null)
+				return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher="+ Request.Cookies["idTeacher"]);
+			return NotFound();
 		}
 	}
 }

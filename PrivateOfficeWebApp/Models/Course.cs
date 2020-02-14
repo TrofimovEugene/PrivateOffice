@@ -1,34 +1,33 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrivateOfficeWebApp.Models
 {
-    [JsonObject]
     public class Course
     {
-        [JsonProperty("idCourse")]
+        [Key] 
         public int IdCourse { get; set; }
-        [JsonProperty("nameCourse")]
         public string NameCourse { get; set; }
-        [JsonProperty("idTeacher")]
-		public int IdTeacher { get; set; }
-        [JsonProperty("startDate")]
-        public DateTime StartDate { get; set; }
-        [JsonProperty("endDate")]
-        public DateTime EndDate { get; set; }
-        [JsonProperty("nameUniversity")]
-        public string NameUniversity { get; set; }
-        [JsonProperty("countTime")]
-        public int CountTime { get; set; }
-        [JsonProperty("idGroup")]
+        [ForeignKey("Group")]
         public int? IdGroup { get; set; }
-        [JsonProperty("classes")]
-        public virtual IList<Classes>? Classes { get; set; }
-        [JsonProperty("group")]
-        public virtual Group? Group { get; set; }
-        [JsonProperty("teacher")]
-        public virtual Teacher? Teacher { get; set; }
+
+        [ForeignKey("Teacher")]
+        public int IdTeacher { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime StartDate { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime EndDate { get; set; }
+        public int CountTime { get; set;}
+        
+        public string NameUniversity { get; set; }
+        public virtual Teacher Teacher { get; set; }
+        public virtual Group Group { get; set; }
+   
+        public virtual ICollection<Classes> Classes { get; set; }
+
+
+
     }
 }

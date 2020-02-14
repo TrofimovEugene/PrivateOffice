@@ -32,14 +32,14 @@ namespace PrivateOfficeWebApp.Pages
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-	            var jsonResponse = JsonConvert.DeserializeObject<Models.Teacher>(responseStr);
+	            var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Teacher>(responseStr);
 	            if (jsonResponse.Login == login && jsonResponse.Password == password)
 	            {
 		            Response.Cookies.Append("login", jsonResponse.Login);
                     Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
-                    return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+                    return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
 	            }
-	            return NotFound();
+	            return Redirect(AppSettings.WebAppUrl); 
             }
             catch
             {
@@ -76,7 +76,7 @@ namespace PrivateOfficeWebApp.Pages
         public async Task<IActionResult> OnPostLoginStudent()
         {
 
-	        return RedirectToPage("./Courses/IndexCourse");
+            return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse");
         }
     }
 }

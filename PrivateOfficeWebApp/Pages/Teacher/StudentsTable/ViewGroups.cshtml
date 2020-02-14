@@ -1,5 +1,5 @@
 ﻿@page
-@model PrivateOfficeWebApp.ViewGroupsModel
+@model PrivateOfficeWebApp.Pages.Teacher.StudentsTable.ViewGroupsModel
 @{
     ViewData["Title"] = "ViewGroups";
 }
@@ -13,11 +13,11 @@
         </form> -->
     </nav>
 </div>
-<button type="button" class="btn  mt-2" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addGroups">
+<button type="button" class="btn  mt-2 mb-2" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addGroups">
     Добавить группу
 </button>
 <form method="get">
-    <table class="table">
+    <table class="table table-bordered" style=" background-color:white; width:95%">
         <thead>
             <tr>
                 <th>
@@ -26,6 +26,8 @@
                 <th>
                     Количество студентов
                 </th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -42,14 +44,14 @@
                         </td>
                         <td>
                             <form method="post">
-                                <a asp-page="/StudentsTable/StudentsTable" asp-route-id="@item.IdGroup">Подробнее</a> |
-                                <a asp-page="/StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Редактировать</a>
+                                <a asp-page="../StudentsTable/StudentsTable" asp-route-id="@item.IdGroup">Подробнее</a> |
+                                <a asp-page="../StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Редактировать</a>
                             </form>
                         </td>
                         <td>
                             <form method="post">
                                 <input hidden="hidden" type="number" name="id" value="@item.IdGroup" />
-                                <input type="submit" value="Удалить" asp-page-handler="Delete" />
+                                <input type="submit" class="btn btn-outline-danger" value="Удалить" asp-page-handler="Delete" />
                             </form>
                         </td>
                     </tr>
@@ -58,7 +60,7 @@
         </tbody>
     </table>
 </form>
-<form action="" id="add_groups" method="post" onsubmit="checkStudent(this);return false;">
+<form action="" id="add_groups" method="post" class = "needs-validation" onsubmit="checkStudent(this);return false;" novalidate>
     <div class="modal fade" id="addGroups" tabindex="-1" role="dialog"
          aria-labelledby="addGroupsTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -70,13 +72,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <div class="alert alert-warning" role="alert" id="Alert">
-                        Введите название группы.
-                    </div>
                     <label for="name">Название группы</label>
-                    <input type="text" id="NameGroup" class="form-control" asp-for="Group.NameGroup" value=""/>
-
+                    <input type="text" id="NameGroup" class="form-control" asp-for="Group.NameGroup" value="" required />
+                    <div class="invalid-feedback">
+                        Пожалуйста введите название группы
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -85,4 +85,21 @@
             </div>
         </div>
     </div>
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </form>

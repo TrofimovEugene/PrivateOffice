@@ -26,7 +26,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		[BindProperty]
         public Course Course { get; set; }
         [BindProperty]
-		public List<Models.Classes> Classes { get; set; }
+		public List<PagesModels.Classes> Classes { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
 	        if (id == null)
@@ -38,7 +38,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
 			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/id=" + id);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
-	        Classes = JsonConvert.DeserializeObject<List<Models.Classes>>(jsonResponse);
+	        Classes = JsonConvert.DeserializeObject<List<PagesModels.Classes>>(jsonResponse);
 
 	        if (Course == null)
 		        return NotFound();
@@ -54,7 +54,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 	        await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Classes", httpContent);
             //return Redirect(jsonRequest);
-            return Redirect("https://localhost:44326/Teacher/Classes/ViewClasses?id=" + Class.IdCourse);
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/ViewClasses?id=" + Class.IdCourse);
         }
 
 		[JsonObject]
@@ -70,6 +70,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 			public TimeSpan StartTime { get; set; }
 			[JsonProperty("endTime")]
 			public TimeSpan EndTime { get; set; }
+			[JsonProperty("dateClasses")]
+			public DateTime DateClasses { get; set; }
 			[JsonProperty("daysWeek")]
 			public string DaysWeek { get; set; }
 			[JsonProperty("replayClasses")]
