@@ -37,9 +37,9 @@ namespace PrivateOfficeWebApp.Pages
 	            {
 		            Response.Cookies.Append("login", jsonResponse.Login);
                     Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
-                    return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+                    return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
 	            }
-	            return Redirect("https://localhost:44326"); 
+	            return Redirect(AppSettings.WebAppUrl); 
             }
             catch
             {
@@ -76,7 +76,7 @@ namespace PrivateOfficeWebApp.Pages
         public async Task<IActionResult> OnPostLoginStudent()
         {
 
-            return Redirect("https://localhost:44326/Student/StudentCourses/IndexStudentCourse");
+            return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse");
         }
     }
 }

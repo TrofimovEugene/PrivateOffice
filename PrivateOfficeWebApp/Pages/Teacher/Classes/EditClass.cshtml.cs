@@ -54,7 +54,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Classes/" + Class.IdClasses, httpContent);
 
-            return Redirect("https://localhost:44326/Teacher/Classes/ViewClasses?id=" + idCourse);
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/ViewClasses?id=" + idCourse);
 		}
     }
 }
