@@ -13,11 +13,11 @@
         </form> -->
     </nav>
 </div>
-<button type="button" class="btn  mt-2" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addGroups">
+<button type="button" class="btn  mt-2 mb-2" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addGroups">
     Добавить группу
 </button>
 <form method="get">
-    <table class="table">
+    <table class="table table-bordered" style=" background-color:white; width:95%">
         <thead>
             <tr>
                 <th>
@@ -26,6 +26,8 @@
                 <th>
                     Количество студентов
                 </th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -49,7 +51,7 @@
                         <td>
                             <form method="post">
                                 <input hidden="hidden" type="number" name="id" value="@item.IdGroup" />
-                                <input type="submit" class ="btn btn-outline-danger" value="Удалить" asp-page-handler="Delete" />
+                                <input type="submit" class="btn btn-outline-danger" value="Удалить" asp-page-handler="Delete" />
                             </form>
                         </td>
                     </tr>
