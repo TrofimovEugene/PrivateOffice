@@ -42,7 +42,6 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             var jsonRequest = JsonConvert.SerializeObject(reqGroup);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Group.IdGroup, httpContent);
-           
             return Redirect(AppSettings.WebAppUrl + "/StudentsTable/ViewGroups");
         }
     }
