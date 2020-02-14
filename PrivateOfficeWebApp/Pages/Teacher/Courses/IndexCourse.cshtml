@@ -3,7 +3,7 @@
 @* ReSharper disable MarkupTextTypo *@
 <div>
 	<nav class="navbar" style="background-color: #0866C6">
-		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+		<a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
 		<!-- <form class="form-inline">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
 		</form> -->
@@ -12,6 +12,7 @@
 <div class="container-fluid mt-3">
 	<div class="form-group">
 		<a type="button" class="btn btn-outline-primary" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
+	  <input type="button"  class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
 	</div>
 	<div class="row">
 		@if (Model.Courses != null)
@@ -29,33 +30,33 @@
 									</div>
 									<hr class="bg-black m-0 pb-3" />
 								</div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
-                                    <li class="list-group-item card-text p-1 ">@Html.DisplayFor(indexModel => item.Group.NameGroup)</li>
-                                    @if (item.Classes != null)
-                                    {
-                                        @foreach (var clas in item.Classes)
-                                        {
-                                            @if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
-                                            {
-                                                <ul class="list-group list-group-flush  mt-2">
-                                                    <li class="list-group-item card-text p-1 ">
-                                                        Ближайшее занятие:<br>@Html.DisplayFor(indexModel => clas.NameClasses)<br />
-                                                        @Html.DisplayFor(indexModel => clas.StartTime)-@Html.DisplayFor(indexModel => clas.EndTime)
-                                                    </li>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
+									<li class="list-group-item card-text p-1 ">@Html.DisplayFor(indexModel => item.Group.NameGroup)</li>
+									@if (item.Classes != null)
+									{
+										@foreach (var clas in item.Classes)
+										{
+											@if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
+											{
+												<ul class="list-group list-group-flush  mt-2">
+													<li class="list-group-item card-text p-1 ">
+														Ближайшее занятие:<br>@Html.DisplayFor(indexModel => clas.NameClasses)<br />
+														@Html.DisplayFor(indexModel => clas.StartTime)-@Html.DisplayFor(indexModel => clas.EndTime)
+													</li>
 
-                                                </ul>
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    <li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate.Date) по @Html.DisplayFor(indexModel => item.EndDate.Date)</li>
-                                    <!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
-                                </ul>
-							
+												</ul>
+												break;
+											}
+										}
+									}
+									<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate.Date) по @Html.DisplayFor(indexModel => item.EndDate.Date)</li>
+									<!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
+								</ul>
 
-										
-									
+
+
+
 								<a asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
 								<!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
 							</form>
@@ -122,7 +123,7 @@
 									</div>
 								</div>
 								<div class="form-time">
-									<label for="InputGroup">Количество часов</label> 
+									<label for="InputGroup">Количество часов</label>
 									<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime" required>
 									<div class="invalid-feedback">
 										Пожалуйста введите количество часов

@@ -5,7 +5,7 @@
 	<div>
 		<nav class="navbar" style="background-color: #0866C6">
 
-			<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+			<a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
 			<!-- <form class="form-inline">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
 		</form> -->
@@ -13,157 +13,158 @@
     </div>
 
 
-<div class=" mt-3  ml-1 mb-1">
-	<button type="button" class="btn mb-2" style="background: #0866C6" data-toggle="modal"
-			data-target="#addNewClass">
-		<span style="color: white">Добавить новое занятие</span>
-	</button>
-    <form method="post" class="needs-validation" novalidate>
-        <div class="modal fade" id="addNewClass" tabindex="-1" role="dialog" aria-labelledby="addNewClass"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Добавление нового занятия</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+    <div class=" mt-3  ml-1 mb-1">
+        <button type="button" class="btn mb-2" style="background: #0866C6" data-toggle="modal"
+                data-target="#addNewClass">
+            <span style="color: white">Добавить новое занятие</span>
+        </button>
+        <input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
+        <form method="post" class="needs-validation" novalidate>
+            <div class="modal fade" id="addNewClass" tabindex="-1" role="dialog" aria-labelledby="addNewClass"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Добавление нового занятия</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
 
-                    <div class="modal-body pb-0">
-                        <div class="form-group">
-                            <label hidden="hidden">ID курса</label>
-                            <input type="text" class="form-control" id="InputTheme" asp-for="Class.IdCourse" value="@Model.Course.IdCourse" hidden="hidden" />
-                            <label>Тема занятия</label>
-                            <input type="text" class="form-control" id="InputTheme" asp-for="Class.NameClasses" required>
-                            <div class="invalid-feedback">
-                                Пожалуйста введите тему занятия
+                        <div class="modal-body pb-0">
+                            <div class="form-group">
+                                <label hidden="hidden">ID курса</label>
+                                <input type="text" class="form-control" id="InputTheme" asp-for="Class.IdCourse" value="@Model.Course.IdCourse" hidden="hidden" />
+                                <label>Тема занятия</label>
+                                <input type="text" class="form-control" id="InputTheme" asp-for="Class.NameClasses" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите тему занятия
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputGroup">Тип занятия</label>
+                                <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses" required>
+                                    <option value="1" tabindex="1">Лабораторная работа</option>
+                                    <option value="2" tabindex="2">Лекция</option>
+                                    <option value="3" tabindex="3">Семинар</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите тип занятия
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputGroup">День недели</label>
+                                <select class="custom-select" id="InputDay" asp-for="Class.DaysWeek" required>
+                                    <option value="Понедельник" tabindex="1">Понедельник</option>
+                                    <option value="Вторник" tabindex="2">Вторник</option>
+                                    <option value="Среда" tabindex="3">Среда</option>
+                                    <option value="Четверг" tabindex="1">Четверг</option>
+                                    <option value="Пятница" tabindex="2">Пятница</option>
+                                    <option value="Суббота" tabindex="3">Суббота</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите день недели
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputDate">Дата занятия</label>
+                                <input type="date" class="form-control" id="InputDate" asp-for="Class.DateClasses" />
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите дату занятия
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputGroup">Время начала</label>
+                                <input type="text" class="form-control" id="InputTimeBegin" asp-for="Class.StartTime" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите время начала
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputGroup">Время окончания</label>
+                                <input type="text" class="form-control" id="InputTimeEnd" asp-for="Class.EndTime" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите время окончания
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputGroup">Периодичность</label>
+                                <input type="text" class="form-control" id="InputСountClass" asp-for="Class.ReplayClasses" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите периодичность
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Тип занятия</label>
-                            <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses" required>
-                                <option value="1" tabindex="1">Лабораторная работа</option>
-                                <option value="2" tabindex="2">Лекция</option>
-                                <option value="3" tabindex="3">Семинар</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Пожалуйста введите тип занятия
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                            <!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
+                            <input type="submit" class="btn btn-primary" value="Добавить" />
                         </div>
-	                    <div class="form-group">
-		                    <label for="InputGroup">День недели</label>
-		                    <select class="custom-select" id="InputDay" asp-for="Class.DaysWeek" required>
-			                    <option value="Понедельник" tabindex="1">Понедельник</option>
-			                    <option value="Вторник" tabindex="2">Вторник</option>
-			                    <option value="Среда" tabindex="3">Среда</option>
-			                    <option value="Четверг" tabindex="1">Четверг</option>
-			                    <option value="Пятница" tabindex="2">Пятница</option>
-			                    <option value="Суббота" tabindex="3">Суббота</option>
-		                    </select>
-		                    <div class="invalid-feedback">
-			                    Пожалуйста введите день недели
-		                    </div>
-	                    </div>
-                        <div class="form-group">
-                            <label for="InputDate">Дата занятия</label>
-                            <input type="date" class="form-control" id="InputDate" asp-for="Class.DateClasses" />
-                            <div class="invalid-feedback">
-	                            Пожалуйста введите дату занятия
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Время начала</label>
-                            <input type="text" class="form-control" id="InputTimeBegin" asp-for="Class.StartTime" required>
-                            <div class="invalid-feedback">
-                                Пожалуйста введите время начала
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Время окончания</label>
-                            <input type="text" class="form-control" id="InputTimeEnd" asp-for="Class.EndTime" required>
-                            <div class="invalid-feedback">
-                                Пожалуйста введите время окончания
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Периодичность</label>
-                            <input type="text" class="form-control" id="InputСountClass" asp-for="Class.ReplayClasses" required>
-                            <div class="invalid-feedback">
-                                Пожалуйста введите периодичность
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                        <!--по нажатию этой кнопки происходит добавление в таблицу и бд-->
-                        <input type="submit" class="btn btn-primary" value="Добавить" />
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <input hidden="hidden" type="number" id="idgroup" name="idgroup" value="@Model.Course.IdGroup" />
-        </div>
-    </form>
-    <form method="get">
-        <!--TODO:Добавить информацию о курсе(без редактирования)-->
-        <table  class="table table-bordered" style=" background-color:white; width:95%">
-            <thead>
-                <tr>
-                    <th>
-                        Название занятия(тема)
-                    </th>
-	                <th>
-                        Дата занятия
-	                </th>
-                    <th>
-                        День недели
-                    </th>
-                    <th>
-                        Время начала
-                    </th>
-                    <th>
-                        Время окончания
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Classes != null)
-                {
-                    @foreach (var item in Model.Classes)
+            <div class="form-group">
+                <input hidden="hidden" type="number" id="idgroup" name="idgroup" value="@Model.Course.IdGroup" />
+            </div>
+        </form>
+        <form method="get">
+            <!--TODO:Добавить информацию о курсе(без редактирования)-->
+            <table class="table table-bordered" style=" background-color:white; width:95%">
+                <thead>
+                    <tr>
+                        <th>
+                            Название занятия(тема)
+                        </th>
+                        <th>
+                            Дата занятия
+                        </th>
+                        <th>
+                            День недели
+                        </th>
+                        <th>
+                            Время начала
+                        </th>
+                        <th>
+                            Время окончания
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Classes != null)
                     {
-                        <tr>
-	                        <td>
-		                        @Html.DisplayFor(modelItem => item.NameClasses)
-	                        </td>
-	                        <td>
-                                @Html.DisplayFor(modelItem => item.DateClasses)
-	                        </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DaysWeek)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StartTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EndTime)
-                            </td>
-                            <td>
-                                <form method="post" class="d-flex justify-content-between">
-                                    <a asp-page="../Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a>
-                                    <!--<input hidden="hidden" type="number" name="id" />
-                       Реализовать это:  <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />-->
-                                </form>
-                            </td>
-                        </tr>
+                        @foreach (var item in Model.Classes)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NameClasses)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateClasses)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DaysWeek)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndTime)
+                                </td>
+                                <td>
+                                    <form method="post" class="d-flex justify-content-between">
+                                        <a asp-page="../Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a>
+                                        <!--<input hidden="hidden" type="number" name="id" />
+                                    Реализовать это:  <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />-->
+                                    </form>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
-    </form>
-</div>
+                </tbody>
+            </table>
+        </form>
+    </div>
 <script>
             (function () {
                 'use strict';

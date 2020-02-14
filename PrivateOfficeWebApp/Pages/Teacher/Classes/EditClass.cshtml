@@ -1,29 +1,29 @@
 ﻿@page
 @model PrivateOfficeWebApp.Pages.Teacher.Classes.EditClassModel
 @{
-	ViewData["Title"] = "EditClass";
+    ViewData["Title"] = "EditClass";
 }
 @* ReSharper disable MarkupTextTypo *@
 <div>
-	<nav class="navbar" style="background-color: #0866C6">
-		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-	</nav>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+    </nav>
 </div>
 <div class="row">
-	<form method="get">
+    <form method="get">
         <div class="modal-body">
-	        <div class="form-class">
-		        <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
-	        </div>
-	        <div class="form-class">
+            <div class="form-class">
+                <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
+            </div>
+            <div class="form-class">
                 <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
-	        </div>
-	        <div class="form-nameCourse">
-		        <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
-	        </div>
-	        <div class="form-DateClass">
+            </div>
+            <div class="form-nameCourse">
+                <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
+            </div>
+            <div class="form-DateClass">
                 <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
-	        </div>
+            </div>
             <div class="form-startTime">
                 <label>Время начала: @Html.DisplayFor(model => model.Class.StartTime)</label>
             </div>
@@ -38,13 +38,13 @@
             </div>
             <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Class.IdCourse">Просмотреть все занятия</a>
         </div>
-	</form>
+    </form>
 </div>
 
 <button type="button" class="btn btn-primary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClass">
-	Редактировать
+    Редактировать
 </button>
-
+<input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
 <div class="modal fade" id="editClass" tabindex="-1" role="dialog"
      aria-labelledby="editClassTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -73,18 +73,18 @@
                         <input asp-for="Class.NameClasses" type="text" class="form-control"
                                id="InputUniveristy">
                     </div>
-	                <div class="form-typeClass mb-1">
-		                <label for="InputGroup">Тип занятия</label>
-		                <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
-			                <option value="1" tabindex="1">Лабораторная работа</option>
-			                <option value="2" tabindex="2">Лекция</option>
-			                <option value="3" tabindex="3">Семинар</option>
-		                </select>
-	                </div>
-	                <div class="form-DateClass">
-		                <label>Дата занятия</label>
-                        <input asp-for="Class.DateClasses" type="date" class="form-control" id="InputDateClass"/>
-	                </div>
+                    <div class="form-typeClass mb-1">
+                        <label for="InputGroup">Тип занятия</label>
+                        <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
+                            <option value="1" tabindex="1">Лабораторная работа</option>
+                            <option value="2" tabindex="2">Лекция</option>
+                            <option value="3" tabindex="3">Семинар</option>
+                        </select>
+                    </div>
+                    <div class="form-DateClass">
+                        <label>Дата занятия</label>
+                        <input asp-for="Class.DateClasses" type="date" class="form-control" id="InputDateClass" />
+                    </div>
                     <div class="form-dayWeek mb-1">
                         <label for="InputUniveristy">День недели</label>
                         <input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy" required>
