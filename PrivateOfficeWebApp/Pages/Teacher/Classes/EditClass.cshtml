@@ -40,17 +40,17 @@
 </button>
 
 <div class="modal fade" id="editClass" tabindex="-1" role="dialog"
-	 aria-labelledby="editClassTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="editClassTitle">Редактирование</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-                <form method="post">
+     aria-labelledby="editClassTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editClassTitle">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="needs-validation" novalidate>
                     <div class="form-group">
                         <input hidden="hidden" type="number" id="idCourse" name="idCourse" value="@Model.Class.IdCourse" />
                     </div>
@@ -65,31 +65,49 @@
                     <div class="form-university pt-0 mb-1">
                         <label for="InputUniveristy">Тема занятия</label>
                         <input asp-for="Class.NameClasses" type="text" class="form-control"
-                               id="InputUniveristy">
+                               id="InputUniveristy" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите тему занятия
+                        </div>
                     </div>
                     <div class="form-typeClass mb-1">
                         <label for="InputGroup">Тип занятия</label>
-                        <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses">
+                        <select class="custom-select" id="TypeClass" name="TypeClass" asp-for="Class.IdTypeClasses" required>
                             <option value="1" tabindex="1">Лабораторная работа</option>
                             <option value="2" tabindex="2">Лекция</option>
                             <option value="3" tabindex="3">Семинар</option>
                         </select>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите тип занятия
+                        </div>
                     </div>
                     <div class="form-dayWeek mb-1">
                         <label for="InputUniveristy">День недели</label>
-                        <input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy">
+                        <input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите день недели
+                        </div>
                     </div>
                     <div class="form-nameCourse mb-1">
                         <label for="InputGroup">Время начала</label>
-                        <input asp-for="Class.StartTime" type="time" class="form-control" id="InputNameCourse">
+                        <input asp-for="Class.StartTime" type="time" class="form-control" id="InputNameCourse" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите время начала
+                        </div>
                     </div>
                     <div class="form-group mb-1">
                         <label for="InputGroup">Время окончания</label>
-                        <input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup">
+                        <input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите время окончания
+                        </div>
                     </div>
                     <div class="form-time mb-4">
                         <label for="InputGroup">Периодичность</label>
-                        <input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime">
+                        <input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите переодичность
+                        </div>
                     </div>
                     <div class="modal-footer m-0 p-0 pt-2">
                         <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
@@ -98,7 +116,24 @@
 
                     </div>
                 </form>
-			</div>
+            </div>
         </div>
-	</div>
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </div>
