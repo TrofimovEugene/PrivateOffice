@@ -26,6 +26,19 @@ namespace PrivateOfficeWebApp.Controllers
             return await _context.Student.ToListAsync();
         }
 
+        [HttpGet("GetStudentFromGroup&id={id}")]
+        public async Task<ICollection<Student>> GetStudentFromGroup(int id)
+        {
+	        var students = await _context.Student.ToListAsync();
+            List<Student> resultList = new List<Student>();
+            foreach (var student in students)
+	        {
+		        if (student.IdGroup == id)
+					resultList.Add(student);
+	        }
+	        return resultList;
+        }
+
         // GET: api/Students/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
