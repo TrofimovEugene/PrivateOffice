@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
+using PrivateOfficeWebApp.PagesModels;
 
-namespace PrivateOfficeWebApp
+namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 {
     public class ViewGroupsModel : PageModel
     {
@@ -39,7 +39,7 @@ namespace PrivateOfficeWebApp
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Groups", httpContent);
             //return Redirect(jsonRequest);
-             return Redirect("https://localhost:44326/StudentsTable/ViewGroups");
+             return Redirect("./ViewGroups");
         }
 
         public async Task<IActionResult> OnPostDelete(int id)

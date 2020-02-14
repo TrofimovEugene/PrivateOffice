@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
+using PrivateOfficeWebApp.PagesModels;
 
-namespace PrivateOfficeWebApp
+namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 {
     public class EditGroupModel : PageModel
     {
         private readonly HttpClient _httpClient;
         public EditGroupModel()
         {
-            var clientHandler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-            };
-            _httpClient = new HttpClient(clientHandler);
+	        var clientHandler = new HttpClientHandler
+	        {
+		        ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+	        };
+	        _httpClient = new HttpClient(clientHandler);
         }
    
         [BindProperty]
@@ -44,9 +41,8 @@ namespace PrivateOfficeWebApp
             };
             var jsonRequest = JsonConvert.SerializeObject(reqGroup);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PutAsync("https://localhost:44316/api/Groups/" + Group.IdGroup, httpContent);
-           
-            return Redirect("https://localhost:44326/StudentsTable/ViewGroups");
+            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Group.IdGroup, httpContent);
+            return Redirect(AppSettings.WebAppUrl + "/StudentsTable/ViewGroups");
         }
     }
 }

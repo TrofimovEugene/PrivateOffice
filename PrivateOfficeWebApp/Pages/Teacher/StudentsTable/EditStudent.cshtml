@@ -1,12 +1,12 @@
 ﻿@page
-@model PrivateOfficeWebApp.EditStudentModel
+@model PrivateOfficeWebApp.Pages.Teacher.StudentsTable.EditStudentModel
 @{
     ViewData["Title"] = "EditStudent";
 }
 
     <div>
         <nav class="navbar" style="background-color: #0866C6">
-            <a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+            <a class="navbar-brand" style="color: white">АРМ Преподавателя</a> 
         </nav>
     </div>
     <div class="container mt-5" style="border: solid   #0866C6 1.5px">
@@ -23,7 +23,7 @@
                         <label>Группа: @Html.DisplayFor(model => model.Student.Group.NameGroup)</label>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="button" class="edit btn btn-outline-primary"  style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editStudent" aria-label="Edit">
+                        <button type="button" class="edit btn btn-outline-primary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editStudent" aria-label="Edit">
                             Редактировать
                         </button>
                     </div>
@@ -38,7 +38,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="post">
+                        <form method="post" class="needs-validation" novalidate>
                             <div class="madal-body p-2 m-2">
                                 <div class="form-id">
                                     <label hidden="hidden" for="InputIdStudent">Id студента</label>
@@ -46,15 +46,21 @@
                                 </div>
                                 <div class="form-firstName mb-2">
                                     <label for="InputFirstName">Имя</label>
-                                    <input asp-for="Student.FirstName" type="text" class="form-control" id="InputFirstName">
+                                    <input asp-for="Student.FirstName" type="text" class="form-control" id="InputFirstName" required>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста введите имя студента
+                                    </div>
                                 </div>
                                 <div class="form-secondName mb-2">
                                     <label for="InputSecondName">Фамилия</label>
-                                    <input asp-for="Student.SecondName" type="text" class="form-control" id="InputSecondName">
+                                    <input asp-for="Student.SecondName" type="text" class="form-control" id="InputSecondName" required>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста введите фамилию студента
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="InputGroup">Группа</label>
-                                    <select name="idgroup" class="form-control">
+                                    <select name="idgroup" class="form-control" required>
                                         @if (Model.Groups != null)
                                         {
                                             @foreach (var group in Model.Groups)
@@ -63,12 +69,15 @@
                                             }
                                         }
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Пожалуйста введите группу
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                                 <!-- -->
-                                <input type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" value="Принять" asp-page-handler="EditStudent"/>
+                                <input type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" value="Принять" asp-page-handler="EditStudent" />
                             </div>
 
                         </form>
@@ -76,5 +85,22 @@
                 </div>
             </div>
         </div>
+        <script>
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
     </div>
 
