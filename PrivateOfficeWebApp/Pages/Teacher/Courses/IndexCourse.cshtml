@@ -29,33 +29,33 @@
 									</div>
 									<hr class="bg-black m-0 pb-3" />
 								</div>
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
-									<li class="list-group-item card-text p-1 ">@Html.DisplayFor(indexModel => item.Group.NameGroup)</li>
-									<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate.Date) по @Html.DisplayFor(indexModel => item.EndDate.Date)</li>
-									<!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
-								</ul>
-								<div class="card-group">
-									<div class="d-flex bd-highlight">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
+                                    <li class="list-group-item card-text p-1 ">@Html.DisplayFor(indexModel => item.Group.NameGroup)</li>
+                                    @if (item.Classes != null)
+                                    {
+                                        @foreach (var clas in item.Classes)
+                                        {
+                                            @if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
+                                            {
+                                                <ul class="list-group list-group-flush  mt-2">
+                                                    <li class="list-group-item card-text p-1 ">
+                                                        Ближайшее занятие:<br>@Html.DisplayFor(indexModel => clas.NameClasses)<br />
+                                                        @Html.DisplayFor(indexModel => clas.StartTime)-@Html.DisplayFor(indexModel => clas.EndTime)
+                                                    </li>
 
-										@if (item.Classes != null)
-										{
-											@foreach (var clas in item.Classes)
-											{
-												@if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
-												{
-													<ul class="list-group-item card-group">
-														<li>Ближайшее занятие:</li>
-														<li>@Html.DisplayFor(indexModel => clas.NameClasses)</li>
-														<li>Начало @Html.DisplayFor(indexModel => clas.StartTime)</li>
-														<li>Окончание @Html.DisplayFor(indexModel => clas.EndTime)</li>
-													</ul>
-													break;
-												}
-											}
-										}
-									</div>
-								</div>
+                                                </ul>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    <li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate.Date) по @Html.DisplayFor(indexModel => item.EndDate.Date)</li>
+                                    <!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
+                                </ul>
+							
+
+										
+									
 								<a asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
 								<!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
 							</form>
