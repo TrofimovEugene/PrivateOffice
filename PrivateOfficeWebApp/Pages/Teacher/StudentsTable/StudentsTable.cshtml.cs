@@ -22,12 +22,12 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			_httpClient = new HttpClient(clientHandler);
 		}
 		[BindProperty]
-		public List<Student> Students { get; set; }
+		public List<PagesModels.Student> Students { get; set; }
 		public async Task<IActionResult> OnGet(int id)
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students");
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentFromGroup&id=" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
-			Students = JsonConvert.DeserializeObject<List<Student>>(jsonResponse);
+			Students = JsonConvert.DeserializeObject<List<PagesModels.Student>>(jsonResponse);
 
 			foreach (var student in Students)
 			{
@@ -54,7 +54,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students", httpContent);
 
-			return RedirectToPage("./StudentsTable");
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}
 
 		[JsonObject]

@@ -13,11 +13,11 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
         private readonly HttpClient _httpClient;
         public EditGroupModel()
         {
-            var clientHandler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-            };
-            _httpClient = new HttpClient(clientHandler);
+	        var clientHandler = new HttpClientHandler
+	        {
+		        ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+	        };
+	        _httpClient = new HttpClient(clientHandler);
         }
    
         [BindProperty]
@@ -42,7 +42,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             var jsonRequest = JsonConvert.SerializeObject(reqGroup);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Group.IdGroup, httpContent);
-            return Redirect("./ViewGroups");
+            return Redirect(AppSettings.WebAppUrl + "/StudentsTable/ViewGroups");
         }
     }
 }

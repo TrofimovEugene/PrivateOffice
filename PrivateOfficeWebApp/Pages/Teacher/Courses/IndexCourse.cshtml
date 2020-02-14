@@ -27,41 +27,41 @@
 										<h4 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameUniversity)</h4>
 
 									</div>
-									<hr class="bg-black m-0 pb-3"/>
+									<hr class="bg-black m-0 pb-3" />
 								</div>
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
-									<li class="list-group-item card-text p-1 ">@Html.DisplayFor(indexModel => item.Group.NameGroup)</li>
-									<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate.Date) по @Html.DisplayFor(indexModel => item.EndDate.Date)</li>
-									<!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
-								</ul>
-								<div class="card-group">
-									<div class="d-flex bd-highlight">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item card-text p-1 "> <h6>@Html.DisplayFor(indexModel => item.NameCourse)</h6></li>
+                                    <li class="list-group-item card-text p-1 ">@Html.DisplayFor(indexModel => item.Group.NameGroup)</li>
+                                    @if (item.Classes != null)
+                                    {
+                                        @foreach (var clas in item.Classes)
+                                        {
+                                            @if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
+                                            {
+                                                <ul class="list-group list-group-flush  mt-2">
+                                                    <li class="list-group-item card-text p-1 ">
+                                                        Ближайшее занятие:<br>@Html.DisplayFor(indexModel => clas.NameClasses)<br />
+                                                        @Html.DisplayFor(indexModel => clas.StartTime)-@Html.DisplayFor(indexModel => clas.EndTime)
+                                                    </li>
 
-										@if (item.Classes != null)
-										{
-											@foreach (var clas in item.Classes)
-											{
-												@if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
-												{
-													<ul class="list-group-item card-group">
-														<li>Ближайшее занятие:</li>
-														<li>@Html.DisplayFor(indexModel => clas.NameClasses)</li>
-														<li>Начало @Html.DisplayFor(indexModel => clas.StartTime)</li>
-														<li>Окончание @Html.DisplayFor(indexModel => clas.EndTime)</li>
-													</ul>
-													break;
-												}
-											}
-										}
-									</div>
-								</div>
+                                                </ul>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    <li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate.Date) по @Html.DisplayFor(indexModel => item.EndDate.Date)</li>
+                                    <!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
+                                </ul>
+							
+
+										
+									
 								<a asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
 								<!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
 							</form>
 							<form method="post">
-								<input hidden="hidden" type="number" name="id" value="@item.IdCourse"/>
-								<input type="submit" class =" btn btn-outline-primary" value="Удалить" asp-page-handler="Delete"/>
+								<input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
+								<input type="submit" class=" btn btn-outline-primary" value="Удалить" asp-page-handler="Delete" />
 							</form>
 						</div>
 					</div>
@@ -70,13 +70,13 @@
 		}
 		<div class="col-xl-3  col-md-4 col-sm-6  p-4">
 			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 360px;" data-toggle="modal"
-			        data-target="#exampleModalCenter">
+					data-target="#exampleModalCenter">
 				<i class="fas fa-plus" style="font-size: 4rem;"></i>
 			</button>
 			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-			     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
-					<form method="post">
+					<form class="needs-validation" method="post" novalidate>
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="exampleModalCenterTitle">Добавление нового курса</h5>
@@ -88,36 +88,51 @@
 
 								<div class="form-university">
 									<label for="InputUniveristy">Университет</label>
-									<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy">
+									<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите название университета
+									</div>
 								</div>
 
 								<div class="form-nameCourse">
 									<label for="InputGroup">Название курса</label>
-									<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse">
+									<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите название курса
+									</div>
 								</div>
 								<div class="form-group">
-									<label  for="InputGroup">Группа</label>
-									<select class =" form-control" name="idgroup">
+									<label for="InputGroup">Группа</label>
+									<select class=" form-control" name="idgroup" required>
 										@foreach (var group in Model.Groups)
 										{
 											<option value="@group.IdGroup">@Html.DisplayFor(item => group.NameGroup)</option>
 										}
 									</select>
+									<div class="invalid-feedback">
+										Пожалуйста введите группу
+									</div>
 								</div>
 								<div class="form-data">
 									<label for="InputCourse">Длительность курса</label>
-									<input asp-for="Course.StartDate" type="date" class="form-control mb-2" id="InputStartCourse">
-									<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse">
+									<input asp-for="Course.StartDate" type="date" class="form-control mb-2" id="InputStartCourse" required>
+									<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите дату
+									</div>
 								</div>
 								<div class="form-time">
-									<label for="InputGroup">Количество часов</label>
-									<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime">
+									<label for="InputGroup">Количество часов</label> 
+									<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите количество часов
+									</div>
 								</div>
 
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-								<input type="submit" class="btn btn-primary" value="Добавить курс" asp-page-handler="CreateCourse"/>
+								<input type="submit" class="btn btn-primary" value="Добавить курс" asp-page-handler="CreateCourse" />
 							</div>
 						</div>
 					</form>
@@ -125,4 +140,21 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		(function () {
+			'use strict';
+			window.addEventListener('load', function () {
+				var forms = document.getElementsByClassName('needs-validation');
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+					}, false);
+				});
+			}, false);
+		})();
+	</script>
 </div>

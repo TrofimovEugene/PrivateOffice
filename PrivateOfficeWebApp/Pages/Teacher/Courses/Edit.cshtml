@@ -12,7 +12,7 @@
         </form> -->
         </nav>
     </div>
-	<div class="container mt-5" style="border: solid   #0866C6 1.5px">
+	<div class="container mt-5" style="border: solid   #0866C6 1.5px; background-color:white">
 		<div class="row d-flex justify-content-start align-items-center">
 			<div class="modal-body">
 				<div class="form-university mb-1">
@@ -27,10 +27,10 @@
 				<div class="form-students mb-1">
 					<label>Количество студентов в группе: 20</label>
 				</div>
-				<div class="form-time mb-1">
+				<div class="form-time mb-1" >
 					<label>Ближайшее занятие: </label>
 				</div>
-				<div class="form-time mb-1">
+				<div class="form-time mb-1" >
 					<label>Количество часов: @Html.DisplayFor(model => model.Course.CountTime)</label>
 				</div>
 				
@@ -54,7 +54,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<form method="post">
+						<form method="post" class="needs-validation" novalidate>
 							<div class="modal-body pt-0">
 								<div class="form-id">
 									<label hidden="hidden" for="InputIdCourse">Id курса</label>
@@ -62,15 +62,21 @@
 								</div>
 								<div class="form-university">
 									<label for="InputUniveristy">Университет</label>
-									<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy">
+									<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите название университета
+									</div>
 								</div>
 								<div class="form-nameCourse">
 									<label for="InputGroup">Название курса</label>
-									<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse">
+									<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите название курса
+									</div>
 								</div>
 								<div class="form-group">
 									<label for="InputGroup">Группа</label>
-									<select class="custom-select" name="idgroup">
+									<select class="custom-select" name="idgroup" required>
 										@if (Model.Groups != null)
 										{
 											@foreach (var group in Model.Groups)
@@ -79,15 +85,24 @@
 											}
 										}
 									</select>
+									<div class="invalid-feedback">
+										Пожалуйста введите название группы
+									</div>
 								</div>
 								<div class="form-time">
 									<label for="InputGroup">Количество часов</label>
-									<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime">
+									<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите количество часов
+									</div>
 								</div>
 								<div class="form-data">
 									<label for="InputCourse">Длительность курса</label>
-									<input asp-for="Course.StartDate" type="date" class="form-control mb-3" id="InputStartCourse">
-									<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse">
+									<input asp-for="Course.StartDate" type="date" class="form-control mb-3" id="InputStartCourse" required>
+									<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse" required>
+									<div class="invalid-feedback">
+										Пожалуйста введите длительность курса
+									</div>
 								</div>
 							</div>
 							<div class="modal-footer">
