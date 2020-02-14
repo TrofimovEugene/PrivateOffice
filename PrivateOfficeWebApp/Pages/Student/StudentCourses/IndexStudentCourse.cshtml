@@ -1,0 +1,40 @@
+﻿@page
+@model IndexStudentModel
+@* ReSharper disable MarkupTextTypo *@
+<div>
+	<nav class="navbar" style="background-color: #0866C6">
+		<a class="navbar-brand" style="color: white">Студент</a>
+	</nav>
+</div>
+<p class="text-center">Занятия на сегодня</p>
+
+<div class=" mt-1">
+    <table id="tab1" class="table table-bordered" style=" background-color:white; width:190vh">
+        <thead>
+            <tr>
+                <th scope="col">Предмет</th>
+                <th scope="col">Время начала</th>
+                <th scope="col">Кабинет</th>
+                <th scope="col">Тема</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Classes != null)
+            {
+                @foreach (var classes in Model.Classes)
+                {
+            <tr>
+          
+                <td>@Html.DisplayFor(item => classes.Course.NameCourse)</td>
+                <td>@Html.DisplayFor(item => classes.StartTime)</td>
+                <td>@Html.DisplayFor(item => classes.EndTime)</td>
+                <td>@Html.DisplayFor(item => classes.NameClasses)</td>
+                <td><input type="checkbox"></td>
+                
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
