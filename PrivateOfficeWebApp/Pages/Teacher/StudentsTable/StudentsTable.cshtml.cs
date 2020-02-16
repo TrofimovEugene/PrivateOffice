@@ -80,8 +80,10 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             public bool Visited { get; set; }
             [JsonProperty("idStudent")]
             public int IdStudent { get; set; }
+            [JsonProperty("confirmVisit")]
+            public bool ConfirmVisit { get; set; }
 
-        }
+		}
 		public async Task<IActionResult> OnPostDelete(int id, int idgroup)
 		{
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);

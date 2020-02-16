@@ -61,8 +61,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 				EndDate = Course.EndDate,
 				CountTime = Course.CountTime,
 				IdGroup = idgroup,
-				IdTeacher = 1
-			};
+				IdTeacher = Course.IdTeacher
+            };
 			var jsonRequest = JsonConvert.SerializeObject(reqCourse);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Courses/" + Course.IdCourse, httpContent);
