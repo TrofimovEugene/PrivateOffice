@@ -57,6 +57,16 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}
 
+        public async Task<IActionResult> OnPostUpdateStudent(int idgroup)
+        {
+            Student.IdGroup = idgroup;
+
+            var jsonRequest = JsonConvert.SerializeObject(Student);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Students/" + Student.IdStudent, httpContent);
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
+        }
+
 		[JsonObject]
 		public class ResponseStudent
 		{
@@ -66,11 +76,16 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			public string FirstName { get; set; }
 			[JsonProperty("secondName")]
 			public string SecondName { get; set; }
-		}
-		public async Task<IActionResult> OnPostDelete(int id)
+            [JsonProperty("visited")]
+            public bool Visited { get; set; }
+            [JsonProperty("idStudent")]
+            public int IdStudent { get; set; }
+
+        }
+		public async Task<IActionResult> OnPostDelete(int id, int idgroup)
 		{
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
-			return RedirectToPage("./StudentsTable");
+			return Redirect("https://localhost:44326/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}
 	}
 }
