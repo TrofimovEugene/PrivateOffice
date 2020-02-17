@@ -127,21 +127,21 @@
             </div>
         </div>
     </div>
-    <script>
-        var checkboxes = document.getElementsByClassName('custom-checkbox');
-        var addButton = document.getElementById('add');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].onchange = function () {
-                var checked = false;
-                for (var i = 0; i < checkboxes.length; i++) {
-                    if (checkboxes[i].checked) {
-                        checked = true;
-                        break;
-                    }
-                }
-                addButton.style.display = checked ? 'block' : 'none';
-            }
-        }</script>
+    <!-- <script>
+         var checkboxes = document.getElementsByClassName('custom-checkbox');
+         var addButton = document.getElementById('add');
+         for (var i = 0; i < checkboxes.length; i++) {
+             checkboxes[i].onchange = function () {
+                 var checked = false;
+                 for (var i = 0; i < checkboxes.length; i++) {
+                     if (checkboxes[i].checked) {
+                         checked = true;
+                         break;
+                     }
+                 }
+                 addButton.style.display = checked ? 'block' : 'none';
+             }
+         }</script>-->
     <script>
         (function () {
             'use strict';
@@ -160,45 +160,5 @@
         })();
     </script>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script>
-   
-        function myFunction(idgroup, idstudent, visited) {
-            var visit = visited.checked;
-            var student = {'idgroup': idgroup,
-                'visited': visit,
-                'idStudent' : idstudent};
-            $.ajax({
-                    type: "POST",
-                url: '/?handler=UpdateStudent',
-                    headers: {
-                        RequestVerificationToken: 
-                            $('input:hidden[name="__RequestVerificationToken"]').val()
-                        },
-                        data: {student},
-                    success: function () {
-                       alert("юхуу");
-                    },
-                    error: function (jqXHR, exception) {
-                        var msg = '';
-                        if (jqXHR.status === 0) {
-                            alert('Not connect.\n Verify Network.');
-                        } else if (jqXHR.status == 404) {
-                            alert('Requested page not found. [404]');
-                        } else if (jqXHR.status == 500) {
-                            alert('Internal Server Error [500].');
-                        } else if (exception === 'parsererror') {
-                            alert('Requested JSON parse failed.');
-                        } else if (exception === 'timeout') {
-                            alert('Time out error.');
-                        } else if (exception === 'abort') {
-                            alert('Ajax request aborted.');
-                        } else {
-                            alert('Uncaught Error.\n' + jqXHR.responseText);
-                        }
-                    },
-                });
-        };
-</script>
 
         

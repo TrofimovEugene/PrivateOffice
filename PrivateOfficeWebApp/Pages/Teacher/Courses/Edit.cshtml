@@ -26,11 +26,13 @@
 				<label>Группа: @Html.DisplayFor(model => model.Course.Group.NameGroup)</label>
 			</div>
 			<div class="form-students mb-1">
-				<label>Количество студентов в группе: 20</label>
+				<label>Количество студентов в группе: @Html.DisplayFor(model => model.Course.Group.CountStudents)</label>
 			</div>
-			<div class="form-time mb-1">
-				<label>Ближайшее занятие: </label>
-			</div>
+			<!--<div class="form-time mb-1">
+		<label>
+			Ближайшее занятие:
+        </label>
+	</div>-->
 			<div class="form-time mb-1">
 				<label>Количество часов: @Html.DisplayFor(model => model.Course.CountTime)</label>
 			</div>
