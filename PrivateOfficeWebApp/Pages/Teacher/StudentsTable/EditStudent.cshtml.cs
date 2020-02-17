@@ -66,7 +66,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Students/" + Student.IdStudent, httpContent);
 
-			return RedirectToPage("./StudentsTable");
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}
 	}
 }

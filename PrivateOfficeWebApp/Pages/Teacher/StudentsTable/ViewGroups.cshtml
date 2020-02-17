@@ -36,26 +36,26 @@
             {
                 @foreach (var item in Model.Groups)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NameGroup)
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            <form method="post">
-                                <a asp-page="../StudentsTable/StudentsTable" asp-route-id="@item.IdGroup">Подробнее</a> |
-                                <a asp-page="../StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Редактировать</a>
-                            </form>
-                        </td>
-                        <td>
-                            <form method="post">
-                                <input hidden="hidden" type="number" name="id" value="@item.IdGroup" />
-                                <input type="submit" class="btn btn-outline-danger" value="Удалить" asp-page-handler="Delete" />
-                            </form>
-                        </td>
-                    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountStudents)
+                </td>
+                <td>
+                    <form method="post">
+                        <a asp-page="../StudentsTable/StudentsTable" asp-route-id="@item.IdGroup">Подробнее</a> |
+                        <a asp-page="../StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Редактировать</a>
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input hidden="hidden" type="number" name="id" value="@item.IdGroup" />
+                        <input type="submit" class="btn btn-outline-danger" value="Удалить" asp-page-handler="Delete" />
+                    </form>
+                </td>
+            </tr>
                 }
             }
         </tbody>

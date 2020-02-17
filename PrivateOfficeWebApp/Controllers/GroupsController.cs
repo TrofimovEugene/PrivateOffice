@@ -39,6 +39,19 @@ namespace PrivateOfficeWebApp.Controllers
 
             return @group;
         }
+        // GET: api/Groups/5
+        [HttpGet("GetCountStudentInGroup&id={id}")]
+        public async Task<int> GetCountStudentInGroup(int id)
+        {
+            var students = await _context.Student.ToListAsync();
+            var countStudent = 0;
+            foreach (var student in students)
+            {
+                if (student.IdGroup == id)
+                    countStudent++;
+            }
+            return countStudent;
+        }
 
         // PUT: api/Groups/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
