@@ -41,39 +41,40 @@
             {
                 @foreach (var student in Model.Students)
                 {
-            <tr>
-                <td>@Html.DisplayFor(item => student.FirstName)</td>
-                <td>@Html.DisplayFor(item => student.SecondName)</td>
-                <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
-                <td>
-                    <form method="post" asp-page-handler="UpdateStudent">
-                        <div class="form-group">
-                            <input hidden="hidden" type="number" asp-for="Student.IdStudent" value="@student.IdStudent" />
-                            <input hidden="hidden" type="text" asp-for="Student.FirstName" value="@student.FirstName" />
-                            <input hidden="hidden" type="text" asp-for="Student.SecondName" value="@student.SecondName" />
-                            <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
-                            <input class="custom-checkbox" checked="@student.Visited" asp-for="Student.Visited" onchange="this.form.submit();">
-                        </div>
-                    </form>
-                </td>
-            <td>
-            <div class="form-group">
-                <input type="checkbox" checked="@student.ConfirmVisit" disabled>
-            </div>
-            </td>
-                <td>
-                    <form method="post" class="d-flex justify-content-between">
-                        <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
-                        <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
-                        <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
-                        <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
-                    </form>
-                </td>
-            </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(item => student.FirstName)</td>
+                        <td>@Html.DisplayFor(item => student.SecondName)</td>
+                        <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
+                        <td>
+                            <form method="post" asp-page-handler="UpdateStudent">
+                                <div class="form-group">
+                                    <input hidden="hidden" type="number" asp-for="Student.IdStudent" value="@student.IdStudent" />
+                                    <input hidden="hidden" type="text" asp-for="Student.FirstName" value="@student.FirstName" />
+                                    <input hidden="hidden" type="text" asp-for="Student.SecondName" value="@student.SecondName" />
+                                    <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
+                                    <input class="custom-checkbox" checked="@student.Visited" asp-for="Student.Visited" onchange="this.form.submit();">
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="checkbox" checked="@student.ConfirmVisit" disabled>
+                            </div>
+                        </td>
+                        <td>
+                            <form method="post" class="d-flex justify-content-between">
+                                <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
+                                <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
+                                <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
+                                <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
+                            </form>
+                        </td>
+                    </tr>
                 }
             }
         </tbody>
     </table>
+    <input type="submit" class="btn btn-outline-primary" value="Подтвердить присутствие" id="add" style="display:none">
     <!--
     <form method="post">
         <input type="submit" class="btn btn-success  mt-2" value="Принять" asp-page-handler="UpdateStudent" />
@@ -126,6 +127,21 @@
             </div>
         </div>
     </div>
+    <script>
+        var checkboxes = document.getElementsByClassName('custom-checkbox');
+        var addButton = document.getElementById('add');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].onchange = function () {
+                var checked = false;
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        checked = true;
+                        break;
+                    }
+                }
+                addButton.style.display = checked ? 'block' : 'none';
+            }
+        }</script>
     <script>
         (function () {
             'use strict';
