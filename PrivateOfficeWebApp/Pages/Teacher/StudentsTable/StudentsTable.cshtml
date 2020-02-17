@@ -1,7 +1,10 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.ApiExplorer
 @model PrivateOfficeWebApp.Pages.Teacher.StudentsTable.StudentsTableModel
+
 @{
     ViewData["Title"] = "StudentsTable";
+
 }
 
 <div>
@@ -17,7 +20,7 @@
 
 <br />
 <p class="text-left">Введите дату текущего занятия:</p>
-<input type="date" class="form-control" id="InputDate" / style="width:10%">
+<input type="date" class="form-control" id="InputDate" style="width:10%">
 <div class=" mt-4">
     <table id="tab1" class="table table-bordered" style=" background-color:white; width:95%">
 
@@ -27,10 +30,10 @@
                 <th scope="col">Фамилия</th>
                 <th scope="col">Группа</th>
                 <!--  <th scope="col">Отметка студента о текущей посещаемости</th> -->
-                <th scope="col">Присутствие от студента</th>
                 <th scope="col">Присутствие от преподавателя</th>
+                <th scope="col">Присутствие от студента</th>
                 <th scope="col"></th>
-          
+
             </tr>
         </thead>
         <tbody>
@@ -38,134 +41,148 @@
             {
                 @foreach (var student in Model.Students)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(item => student.FirstName)</td>
-                        <td>@Html.DisplayFor(item => student.SecondName)</td>
-                        <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
-                        <form method="post">
-                            <td>
-                                <div class="form-id">
-                                    <label hidden="hidden" for="InputIdStudent">Id студента</label>
-                                    <input hidden="hidden" asp-for="Student.IdStudent" type="text" value="@student.IdStudent" class="form-control" id="InputIdStudent">
-                                </div>
-                                <div class="form-id">
-                                    <label hidden="hidden" for="InputIdStudent">Фамилия студента</label>
-                                    <input hidden="hidden" asp-for="Student.FirstName" type="text" value="@student.FirstName" class="form-control" id="InputIdStudent">
-                                </div>
-                                <div class="form-id">
-                                    <label hidden="hidden" for="InputIdStudent">Имя студента</label>
-                                    <input hidden="hidden" asp-for="Student.SecondName" type="text" value="@student.SecondName" class="form-control" id="InputIdStudent">
-                                </div>
-                                <div class="form-group">
-                                    <!--<select class="custom-select" id="InputDay" asp-for="Student.Visited" required>
-            @if (@student.Visited == false)
-            {
-                <option value="False" tabindex="1" hidden>Отсутствовал</option>
-            }
-            else
-            {
-                <option value="True" tabindex="1" hidden>Присутствовал</option>
-            };
-            <option value="True" tabindex="2">Присутствовал </option>
-            <option value="False" tabindex="3">Отсутствовал</option>
-        </select>-->
-                                    <input type="checkbox" checked>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="checkbox" checked>
-                                </div>
-                            </td>
-
-                            
-        <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
-        <!--    <td>
-            <input type="submit" id="successBtn" value="Подтвердить" class="btn btn-outline-success" asp-page-handler="UpdateStudent" />
-
-        </td>-->
-        </form>
-        <td>
-            <form method="post" class="d-flex justify-content-between">
-                <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
-                <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
-                <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
-                <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
-            </form>
-        </td>
-        </tr>
-    }
-            }
-            </tbody>
-            </table>
-    <button type="button" class="btn btn-success  mt-2">
-    Принять
-</button>
+            <tr>
+                <td>@Html.DisplayFor(item => student.FirstName)</td>
+                <td>@Html.DisplayFor(item => student.SecondName)</td>
+                <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
+                <td>
+                    <form method="post" asp-page-handler="UpdateStudent">
+                        <div class="form-group">
+                            <input hidden="hidden" type="number" asp-for="Student.IdStudent" value="@student.IdStudent" />
+                            <input hidden="hidden" type="text" asp-for="Student.FirstName" value="@student.FirstName" />
+                            <input hidden="hidden" type="text" asp-for="Student.SecondName" value="@student.SecondName" />
+                            <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
+                            <input class="custom-checkbox" checked="@student.Visited" asp-for="Student.Visited" onchange="this.form.submit();">
+                        </div>
+                    </form>
+                </td>
+            <td>
+            <div class="form-group">
+                <input type="checkbox" checked="@student.ConfirmVisit" disabled>
             </div>
+            </td>
+                <td>
+                    <form method="post" class="d-flex justify-content-between">
+                        <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
+                        <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
+                        <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
+                        <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
+                    </form>
+                </td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <!--
+    <form method="post">
+        <input type="submit" class="btn btn-success  mt-2" value="Принять" asp-page-handler="UpdateStudent" />
+    </form>-->
+</div>
 
-            <form action="" id="add_students" method="post" class="needs-validation" onsubmit="checkStudent(this);return false;" novalidate>
-                <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
-                     aria-labelledby="addStudentTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addStudentTitle">Добавить студента</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div>
-                                    <label for="name">Имя</label>
-                                    <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" value="" required />
-                                    <div class="invalid-feedback">
-                                        Пожалуйста введите имя студента
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="name">Фамилия</label>
-                                    <input type="text" id="SurnameStudent" class="form-control mb-2" asp-for="Student.SecondName" required />
-                                    <div class="invalid-feedback">
-                                        Пожалуйста введите фамилию студента
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="group">Группа</label>
-                                    <select class="custom-select mb-1" name="idgroup" required>
-                                        @foreach (var group in Model.Groups)
-                                        {
-                                            <option value="@group.IdGroup">@Html.DisplayFor(item => group.NameGroup)</option>
-                                        }
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Пожалуйста введите группа
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                                <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateStudent" />
-                            </div>
+<form action="" id="add_students" method="post" class="needs-validation" onsubmit="checkStudent(this);return false;" novalidate>
+    <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
+         aria-labelledby="addStudentTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentTitle">Добавить студента</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label for="name">Имя</label>
+                        <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" value="" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите имя студента
+                        </div>
+                    </div>
+                    <div>
+                        <label for="name">Фамилия</label>
+                        <input type="text" id="SurnameStudent" class="form-control mb-2" asp-for="Student.SecondName" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите фамилию студента
+                        </div>
+                    </div>
+                    <div>
+                        <label for="group">Группа</label>
+                        <select class="custom-select mb-1" name="idgroup" required>
+                            @foreach (var group in Model.Groups)
+                            {
+                                <option value="@group.IdGroup">@Html.DisplayFor(item => group.NameGroup)</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите группа
                         </div>
                     </div>
                 </div>
-                <script>
-                    (function () {
-                        'use strict';
-                        window.addEventListener('load', function () {
-                            var forms = document.getElementsByClassName('needs-validation');
-                            var validation = Array.prototype.filter.call(forms, function (form) {
-                                form.addEventListener('submit', function (event) {
-                                    if (form.checkValidity() === false) {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                    }
-                                    form.classList.add('was-validated');
-                                }, false);
-                            });
-                        }, false);
-                    })();
-                </script>
-            </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateStudent" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+   
+        function myFunction(idgroup, idstudent, visited) {
+            var visit = visited.checked;
+            var student = {'idgroup': idgroup,
+                'visited': visit,
+                'idStudent' : idstudent};
+            $.ajax({
+                    type: "POST",
+                url: '/?handler=UpdateStudent',
+                    headers: {
+                        RequestVerificationToken: 
+                            $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        data: {student},
+                    success: function () {
+                       alert("юхуу");
+                    },
+                    error: function (jqXHR, exception) {
+                        var msg = '';
+                        if (jqXHR.status === 0) {
+                            alert('Not connect.\n Verify Network.');
+                        } else if (jqXHR.status == 404) {
+                            alert('Requested page not found. [404]');
+                        } else if (jqXHR.status == 500) {
+                            alert('Internal Server Error [500].');
+                        } else if (exception === 'parsererror') {
+                            alert('Requested JSON parse failed.');
+                        } else if (exception === 'timeout') {
+                            alert('Time out error.');
+                        } else if (exception === 'abort') {
+                            alert('Ajax request aborted.');
+                        } else {
+                            alert('Uncaught Error.\n' + jqXHR.responseText);
+                        }
+                    },
+                });
+        };
+</script>
 
-
+        
