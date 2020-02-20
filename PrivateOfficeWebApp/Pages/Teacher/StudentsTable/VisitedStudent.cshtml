@@ -1,0 +1,125 @@
+﻿@page
+@model PrivateOfficeWebApp.VisitedStudentModel
+@{
+    ViewData["Title"] = "VisitedStudent";
+}
+
+<div>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+    </nav>
+</div>
+<input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
+<br />
+<input value="@Model.Classes.NameClasses" type="text" class="form-control" id="InputFirstName" style="width:10%" required>
+<br />
+<input value="@Model.Classes.DateClasses" type="text" class="form-control" id="InputFirstName" style="width:10%" required>
+
+<div class=" mt-4">
+    <table id="tab1" class="table table-bordered" style=" background-color:white; width:95%">
+
+        <thead>
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Группа</th>
+                <!-- <th scope="col">Присутствие от студента</th>  onchange="this.form.submit()"-->
+                <th scope="col">Присутствие от преподавателя</th>
+                <th scope="col">Отметка студента о текущей посещаемости</th>
+                <th scope="col"></th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @if (Model.Students != null)
+            {
+                @foreach (var student in Model.Students)
+                {
+            <tr>
+                <td>@Html.DisplayFor(item => student.FirstName)</td>
+                <td>@Html.DisplayFor(item => student.SecondName)</td>
+                <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
+                <td>
+                    <form method="post" asp-page-handler="UpdateStudent">
+                        <div class="form-group">
+                            <input hidden="hidden" type="number" name="idClasses" value="@Model.Classes.IdClasses" />
+                            <input hidden="hidden" type="number" name="idStudent" value="@student.IdStudent" />
+
+
+                            @if (@Model.VisitedStudents.Count != 0)
+                            {
+                                @foreach (var visit in Model.VisitedStudents)
+                                {
+                                    @if (visit.IdStudent == student.IdStudent)
+                                    {
+                                        @if (visit.Visited == false)
+                                        {
+                                            <input class="custom-checkbox" asp-for="VisitedStudent.Visited" name="visited" onchange="this.form.submit();">
+                                        }
+                                        else
+                                        {
+                                            <input class="custom-checkbox" asp-for="VisitedStudent.Visited" checked name="visited" onchange="this.form.submit();">
+                                        }
+                <td>
+                    <div class="form-group">
+                        @if (visit.ConfirmVisited == false)
+                        {
+                            <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited"  disabled>
+                        }
+                        else
+                        {
+                            <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" checked disabled>
+                        }
+                    </div>
+                </td>
+                        }
+                                }
+                                @if (Model.VisitedStudents.Find(x => x.IdStudent.Equals(student.IdStudent)) == null)
+                                {
+                                    <input class="custom-checkbox" asp-for="VisitedStudent.Visited" name="visited" onchange="this.form.submit();" />
+                                    <td>
+                                        <div class="form-group">
+                                            <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" disabled>
+                                        </div>
+                                    </td>
+                                }
+
+                            }@if (@Model.VisitedStudents.Count == 0)
+                            {
+
+                                <input class="custom-checkbox" asp-for="VisitedStudent.Visited" name="visited" onchange="this.form.submit();" />
+                                <td>
+                                    <div class="form-group">
+                                        <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" disabled>
+                                    </div>
+                                </td>
+                            }
+
+
+</div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+</div>
+
+            <!-- <script>
+                 var checkboxes = document.getElementsByClassName('custom-checkbox');
+                 var addButton = document.getElementById('add');
+                 for (var i = 0; i < checkboxes.length; i++) {
+                     checkboxes[i].onchange = function () {
+                         var checked = false;
+                         for (var i = 0; i < checkboxes.length; i++) {
+                             if (checkboxes[i].checked) {
+                                 checked = true;
+                                 break;
+                             }
+                         }
+                         addButton.style.display = checked ? 'block' : 'none';
+                     }
+                 }</script>-->

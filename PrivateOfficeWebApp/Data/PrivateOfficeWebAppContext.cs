@@ -26,6 +26,7 @@ namespace PrivateOfficeWebApp.Data
         public DbSet<Student> Student { get; set; }
 
         public DbSet<Report> Report { get; set; }
+        public DbSet<VisitedStudent> VisitedStudents { get; set; }
 
         public DbSet<ControlMeasures> ControlMeasures { get; set; }
 
@@ -137,6 +138,14 @@ namespace PrivateOfficeWebApp.Data
                 .HasMany(task => task.Task)
                 .WithOne(ticket => ticket.Ticket)
                 .HasForeignKey(task => task.IdTicket);
+            modelBuilder.Entity<Student>()
+                .HasMany(visitedStudent => visitedStudent.VisitedStudents)
+                .WithOne(student => student.Student)
+                .HasForeignKey(visitedStudents => visitedStudents.IdStudent);
+            modelBuilder.Entity<Classes>()
+                .HasMany(visitedStudent => visitedStudent.VisitedStudents)
+                .WithOne(classes => classes.Classes)
+                .HasForeignKey(visitedStudent => visitedStudent.IdClasses);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -135,30 +135,37 @@
                     {
                         @foreach (var item in Model.Classes)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NameClasses)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DateClasses)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DaysWeek)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StartTime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.EndTime)
-                                </td>
-                                <td>
-                                    <form method="post" class="d-flex justify-content-between">
-                                        <a asp-page="../Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a>
-                                        <!--<input hidden="hidden" type="number" name="id" />
-                                    Реализовать это:  <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />-->
-                                    </form>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameClasses)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateClasses)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DaysWeek)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            <form method="post" class="d-flex justify-content-between">
+                                <a asp-page="../Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a>
+                                <!--<input hidden="hidden" type="number" name="id" />
+            Реализовать это:  <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />-->
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" class="d-flex justify-content-between">
+                                <a asp-page="../StudentsTable/VisitedStudent" asp-route-id="@item.IdClasses" >Посещение студентов</a>
+                                <!--<input hidden="hidden" type="number" name="id" />
+                                Реализовать это:  <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />-->
+                            </form>
+                        </td>
+                    </tr>
                         }
                     }
                 </tbody>

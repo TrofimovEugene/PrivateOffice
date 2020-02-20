@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,39 +36,34 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 				jsonResponse = await response.Content.ReadAsStringAsync();
 				var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
 				student.Group = group;
+
 			}
 
 			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
+
 			return Page();
 		}
-		[BindProperty]
+
+        [BindProperty]
 		public ResponseStudent Student { get; set; }
 		[BindProperty]
 		public List<Group> Groups { get; set; }
-		public async Task<IActionResult> OnPostCreateStudent(int idgroup)
-		{
-			Student.IdGroup = idgroup;
-			var jsonRequest = JsonConvert.SerializeObject(Student);
+
+        public async Task<IActionResult> OnPostCreateStudent(int idgroup)
+        {
+            Student.IdGroup = idgroup;
+            var jsonRequest = JsonConvert.SerializeObject(Student);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students", httpContent);
 
-			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
-		}
-
-        public async Task<IActionResult> OnPostUpdateStudent(int idgroup)
-        {
-            Student.IdGroup = idgroup;
-
-            var jsonRequest = JsonConvert.SerializeObject(Student);
-            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Students/" + Student.IdStudent, httpContent);
             return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
         }
 
-		[JsonObject]
+
+		   [JsonObject]
 		public class ResponseStudent
 		{
 			[JsonProperty("idGroup")]
@@ -76,14 +72,16 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			public string FirstName { get; set; }
 			[JsonProperty("secondName")]
 			public string SecondName { get; set; }
-            [JsonProperty("visited")]
-            public bool Visited { get; set; }
+
             [JsonProperty("idStudent")]
             public int IdStudent { get; set; }
-            [JsonProperty("confirmVisit")]
-            public bool ConfirmVisit { get; set; }
 
-		}
+            [JsonProperty("login")]
+            public string Login { get; set; }
+            [JsonProperty("password")]
+            public string Password { get; set; }
+
+        }
 		public async Task<IActionResult> OnPostDelete(int id, int idgroup)
 		{
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);

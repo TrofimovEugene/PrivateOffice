@@ -30,6 +30,7 @@ namespace PrivateOfficeWebApp.Models
         public virtual ICollection<Report> Report { get; set; }
 
         public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
+        public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
 
     }
 }
