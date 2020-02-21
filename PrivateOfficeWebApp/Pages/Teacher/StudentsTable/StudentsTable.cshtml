@@ -45,10 +45,8 @@
                                 <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => student.Group.NameGroup)</td>
                                 <td style="border: solid   #0866C6 1px; background-color:white">
                                     <form method="post" class="d-flex justify-content-between">
-                                        <!--<a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>-->
-                                        <button type="button" class="edit btn btn-outline-primary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editStudent" aria-label="Edit">
-                                            Редактировать
-                                        </button>
+                                        <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
+                                    
                                         <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
                                         <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
                                         <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
@@ -61,75 +59,8 @@
             </table>
             <input type="submit" class="btn btn-outline-primary" value="Подтвердить присутствие" id="add" style="display:none">
         </div>
-        <div class="modal fade" id="editStudent" tabindex="-1" role="dialog" aria-labelledby="editStudentTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editStudentTitle">Редактирование</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form method="post" class="needs-validation" novalidate>
-                        <div class="madal-body p-2 m-2">
-                            <div class="form-id">
-                                <label hidden="hidden" for="InputIdStudent">Id студента</label>
-                                <input hidden="hidden" asp-for="Student.IdStudent" type="text" class="form-control" id="InputIdStudent">
-                            </div>
-                            <div class="form-firstName mb-2">
-                                <label for="InputFirstName">Имя</label>
-                                <input asp-for="Student.FirstName" type="text" class="form-control" id="InputFirstName" required>
-                                <div class="invalid-feedback">
-                                    Пожалуйста введите имя студента
-                                </div>
-                            </div>
-                            <div class="form-secondName mb-2">
-                                <label for="InputSecondName">Фамилия</label>
-                                <input asp-for="Student.SecondName" type="text" class="form-control" id="InputSecondName" required>
-                                <div class="invalid-feedback">
-                                    Пожалуйста введите фамилию студента
-                                </div>
-                            </div>
-                            <div class="form-login mb-2">
-                                <label for="InputLogin">Логин</label>
-                                <input type="text" class="form-control" id="InputLogin" required>
-                                <div class="invalid-feedback">
-                                    Пожалуйста введите логин
-                                </div>
-                            </div>
-                            <div class="form-password mb-2">
-                                <label for="InputPassword">Пароль</label>
-                                <input type="text" class="form-control" id="InputPassword" required>
-                                <div class="invalid-feedback">
-                                    Пожалуйста введите пароль
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="InputGroup">Группа</label>
-                                <select name="idgroup" class="form-control" required>
-                                    @if (Model.Groups != null)
-                                    {
-                                        @foreach (var group in Model.Groups)
-                                        {
-                                            <option value="@group.IdGroup">@Html.DisplayFor(model => group.NameGroup)</option>
-                                        }
-                                    }
-                                </select>
-                                <div class="invalid-feedback">
-                                    Пожалуйста введите группу
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <!-- -->
-                            <input type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" value="Принять" asp-page-handler="EditStudent" />
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
+     
+               
         <form action="" id="add_students" method="post" class="needs-validation" onsubmit="checkStudent(this);return false;" novalidate>
             <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
                  aria-labelledby="addStudentTitle" aria-hidden="true">

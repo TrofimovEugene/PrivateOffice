@@ -17,113 +17,130 @@
 		<input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
 	</div>
 	</div>
-	<div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
-		<div class="row d-flex justify-content-start align-items-center">
-			<div class="modal-body">
-				<div class="form-university mb-1">
-					<label>Университет: @Html.DisplayFor(model => model.Course.NameUniversity)</label>
-				</div>
-				<div class="form-nameCourse mb-1">
-					<label>Название курса: @Html.DisplayFor(model => model.Course.NameCourse)</label>
-				</div>
-				<div class="form-group mb-1">
-					<label>Группа: @Html.DisplayFor(model => model.Course.Group.NameGroup)</label>
-				</div>
-				<div class="form-students mb-1">
-					<label>Количество студентов в группе: @Html.DisplayFor(model => model.Course.Group.CountStudents)</label>
-				</div>
-				<!--<div class="form-time mb-1">
-		<label>
-			Ближайшее занятие:
-		</label>
-	</div>-->
-				<div class="form-time mb-1">
-					<label>Количество часов: @Html.DisplayFor(model => model.Course.CountTime)</label>
-				</div>
-
-				<div class="form-data mb-2">
-					<label>Длительность курса: </label>
-					<label>с @Html.DisplayFor( model => model.Course.StartDate)</label>
-					<label>до @Html.DisplayFor(model => model.Course.EndDate)</label>
-				</div>
-
-				
-
-				<div class="d-flex justify-content-between">
-					<a type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse">Просмотреть все занятия</a>
-					<button type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editCourse">Редактировать</button>
-					<a type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/StudentsTable" asp-route-id="@Model.Course.IdGroup">Открыть таблицу студентов</a>
-				</div>
+<div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
+	<div class="row d-flex justify-content-start align-items-center">
+		<div class="modal-body">
+			<div class="form-university mb-1">
+				<label><strong>Университет:</strong> @Html.DisplayFor(model => model.Course.NameUniversity)</label>
 			</div>
-			<div class="modal fade" id="editCourse" tabindex="-1" role="dialog" aria-labelledby="editCourseTitle" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="editCourseTitle">Редактирование курса</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<form method="post" class="needs-validation" novalidate>
-							<div class="modal-body pt-0">
-								<div class="form-id">
-									<label hidden="hidden" for="InputIdCourse">Id курса</label>
-									<input hidden="hidden" asp-for="Course.IdCourse" type="text" class="form-control" id="InputIdCourse">
-								</div>
-								<div class="form-university">
-									<label for="InputUniveristy">Университет</label>
-									<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy" required>
-									<div class="invalid-feedback">
-										Пожалуйста введите название университета
-									</div>
-								</div>
-								<div class="form-nameCourse">
-									<label for="InputGroup">Название курса</label>
-									<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse" required>
-									<div class="invalid-feedback">
-										Пожалуйста введите название курса
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="InputGroup">Группа</label>
-									<select class="custom-select" name="idgroup" required>
-										@if (Model.Groups != null)
-										{
-											@foreach (var group in Model.Groups)
-											{
-												<option value="@group.IdGroup">@Html.DisplayFor(model => group.NameGroup)</option>
-											}
-										}
-									</select>
-									<div class="invalid-feedback">
-										Пожалуйста введите название группы
-									</div>
-								</div>
-								<div class="form-time">
-									<label for="InputGroup">Количество часов</label>
-									<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime" required>
-									<div class="invalid-feedback">
-										Пожалуйста введите количество часов
-									</div>
-								</div>
-								<div class="form-data">
-									<label for="InputCourse">Длительность курса</label>
-									<input asp-for="Course.StartDate" type="date" class="form-control mb-3" id="InputStartCourse" required>
-									<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse" required>
-									<div class="invalid-feedback">
-										Пожалуйста введите длительность курса
-									</div>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<input hidden="hidden" asp-for="Course.IdTeacher" type="text" class="form-control" id="InputIdCourse">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-								<!-- -->
-								<input type="submit" class="btn btn-primary" value="Принять" />
-							</div>
-						</form>
+			<div class="form-nameCourse mb-1">
+				<label><strong>Название курса:</strong> @Html.DisplayFor(model => model.Course.NameCourse)</label>
+			</div>
+			<div class="form-group mb-1">
+				<label><strong>Группа:</strong> @Html.DisplayFor(model => model.Course.Group.NameGroup)</label>
+			</div>
+			<div class="form-students mb-1">
+				<label><strong>Количество студентов в группе:</strong> @Html.DisplayFor(model => model.Course.Group.CountStudents)</label>
+			</div>
+			<!--<div class="form-time mb-1">
+				<label>
+					Ближайшее занятие:
+				</label>
+			</div>-->
+			<div class="form-time mb-1">
+				<label><strong>Количество часов:</strong> @Html.DisplayFor(model => model.Course.CountTime)</label>
+			</div>
+
+			<div class="form-data mb-2">
+				<label><strong>Длительность курса:</strong> </label>
+				<label>с @Html.DisplayFor(model => model.Course.StartDate)</label>
+				<label>до @Html.DisplayFor(model => model.Course.EndDate)</label>
+			</div>
+
+
+
+			<div class="d-flex justify-content-between">
+				<a type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse">Просмотреть все занятия</a>
+				<button type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editCourse">Редактировать</button>
+				<a type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/StudentsTable" asp-route-id="@Model.Course.IdGroup">Открыть таблицу студентов</a>
+			</div>
+		</div>
+		<div class="modal fade" id="editCourse" tabindex="-1" role="dialog" aria-labelledby="editCourseTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="editCourseTitle">Редактирование курса</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
+					<form method="post" class="needs-validation" novalidate>
+						<div class="modal-body pt-0">
+							<div class="form-id">
+								<label hidden="hidden" for="InputIdCourse">Id курса</label>
+								<input hidden="hidden" asp-for="Course.IdCourse" type="text" class="form-control" id="InputIdCourse">
+							</div>
+							<div class="form-university">
+								<label for="InputUniveristy">Университет</label>
+								<input asp-for="Course.NameUniversity" type="text" class="form-control" id="InputUniveristy" required>
+								<div class="invalid-feedback">
+									Пожалуйста введите название университета
+								</div>
+							</div>
+							<div class="form-nameCourse">
+								<label for="InputGroup">Название курса</label>
+								<input asp-for="Course.NameCourse" type="text" class="form-control" id="InputNameCourse" required>
+								<div class="invalid-feedback">
+									Пожалуйста введите название курса
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="InputGroup">Группа</label>
+								<select class="custom-select" name="idgroup" required>
+									@if (Model.Groups != null)
+									{
+										@foreach (var group in Model.Groups)
+										{
+											<option value="@group.IdGroup">@Html.DisplayFor(model => group.NameGroup)</option>
+										}
+									}
+								</select>
+								<div class="invalid-feedback">
+									Пожалуйста введите название группы
+								</div>
+							</div>
+							<div class="form-time">
+								<label for="InputGroup">Количество часов</label>
+								<input asp-for="Course.CountTime" type="text" class="form-control" id="InputTime" required>
+								<div class="invalid-feedback">
+									Пожалуйста введите количество часов
+								</div>
+							</div>
+							<div class="form-data">
+								<label for="InputCourse">Длительность курса</label>
+								<input asp-for="Course.StartDate" type="date" class="form-control mb-3" id="InputStartCourse" required>
+								<input asp-for="Course.EndDate" type="date" class="form-control" id="InputEndCourse" required>
+								<div class="invalid-feedback">
+									Пожалуйста введите длительность курса
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input hidden="hidden" asp-for="Course.IdTeacher" type="text" class="form-control" id="InputIdCourse">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+							<!-- -->
+							<input type="submit" class="btn btn-primary" value="Принять" />
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		(function () {
+			'use strict';
+			window.addEventListener('load', function () {
+				var forms = document.getElementsByClassName('needs-validation');
+				var validation = Array.prototype.filter.call(forms, function (form) {
+					form.addEventListener('submit', function (event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+					}, false);
+				});
+			}, false);
+		})();
+	</script>
+</div>
