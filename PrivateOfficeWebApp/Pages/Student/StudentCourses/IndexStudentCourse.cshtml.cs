@@ -37,11 +37,11 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Student = JsonConvert.DeserializeObject<Students>(jsonResponse);
 
-			 response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/GetClassesFromGroup&id=" + Student.IdGroup);
+			 response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/GetClassesFromGroup/id=" + Student.IdGroup);
 			 jsonResponse = await response.Content.ReadAsStringAsync();
 			Classes = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
 
-			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent&id=" + idStudent);
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent/id=" + idStudent);
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
 
@@ -64,7 +64,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 			var value = true;
 
 			HttpResponseMessage response =
-				await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent&id=" + idStudent);
+				await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent/id=" + idStudent);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
 

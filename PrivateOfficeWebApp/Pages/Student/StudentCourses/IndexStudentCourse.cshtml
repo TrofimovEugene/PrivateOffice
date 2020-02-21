@@ -59,11 +59,14 @@
                                       
                                         }
 
-                                    }@if (@Model.VisitedStudents.Count == 0)
+                                    }
+                                    else { 
+                                    @if (@Model.VisitedStudents.Count == 0)
                                     {
 
                                         <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
                                   
+                                    }
                                     }
                                 </div>
                             </form>

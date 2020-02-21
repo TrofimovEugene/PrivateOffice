@@ -87,7 +87,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 		public async Task<IActionResult> OnPostDelete(int id, int idgroup)
 		{
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl +
-												  "/api/VisitedStudents/GetVisitedFromStudent&id=" + id);
+												  "/api/VisitedStudents/GetVisitedFromStudent/id=" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			VisitedStudents = JsonConvert.DeserializeObject<List<PagesModels.VisitedStudent>>(jsonResponse);
 			

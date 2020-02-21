@@ -46,7 +46,7 @@ namespace PrivateOfficeWebApp
             Students = JsonConvert.DeserializeObject<List<PagesModels.Student>>(jsonResponse);
 
             response = await _httpClient.GetAsync(AppSettings.DataBaseUrl +
-                                                  "/api/VisitedStudents/GetVisitedFromClasses&id=" + id);
+                                                  "/api/VisitedStudents/GetVisitedFromClasses/id=" + id);
             jsonResponse = await response.Content.ReadAsStringAsync();
             VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
 

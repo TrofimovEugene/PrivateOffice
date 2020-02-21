@@ -56,8 +56,8 @@ namespace PrivateOfficeWebApp.Controllers
         }
 
 
-        [HttpGet("GetStudentsClassesInVisited/id={id}")]
-        public async Task<bool> GetStudentsClassesInVisited(int id)
+        [HttpGet("GetVisitedFromStudent/id={id}")]
+        public async Task<List<VisitedStudent>> GetVisitedFromStudent(int id)
         {
             var visited = await _context.VisitedStudents.ToListAsync();
             List<VisitedStudent> resultList = new List<VisitedStudent>();
