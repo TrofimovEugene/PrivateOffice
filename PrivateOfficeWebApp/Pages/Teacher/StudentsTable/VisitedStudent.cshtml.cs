@@ -48,7 +48,7 @@ namespace PrivateOfficeWebApp
             response = await _httpClient.GetAsync(AppSettings.DataBaseUrl +
                                                   "/api/VisitedStudents/GetVisitedFromClasses&id=" + id);
             jsonResponse = await response.Content.ReadAsStringAsync();
-            VisitedStudents = JsonConvert.DeserializeObject<List<PagesModels.VisitedStudent>>(jsonResponse);
+            VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
 
             foreach (var student in Students)
             {
@@ -77,6 +77,7 @@ namespace PrivateOfficeWebApp
             VisitedStudent.IdStudent = idStudent;
             VisitedStudent.Visited = visited;
 
+
             if (VisitedStudents.Count == 0)
             {
                 var jsonRequest = JsonConvert.SerializeObject(VisitedStudent);
@@ -91,6 +92,7 @@ namespace PrivateOfficeWebApp
                     if (visit.IdStudent == idStudent)
                     {
                         VisitedStudent.IdVisitedStudent = visit.IdVisitedStudent;
+                        VisitedStudent.ConfirmVisited = visit.ConfirmVisited;
 
                         var jsonRequest = JsonConvert.SerializeObject(VisitedStudent);
                         HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");

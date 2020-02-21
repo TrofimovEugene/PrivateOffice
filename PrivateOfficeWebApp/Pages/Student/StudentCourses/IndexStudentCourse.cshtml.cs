@@ -28,6 +28,8 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 		public List<Classes> Classes { get; set; }
 		[BindProperty]
 		public Students Student { get; set; }
+		[BindProperty] public VisitedStudent VisitedStudent { get; set; }
+		[BindProperty] public List<VisitedStudent> VisitedStudents { get; set; }
 		public async Task<IActionResult> OnGet(int? idStudent)
 		{
 
@@ -39,7 +41,11 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 			 jsonResponse = await response.Content.ReadAsStringAsync();
 			Classes = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
 
-			if(Classes != null) { 
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent&id=" + idStudent);
+			jsonResponse = await response.Content.ReadAsStringAsync();
+			VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
+
+			if (Classes != null) { 
 				foreach (var classes in Classes)
 				{
 					response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + classes.IdCourse);
@@ -51,6 +57,60 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 			return Page();
 		}
+
+
+		public async Task<IActionResult> OnPostUpdateStudent(int idClasses, int idStudent, bool visited)
+		{
+			var value = true;
+
+			HttpResponseMessage response =
+				await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent&id=" + idStudent);
+			var jsonResponse = await response.Content.ReadAsStringAsync();
+			VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
+
+			VisitedStudent.IdClasses = idClasses;
+			VisitedStudent.IdStudent = idStudent;
+			VisitedStudent.ConfirmVisited = visited;
+
+			if (VisitedStudents.Count == 0)
+			{
+				var jsonRequest = JsonConvert.SerializeObject(VisitedStudent);
+				HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+				await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents", httpContent);
+
+			}
+			else
+			{
+				foreach (var visit in VisitedStudents)
+				{
+					if (visit.IdClasses == idClasses)
+					{
+						VisitedStudent.IdVisitedStudent = visit.IdVisitedStudent;
+
+						var jsonRequest = JsonConvert.SerializeObject(VisitedStudent);
+						HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+						await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/" + VisitedStudent.IdVisitedStudent,httpContent);
+
+						value = true;
+					}
+					else
+					{
+						value = false;
+					}
+				}
+			}
+
+			if (value == false)
+			{
+				var jsonRequest = JsonConvert.SerializeObject(VisitedStudent);
+				HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+				await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents", httpContent);
+
+			}
+
+			return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?idStudent=" + idStudent);
+		}
+
 		[JsonObject]
 		public class Students
 		{

@@ -2,9 +2,9 @@
 @model IndexStudentModel
 @* ReSharper disable MarkupTextTypo *@
 <div>
-	<nav class="navbar" style="background-color: #0866C6">
-		<a href="/Index" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
-	</nav>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a href="/Index" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
+    </nav>
 </div>
 <p class="text-center">Занятия на сегодня</p>
 
@@ -25,19 +25,54 @@
             {
                 @foreach (var classes in Model.Classes)
                 {
-            <tr>
+                    <tr>
 
-                <td>@Html.DisplayFor(item => classes.Course.NameCourse)</td>
-                <td>@Html.DisplayFor(item => classes.StartTime)</td>
-                <td>@Html.DisplayFor(item => classes.EndTime)</td>
-                <td>@Html.DisplayFor(item => classes.NameClasses)</td>
-                <td>@Html.DisplayFor(item => classes.Cabinet)</td>
-                <td><input type="checkbox"></td>
+                        <td>@Html.DisplayFor(item => classes.Course.NameCourse)</td>
+                        <td>@Html.DisplayFor(item => classes.StartTime)</td>
+                        <td>@Html.DisplayFor(item => classes.EndTime)</td>
+                        <td>@Html.DisplayFor(item => classes.NameClasses)</td>
+                        <td>@Html.DisplayFor(item => classes.Cabinet)</td>
+                        <td>
+                            <form method="post" asp-page-handler="UpdateStudent">
+                                <div class="form-group">
+                                    <input hidden="hidden" type="number" name="idClasses" value="@classes.IdClasses" />
+                                    <input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
 
-            </tr>
+                                    @if (@Model.VisitedStudents.Count != 0)
+                                    {
+                                        @foreach (var confirmVisit in Model.VisitedStudents)
+                                        {
+                                            @if (confirmVisit.IdClasses == classes.IdClasses)
+                                            {
+                                                @if (confirmVisit.ConfirmVisited == false)
+                                                {
+                                                    <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();">
+                                                }
+                                                else
+                                                {
+                                                    <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" checked name="visited" onchange="this.form.submit();">
+                                                }
+                                            }
+                                        } @if (Model.VisitedStudents.Find(x => x.IdClasses.Equals(classes.IdClasses)) == null)
+                                        {
+                                            <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
+                                      
+                                        }
+
+                                    }@if (@Model.VisitedStudents.Count == 0)
+                                    {
+
+                                        <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
+                                  
+                                    }
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
                 }
+
             }
-        </tbody>
-        <input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
-    </table>
-</div>
+            </tbody>
+            <input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
+            </table>
+            </div>
