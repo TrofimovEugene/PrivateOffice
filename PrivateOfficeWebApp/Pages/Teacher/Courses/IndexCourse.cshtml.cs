@@ -30,7 +30,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 		public List<Group> Groups { get; set; }
 		public async Task<IActionResult> OnGet(int? idTeacher)
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/WithTeacher&id=" + idTeacher);
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/WithTeacher/id=" + idTeacher);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<List<Course>>(jsonResponse);
 			

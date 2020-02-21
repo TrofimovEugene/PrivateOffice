@@ -26,7 +26,7 @@ namespace PrivateOfficeWebApp.Controllers
             return await _context.Student.ToListAsync();
         }
 
-        [HttpGet("GetStudentFromGroup&id={id}")]
+        [HttpGet("GetStudentFromGroup/id={id}")]
         public async Task<ICollection<Student>> GetStudentFromGroup(int id)
         {
 	        var students = await _context.Student.ToListAsync();
