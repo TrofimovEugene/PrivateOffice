@@ -13,7 +13,7 @@
 <br />
 <input value="@Model.Classes.NameClasses" type="text" class="form-control" id="InputFirstName" style="width:10%" required>
 <br />
-<input value="@Model.Classes.DateClasses" type="text" class="form-control" id="InputFirstName" style="width:10%" required>
+<input  type="text" value="@Model.Classes.DateClasses.ToShortDateString()" class="form-control" id="InputFirstName" style="width:10%" required>
 
 <div class=" mt-4">
     <table id="tab1" class="table table-bordered" style=" background-color:white; width:95%">
@@ -26,7 +26,7 @@
                 <!-- <th scope="col">Присутствие от студента</th>  onchange="this.form.submit()"-->
                 <th scope="col">Отметка студента о текущей посещаемости</th>
                 <th scope="col">Присутствие от преподавателя</th>
-                <th scope="col"></th>
+               
 
             </tr>
 
@@ -55,11 +55,11 @@
                                             {
                                                 @if (visit.ConfirmVisited == false)
                                                 {
-                                                    <input type="checkbox" disabled >
+                                                    <input type="checkbox" disabled>
                                                 }
                                                 else
                                                 {
-                                                    <input type="checkbox" checked disabled >
+                                                    <input type="checkbox" checked disabled>
                                                 }
                                     <td>
                                         <div class="form-group">
@@ -79,7 +79,7 @@
                                         @if (Model.VisitedStudents.Find(x => x.IdStudent.Equals(student.IdStudent)) == null)
                                         {
                                             <div class="form-group">
-                                                <input type="checkbox" disabled >
+                                                <input type="checkbox" disabled>
                                             </div>
 
                                             <td>
@@ -90,7 +90,7 @@
                                     }@if (@Model.VisitedStudents.Count == 0)
                                     {
                                         <div class="form-group">
-                                            <input type="checkbox" disabled >
+                                            <input type="checkbox" disabled>
                                         </div>
 
                                         <td>

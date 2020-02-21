@@ -86,6 +86,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 					if (visit.IdClasses == idClasses)
 					{
 						VisitedStudent.IdVisitedStudent = visit.IdVisitedStudent;
+						VisitedStudent.Visited = visit.Visited;
 
 						var jsonRequest = JsonConvert.SerializeObject(VisitedStudent);
 						HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");

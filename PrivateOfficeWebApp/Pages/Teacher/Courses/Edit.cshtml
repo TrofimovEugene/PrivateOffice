@@ -39,8 +39,8 @@
 
 			<div class="form-data mb-2">
 				<label>Длительность курса: </label>
-				<label>с @Html.DisplayFor(model => model.Course.StartDate)</label>
-				<label>до @Html.DisplayFor(model => model.Course.EndDate)</label>
+				<label>с @Model.Course.StartDate.ToShortDateString()</label>
+				<label>до @Model.Course.EndDate.ToShortDateString()</label>
 			</div>
             <div class="d-flex justify-content-between">
 

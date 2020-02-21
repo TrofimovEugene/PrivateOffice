@@ -31,8 +31,6 @@ namespace PrivateOfficeWebApp
         [BindProperty] public List<VisitedStudent> VisitedStudents { get; set; }
         public Classes Classes { get; set; }
 
-
-
         public async Task<IActionResult> OnGet(int id)
         {
 

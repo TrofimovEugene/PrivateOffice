@@ -152,7 +152,7 @@
                             @Html.DisplayFor(modelItem => item.NameClasses)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DateClasses)
+                            @item.DateClasses.ToShortDateString()
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.DaysWeek)

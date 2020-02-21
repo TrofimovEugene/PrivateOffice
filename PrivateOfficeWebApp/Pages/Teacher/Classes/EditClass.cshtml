@@ -15,14 +15,11 @@
             <div class="form-class">
                 <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
             </div>
-            <div class="form-class">
-                <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
-            </div>
             <div class="form-nameCourse">
                 <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
             </div>
             <div class="form-DateClass">
-                <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
+                <label>Дата занятия: @Model.Class.DateClasses.ToShortDateString()</label>
             </div>
             <div class="form-nameCabinet">
                 <label>Аудитория: @Html.DisplayFor(model => model.Class.Cabinet)</label>
