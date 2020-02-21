@@ -14,8 +14,10 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 	public class IndexStudentModel : PageModel
 	{
 		private readonly HttpClient _httpClient;
-		public IndexStudentModel()
+		private readonly ILogger<IndexModel> _logger;
+		public IndexStudentModel(ILogger<IndexModel> logger)
 		{
+			_logger = logger;
 			var clientHandler = new HttpClientHandler
 			{
 				ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
@@ -24,23 +26,52 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 		}
 		[BindProperty]
 		public List<Classes> Classes { get; set; }
-		public async Task<IActionResult> OnGet(int id)
+		[BindProperty]
+		public Students Student { get; set; }
+		public async Task<IActionResult> OnGet(int? idStudent)
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes");
+
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + idStudent);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
+			Student = JsonConvert.DeserializeObject<Students>(jsonResponse);
+
+			 response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/GetClassesFromGroup&id=" + Student.IdGroup);
+			 jsonResponse = await response.Content.ReadAsStringAsync();
 			Classes = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
 
-			foreach (var classes in Classes)
-			{
-				response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + classes.IdCourse);
-				jsonResponse = await response.Content.ReadAsStringAsync();
-				var course = JsonConvert.DeserializeObject<Course>(jsonResponse);
-				classes.Course = course;
+			if(Classes != null) { 
+				foreach (var classes in Classes)
+				{
+					response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + classes.IdCourse);
+					jsonResponse = await response.Content.ReadAsStringAsync();
+					var course = JsonConvert.DeserializeObject<Course>(jsonResponse);
+					classes.Course = course;
+				}
 			}
 
 			return Page();
 		}
-		
-		
+		[JsonObject]
+		public class Students
+		{
+			[JsonProperty("idGroup")]
+			public int IdGroup { get; set; }
+			[JsonProperty("firstName")]
+			public string FirstName { get; set; }
+			[JsonProperty("secondName")]
+			public string SecondName { get; set; }
+
+			[JsonProperty("idStudent")]
+			public int IdStudent { get; set; }
+
+			[JsonProperty("login")]
+			public string Login { get; set; }
+			[JsonProperty("password")]
+			public string Password { get; set; }
+
+
+		}
+
+
 	}
 }

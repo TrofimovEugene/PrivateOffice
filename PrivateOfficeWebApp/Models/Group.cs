@@ -9,7 +9,6 @@ namespace PrivateOfficeWebApp.Models
         public int IdGroup { get; set; }
 
         public string NameGroup { get; set; }
-        public int CountStudents { get; set; }
         public virtual ICollection<Course> Course { get; set; }
         public virtual ICollection<Classes> Classes { get; set; }
         public virtual ICollection<Student> Student { get; set; }

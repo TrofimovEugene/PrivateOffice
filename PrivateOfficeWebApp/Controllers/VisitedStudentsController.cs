@@ -59,36 +59,16 @@ namespace PrivateOfficeWebApp.Controllers
         [HttpGet("GetStudentsClassesInVisited/id={id}")]
         public async Task<bool> GetStudentsClassesInVisited(int id)
         {
-            var flag = false;
-            int? group = 0;
-        var classes = await _context.Classes.ToListAsync();
-        foreach (var clas in classes)
-        {
-            if (clas.IdClasses == id)
-                group = clas.IdGroup;
-        }
-       
-        var students = await _context.Student.ToListAsync();
-        List<Student> resultList = new List<Student>();
-        foreach (var student in students)
-        {
-            if (student.IdGroup == group)
-                resultList.Add(student);
-        }
-
-        var visiteds = await _context.VisitedStudents.ToListAsync();
-        foreach (var visit in visiteds)
-        {
-            foreach (var stud in resultList)
+            var visited = await _context.VisitedStudents.ToListAsync();
+            List<VisitedStudent> resultList = new List<VisitedStudent>();
+            foreach (var visit in visited)
             {
-                if (visit.IdStudent == stud.IdStudent && visit.IdClasses == id)
-                    flag = true;
+                if (visit.IdStudent == id)
+                    resultList.Add(visit);
             }
-          
+            return resultList;
         }
 
-            return flag;
-            }
 
         // PUT: api/VisitedStudents/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

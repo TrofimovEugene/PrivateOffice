@@ -24,6 +24,9 @@
             <div class="form-DateClass">
                 <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
             </div>
+            <div class="form-nameCabinet">
+                <label>Аудитория: @Html.DisplayFor(model => model.Class.Cabinet)</label>
+            </div>
             <div class="form-startTime">
                 <label>Время начала: @Html.DisplayFor(model => model.Class.StartTime)</label>
             </div>
@@ -84,6 +87,10 @@
                     <div class="form-DateClass">
                         <label>Дата занятия</label>
                         <input asp-for="Class.DateClasses" type="date" class="form-control" id="InputDateClass" />
+                    </div>
+                    <div class="form-cabinet">
+                        <label>Аудитория</label>
+                        <input asp-for="Class.Cabinet" type="text" class="form-control" id="InputCabinet" />
                     </div>
                     <div class="form-dayWeek mb-1">
                         <label for="InputUniveristy">День недели</label>

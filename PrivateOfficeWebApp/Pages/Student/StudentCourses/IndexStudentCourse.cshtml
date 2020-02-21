@@ -3,7 +3,7 @@
 @* ReSharper disable MarkupTextTypo *@
 <div>
 	<nav class="navbar" style="background-color: #0866C6">
-		<a href="/Index" class="navbar-brand" style="color: white">Студент</a>
+		<a href="/Index" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
 	</nav>
 </div>
 <p class="text-center">Занятия на сегодня</p>
@@ -16,7 +16,8 @@
                 <th scope="col">Время начала занятия</th>
                 <th scope="col">Время окончания занятия</th>
                 <th scope="col">Тема</th>
-                <th scope="col"></th>
+                <th scope="col">Аудитория</th>
+                <th scope="col">Присутсвие</th>
             </tr>
         </thead>
         <tbody>
@@ -24,15 +25,16 @@
             {
                 @foreach (var classes in Model.Classes)
                 {
-                    <tr>
+            <tr>
 
-                        <td>@Html.DisplayFor(item => classes.Course.NameCourse)</td>
-                        <td>@Html.DisplayFor(item => classes.StartTime)</td>
-                        <td>@Html.DisplayFor(item => classes.EndTime)</td>
-                        <td>@Html.DisplayFor(item => classes.NameClasses)</td>
-                        <td><input type="checkbox"></td>
+                <td>@Html.DisplayFor(item => classes.Course.NameCourse)</td>
+                <td>@Html.DisplayFor(item => classes.StartTime)</td>
+                <td>@Html.DisplayFor(item => classes.EndTime)</td>
+                <td>@Html.DisplayFor(item => classes.NameClasses)</td>
+                <td>@Html.DisplayFor(item => classes.Cabinet)</td>
+                <td><input type="checkbox"></td>
 
-                    </tr>
+            </tr>
                 }
             }
         </tbody>

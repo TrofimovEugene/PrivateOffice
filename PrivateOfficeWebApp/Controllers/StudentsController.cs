@@ -39,6 +39,32 @@ namespace PrivateOfficeWebApp.Controllers
 	        return resultList;
         }
 
+        public class RequestLogin
+        {
+            public string login { get; set; }
+            public string password { get; set; }
+        }
+    
+
+        [HttpPost("GetStudentLogin")]
+        public async Task<ActionResult<Student>> GetStudentLogin(RequestLogin requestLogin)
+        {
+            var students = await _context.Student.ToListAsync();
+
+            if (students == null)
+            {
+                return NotFound();
+            }
+            foreach (var student in students)
+            {
+                if (student.Login == requestLogin.login)
+                    if (student.Password == requestLogin.password)
+                        return student;
+            }
+
+            return NotFound();
+        }
+
         // GET: api/Students/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)

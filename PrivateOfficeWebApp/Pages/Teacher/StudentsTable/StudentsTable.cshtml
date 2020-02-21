@@ -98,6 +98,20 @@
                             Пожалуйста введите группа
                         </div>
                     </div>
+                    <div>
+                        <label for="login">Логин</label>
+                        <input type="text" id="SurnameStudent" class="form-control mb-2" asp-for="Student.Login" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите логин студента
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password">Пароль</label>
+                        <input type="password" id="SurnameStudent" class="form-control mb-2" asp-for="Student.Password" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите пароль студента
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

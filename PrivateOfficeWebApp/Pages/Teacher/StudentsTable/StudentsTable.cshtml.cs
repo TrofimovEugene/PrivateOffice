@@ -81,9 +81,21 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             [JsonProperty("password")]
             public string Password { get; set; }
 
-        }
+
+		}
+		[BindProperty] public List<VisitedStudent> VisitedStudents { get; set; }
 		public async Task<IActionResult> OnPostDelete(int id, int idgroup)
 		{
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl +
+												  "/api/VisitedStudents/GetVisitedFromStudent&id=" + id);
+			var jsonResponse = await response.Content.ReadAsStringAsync();
+			VisitedStudents = JsonConvert.DeserializeObject<List<PagesModels.VisitedStudent>>(jsonResponse);
+			
+			foreach(var visitStudent in VisitedStudents)
+			{
+				await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/" + visitStudent.IdVisitedStudent);
+			}
+			
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			return Redirect("https://localhost:44326/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}

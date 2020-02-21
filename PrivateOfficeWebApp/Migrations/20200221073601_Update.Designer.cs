@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrivateOfficeWebApp.Data;
 
 namespace PrivateOfficeWebApp.Migrations
 {
     [DbContext(typeof(PrivateOfficeWebAppContext))]
-    partial class PrivateOfficeWebAppContextModelSnapshot : ModelSnapshot
+    [Migration("20200221073601_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace PrivateOfficeWebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Cabinet")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateClasses")
                         .HasColumnType("date");

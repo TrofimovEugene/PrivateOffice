@@ -34,7 +34,9 @@ namespace PrivateOfficeWebApp.PagesModels
         public virtual Group? Group { get; set; }
         [JsonProperty("course")]
 		public virtual Course Course { get; set; }
-        [JsonProperty("visitedStudents")]
+		[JsonProperty("cabinet")]
+		public string Cabinet { get; set; }
+		[JsonProperty("visitedStudents")]
         public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
 
 	}
