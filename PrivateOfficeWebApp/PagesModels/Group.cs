@@ -10,6 +10,8 @@ namespace PrivateOfficeWebApp.PagesModels
 		public int? IdGroup { get; set; }
 		[JsonProperty("nameGroup")]
 		public string NameGroup { get; set; }
+        [JsonProperty("countStudents")]
+        public int CountStudents { get; set; }
 		[JsonProperty("classes")]
 		public virtual Models.Classes? Classes { get; set; }
 		[JsonProperty("student")]

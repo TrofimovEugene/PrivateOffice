@@ -58,6 +58,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 				IdStudent = Student.IdStudent,
 				FirstName = Student.FirstName,
 				SecondName = Student.SecondName,
+				Login = Student.Login,
+				Password = Student.Password, 
 				IdGroup = idgroup
 			};
 
@@ -66,7 +68,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Students/" + Student.IdStudent, httpContent);
 
-			return RedirectToPage("./StudentsTable");
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}
 	}
 }

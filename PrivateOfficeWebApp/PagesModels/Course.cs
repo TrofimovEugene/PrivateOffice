@@ -15,6 +15,7 @@ namespace PrivateOfficeWebApp.PagesModels
         [JsonProperty("idTeacher")]
 		public int IdTeacher { get; set; }
         [JsonProperty("startDate")]
+       
         public DateTime StartDate { get; set; }
         [JsonProperty("endDate")]
         public DateTime EndDate { get; set; }

@@ -78,6 +78,13 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 			public string ReplayClasses { get; set; }
             [JsonProperty("idGroup")]
             public int? IdGroup { get; set; }
+			[JsonProperty("cabinet")]
+			public string Cabinet { get; set; }
+		}
+		public async Task<IActionResult> OnPostDelete(int id)
+		{
+			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
+			return Redirect("https://localhost:44326/Teacher/Classes/ViewClasses?id=" + Class.IdCourse) ;
 		}
 	}
 }

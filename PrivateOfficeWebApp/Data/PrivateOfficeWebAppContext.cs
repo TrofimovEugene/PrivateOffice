@@ -26,6 +26,7 @@ namespace PrivateOfficeWebApp.Data
         public DbSet<Student> Student { get; set; }
 
         public DbSet<Report> Report { get; set; }
+        public DbSet<VisitedStudent> VisitedStudents { get; set; }
 
         public DbSet<ControlMeasures> ControlMeasures { get; set; }
 
@@ -37,8 +38,6 @@ namespace PrivateOfficeWebApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-        
 
             /*связь один ко многим между Teacher and Course*/
             modelBuilder.Entity<Teacher>()
@@ -59,28 +58,28 @@ namespace PrivateOfficeWebApp.Data
             modelBuilder.Entity<TypeClasses>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(typeClasses => typeClasses.TypeClasses)
-                .HasForeignKey(classes => classes.IdTypeClasses)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(classes => classes.IdTypeClasses);
 
             /*связь один ко многим между Classes and Group*/
             modelBuilder.Entity<Group>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(group => group.Group)
-                .HasForeignKey(classes => classes.IdGroup)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(classes => classes.IdGroup);
 
             /*связь один ко многим между Course and Group*/
             modelBuilder.Entity<Group>()
                 .HasMany(course => course.Course)
                 .WithOne(group => group.Group)
-                .HasForeignKey(course => course.IdGroup);
+                .HasForeignKey(course => course.IdGroup)
+                .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Group and Student*/
 
             modelBuilder.Entity<Group>()
                 .HasMany(student => student.Student)
                 .WithOne(group => group.Group)
-                .HasForeignKey(student => student.IdGroup);
+                .HasForeignKey(student => student.IdGroup)
+                .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Student and Report*/
 
@@ -94,7 +93,8 @@ namespace PrivateOfficeWebApp.Data
             modelBuilder.Entity<Classes>()
                 .HasMany(report => report.Report)
                 .WithOne(classes => classes.Classes)
-                .HasForeignKey(report => report.IdClasses);
+                .HasForeignKey(report => report.IdClasses)
+                .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между ControlMeasures and Classes*/
             modelBuilder.Entity<Classes>()
@@ -137,6 +137,17 @@ namespace PrivateOfficeWebApp.Data
                 .HasMany(task => task.Task)
                 .WithOne(ticket => ticket.Ticket)
                 .HasForeignKey(task => task.IdTicket);
+
+            modelBuilder.Entity<Student>()
+                .HasMany(visitedStudent => visitedStudent.VisitedStudents)
+                .WithOne(student => student.Student)
+                .HasForeignKey(visitedStudents => visitedStudents.IdStudent);
+
+            modelBuilder.Entity<Classes>()
+                .HasMany(visitedStudent => visitedStudent.VisitedStudents)
+                .WithOne(classes => classes.Classes)
+                .HasForeignKey(visitedStudent => visitedStudent.IdClasses)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             base.OnModelCreating(modelBuilder);
         }

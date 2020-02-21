@@ -21,6 +21,7 @@ namespace PrivateOfficeWebApp.Models
         [Column(TypeName = "date")]
         public DateTime DateClasses { get; set; }
         public string DaysWeek { get; set; }
+        public string Cabinet { get; set; }
         public string ReplayClasses { get; set; }
 
         public virtual Course Course { get; set; }
@@ -30,6 +31,7 @@ namespace PrivateOfficeWebApp.Models
         public virtual ICollection<Report> Report { get; set; }
 
         public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
+        public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
 
     }
 }

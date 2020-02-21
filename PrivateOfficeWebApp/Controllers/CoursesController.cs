@@ -27,8 +27,8 @@ namespace PrivateOfficeWebApp.Controllers
 	        return await _context.Course.ToListAsync();
         }
 
-        //GET: api/Courses/WithTeacher&id=5
-        [HttpGet("WithTeacher&id={id}")]
+        //GET: api/Courses/WithTeacher/id=5
+        [HttpGet("WithTeacher/id={id}")]
         public async Task<List<Course>> GetCourseWithTeacher(int id)
         {
 	        var courses = new List<Course>();
@@ -38,7 +38,7 @@ namespace PrivateOfficeWebApp.Controllers
 			        courses.Add(course);
                 foreach (var Class in await _context.Classes.ToListAsync())
                 {
-	                Class.DateClasses += Class.StartTime;
+	                Class.DateClasses.Add(Class.StartTime);
                     if(Class.IdCourse == course.IdCourse)
 						course.Classes.Add(Class);
                 }

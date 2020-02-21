@@ -73,10 +73,28 @@ namespace PrivateOfficeWebApp.Pages
 	        //public virtual List<Course> Course { get; set; }
 
         }
-        public async Task<IActionResult> OnPostLoginStudent()
+        public async Task<IActionResult> OnPostLoginStudent(string login, string password)
         {
-
-            return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse");
+            RequestLogin requestLogin = new RequestLogin { login = login, password = password };
+            var jsonRequest = JsonConvert.SerializeObject(requestLogin);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentLogin", httpContent);
+            var responseStr = await response.Content.ReadAsStringAsync();
+            try
+            {
+                var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Student>(responseStr);
+                if (jsonResponse.Login == login && jsonResponse.Password == password)
+                {
+                    Response.Cookies.Append("login", jsonResponse.Login);
+                    Response.Cookies.Append("idStudent", jsonResponse.IdStudent.ToString());
+                    return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?idStudent=" + jsonResponse.IdStudent);
+                }
+                return Redirect(AppSettings.WebAppUrl);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
     }
 }
