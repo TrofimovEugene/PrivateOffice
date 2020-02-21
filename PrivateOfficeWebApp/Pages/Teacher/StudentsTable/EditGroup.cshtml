@@ -13,18 +13,22 @@
         </form> -->
     </nav>
 </div>
-<input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
-<div class="container mt-5" style="border: solid   #0866C6 1.5px">
+<div class="container-fluid mt-3">
+    <div class="form-group d-flex bd-highlight mb-3">
+        <input type="button"  class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+        <input type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" value="Редактировать" data-target="#editGroup" aria-label="Edit"/>
+        
+    </div>
+</div>
+<div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
     <div class="row d-flex justify-content-start align-items-center">
         <form method="get">
             <div class="modal-body">
                 <div class="form-university mb-1">
-                    <label>Имя: @Html.DisplayFor(model => model.Group.NameGroup)</label>
+                    <label><strong>Группа:</strong> @Html.DisplayFor(model => model.Group.NameGroup)</label>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <button type="button" class="edit" data-toggle="modal" data-target="#editGroup" aria-label="Edit">
-                        <span aria-hidden="true">&#9998;</span>
-                    </button>
+
                 </div>
             </div>
         </form>
@@ -32,25 +36,28 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editGroupTitle">Редактирование инфорации о группе</h5>
+                        <h5 class="modal-title" id="editGroupTitle">Редактирование</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="post">
-                        <div class="madal-body pt-0">
-                            <div class="form-id">
+                    <form method="post" class="needs-validation" novalidate>
+                        <div class="modal-body pb-1 ">
+                            <div class="form-id" >
                                 <label hidden="hidden" for="InputIdGroup">Id группы</label>
                                 <input hidden="hidden" asp-for="Group.IdGroup" type="number" class="form-control" id="idgroup">
                             </div>
-                            <div class="form-nameGroup">
+                            <div class="form-nameGroup mb-3">
                                 <label for="InputNameGroup">Название группы</label>
-                                <input asp-for="Group.NameGroup" type="text" class="form-control" id="InputNameGroup">
+                                <input asp-for="Group.NameGroup" type="text" class="form-control" id="InputNameGroup" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста введите название группы
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                <button type="button" class="btn btn-secondary mb-1" data-dismiss="modal">Закрыть</button>
                                 <!-- -->
-                                <input type="submit" class="btn btn-primary" value="Принять" asp-page-handler="EditGroups" />
+                                <input type="submit" class="btn btn-primary mb-1" value="Принять" asp-page-handler="EditGroups" />
                             </div>
                         </div>
                     </form>
@@ -58,5 +65,22 @@
             </div>
         </div>
     </div>
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </div>
 
