@@ -40,7 +40,7 @@ namespace PrivateOfficeWebApp.Controllers
             return @group;
         }
         // GET: api/Groups/5
-        [HttpGet("GetCountStudentInGroup&id={id}")]
+        [HttpGet("GetCountStudentInGroup/id={id}")]
         public async Task<int> GetCountStudentInGroup(int id)
         {
             var students = await _context.Student.ToListAsync();

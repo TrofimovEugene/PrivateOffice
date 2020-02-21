@@ -42,7 +42,7 @@ namespace PrivateOfficeWebApp.Controllers
             return visitedStudent;
         }
 
-        [HttpGet("GetVisitedFromClasses&id={id}")]
+        [HttpGet("GetVisitedFromClasses/id={id}")]
         public async Task<ICollection<VisitedStudent>> GetVisitedFromClasses(int id)
         {
             var visited = await _context.VisitedStudents.ToListAsync();
@@ -55,8 +55,9 @@ namespace PrivateOfficeWebApp.Controllers
             return resultList;
         }
 
-        [HttpGet("GetVisitedFromStudent&id={id}")]
-        public async Task<ICollection<VisitedStudent>> GetVisitedFromStudent(int id)
+
+        [HttpGet("GetStudentsClassesInVisited/id={id}")]
+        public async Task<bool> GetStudentsClassesInVisited(int id)
         {
             var visited = await _context.VisitedStudents.ToListAsync();
             List<VisitedStudent> resultList = new List<VisitedStudent>();

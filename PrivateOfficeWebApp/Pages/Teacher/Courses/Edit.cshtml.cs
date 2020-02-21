@@ -46,7 +46,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
-            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/GetCountStudentInGroup&id=" + group.IdGroup);
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/GetCountStudentInGroup/id=" + group.IdGroup);
             jsonResponse = await response.Content.ReadAsStringAsync();
             var countStudents = JsonConvert.DeserializeObject<int>(jsonResponse);
             group.CountStudents = countStudents;

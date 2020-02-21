@@ -32,7 +32,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 
             foreach (var groups in Groups)
             {
-                response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/GetCountStudentInGroup&id=" + groups.IdGroup);
+                response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/GetCountStudentInGroup/id=" + groups.IdGroup);
                 jsonResponse = await response.Content.ReadAsStringAsync();
                 var countStudents = JsonConvert.DeserializeObject<int>(jsonResponse);
                 groups.CountStudents = countStudents;

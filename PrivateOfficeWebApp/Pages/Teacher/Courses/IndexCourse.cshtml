@@ -10,9 +10,9 @@
 	</nav>
 </div>
 <div class="container-fluid mt-3">
-	<div class="form-group">
-		<a type="button" class="btn btn-outline-primary" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
-	  <input type="button"  class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
+	<div class="form-group d-flex bd-highlight mb-3">
+		<input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+		<a type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
 	</div>
 	<div class="row">
 		@if (Model.Courses != null)
@@ -20,13 +20,16 @@
 			@foreach (var item in Model.Courses)
 			{
 				<div class="col-xl-3  col-md-4 col-sm-6  p-4">
-					<div class="card " style="min-height: 300px; border-radius: 5%;">
+					<div class="card " style="min-height: 300px; border-width:2px; border-radius: 5%; border-color: #0866C6">
 						<div class="card-body">
+							<form method="post" class=" d-flex bd-highlight mb-1">
+								<input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
+								<input type="submit" class=" btn btn-outline-danger ml-auto p-1 bd-highlight" style="border-radius: 10%;" value="Удалить"  asp-page-handler="Delete" />
+							</form>
 							<form method="get">
 								<div class="card-university">
 									<div class="d-flex bd-highlight">
 										<h4 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameUniversity)</h4>
-
 									</div>
 									<hr class="bg-black m-0 pb-3" />
 								</div>
@@ -53,24 +56,17 @@
 									<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @Html.DisplayFor(indexModel => item.StartDate.Date) по @Html.DisplayFor(indexModel => item.EndDate.Date)</li>
 									<!--<li class="list-group-item pl-0 pb-0">c @Html.DisplayFor(indexModel => item.StartDate) по @Html.DisplayFor(indexModel => item.EndDate)</li>-->
 								</ul>
-
-
-
-
 								<a asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
 								<!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
 							</form>
-							<form method="post">
-								<input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
-								<input type="submit" class=" btn btn-outline-primary" value="Удалить" asp-page-handler="Delete" />
-							</form>
+							
 						</div>
 					</div>
 				</div>
 			}
 		}
 		<div class="col-xl-3  col-md-4 col-sm-6  p-4">
-			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 360px;" data-toggle="modal"
+			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 379px; border-radius: 5%;border-width:2px; border-color: #0866C6" data-toggle="modal"
 					data-target="#exampleModalCenter">
 				<i class="fas fa-plus" style="font-size: 4rem;"></i>
 			</button>

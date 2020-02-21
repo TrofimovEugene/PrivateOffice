@@ -26,7 +26,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 		public List<PagesModels.Student> Students { get; set; }
 		public async Task<IActionResult> OnGet(int id)
 		{
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentFromGroup&id=" + id);
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentFromGroup/id=" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Students = JsonConvert.DeserializeObject<List<PagesModels.Student>>(jsonResponse);
 
