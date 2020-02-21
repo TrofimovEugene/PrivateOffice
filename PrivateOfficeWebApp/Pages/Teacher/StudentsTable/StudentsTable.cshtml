@@ -1,25 +1,38 @@
 ﻿@page
-@model PrivateOfficeWebApp.StudentsTableModel
+@using Microsoft.AspNetCore.Mvc.ApiExplorer
+@using Microsoft.VisualStudio.Web.CodeGeneration
+@model PrivateOfficeWebApp.Pages.Teacher.StudentsTable.StudentsTableModel
+
 @{
     ViewData["Title"] = "StudentsTable";
+
 }
 
 <div>
     <nav class="navbar" style="background-color: #0866C6">
-        <a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
     </nav>
 </div>
+<input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
+
 <button type="button" class="btn  mt-2" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addStudent">
     Добавить студента
 </button>
+
+<br />
+<p class="text-left">Введите дату текущего занятия:</p>
+
 <div class=" mt-4">
     <table id="tab1" class="table table-bordered" style=" background-color:white; width:95%">
+
         <thead>
             <tr>
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
                 <th scope="col">Группа</th>
+                <!--  <th scope="col">Отметка студента о текущей посещаемости</th> onchange="this.form.submit()"-->
                 <th scope="col"></th>
+
             </tr>
         </thead>
         <tbody>
@@ -32,10 +45,11 @@
                         <td>@Html.DisplayFor(item => student.SecondName)</td>
                         <td>@Html.DisplayFor(item => student.Group.NameGroup)</td>
                         <td>
-                            <form method="post"  class="d-flex justify-content-between" >
-                                <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a> 
+                            <form method="post" class="d-flex justify-content-between">
+                                <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
                                 <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
-                                <input type="submit" value="Удалить"class="btn btn-outline-danger" asp-page-handler="Delete" />
+                                <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
+                                <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
                             </form>
                         </td>
                     </tr>
@@ -43,6 +57,7 @@
             }
         </tbody>
     </table>
+    <input type="submit" class="btn btn-outline-primary" value="Подтвердить присутствие" id="add" style="display:none">
 </div>
 
 <form action="" id="add_students" method="post" class="needs-validation" onsubmit="checkStudent(this);return false;" novalidate>
@@ -58,11 +73,11 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                    <label for="name">Имя</label>
-                    <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" value="" required />
-                    <div class="invalid-feedback">
-                        Пожалуйста введите имя студента
-                    </div>
+                        <label for="name">Имя</label>
+                        <input type="text" id="NameStudent" class="form-control" asp-for="Student.FirstName" value="" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите имя студента
+                        </div>
                     </div>
                     <div>
                         <label for="name">Фамилия</label>
@@ -83,13 +98,27 @@
                             Пожалуйста введите группа
                         </div>
                     </div>
+                    <div>
+                        <label for="login">Логин</label>
+                        <input type="text" id="SurnameStudent" class="form-control mb-2" asp-for="Student.Login" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите логин студента
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password">Пароль</label>
+                        <input type="password" id="SurnameStudent" class="form-control mb-2" asp-for="Student.Password" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите пароль студента
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateStudent" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateStudent" />
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
     <script>
         (function () {
@@ -110,4 +139,4 @@
     </script>
 </form>
 
-
+        

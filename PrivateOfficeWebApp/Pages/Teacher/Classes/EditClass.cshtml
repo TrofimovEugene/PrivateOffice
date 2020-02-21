@@ -1,22 +1,31 @@
 ﻿@page
 @model PrivateOfficeWebApp.Pages.Teacher.Classes.EditClassModel
 @{
-	ViewData["Title"] = "EditClass";
+    ViewData["Title"] = "EditClass";
 }
 @* ReSharper disable MarkupTextTypo *@
 <div>
-	<nav class="navbar" style="background-color: #0866C6">
-		<a class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-	</nav>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+    </nav>
 </div>
 <div class="row">
-	<form method="get">
+    <form method="get">
         <div class="modal-body">
             <div class="form-class">
                 <label>Тема занятия: @Html.DisplayFor(model => model.Class.NameClasses)</label>
             </div>
+            <div class="form-class">
+                <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
+            </div>
             <div class="form-nameCourse">
                 <label>День недели: @Html.DisplayFor(model => model.Class.DaysWeek)</label>
+            </div>
+            <div class="form-DateClass">
+                <label>Дата занятия: @Html.DisplayFor(model => model.Class.DateClasses)</label>
+            </div>
+            <div class="form-nameCabinet">
+                <label>Аудитория: @Html.DisplayFor(model => model.Class.Cabinet)</label>
             </div>
             <div class="form-startTime">
                 <label>Время начала: @Html.DisplayFor(model => model.Class.StartTime)</label>
@@ -32,25 +41,25 @@
             </div>
             <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Class.IdCourse">Просмотреть все занятия</a>
         </div>
-	</form>
+    </form>
 </div>
 
 <button type="button" class="btn btn-primary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClass">
-	Редактировать
+    Редактировать
 </button>
-
+<input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
 <div class="modal fade" id="editClass" tabindex="-1" role="dialog"
-	 aria-labelledby="editClassTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="editClassTitle">Редактирование</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-                <form method="post">
+     aria-labelledby="editClassTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editClassTitle">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="needs-validation" novalidate>
                     <div class="form-group">
                         <input hidden="hidden" type="number" id="idCourse" name="idCourse" value="@Model.Class.IdCourse" />
                     </div>
@@ -75,30 +84,67 @@
                             <option value="3" tabindex="3">Семинар</option>
                         </select>
                     </div>
+                    <div class="form-DateClass">
+                        <label>Дата занятия</label>
+                        <input asp-for="Class.DateClasses" type="date" class="form-control" id="InputDateClass" />
+                    </div>
+                    <div class="form-cabinet">
+                        <label>Аудитория</label>
+                        <input asp-for="Class.Cabinet" type="text" class="form-control" id="InputCabinet" />
+                    </div>
                     <div class="form-dayWeek mb-1">
                         <label for="InputUniveristy">День недели</label>
-                        <input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy">
+                        <input asp-for="Class.DaysWeek" type="text" class="form-control" id="InputUniveristy" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите день недели
+                        </div>
                     </div>
                     <div class="form-nameCourse mb-1">
                         <label for="InputGroup">Время начала</label>
-                        <input asp-for="Class.StartTime" type="time" class="form-control" id="InputNameCourse">
+                        <input asp-for="Class.StartTime" type="time" class="form-control" id="InputNameCourse" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите время начала
+                        </div>
                     </div>
                     <div class="form-group mb-1">
                         <label for="InputGroup">Время окончания</label>
-                        <input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup">
+                        <input asp-for="Class.EndTime" type="time" class="form-control" id="InputGroup" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите время окончания
+                        </div>
                     </div>
-                    <div class="form-time mb-1">
+                    <div class="form-time mb-4">
                         <label for="InputGroup">Периодичность</label>
-                        <input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime">
+                        <input asp-for="Class.ReplayClasses" type="text" class="form-control" id="InputTime" required>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите переодичность
+                        </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer m-0 p-0 pt-2">
                         <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
                         <!-- -->
                         <input type="submit" class="btn btn-primary" value="Редактировать" asp-page-handler="EditClass" />
 
                     </div>
                 </form>
-			</div>
+            </div>
         </div>
-	</div>
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </div>

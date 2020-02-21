@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrivateOfficeWebApp.Models
 {
-	[JsonObject]
-	public class Student
-	{
-		[JsonProperty("idStudent")]
-		public int IdStudent { get; set; }
-		[JsonProperty("idGroup")]
-		public int IdGroup { get; set; }
-		[JsonProperty("firstName")]
-		public string FirstName { get; set; }
-		[JsonProperty("secondName")]
-		public string SecondName { get; set; }
-		[JsonProperty("group")]
-		public virtual Group Group { get; set; }
-		[JsonProperty("report")]
-		public virtual ICollection<Report> Report { get; set; }
+    public class Student
+    {
+        [Key]
+        public int IdStudent { get; set; }
+        [ForeignKey("Group")]
+        public int IdGroup { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public virtual Group Group { get; set; }
+        public virtual ICollection<Report> Report { get; set; }
+        public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
+        public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
+
+
     }
 }

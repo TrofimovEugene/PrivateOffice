@@ -32,14 +32,14 @@ namespace PrivateOfficeWebApp.Pages
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-	            var jsonResponse = JsonConvert.DeserializeObject<Models.Teacher>(responseStr);
+	            var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Teacher>(responseStr);
 	            if (jsonResponse.Login == login && jsonResponse.Password == password)
 	            {
 		            Response.Cookies.Append("login", jsonResponse.Login);
                     Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
-                    return Redirect("https://localhost:44326/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+                    return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
 	            }
-	            return Redirect("https://localhost:44326"); 
+	            return Redirect(AppSettings.WebAppUrl); 
             }
             catch
             {
@@ -73,10 +73,28 @@ namespace PrivateOfficeWebApp.Pages
 	        //public virtual List<Course> Course { get; set; }
 
         }
-        public async Task<IActionResult> OnPostLoginStudent()
+        public async Task<IActionResult> OnPostLoginStudent(string login, string password)
         {
-
-            return Redirect("https://localhost:44326/Student/StudentCourses/IndexStudentCourse");
+            RequestLogin requestLogin = new RequestLogin { login = login, password = password };
+            var jsonRequest = JsonConvert.SerializeObject(requestLogin);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentLogin", httpContent);
+            var responseStr = await response.Content.ReadAsStringAsync();
+            try
+            {
+                var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Student>(responseStr);
+                if (jsonResponse.Login == login && jsonResponse.Password == password)
+                {
+                    Response.Cookies.Append("login", jsonResponse.Login);
+                    Response.Cookies.Append("idStudent", jsonResponse.IdStudent.ToString());
+                    return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?idStudent=" + jsonResponse.IdStudent);
+                }
+                return Redirect(AppSettings.WebAppUrl);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
     }
 }

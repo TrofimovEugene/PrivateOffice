@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Models;
+using PrivateOfficeWebApp.PagesModels;
 
 namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 {
@@ -25,7 +25,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 
 	    [BindProperty]
 	    public Course Course { get; set; }
-	    [BindProperty]
+
+		[BindProperty]
 		public List<Group> Groups { get; set; }
 		public async Task<IActionResult> OnGet(int? id)
         {
@@ -45,7 +46,12 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
-	        if (Course == null)
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/GetCountStudentInGroup/id=" + group.IdGroup);
+            jsonResponse = await response.Content.ReadAsStringAsync();
+            var countStudents = JsonConvert.DeserializeObject<int>(jsonResponse);
+            group.CountStudents = countStudents;
+
+			if (Course == null)
 		        return NotFound();
 	        return Page();
         }
@@ -61,13 +67,13 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 				EndDate = Course.EndDate,
 				CountTime = Course.CountTime,
 				IdGroup = idgroup,
-				IdTeacher = 1
-			};
+				IdTeacher = Course.IdTeacher
+            };
 			var jsonRequest = JsonConvert.SerializeObject(reqCourse);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Courses/" + Course.IdCourse, httpContent);
 			//return Redirect(jsonRequest);
-			return Redirect("https://localhost:44326/Teacher/Courses/Edit?id=" + Course.IdCourse);
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/Edit?id=" + Course.IdCourse);
 		}
 		[JsonObject]
 		public class RequestCourse

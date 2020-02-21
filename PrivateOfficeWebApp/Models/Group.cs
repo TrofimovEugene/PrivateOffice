@@ -1,21 +1,16 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrivateOfficeWebApp.Models
 {
-	[JsonObject]
-	public class Group
-	{
-		[JsonProperty("idGroup")]
-		public int? IdGroup { get; set; }
-		[JsonProperty("nameGroup")]
-		public string NameGroup { get; set; }
-		[JsonProperty("classes")]
-		public virtual Classes? Classes { get; set; }
-		[JsonProperty("student")]
-		public virtual IList<Student>? Student { get; set; }
-		[JsonProperty("course")]
-		public virtual IList<Course>? Course { get; set; }
+    public class Group
+    {
+        [Key]
+        public int IdGroup { get; set; }
 
-	}
+        public string NameGroup { get; set; }
+        public virtual ICollection<Course> Course { get; set; }
+        public virtual ICollection<Classes> Classes { get; set; }
+        public virtual ICollection<Student> Student { get; set; }
+    }
 }
