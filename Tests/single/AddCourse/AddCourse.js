@@ -11,7 +11,7 @@ async function getCheckScreen() {
 
   let course = {
       universiry: 'ИрГУПС',
-      group: '3',
+      group: '1',
       nameCourse: 'Тест',
       startCourse:'12 12 2019',
       endCourse: '12 02 2020',
