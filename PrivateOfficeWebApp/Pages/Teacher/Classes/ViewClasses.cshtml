@@ -154,7 +154,7 @@
                                         @Html.DisplayFor(modelItem => item.NameClasses)
                                     </td>
                                     <td  class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
-                                        @Html.DisplayFor(modelItem => item.DateClasses)
+                                        @item.DateClasses.ToShortDateString()
                                     </td>
                                     <td class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
                                         @Html.DisplayFor(modelItem => item.DaysWeek)

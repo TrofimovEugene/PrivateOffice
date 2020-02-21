@@ -12,111 +12,112 @@
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
         <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
-        </div></div>
-        <input value="@Model.Classes.NameClasses" type="text" class="form-control" id="InputFirstName" style="width:10%;border: solid   #0866C6 2px; border-radius:5px; background-color:white" required>
-        <br />
-        <input value="@Model.Classes.DateClasses" type="text" class="form-control" id="InputFirstName" style="width:10%;border: solid   #0866C6 2px; border-radius:5px; background-color:white" required>
+    </div>
+</div>
+<input value="@Model.Classes.NameClasses" type="text" class="form-control" id="InputFirstName" style="width:10%;border: solid   #0866C6 2px; border-radius:5px; background-color:white" required>
+<br />
+<input value="@Model.Classes.DateClasses.ToShortDateString()" type="text" class="form-control" id="InputFirstName" style="width:10%;border: solid   #0866C6 2px; border-radius:5px; background-color:white" required>
 
-        <div class=" mt-4">
-            <table id="tab1" class="table table-bordered" style="        border: solid #0866C6 2px;
+<div class=" mt-4">
+    <table id="tab1" class="table table-bordered" style="        border: solid #0866C6 2px;
         background-color: white;
         width: 100%
 ">
 
-                <thead>
-                    <tr>
-                        <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Имя</th>
-                        <th style="        border: solid #0866C6 2px;
+        <thead>
+            <tr>
+                <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Имя</th>
+                <th style="        border: solid #0866C6 2px;
         background-color: white
 " scope="col">Фамилия</th>
-                        <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Группа</th>
-                        <!-- <th scope="col">Присутствие от студента</th>  onchange="this.form.submit()"-->
-                        <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Отметка студента о текущей посещаемости</th>
-                        <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Присутствие от преподавателя</th>
+                <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Группа</th>
+                <!-- <th scope="col">Присутствие от студента</th>  onchange="this.form.submit()"-->
+                <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Отметка студента о текущей посещаемости</th>
+                <th style="border: solid   #0866C6 2px; background-color:white " scope="col">Присутствие от преподавателя</th>
 
 
-                    </tr>
+            </tr>
 
-                </thead>
-                <tbody>
-                    @if (Model.Students != null)
-                    {
-                        @foreach (var student in Model.Students)
-                        {
-                            <tr>
-                                <td style="border: solid   #0866C6 1px; background-color:white ">@Html.DisplayFor(item => student.FirstName)</td>
-                                <td style="border: solid   #0866C6 1px; background-color:white ">@Html.DisplayFor(item => student.SecondName)</td>
-                                <td style="border: solid   #0866C6 1px; background-color:white ">@Html.DisplayFor(item => student.Group.NameGroup)</td>
-                                <td style="border: solid   #0866C6 1px; background-color:white ">
-                                    <form method="post" asp-page-handler="UpdateStudent">
-                                        <div class="form-group">
-                                            <input hidden="hidden" type="number" name="idClasses" value="@Model.Classes.IdClasses" />
-                                            <input hidden="hidden" type="number" name="idStudent" value="@student.IdStudent" />
+        </thead>
+        <tbody>
+            @if (Model.Students != null)
+            {
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td style="border: solid   #0866C6 1px; background-color:white ">@Html.DisplayFor(item => student.FirstName)</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white ">@Html.DisplayFor(item => student.SecondName)</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white ">@Html.DisplayFor(item => student.Group.NameGroup)</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white ">
+                            <form method="post" asp-page-handler="UpdateStudent">
+                                <div class="form-group">
+                                    <input hidden="hidden" type="number" name="idClasses" value="@Model.Classes.IdClasses" />
+                                    <input hidden="hidden" type="number" name="idStudent" value="@student.IdStudent" />
 
 
-                                            @if (@Model.VisitedStudents.Count != 0)
+                                    @if (@Model.VisitedStudents.Count != 0)
+                                    {
+                                        @foreach (var visit in Model.VisitedStudents)
+                                        {
+                                            @if (visit.IdStudent == student.IdStudent)
                                             {
-                                                @foreach (var visit in Model.VisitedStudents)
+                                                @if (visit.ConfirmVisited == false)
                                                 {
-                                                    @if (visit.IdStudent == student.IdStudent)
-                                                    {
-                                                        @if (visit.ConfirmVisited == false)
-                                                        {
-                                                            <input type="checkbox" disabled>
-                                                        }
-                                                        else
-                                                        {
-                                                            <input type="checkbox" checked disabled>
-                                                        }
-                                            <td style="border: solid   #0866C6 1px; background-color:white ">
-                                                <div class="form-group">
-                                                    @if (visit.Visited == false)
-                                                    {
-                                                        <input class="custom-checkbox" asp-for="VisitedStudent.Visited" name="visited" onchange="this.form.submit();">
-                                                    }
-                                                    else
-                                                    {
-                                                        <input class="custom-checkbox" asp-for="VisitedStudent.Visited" checked name="visited" onchange="this.form.submit();">
-                                                    }
-
-                                                </div>
-                                            </td>
-                                        }
-                                                }
-                                                @if (Model.VisitedStudents.Find(x => x.IdStudent.Equals(student.IdStudent)) == null)
-                                                {
-                                                    <div class="form-group">
-                                                        <input type="checkbox" disabled>
-                                                    </div>
-
-                                                    <td>
-                                                        <input class="custom-checkbox" asp-for="VisitedStudent.Visited" onchange="this.form.submit();" />
-                                                    </td>
-                                                }
-
-                                            }@if (@Model.VisitedStudents.Count == 0)
-                                            {
-                                                <div class="form-group">
                                                     <input type="checkbox" disabled>
-                                                </div>
-
-                                                <td style="border: solid   #0866C6 1px; background-color:white ">
-                                                    <input class="custom-checkbox" asp-for="VisitedStudent.Visited" name="visited" onchange="this.form.submit();" />
-                                                </td>
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" checked disabled>
+                                                }
+                                    <td style="border: solid   #0866C6 1px; background-color:white ">
+                                        <div class="form-group">
+                                            @if (visit.Visited == false)
+                                            {
+                                                <input class="custom-checkbox" asp-for="VisitedStudent.Visited" name="visited" onchange="this.form.submit();">
+                                            }
+                                            else
+                                            {
+                                                <input class="custom-checkbox" asp-for="VisitedStudent.Visited" checked name="visited" onchange="this.form.submit();">
                                             }
 
+                                        </div>
+                                    </td>
+                                }
+                                        }
+                                        @if (Model.VisitedStudents.Find(x => x.IdStudent.Equals(student.IdStudent)) == null)
+                                        {
+                                            <div class="form-group">
+                                                <input type="checkbox" disabled>
+                                            </div>
 
-                            </div>
-                            </form>
-                            </td>
+                                            <td style="border: solid   #0866C6 1px; background-color:white ">
+                                                <input class="custom-checkbox" asp-for="VisitedStudent.Visited"  name="visited" onchange="this.form.submit();" />
+                                            </td>
+                                        }
 
-                            </tr>
-                        }
+                                    }@if (@Model.VisitedStudents.Count == 0)
+                                    {
+                                        <div class="form-group">
+                                            <input type="checkbox" disabled>
+                                        </div>
 
-                    }
-                    </tbody>
-                    </table>
-                </div>
+                                        <td style="border: solid   #0866C6 1px; background-color:white ">
+                                            <input class="custom-checkbox" asp-for="VisitedStudent.Visited" name="visited" onchange="this.form.submit();" />
+                                        </td>
+                                    }
+
+
+                    </div>
+                    </form>
+                    </td>
+
+                    </tr>
+                }
+
+            }
+            </tbody>
+            </table>
+            </div>
 
             <!-- <script>
                  var checkboxes = document.getElementsByClassName('custom-checkbox');

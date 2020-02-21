@@ -23,14 +23,11 @@
                 <div class="form-class">
                     <label><strong>Тема занятия:</strong> @Html.DisplayFor(model => model.Class.NameClasses)</label>
                 </div>
-                <div class="form-class">
-                    <label> <strong>Дата занятия:</strong> @Html.DisplayFor(model => model.Class.DateClasses)</label>
-                </div>
                 <div class="form-nameCourse">
                     <label><strong>День недели:</strong> @Html.DisplayFor(model => model.Class.DaysWeek)</label>
                 </div>
                 <div class="form-DateClass">
-                    <label><strong>Дата занятия:</strong> @Html.DisplayFor(model => model.Class.DateClasses)</label>
+                    <label><strong>Дата занятия:</strong> @Model.Class.DateClasses.ToShortDateString()</label>
                 </div>
                 <div class="form-nameCabinet">
                     <label><strong>Аудитория:</strong> @Html.DisplayFor(model => model.Class.Cabinet)</label>
