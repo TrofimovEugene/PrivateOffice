@@ -17,6 +17,10 @@
     <Compile Include="Migrations\20200212102331_BD.Designer.cs" />
     <Compile Include="Migrations\20200218131123_UpdateDb.cs" />
     <Compile Include="Migrations\20200218131123_UpdateDb.Designer.cs" />
+    <Compile Include="Migrations\20200221073601_Update.cs" />
+    <Compile Include="Migrations\20200221073601_Update.Designer.cs" />
+    <Compile Include="Migrations\20200221085737_UpdateContextBDAndClasses.cs" />
+    <Compile Include="Migrations\20200221085737_UpdateContextBDAndClasses.Designer.cs" />
     <Compile Include="Migrations\PrivateOfficeWebAppContextModelSnapshot.cs" />
   </ItemGroup>
 

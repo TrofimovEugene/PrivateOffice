@@ -46,6 +46,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 IdCourse = idCourse,
                 StartTime = Class.StartTime,
                 EndTime = Class.EndTime,
+                Cabinet = Class.Cabinet,
                 DaysWeek = Class.DaysWeek,
                 ReplayClasses = Class.ReplayClasses
             };
