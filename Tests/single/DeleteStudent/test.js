@@ -9,14 +9,6 @@ async function getCheckScreen() {
     password:'test123' 
   }
 
-  let student ={
-      name:'testname',
-      surname:'testsurname',
-      group:'1',
-      login:'teststudent',
-      password:'teststudent'
-  }
-
   const timer = 1000
   try {
     await page.goto('https://localhost:44326/');
@@ -45,23 +37,9 @@ async function getCheckScreen() {
   await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(3)')
   await page.waitFor(timer);
 
-  await page.click('body > div:nth-child(1) > main > button')
+  await page.click('#tab1 > tbody > tr:nth-child(1) > td:nth-child(4) > form > input.btn.btn-outline-danger')
   await page.waitFor(timer);
   
-  await page.focus('#NameStudent')
-  page.keyboard.type(student.name)
-  await page.waitFor(timer);
-  await page.focus('#SurnameStudent')
-  page.keyboard.type(student.surname)
-  await page.waitFor(timer);
-  await page.focus('input[name="Student.Login"]')
-  page.keyboard.type(student.login)
-  await page.waitFor(timer);
-  await page.focus('input[name="Student.Password"]')
-  page.keyboard.type(student.password)
-  await page.waitFor(timer);
-  await page.click('#addStudent > div > div > div.modal-footer >  input.btn.btn-primary')
-  await page.waitFor(timer);
   await page.screenshot({path: './screens result/Студенты.png'});
   await page.goBack()
   await page.goBack()

@@ -6,7 +6,7 @@ async function getCheckScreen() {
 
   let lesson = {
       topic: 'Тест',
-      type:'2',
+      type:'1',
       day:'Вторник',
       date:'12032020',
       cabinet:'D505',
@@ -43,38 +43,36 @@ async function getCheckScreen() {
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Подробнее.png'});
 
-//добавление занятия
+//редактирование занятия
 await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(1)')
 await page.waitFor(timer);
 
-await page.click('body > div > main > div.mt-3.ml-1.mb-1 > button')
+await page.click('body > div > main > div.mt-3.ml-1.mb-1 > form:nth-child(4) > table > tbody > tr > td:nth-child(7) > a')
 await page.waitFor(timer);
 
-await page.click('#addNewClass > div > div > div.modal-body.pb-0 > div:nth-child(1)');
-page.keyboard.type(lesson.topic);
+await page.click('body > div > main > button')
 await page.waitFor(timer);
 
-await page.select('select[id="TypeClass"]', lesson.type);
-await page.waitFor(timer);
+let searchName= await page.$('#InputUniveristy');
+    await page.waitFor(timer);
+    await searchName.click({clickCount: 10});
+    await page.waitFor(timer);
+    await searchName.press('Backspace'); 
+    await page.waitFor(timer);
+    page.keyboard.type(lesson.topic)
+    await page.waitFor(timer);
 
-await page.focus('#InputDay')
-await page.select('select[name="Class.DaysWeek"]', lesson.day);
-await page.waitFor(timer);
-
-await page.focus('input[name="Class.DateClasses"]')
+    await page.focus('#InputDateClass')
 page.keyboard.type(lesson.date)
 await page.waitFor(timer);
 
-await page.focus('input[name="Class.Cabinet"]')
+let searchCab= await page.$('#InputCabinet');
+await page.waitFor(timer);
+await searchCab.click({clickCount: 10});
+await page.waitFor(timer);
+await searchCab.press('Backspace'); 
+await page.waitFor(timer);
 page.keyboard.type(lesson.cabinet)
-await page.waitFor(timer);
-
-await page.focus('input[name="Class.StartTime"]')
-page.keyboard.type(lesson.starttime)
-await page.waitFor(timer);
-
-await page.focus('input[name="Class.EndTime"]')
-page.keyboard.type(lesson.endtime)
 await page.waitFor(timer);
 
 await page.focus('input[name="Class.ReplayClasses"]')
@@ -85,7 +83,7 @@ await page.waitFor(timer);
 await page.screenshot({path: './screens result/Добавление занятия.png'});
 await page.waitFor(timer);
 
-await page.click('#addNewClass > div > div > div.modal-footer > input.btn.btn-primary')
+await page.click('#editClass > div > div > div.modal-body > form > div.modal-footer.m-0.p-0.pt-2 > input.btn.btn-primary')
 await page.waitFor(timer);
 
 await browser.close();

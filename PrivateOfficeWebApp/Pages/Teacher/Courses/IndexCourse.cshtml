@@ -56,8 +56,10 @@
 									<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @item.StartDate.ToShortDateString() по @item.EndDate.ToShortDateString()</li>
 									
 								</ul>
-								<a asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
-								<!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
+                                <div class="d-flex bd-highlight" >
+                                    <a class="ml-auto bd-highlight" asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
+                                    <!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
+                                </div>
 							</form>
 							
 						</div>
