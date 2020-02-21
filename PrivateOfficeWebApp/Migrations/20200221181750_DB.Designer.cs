@@ -10,8 +10,8 @@ using PrivateOfficeWebApp.Data;
 namespace PrivateOfficeWebApp.Migrations
 {
     [DbContext(typeof(PrivateOfficeWebAppContext))]
-    [Migration("20200221085737_UpdateContextBDAndClasses")]
-    partial class UpdateContextBDAndClasses
+    [Migration("20200221181750_DB")]
+    partial class DB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
