@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrivateOfficeWebApp.Models
@@ -12,6 +13,7 @@ namespace PrivateOfficeWebApp.Models
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Patronymic { get; set; }
+        public string? Role { get; set; }
 
         public virtual ICollection<Course> Course { get; set; }
 

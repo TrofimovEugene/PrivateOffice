@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 		public List<Group> Groups { get; set; }
 		public async Task<IActionResult> OnGet(int? idTeacher)
 		{
+			if (Request.Cookies["token_auth"] != null)
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/WithTeacher/id=" + idTeacher);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<List<Course>>(jsonResponse);
@@ -55,6 +58,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 		// ReSharper disable once IdentifierTypo
 		public async Task<IActionResult> OnPostCreateCourse(int idgroup)
 		{
+			if (Request.Cookies["token_auth"] != null)
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 			if (Request.Cookies["idTeacher"] != null)
 				Course.IdTeacher = Convert.ToInt32(Request.Cookies["idTeacher"]);
 			Course.IdGroup = idgroup;
@@ -84,10 +89,20 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 
 		public async Task<IActionResult> OnPostDelete(int id)
 		{
+			if (Request.Cookies["token_auth"] != null)
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 			if(Request.Cookies["idTeacher"] != null)
 				return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher="+ Request.Cookies["idTeacher"]);
 			return NotFound();
+		}
+
+		public async Task<IActionResult> OnPostLogOut()
+		{
+			Response.Cookies.Delete("token_auth");
+			Response.Cookies.Delete("login");
+			Response.Cookies.Delete("idTeacher");
+			return Redirect(AppSettings.WebAppUrl+"/Index");
 		}
 	}
 }

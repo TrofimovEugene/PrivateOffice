@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +16,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 	    private readonly HttpClient _httpClient;
 		public EditModel()
 	    {
-
-		    var clientHandler = new HttpClientHandler
+			var clientHandler = new HttpClientHandler
 		    {
 			    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
 		    };
@@ -32,7 +32,10 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 	        if (id == null)
 				return NotFound();
 
-	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
+	        if (Request.Cookies["token_auth"] != null)
+		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
@@ -47,8 +50,11 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
         [BindProperty]
 		public RequestClasses Class { get; set; }
 		public async Task<IActionResult> OnPostAsync(int TypeClass, int Idgroup)
-        { 
-            Class.IdGroup = Idgroup;
+        {
+	        if (Request.Cookies["token_auth"] != null)
+		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
+			Class.IdGroup = Idgroup;
 			Class.IdTypeClasses = TypeClass;
 			var jsonRequest = JsonConvert.SerializeObject(Class);
 	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
@@ -83,8 +89,18 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		}
 		public async Task<IActionResult> OnPostDelete(int id)
 		{
+			if (Request.Cookies["token_auth"] != null)
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 			return Redirect("https://localhost:44326/Teacher/Classes/ViewClasses?id=" + Class.IdCourse) ;
+		}
+
+		public async Task<IActionResult> OnPostLogOut()
+		{
+			Response.Cookies.Delete("token_auth");
+			Response.Cookies.Delete("login");
+			Response.Cookies.Delete("idTeacher");
+			return Redirect(AppSettings.WebAppUrl + "/Index");
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -23,23 +24,24 @@ namespace PrivateOfficeWebApp.Pages
 	        public string login { get; set; }
 	        public string password { get; set; }
         }
+        public class ResponseLogin
+        {
+	        public string access_token { get; set; }
+            public string username { get; set; }
+            public int idTeacher { get; set; }
+        }
         public async Task<IActionResult> OnPostLoginTeacher(string login, string password)
         {
-	        RequestLogin requestLogin = new RequestLogin {login = login, password = password};
-	        var jsonRequest = JsonConvert.SerializeObject(requestLogin);
-            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers/GetTeacherLogin", httpContent);
+	        HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers/token?username=" + login+"&password=" + password, null);
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-	            var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Teacher>(responseStr);
-	            if (jsonResponse.Login == login && jsonResponse.Password == password)
-	            {
-		            Response.Cookies.Append("login", jsonResponse.Login);
-                    Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
-                    return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
-	            }
-	            return Redirect(AppSettings.WebAppUrl); 
+	            var responseLogin = JsonConvert.DeserializeObject<ResponseLogin>(responseStr);
+	            Response.Cookies.Append("token_auth", responseLogin.access_token); 
+	            Response.Cookies.Append("login", responseLogin.username);
+                Response.Cookies.Append("idTeacher", responseLogin.idTeacher.ToString());
+	            return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" +
+		                            responseLogin.idTeacher);
             }
             catch
             {

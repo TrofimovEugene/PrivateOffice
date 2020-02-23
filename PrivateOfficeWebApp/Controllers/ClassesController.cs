@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Classes
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Classes>>> GetClasses()
         {
             return await _context.Classes.ToListAsync();
@@ -30,6 +32,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Classes/id=4
         [HttpGet("id={id}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Classes>>> GetClassesCourse(int? id)
         {
 	        var classes = await _context.Classes.ToListAsync();
@@ -45,6 +48,7 @@ namespace PrivateOfficeWebApp.Controllers
         }
 
         [HttpGet("GetClassesFromGroup/id={id}")]
+        [Authorize]
         public async Task<ICollection<Classes>> GetClassesFromGroup(int id)
         {
             var classes = await _context.Classes.ToListAsync();
@@ -60,6 +64,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Classes/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Classes>> GetClasses(int id)
         {
             var classes = await _context.Classes.FindAsync(id);
@@ -76,6 +81,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutClasses(int id, Classes classes)
         {
             if (id != classes.IdClasses)
@@ -108,6 +114,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Classes>> PostClasses(Classes classes)
         {
             _context.Classes.Add(classes);
@@ -118,6 +125,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // DELETE: api/Classes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Classes>> DeleteClasses(int id)
         {
             var classes = await _context.Classes.FindAsync(id);

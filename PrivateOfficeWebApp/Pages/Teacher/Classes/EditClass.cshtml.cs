@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,9 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             if (id == null)
                 return NotFound();
 
+            if (Request.Cookies["token_auth"] != null)
+	            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
             HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Class = JsonConvert.DeserializeObject<PagesModels.Classes>(jsonResponse);
@@ -35,6 +39,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
         public async Task<IActionResult> OnPostEditClass(int TypeClass, int idgroup, int idCourse)
         {
+	        if (Request.Cookies["token_auth"] != null)
+		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
             var reqClasses = new Models.Classes
             {
@@ -57,5 +63,13 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
             return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/ViewClasses?id=" + idCourse);
 		}
+
+        public async Task<IActionResult> OnPostLogOut()
+        {
+	        Response.Cookies.Delete("token_auth");
+	        Response.Cookies.Delete("login");
+	        Response.Cookies.Delete("idTeacher");
+	        return Redirect(AppSettings.WebAppUrl + "/Index");
+        }
     }
 }

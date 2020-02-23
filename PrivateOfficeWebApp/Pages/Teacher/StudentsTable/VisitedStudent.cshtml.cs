@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,8 @@ namespace PrivateOfficeWebApp
 
         public async Task<IActionResult> OnGet(int id)
         {
+	        if (Request.Cookies["token_auth"] != null)
+		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
             HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
             var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -63,6 +66,9 @@ namespace PrivateOfficeWebApp
 
         public async Task<IActionResult> OnPostUpdateStudent(int idClasses, int idStudent, bool visited)
         {
+	        if (Request.Cookies["token_auth"] != null)
+		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
             var value = true;
 
             HttpResponseMessage response =
@@ -117,6 +123,14 @@ namespace PrivateOfficeWebApp
 
             return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/VisitedStudent?id=" +
                             idClasses);
+        }
+
+        public async Task<IActionResult> OnPostLogOut()
+        {
+	        Response.Cookies.Delete("token_auth");
+	        Response.Cookies.Delete("login");
+	        Response.Cookies.Delete("idTeacher");
+	        return Redirect(AppSettings.WebAppUrl + "/Index");
         }
     }
 }

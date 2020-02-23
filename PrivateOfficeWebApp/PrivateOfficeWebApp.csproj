@@ -21,11 +21,14 @@
     <Compile Include="Migrations\20200221073601_Update.Designer.cs" />
     <Compile Include="Migrations\20200221085737_UpdateContextBDAndClasses.cs" />
     <Compile Include="Migrations\20200221085737_UpdateContextBDAndClasses.Designer.cs" />
+    <Compile Include="Migrations\20200223055709_RoleTeacher.cs" />
+    <Compile Include="Migrations\20200223055709_RoleTeacher.Designer.cs" />
     <Compile Include="Migrations\PrivateOfficeWebAppContextModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="jQuery" Version="3.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>

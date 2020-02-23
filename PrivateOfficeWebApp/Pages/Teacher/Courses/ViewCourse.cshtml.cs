@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -26,6 +27,9 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 		{
 			if (id == null)
 				return NotFound();
+
+			if (Request.Cookies["token_auth"] != null)
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
