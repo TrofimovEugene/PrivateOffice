@@ -1,0 +1,44 @@
+﻿@page
+@model Task
+@* ReSharper disable MarkupTextTypo *@
+<div>
+	<nav class="navbar" style="background-color: #0866C6">
+		<a href="/Index" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
+		
+	</nav>
+</div>
+
+<div class="container-fluid mt-3">
+	<div class="form-group d-flex bd-highlight mb-3">
+		<input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+	</div>
+	<form method="get">
+		<table class="table table-bordered" style="border: solid   #0866C6 2px; background-color:white; width:100%">
+			<thead>
+				<tr>
+					<th style="border: solid   #0866C6 2px; background-color:white ">
+						Название занятия(тема)
+					</th>
+					<th style="border: solid   #0866C6 2px; background-color:white ">
+						Тема доклада
+					</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model.Classes != null)
+				{
+					@foreach (var item in Model.Classes)
+					{
+						<tr>
+							<td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+							</td>
+							<td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+							</td>
+						</tr>
+
+					}
+				}
+			</tbody>
+		</table>
+	</form>

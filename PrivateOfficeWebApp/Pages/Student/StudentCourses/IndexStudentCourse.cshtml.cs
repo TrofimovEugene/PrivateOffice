@@ -27,6 +27,8 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 		[BindProperty]
 		public List<Classes> Classes { get; set; }
 		[BindProperty]
+		public List<Course> Courses { get; set; }
+		[BindProperty]
 		public Students Student { get; set; }
 		[BindProperty] public VisitedStudent VisitedStudent { get; set; }
 		[BindProperty] public List<VisitedStudent> VisitedStudents { get; set; }

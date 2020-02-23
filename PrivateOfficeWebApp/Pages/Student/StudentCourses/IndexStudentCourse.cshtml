@@ -4,11 +4,73 @@
 <div>
     <nav class="navbar" style="background-color: #0866C6">
         <a href="/Index" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
+        
     </nav>
 </div>
-<p class="text-center">Занятия на сегодня</p>
 
-<div class=" mt-1">
+<div class="container-fluid mt-3">
+    <div class="form-group d-flex bd-highlight mb-3">
+        <input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+    </div>
+    <div class="row">
+        @if (Model.Courses != null)
+        {
+            @foreach (var item in Model.Courses)
+            {
+                <div class="col-xl-3  col-md-4 col-sm-6  p-4">
+                    <div class="card " style="min-height: 300px; border-width:2px; border-radius: 5%; border-color: #0866C6">
+                        <div class="card-body">
+                            <form method="post" class=" d-flex bd-highlight mb-1">
+                                <input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
+                            </form>
+                            <form method="get">
+                                <div class="card-course">
+                                    <div class="d-flex bd-highlight">
+                                        <h4 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameCourse)</h4>
+                                    </div>
+                                    <hr class="bg-black m-0 pb-3" />
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item card-text p-1 ">
+                                        Преподаватель:<br>@Html.DisplayFor(indexModel => item.Teacher.FirstName) @Html.DisplayFor(indexModel => item.Teacher.SecondName)
+                                    </li>
+                                    <li class="list-group-item card-text p-1 ">Аудитория:<br></li>
+                                    @if (item.Classes != null)
+                                    {
+                                        @foreach (var clas in item.Classes)
+                                        {
+                                            @if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
+                                            {
+                                                <ul class="list-group list-group-flush  mt-2">
+                                                    <li class="list-group-item card-text p-1 ">
+                                                        Ближайшее занятие:<br>@Html.DisplayFor(indexModel => clas.NameClasses)<br />
+                                                        @Html.DisplayFor(indexModel => clas.StartTime)-@Html.DisplayFor(indexModel => clas.EndTime)
+                                                    </li>
+
+                                                </ul>
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    <li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @item.StartDate.ToShortDateString() по @item.EndDate.ToShortDateString()</li>
+
+                                </ul>
+                                <div class="d-flex bd-highlight">
+                                    <a class="ml-auto bd-highlight" asp-page="/Student/StudentCourses/Task" asp-route-id="@item.IdCourse">Подробнее</a>
+
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+<!--<div class=" mt-1">
     <table id="tab1" class="table table-bordered" style=" background-color:white; width:190vh">
         <thead>
             <tr>
