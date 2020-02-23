@@ -1,0 +1,110 @@
+﻿@page
+@model PrivateOfficeWebApp.Pages.Teacher.StudentsTable.ViewGroupsModel
+@{
+    ViewData["Title"] = "ViewGroups";
+}
+
+<div>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+
+        <!-- <form class="form-inline">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+        </form> -->
+    </nav>
+</div>
+<div class="container-fluid mt-3">
+    <div class="form-group d-flex bd-highlight mb-3">
+        <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white"  onclick="history.back();" value="Назад" />
+        <button type="button"class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addGroups">
+    Добавить группу
+</button>
+    </div>
+    </div>
+    <form method="get">
+        <table class="table table-bordered" style="border: solid   #0866C6 2px; background-color:white; width:100%">
+            <thead>
+                <tr>
+                    <th style="border: solid   #0866C6 2px;">
+                        Название группы
+                    </th>
+                    <th style="border: solid   #0866C6 2px;">
+                        Количество студентов
+                    </th>
+                    <th style="border: solid   #0866C6 2px;"></th>
+                    <th style="border: solid   #0866C6 2px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (true)
+                {
+                    @foreach (var item in Model.Groups)
+                    {
+                        <tr>
+                            <td style="border: solid   #0866C6 1px;">
+                                @Html.DisplayFor(modelItem => item.NameGroup)
+                            </td>
+                            <td style="border: solid   #0866C6 1px;">
+                                @Html.DisplayFor(modelItem => item.CountStudents)
+                            </td>
+                            <td style="border: solid   #0866C6 1px;">
+                                <form method="post">
+                                    <a asp-page="../StudentsTable/StudentsTable" asp-route-id="@item.IdGroup">Студенты</a> |
+                                    <a asp-page="../StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Редактировать</a>
+                                </form>
+                            </td>
+                            <td style="border: solid   #0866C6 1px;">
+                                <form method="post">
+                                    <input hidden="hidden" type="number" name="id" value="@item.IdGroup" />
+                                    <input type="submit" class="btn btn-outline-danger" value="Удалить" asp-page-handler="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
+    <form action="" id="add_groups" method="post" class="needs-validation" onsubmit="checkStudent(this);return false;" novalidate>
+        <div class="modal fade" id="addGroups" tabindex="-1" role="dialog"
+             aria-labelledby="addGroupsTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addGroupsTitle">Добавить группу</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="name">Название группы</label>
+                        <input type="text" id="NameGroup" class="form-control" asp-for="Group.NameGroup" value="" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите название группы
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateGroups" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
+    </form>
