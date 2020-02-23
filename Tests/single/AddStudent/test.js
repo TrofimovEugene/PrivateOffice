@@ -11,7 +11,10 @@ async function getCheckScreen() {
 
   let student ={
       name:'testname',
-      surname:'testsurname'
+      surname:'testsurname',
+      group:'1',
+      login:'teststudent',
+      password:'teststudent'
   }
 
   const timer = 1000
@@ -51,10 +54,15 @@ async function getCheckScreen() {
   await page.focus('#SurnameStudent')
   page.keyboard.type(student.surname)
   await page.waitFor(timer);
+  await page.focus('input[name="Student.Login"]')
+  page.keyboard.type(student.login)
+  await page.waitFor(timer);
+  await page.focus('input[name="Student.Password"]')
+  page.keyboard.type(student.password)
+  await page.waitFor(timer);
   await page.click('#addStudent > div > div > div.modal-footer >  input.btn.btn-primary')
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Студенты.png'});
-
   await page.goBack()
   await page.goBack()
   await page.waitFor(timer);

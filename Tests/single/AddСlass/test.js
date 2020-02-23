@@ -8,9 +8,11 @@ async function getCheckScreen() {
       topic: 'Тест',
       type:'2',
       day:'Вторник',
-      timeStart:'12',
-      timeEnd:'14',
-      period:'каждую неделю'
+      date:'12032020',
+      cabinet:'D505',
+      starttime:'13:50',
+      endtime:'15:20',
+      replay:'каждую неделю'
   }
 
   let user = {
@@ -56,19 +58,30 @@ await page.select('select[id="TypeClass"]', lesson.type);
 await page.waitFor(timer);
 
 await page.focus('#InputDay')
-await page.select('select[id="InputDay"]', lesson.day);
+await page.select('select[name="Class.DaysWeek"]', lesson.day);
 await page.waitFor(timer);
 
-await page.focus('#InputTimeBegin')
-page.keyboard.type(lesson.timeStart)
+await page.focus('input[name="Class.DateClasses"]')
+page.keyboard.type(lesson.date)
 await page.waitFor(timer);
 
-await page.focus('#InputTimeEnd')
-page.keyboard.type(lesson.timeEnd)
+await page.focus('input[name="Class.Cabinet"]')
+page.keyboard.type(lesson.cabinet)
 await page.waitFor(timer);
 
-await page.focus('#InputСountClass')
-page.keyboard.type(lesson.period)
+await page.focus('input[name="Class.StartTime"]')
+page.keyboard.type(lesson.starttime)
+await page.waitFor(timer);
+
+await page.focus('input[name="Class.EndTime"]')
+page.keyboard.type(lesson.endtime)
+await page.waitFor(timer);
+
+await page.focus('input[name="Class.ReplayClasses"]')
+page.keyboard.type(lesson.replay)
+await page.waitFor(timer);
+
+
 await page.screenshot({path: './screens result/Добавление занятия.png'});
 await page.waitFor(timer);
 

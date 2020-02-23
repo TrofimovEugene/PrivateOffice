@@ -26,7 +26,7 @@ namespace PrivateOfficeWebApp.Controllers
             return await _context.Student.ToListAsync();
         }
 
-        [HttpGet("GetStudentFromGroup&id={id}")]
+        [HttpGet("GetStudentFromGroup/id={id}")]
         public async Task<ICollection<Student>> GetStudentFromGroup(int id)
         {
 	        var students = await _context.Student.ToListAsync();
@@ -37,6 +37,32 @@ namespace PrivateOfficeWebApp.Controllers
 					resultList.Add(student);
 	        }
 	        return resultList;
+        }
+
+        public class RequestLogin
+        {
+            public string login { get; set; }
+            public string password { get; set; }
+        }
+    
+
+        [HttpPost("GetStudentLogin")]
+        public async Task<ActionResult<Student>> GetStudentLogin(RequestLogin requestLogin)
+        {
+            var students = await _context.Student.ToListAsync();
+
+            if (students == null)
+            {
+                return NotFound();
+            }
+            foreach (var student in students)
+            {
+                if (student.Login == requestLogin.login)
+                    if (student.Password == requestLogin.password)
+                        return student;
+            }
+
+            return NotFound();
         }
 
         // GET: api/Students/5

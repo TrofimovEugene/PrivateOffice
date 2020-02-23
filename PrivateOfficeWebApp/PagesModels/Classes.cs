@@ -1,5 +1,6 @@
 ﻿#nullable enable
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PrivateOfficeWebApp.PagesModels
@@ -33,6 +34,10 @@ namespace PrivateOfficeWebApp.PagesModels
         public virtual Group? Group { get; set; }
         [JsonProperty("course")]
 		public virtual Course Course { get; set; }
+		[JsonProperty("cabinet")]
+		public string Cabinet { get; set; }
+		[JsonProperty("visitedStudents")]
+        public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
 
 	}
 }

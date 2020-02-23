@@ -26,10 +26,18 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
         public Group Group { get; set; }
 		public async Task<IActionResult> OnGet()
         {
-	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
-	        var jsonResponse = await response.Content.ReadAsStringAsync();
+            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
+	         var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
-	        return Page();
+
+            foreach (var groups in Groups)
+            {
+                response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/GetCountStudentInGroup/id=" + groups.IdGroup);
+                jsonResponse = await response.Content.ReadAsStringAsync();
+                var countStudents = JsonConvert.DeserializeObject<int>(jsonResponse);
+                groups.CountStudents = countStudents;
+            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPostCreateGroups(int idgroup)
