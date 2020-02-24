@@ -49,6 +49,25 @@ namespace PrivateOfficeWebApp.Controllers
 	        return courses;
         }
 
+        [HttpGet("GetCourseFromGroup/id={id}")]
+        public async Task<ICollection<Course>> GetCousreFromGroup(int id)
+        {
+            var courses = await _context.Course.ToListAsync();
+            List<Course> resultList = new List<Course>();
+            foreach (var course in courses)
+            {
+                if (course.IdGroup == id)
+                    resultList.Add(course);
+                foreach (var Class in await _context.Classes.ToListAsync())
+                {
+                    Class.DateClasses.Add(Class.StartTime);
+                    if (Class.IdCourse == course.IdCourse)
+                        course.Classes.Add(Class);
+                }
+            }
+            return resultList;
+        }
+
         // GET: api/Courses/5
         [HttpGet("{id}")]
         [Authorize]

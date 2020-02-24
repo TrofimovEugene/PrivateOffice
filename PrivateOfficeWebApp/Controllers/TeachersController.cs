@@ -96,6 +96,8 @@ namespace PrivateOfficeWebApp.Controllers
 
 	        return NotFound();
         }
+
+
         public class Response
         {
 	        public string access_token { get; set; }

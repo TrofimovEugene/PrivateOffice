@@ -32,13 +32,14 @@
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item card-text p-1 ">
-                                        Преподаватель:<br>@Html.DisplayFor(indexModel => item.Teacher.FirstName) @Html.DisplayFor(indexModel => item.Teacher.SecondName)
+                                        Преподаватель:<br>@Model.Teacher.FirstName @Model.Teacher.SecondName
                                     </li>
-                                    <li class="list-group-item card-text p-1 ">Аудитория:<br></li>
+                                    
                                     @if (item.Classes != null)
                                     {
                                         @foreach (var clas in item.Classes)
                                         {
+
                                             @if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
                                             {
                                                 <ul class="list-group list-group-flush  mt-2">
@@ -56,7 +57,7 @@
 
                                 </ul>
                                 <div class="d-flex bd-highlight">
-                                    <a class="ml-auto bd-highlight" asp-page="/Student/StudentCourses/Task" asp-route-id="@item.IdCourse">Подробнее</a>
+                                    <a class="ml-auto bd-highlight" asp-page="/Student/StudentCourses/Task" asp-route-id="@Model.Student.IdStudent">Подробнее</a>
 
                                 </div>
                             </form>
@@ -70,74 +71,4 @@
     </div>
 </div>
 
-<!--<div class=" mt-1">
-    <table id="tab1" class="table table-bordered" style=" background-color:white; width:190vh">
-        <thead>
-            <tr>
-                <th scope="col">Предмет</th>
-                <th scope="col">Время начала занятия</th>
-                <th scope="col">Время окончания занятия</th>
-                <th scope="col">Тема</th>
-                <th scope="col">Аудитория</th>
-                <th scope="col">Присутсвие</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Classes != null)
-            {
-                @foreach (var classes in Model.Classes)
-                {
-                    <tr>
 
-                        <td>@Html.DisplayFor(item => classes.Course.NameCourse)</td>
-                        <td>@Html.DisplayFor(item => classes.StartTime)</td>
-                        <td>@Html.DisplayFor(item => classes.EndTime)</td>
-                        <td>@Html.DisplayFor(item => classes.NameClasses)</td>
-                        <td>@Html.DisplayFor(item => classes.Cabinet)</td>
-                        <td>
-                            <form method="post" asp-page-handler="UpdateStudent">
-                                <div class="form-group">
-                                    <input hidden="hidden" type="number" name="idClasses" value="@classes.IdClasses" />
-                                    <input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
-
-                                    @if (@Model.VisitedStudents.Count != 0)
-                                    {
-                                        @foreach (var confirmVisit in Model.VisitedStudents)
-                                        {
-                                            @if (confirmVisit.IdClasses == classes.IdClasses)
-                                            {
-                                                @if (confirmVisit.ConfirmVisited == false)
-                                                {
-                                                    <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();">
-                                                }
-                                                else
-                                                {
-                                                    <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" checked name="visited" onchange="this.form.submit();">
-                                                }
-                                            }
-                                        } @if (Model.VisitedStudents.Find(x => x.IdClasses.Equals(classes.IdClasses)) == null)
-                                        {
-                                            <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
-                                      
-                                        }
-
-                                    }
-                                    else { 
-                                    @if (@Model.VisitedStudents.Count == 0)
-                                    {
-
-                                        <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
-                                  
-                                    }
-                                    }
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                }
-
-            }
-            </tbody>
-            <input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
-            </table>
-            </div>

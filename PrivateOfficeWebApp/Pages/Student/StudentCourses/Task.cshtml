@@ -20,24 +20,80 @@
 						Название занятия(тема)
 					</th>
 					<th style="border: solid   #0866C6 2px; background-color:white ">
-						Тема доклада
+						Время начала занятия
 					</th>
-
+					<th style="border: solid   #0866C6 2px; background-color:white ">
+						Время окончания занятия
+					</th>
+					<th style="border: solid   #0866C6 2px; background-color:white ">
+						Аудитория
+					</th>
+					<th style="border: solid   #0866C6 2px; background-color:white ">
+						Присутсвие
+					</th>
 				</tr>
 			</thead>
 			<tbody>
 				@if (Model.Classes != null)
 				{
-					@foreach (var item in Model.Classes)
+					@foreach (var classes in Model.Classes)
 					{
 						<tr>
 							<td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+								@Html.DisplayFor(it => classes.NameClasses)
 							</td>
 							<td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+								@Html.DisplayFor(it => classes.StartTime)
+							</td>
+							<td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+								@Html.DisplayFor(it => classes.EndTime)
+							</td>
+							<td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+								@Html.DisplayFor(item => classes.Cabinet)
+							</td>
+							<td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+								<form method="post" asp-page-handler="UpdateStudent">
+									<div class="form-group">
+										<input hidden="hidden" type="number" name="idClasses" value="@classes.IdClasses" />
+										<input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
+
+										@if (@Model.VisitedStudents.Count != 0)
+										{
+											@foreach (var confirmVisit in Model.VisitedStudents)
+											{
+												@if (confirmVisit.IdClasses == classes.IdClasses)
+												{
+													@if (confirmVisit.ConfirmVisited == false)
+													{
+														<input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();">
+													}
+													else
+													{
+														<input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" checked name="visited" onchange="this.form.submit();">
+													}
+												}
+											} @if (Model.VisitedStudents.Find(x => x.IdClasses.Equals(classes.IdClasses)) == null)
+											{
+												<input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
+
+											}
+
+										}
+										else
+										{
+											@if (@Model.VisitedStudents.Count == 0)
+											{
+
+												<input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
+
+											}
+										}
+									</div>
+								</form>
 							</td>
 						</tr>
-
 					}
+
 				}
 			</tbody>
 		</table>

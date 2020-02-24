@@ -10,8 +10,8 @@ using PrivateOfficeWebApp.Data;
 namespace PrivateOfficeWebApp.Migrations
 {
     [DbContext(typeof(PrivateOfficeWebAppContext))]
-    [Migration("20200221085737_UpdateContextBDAndClasses")]
-    partial class UpdateContextBDAndClasses
+    [Migration("20200224095517_DB")]
+    partial class DB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -273,18 +273,26 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Patronymic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdTeacher");
