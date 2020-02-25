@@ -23,6 +23,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		}
 		[BindProperty]
 		public PagesModels.Classes Class { get; set; }
+        [BindProperty]
+        public PagesModels.Teacher Teacher { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
             if (id == null)
@@ -34,6 +36,12 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Class = JsonConvert.DeserializeObject<PagesModels.Classes>(jsonResponse);
+
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Teachers/GetTeachersFromCourse/id=" + id);
+             jsonResponse = await response.Content.ReadAsStringAsync();
+            Teacher = JsonConvert.DeserializeObject<PagesModels.Teacher>(jsonResponse);
+
+           
             return Page();
             }
 

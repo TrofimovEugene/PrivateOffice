@@ -96,7 +96,23 @@ namespace PrivateOfficeWebApp.Controllers
 
 	        return NotFound();
         }
+        [HttpGet("GetTeachersFromCourse/id={id}")]
+        public async Task<ActionResult<Teacher>> GetTeachersFromCourse(int id)
+        {
+            var teachers = await _context.Teacher.ToListAsync();
+            if (teachers == null)
+            {
+                return NotFound();
+            }
+            foreach (var teacher in teachers)
+            {
+                if (teacher.IdTeacher == id)
 
+                    return teacher;
+            }
+
+            return NotFound();
+        }
 
         public class Response
         {
