@@ -66,7 +66,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 			var jsonRequest = JsonConvert.SerializeObject(Course);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Courses", httpContent);
-			return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + Course.IdTeacher);
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?id=" + Course.IdTeacher);
 		}
 		[JsonObject]
 		public class RequestCourse
