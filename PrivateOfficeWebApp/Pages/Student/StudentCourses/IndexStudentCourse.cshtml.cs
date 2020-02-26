@@ -103,6 +103,12 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 		}
 
-
+		public async Task<IActionResult> OnPostLogOut()
+		{
+			Response.Cookies.Delete("token_auth");
+			Response.Cookies.Delete("login");
+			Response.Cookies.Delete("idStudent");
+			return Redirect(AppSettings.WebAppUrl + "/Index");
+		}
 	}
 }

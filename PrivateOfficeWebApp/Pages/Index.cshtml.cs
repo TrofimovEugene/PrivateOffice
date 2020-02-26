@@ -24,7 +24,7 @@ namespace PrivateOfficeWebApp.Pages
 	        public string login { get; set; }
 	        public string password { get; set; }
         }
-        public class ResponseLogin
+        public class ResponseLoginTeacher
         {
 	        public string access_token { get; set; }
             public string username { get; set; }
@@ -36,7 +36,7 @@ namespace PrivateOfficeWebApp.Pages
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-	            var responseLogin = JsonConvert.DeserializeObject<ResponseLogin>(responseStr);
+	            var responseLogin = JsonConvert.DeserializeObject<ResponseLoginTeacher>(responseStr);
 	            Response.Cookies.Append("token_auth", responseLogin.access_token); 
 	            Response.Cookies.Append("login", responseLogin.username);
                 Response.Cookies.Append("idTeacher", responseLogin.idTeacher.ToString());
@@ -75,23 +75,24 @@ namespace PrivateOfficeWebApp.Pages
 	        //public virtual List<Course> Course { get; set; }
 
         }
+        public class ResponseLoginStudent
+        {
+	        public string access_token { get; set; }
+	        public string username { get; set; }
+	        public int idStudent { get; set; }
+        }
         public async Task<IActionResult> OnPostLoginStudent(string login, string password)
         {
-            RequestLogin requestLogin = new RequestLogin { login = login, password = password };
-            var jsonRequest = JsonConvert.SerializeObject(requestLogin);
-            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentLogin", httpContent);
+            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students/StudentToken?username="+login+"&password="+password, null);
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-                var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Student>(responseStr);
-                if (jsonResponse.Login == login && jsonResponse.Password == password)
-                {
-                    Response.Cookies.Append("login", jsonResponse.Login);
-                    Response.Cookies.Append("idStudent", jsonResponse.IdStudent.ToString());
-                    return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?idStudent=" + jsonResponse.IdStudent);
-                }
-                return Redirect(AppSettings.WebAppUrl);
+                var jsonResponse = JsonConvert.DeserializeObject<ResponseLoginStudent>(responseStr);
+                Response.Cookies.Append("token_auth", jsonResponse.access_token);
+	            Response.Cookies.Append("login", jsonResponse.username);
+	            Response.Cookies.Append("idStudent", jsonResponse.idStudent.ToString());
+	            return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?idStudent=" + 
+	                            jsonResponse.idStudent);
             }
             catch
             {

@@ -16,7 +16,6 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 	    private readonly HttpClient _httpClient;
 	    public Task()
 	    {
-
 		    var clientHandler = new HttpClientHandler
 		    {
 			    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
@@ -124,7 +123,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 		{
 			Response.Cookies.Delete("token_auth");
 			Response.Cookies.Delete("login");
-			Response.Cookies.Delete("idTeacher");
+			Response.Cookies.Delete("idStudent");
 			return Redirect(AppSettings.WebAppUrl + "/Index");
 		}
 	}
