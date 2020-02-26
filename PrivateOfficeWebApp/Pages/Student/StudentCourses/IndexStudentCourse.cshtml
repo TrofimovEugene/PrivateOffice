@@ -25,7 +25,6 @@
                             <form method="post" class=" d-flex bd-highlight mb-1">
                                 <input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
                             </form>
-                            <form method="get">
                                 <div class="card-course">
                                     <div class="d-flex bd-highlight">
                                         <h4 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameCourse)</h4>
@@ -58,11 +57,15 @@
                                     <li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @item.StartDate.ToShortDateString() по @item.EndDate.ToShortDateString()</li>
 
                                 </ul>
-                                <div class="d-flex bd-highlight">
-                                    <a class="ml-auto bd-highlight" asp-page="/Student/StudentCourses/Task" asp-route-id="@Model.Student.IdStudent">Подробнее</a>
-
-                                </div>
-                            </form>
+                                <form method="post">
+                                    <div class="d-flex bd-highlight">
+                                        <input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
+                                        <input type="submit" class="btn btn-primary mb-1" value="Подробнее" asp-page-handler="Visited" />
+                                        <!-- <a class="ml-auto bd-highlight" asp-page="/Student/StudentCourses/Task" >Подробнее</a>
+    -->
+                                    </div>
+                                </form>
+                       
 
                         </div>
                     </div>

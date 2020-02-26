@@ -47,7 +47,7 @@ namespace PrivateOfficeWebApp.Pages
 	            Response.Cookies.Append("login", responseLogin.username);
                 Response.Cookies.Append("idTeacher", responseLogin.idTeacher.ToString());
                 Response.Cookies.Append("role", responseLogin.Role);
-                return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" +
+                return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?id=" +
 		                            responseLogin.idTeacher);
             }
             catch

@@ -15,7 +15,7 @@
 		<input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
 	</div>
 	<div/>
-	<form method="get">
+
 		<table class="table table-bordered" style="border: solid #0866C6 2px; background-color: white; width: 100%">
 			<thead>
 			<tr>
@@ -55,7 +55,7 @@
 							@Html.DisplayFor(item => classes.Cabinet)
 						</td>
 						<td class=" pb-0" style="border: solid #0866C6 1px; background-color: white">
-							<form method="post" asp-page-handler="UpdateStudent">
+							<form method="post" asp-page-handler="VisitStudent">
 								<div class="form-group">
 									<input hidden="hidden" type="number" name="idClasses" value="@classes.IdClasses"/>
 									<input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent"/>
@@ -101,6 +101,5 @@
 			}
 			</tbody>
 		</table>
-	</form>
 </div>
 

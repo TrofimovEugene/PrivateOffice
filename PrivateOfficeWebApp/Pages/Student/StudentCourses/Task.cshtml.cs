@@ -23,7 +23,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 		    _httpClient = new HttpClient(clientHandler);
 		}
 
-
+		[BindProperty]
 		public List<Classes> Classes { get; set; }
 		[BindProperty]
 		public IndexStudentModel.Students Student { get; set; }
@@ -37,6 +37,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 	        if (Request.Cookies["token_auth"] != null)
 		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
+		
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Student = JsonConvert.DeserializeObject<IndexStudentModel.Students>(jsonResponse);
@@ -45,11 +46,13 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			Classes = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
 
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent/id=" + id);
+			jsonResponse = await response.Content.ReadAsStringAsync();
+			VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
+
 			if (Classes != null)
 			{
-				response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent/id=" + id);
-				jsonResponse = await response.Content.ReadAsStringAsync();
-				VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
+			
 
 				foreach (var classes in Classes)
 				{
@@ -63,7 +66,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 			return Page();
         }
 
-		public async Task<IActionResult> OnPostUpdateStudent(int idClasses, int idStudent, bool visited)
+		public async Task<IActionResult> OnPostVisitStudent(int idClasses, int idStudent, bool visited)
 		{
 			if (Request.Cookies["token_auth"] != null)
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
@@ -113,10 +116,11 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 				var jsonRequest = JsonConvert.SerializeObject(VisitedStudent);
 				HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 				await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents", httpContent);
+				
 
 			}
 
-			return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/Task?id=" + VisitedStudent.IdStudent);
+			return Redirect("./Task?id=" + idStudent);
 		}
 
 		public async Task<IActionResult> OnPostLogOut()

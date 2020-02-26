@@ -29,11 +29,11 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 		public List<Course> Courses { get; set; }
 		[BindProperty]
 		public List<Group> Groups { get; set; }
-		public async Task<IActionResult> OnGet(int? idTeacher)
+		public async Task<IActionResult> OnGet(int? id)
 		{
 			if (Request.Cookies["token_auth"] != null)
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/WithTeacher/id=" + idTeacher);
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/WithTeacher/id=" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Courses = JsonConvert.DeserializeObject<List<Course>>(jsonResponse);
 			
