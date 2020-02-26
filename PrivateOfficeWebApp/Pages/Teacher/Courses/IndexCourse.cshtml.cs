@@ -102,7 +102,41 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 			Response.Cookies.Delete("token_auth");
 			Response.Cookies.Delete("login");
 			Response.Cookies.Delete("idTeacher");
+			Response.Cookies.Delete("role");
 			return Redirect(AppSettings.WebAppUrl+"/Index");
+		}
+
+		[BindProperty]
+		public RequestTeacher Teacher { get; set; }
+		public async Task<IActionResult> OnPostRegistryTeacher()
+		{
+			if (Request.Cookies["token_auth"] != null)
+				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+			Teacher.Course = new List<Course>();
+			var jsonRequest = JsonConvert.SerializeObject(Teacher);
+			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + Request.Cookies["idTeacher"]);
+		}
+
+		[JsonObject]
+		public class RequestTeacher
+		{
+			[JsonProperty("login")]
+			public string Login { get; set; }
+			[JsonProperty("password")]
+			public string Password { get; set; }
+			[JsonProperty("firstName")]
+			public string FirstName { get; set; }
+			[JsonProperty("secondName")]
+			public string SecondName { get; set; }
+			[JsonProperty("patronymic")]
+			public string Patronymic { get; set; }
+			[JsonProperty("role")]
+			public string Role { get; set; }
+			[JsonProperty("course")]
+			public virtual List<Course> Course { get; set; }
+
 		}
 	}
 }

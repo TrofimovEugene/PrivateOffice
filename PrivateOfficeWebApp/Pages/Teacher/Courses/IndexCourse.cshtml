@@ -13,7 +13,47 @@
 	<div class="form-group d-flex bd-highlight mb-3">
 		<input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
 		<a type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
+		@if (@Request.Cookies["role"] == "admin")
+		{
+			<input type="button" class="btn btn-secondary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addTeacher" value="Добавить учителя" />
+		}
 	</div>
+	<form action="" id="add_students" method="post" onsubmit="addRow();return false;">
+		<div class="modal fade" id="addTeacher" tabindex="-1" role="dialog"
+		     aria-labelledby="addTeacherTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addTeacherTitle">Регистрация</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<label for="name">Имя</label>
+						<input type="text" class="form-control" asp-for="Teacher.FirstName" />
+						<label for="name">Фамилия</label>
+						<input type="text" class="form-control" asp-for="Teacher.SecondName" />
+						<label for="name">Отчество</label>
+						<input type="text" class="form-control" asp-for="Teacher.Patronymic" />
+						<label for="group">Логин</label>
+						<input type="text" class="form-control" asp-for="Teacher.Login" />
+						<label for="group">Пароль</label>
+						<input type="password" class="form-control" asp-for="Teacher.Password" />
+						<label for="role">Роль</label>
+						<select class="form-control" asp-for="Teacher.Role" required>
+							<option value="user">Пользователь</option>
+							<option value="admin">Администратор</option>
+						</select>
+					</div>
+					<div class="modal-footer d-flex justify-content-between">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+						<input type="submit" class="btn btn-primary" value="Зарегистрироваться" asp-page-handler="RegistryTeacher" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 	<div class="row">
 		@if (Model.Courses != null)
 		{
@@ -24,7 +64,7 @@
 						<div class="card-body">
 							<form method="post" class=" d-flex bd-highlight mb-1">
 								<input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
-								<input type="submit" class=" btn btn-outline-danger ml-auto p-1 bd-highlight" style="border-radius: 10%;" value="Удалить"  asp-page-handler="Delete" />
+								<input type="submit" class=" btn btn-outline-danger ml-auto p-1 bd-highlight" style="border-radius: 10%;" value="Удалить" asp-page-handler="Delete" />
 							</form>
 							<form method="get">
 								<div class="card-university">
@@ -54,14 +94,14 @@
 										}
 									}
 									<li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @item.StartDate.ToShortDateString() по @item.EndDate.ToShortDateString()</li>
-									
+
 								</ul>
-                                <div class="d-flex bd-highlight" >
-                                    <a class="ml-auto bd-highlight" asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
-                                    <!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
-                                </div>
+								<div class="d-flex bd-highlight">
+									<a class="ml-auto bd-highlight" asp-page="/Teacher/Courses/Edit" asp-route-id="@item.IdCourse">Подробнее</a>
+									<!--<a asp-page="/Courses/ViewCourse" asp-route-id="@item.IdCourse">Подробнее</a>-->
+								</div>
 							</form>
-							
+
 						</div>
 					</div>
 				</div>

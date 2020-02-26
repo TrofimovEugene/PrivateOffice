@@ -130,7 +130,8 @@ namespace PrivateOfficeWebApp
 	        Response.Cookies.Delete("token_auth");
 	        Response.Cookies.Delete("login");
 	        Response.Cookies.Delete("idTeacher");
-	        return Redirect(AppSettings.WebAppUrl + "/Index");
+	        Response.Cookies.Delete("role");
+            return Redirect(AppSettings.WebAppUrl + "/Index");
         }
     }
 }

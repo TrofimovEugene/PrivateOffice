@@ -119,6 +119,7 @@ namespace PrivateOfficeWebApp.Controllers
 	        public string access_token { get; set; }
             public string username { get; set; }
             public int idTeacher { get; set; }
+            public string Role { get; set; }
         }
 
         [HttpPost("token")]
@@ -150,7 +151,8 @@ namespace PrivateOfficeWebApp.Controllers
 		            {
 			            access_token = encodedJwt,
 			            username = identity.Name,
-			            idTeacher = teacher.IdTeacher
+			            idTeacher = teacher.IdTeacher,
+                        Role = teacher.Role
 		            };
             }
 

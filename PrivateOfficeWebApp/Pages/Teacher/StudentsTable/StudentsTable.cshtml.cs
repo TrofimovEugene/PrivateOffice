@@ -115,6 +115,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			Response.Cookies.Delete("token_auth");
 			Response.Cookies.Delete("login");
 			Response.Cookies.Delete("idTeacher");
+			Response.Cookies.Delete("role");
 			return Redirect(AppSettings.WebAppUrl + "/Index");
 		}
 	}

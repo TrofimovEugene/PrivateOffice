@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using PrivateOfficeWebApp.Pages.Teacher.Courses;
 
 namespace PrivateOfficeWebApp.Pages
 {
@@ -29,7 +30,12 @@ namespace PrivateOfficeWebApp.Pages
 	        public string access_token { get; set; }
             public string username { get; set; }
             public int idTeacher { get; set; }
+            public string Role { get; set; }
         }
+
+        [BindProperty]
+        public IndexCourseModel.RequestTeacher Teacher { get; set; }
+
         public async Task<IActionResult> OnPostLoginTeacher(string login, string password)
         {
 	        HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers/token?username=" + login+"&password=" + password, null);
@@ -40,7 +46,8 @@ namespace PrivateOfficeWebApp.Pages
 	            Response.Cookies.Append("token_auth", responseLogin.access_token); 
 	            Response.Cookies.Append("login", responseLogin.username);
                 Response.Cookies.Append("idTeacher", responseLogin.idTeacher.ToString());
-	            return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" +
+                Response.Cookies.Append("role", responseLogin.Role);
+                return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" +
 		                            responseLogin.idTeacher);
             }
             catch
@@ -48,32 +55,6 @@ namespace PrivateOfficeWebApp.Pages
 	            return NotFound();
             }
             
-        }
-        [BindProperty]
-        public RequestTeacher Teacher { get; set; }
-        public async Task<IActionResult> OnPostRegistryTeacher()
-        {
-	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
-            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
-	        return Page();
-        }
-        [JsonObject]
-        public class RequestTeacher
-        {
-	        [JsonProperty("login")]
-	        public string Login { get; set; }
-	        [JsonProperty("password")]
-	        public string Password { get; set; }
-	        [JsonProperty("firstName")]
-	        public string FirstName { get; set; }
-	        [JsonProperty("secondName")]
-	        public string SecondName { get; set; }
-	        [JsonProperty("patronymic")]
-	        public string Patronymic { get; set; }
-	        //[JsonProperty("course")]
-	        //public virtual List<Course> Course { get; set; }
-
         }
         public class ResponseLoginStudent
         {
@@ -98,6 +79,14 @@ namespace PrivateOfficeWebApp.Pages
             {
                 return NotFound();
             }
+        }
+
+        public async Task<IActionResult> OnPostRegistryTeacher()
+        {
+	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
+	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+	        await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
+	        return Page();
         }
     }
 }
