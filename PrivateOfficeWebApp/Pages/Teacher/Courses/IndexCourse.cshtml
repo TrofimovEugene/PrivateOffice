@@ -3,10 +3,10 @@
 @* ReSharper disable MarkupTextTypo *@
 <div>
 	<nav class="navbar" style="background-color: #0866C6">
-		<a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+		<a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
 		<form method="post" class="form-inline">
-			<input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white;" value="Выйти" asp-page-handler="LogOut"/>
-		</form> 
+			<input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white;" value="Выйти" asp-page-handler="LogOut" />
+		</form>
 	</nav>
 </div>
 <div class="container-fluid mt-3">

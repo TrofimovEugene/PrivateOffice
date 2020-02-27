@@ -37,12 +37,12 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 		[BindProperty]
 		public Teachers Teacher { get; set; }
 
-		public async Task<IActionResult> OnGet(int? idStudent)
+		public async Task<IActionResult> OnGet(int? id)
 		{
 			if (Request.Cookies["token_auth"] != null)
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + idStudent);
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Student = JsonConvert.DeserializeObject<Students>(jsonResponse);
 

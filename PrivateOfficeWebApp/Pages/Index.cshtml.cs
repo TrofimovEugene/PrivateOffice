@@ -72,7 +72,7 @@ namespace PrivateOfficeWebApp.Pages
                 Response.Cookies.Append("token_auth", jsonResponse.access_token);
 	            Response.Cookies.Append("login", jsonResponse.username);
 	            Response.Cookies.Append("idStudent", jsonResponse.idStudent.ToString());
-	            return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?idStudent=" + 
+	            return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?id=" + 
 	                            jsonResponse.idStudent);
             }
             catch
