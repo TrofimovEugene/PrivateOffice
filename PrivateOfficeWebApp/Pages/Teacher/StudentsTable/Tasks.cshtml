@@ -4,5 +4,105 @@
     ViewData["Title"] = "Tasks";
 }
 
-<h1>Tasks</h1>
+<div>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+        <form method="post" class="form-inline">
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white; " value="Выйти" asp-page-handler="LogOut" />
+        </form>
+    </nav>
+</div>
+<div class="container-fluid mt-3">
+    <div class="form-group d-flex bd-highlight mb-3">
+        <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+        <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addStudent">
+            Добавить задание
+        </button>
 
+    </div>
+</div>
+
+<div>
+    <table id="tab1" class="table table-bordered" style="border: solid   #0866C6 2px; background-color:white; width:100%">
+        <thead>
+            <tr>
+                <th style="border: solid   #0866C6 2px; background-color:white ">Название</th>
+                <th style="border: solid   #0866C6 2px; background-color:white ">Занятие</th>
+                <th style="border: solid   #0866C6 2px; background-color:white"></th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.Reports != null)
+            {
+                @foreach (var reports in Model.Reports)
+                {
+
+                    <tr>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.NameReport)</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.Classes.NameClasses)</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">
+                            <form method="post" class="d-flex justify-content-between">
+
+
+                                <input hidden="hidden" type="number" name="id" value="@reports.IdClasses" />
+                                <input hidden="hidden" type="number" name="idreports" value="@reports.IdClasses" />
+                                <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<form action="" id="add_students" method="post" class="needs-validation" onsubmit="checkStudent(this);return false;" novalidate>
+    <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
+         aria-labelledby="addStudentTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addClassesTitle">Добавить задание</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-id">
+                       
+                        <input hidden="hidden" value="@Model.Student.IdStudent" name="idStudent" type="text" class="form-control" id="InputIdStudent">
+                    </div>
+                    <div>
+                        <label for="name">Название доклада</label>
+                        <input type="text" id="NameClasses" class="form-control" asp-for="Report.NameReport" value="" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите название доклада
+                        </div>
+                    </div>
+                    <div>
+                        <label for="class">Занятие</label>
+                        <select class=" form-control" name="Idclasses" required>
+                            @if (Model.Clas != null)
+                            {
+                            @foreach (var classes in Model.Clas)
+                            {
+                                <option value="@classes.IdClasses">@Html.DisplayFor(item => classes.NameClasses)</option>
+                            }
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Пожалуйста введите занятие
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <input type="submit" class="btn btn-primary" style="background-color:#0866C6; color:white" value="Добавить" asp-page-handler="CreateTask" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

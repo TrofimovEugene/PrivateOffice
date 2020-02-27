@@ -62,6 +62,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
 			Student.IdGroup = idgroup;
+			Student.Role = "user";
             var jsonRequest = JsonConvert.SerializeObject(Student);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students", httpContent);
@@ -87,7 +88,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             public string Login { get; set; }
             [JsonProperty("password")]
             public string Password { get; set; }
-
+			[JsonProperty("role")]
+			public string Role { get; set; }
 
 		}
 		[BindProperty] public List<VisitedStudent> VisitedStudents { get; set; }

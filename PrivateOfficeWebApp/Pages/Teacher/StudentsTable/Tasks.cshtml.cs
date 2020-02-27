@@ -27,7 +27,9 @@ namespace PrivateOfficeWebApp
         public List<Report> Reports { get; set; }
 
         [BindProperty]
-        public List<Classes> Classes { get; set; }
+        public Classes Classes { get; set; }
+        [BindProperty]
+        public List<Classes> Clas { get; set; }
 
         [BindProperty]
         public Student Student { get; set; }
@@ -44,6 +46,17 @@ namespace PrivateOfficeWebApp
             var jsonResponse = await response.Content.ReadAsStringAsync();
             Reports = JsonConvert.DeserializeObject<List<Report>>(jsonResponse);
 
+            if (Reports != null)
+            {
+                foreach(var report in Reports)
+                {
+                    response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + report.IdClasses);
+                    jsonResponse = await response.Content.ReadAsStringAsync();
+                    Classes = JsonConvert.DeserializeObject<Classes>(jsonResponse);
+                    report.Classes = Classes;
+                }
+            }
+
             response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
              jsonResponse = await response.Content.ReadAsStringAsync();
             Student = JsonConvert.DeserializeObject<Student>(jsonResponse);
@@ -55,14 +68,14 @@ namespace PrivateOfficeWebApp
 
              response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/GetClassesFromGroup/id=" + group.IdGroup);
              jsonResponse = await response.Content.ReadAsStringAsync();
-            Classes = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
+            Clas = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
 
             return Page();
         }
 
         [BindProperty]
         public Report Report { get; set; }
-        public async Task<IActionResult> OnPostAsync(int idStudent, int Idclasses)
+        public async Task<IActionResult> OnPostCreateTask(int idStudent, int Idclasses)
         {
             if (Request.Cookies["token_auth"] != null)
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
@@ -74,7 +87,7 @@ namespace PrivateOfficeWebApp
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Reports", httpContent);
             //return Redirect(jsonRequest);
-            return Redirect(AppSettings.WebAppUrl + "Teacher/StudentsTable/Tasks?id=" + idStudent);
+           return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/Tasks?id=" + idStudent);
         }
 
     }

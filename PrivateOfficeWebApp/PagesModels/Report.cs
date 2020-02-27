@@ -15,6 +15,8 @@ namespace PrivateOfficeWebApp.PagesModels
 
 		[JsonProperty("nameReport")]
 		public string NameReport { get; set; }
+		[JsonProperty("classes")]
+		public virtual Classes Classes { get; set; }
 
 
 
