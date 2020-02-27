@@ -12,14 +12,18 @@ async function getCheckScreen() {
   let student ={
       name:'testname',
       surname:'testsurname',
-      group:'2',
+      group:'6',
       login:'teststudent',
       password:'teststudent'
   }
 
+  let numberCourse = '1'
+
+  let numberStudent = '1'
+
   const timer = 1000
   try {
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
     await page.waitFor(timer);
     await page.setViewport({width: 1000, height: 700})
   
@@ -36,19 +40,22 @@ async function getCheckScreen() {
     await page.waitFor(timer);
   
 //подробнее
-  await page.click('body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(1) > div > div > form:nth-child(1) > a')
+await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${numberCourse}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Подробнее.png'});
 
-  //добавление студента
+  //редактирование студента
   await page.waitFor(timer);
   await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(3)')
   await page.waitFor(timer);
 
-  await page.click('#tab1 > tbody > tr > td:nth-child(4) > form > a')
+  await page.click(`#tab1 > tbody > tr:nth-child(${numberStudent}) > td:nth-child(4) > form > a`)
   await page.waitFor(timer);
 
-  await page.click('body > div > main > div.container.mt-5 > div > form > div > div.d-flex.justify-content-between > button')
+  await page.screenshot({path: './screens result/студент.png'});
+  await page.waitFor(timer);
+
+  await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
   await page.waitFor(timer);
   
   
@@ -72,7 +79,25 @@ async function getCheckScreen() {
 
     await page.select('select[name="idgroup"]', student.group);
     await page.waitFor(timer);
-  await page.waitFor(timer);
+
+    let searchLogin= await page.$('#InputLogin');
+    await page.waitFor(timer);
+    await searchLogin.click({clickCount: 10});
+    await page.waitFor(timer);
+    await searchLogin.press('Backspace'); 
+    await page.waitFor(timer);
+    page.keyboard.type(student.login)
+    await page.waitFor(timer);
+
+    let searchPassword= await page.$('#InputPassword');
+    await page.waitFor(timer);
+    await searchPassword.click({clickCount: 10});
+    await page.waitFor(timer);
+    await searchPassword.press('Backspace'); 
+    await page.waitFor(timer);
+    page.keyboard.type(student.password)
+    await page.waitFor(timer);
+
   await page.click('#editStudent > div > div > form > div.modal-footer > input')
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Студенты.png'});

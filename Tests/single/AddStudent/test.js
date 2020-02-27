@@ -12,14 +12,17 @@ async function getCheckScreen() {
   let student ={
       name:'testname',
       surname:'testsurname',
-      group:'1',
+      group:'6',
       login:'teststudent',
       password:'teststudent'
   }
 
+  let course = '1'
+  let numberGroup = '3'
+
   const timer = 1000
   try {
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
     await page.waitFor(timer);
     await page.setViewport({width: 1000, height: 700})
   
@@ -36,16 +39,21 @@ async function getCheckScreen() {
     await page.waitFor(timer);
   
 //подробнее
-  await page.click('body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(1) > div > div > form:nth-child(1) > a')
+  await page.click(`body > div > main > div.container-fluid.mt-3 > div.form-group.d-flex.bd-highlight.mb-3 > a`)
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Подробнее.png'});
+  // await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${course}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
+  // await page.waitFor(timer);
+  // await page.screenshot({path: './screens result/Подробнее.png'});
 
   //добавление студента
   await page.waitFor(timer);
-  await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(3)')
+  await page.click(`body > div > main > form > table > tbody > tr:nth-child(${numberGroup}) > td:nth-child(3) > form > a:nth-child(1)`)
+  await page.waitFor(timer);
+  await page.screenshot({path: './screens result/Таблица студентов.png'});
   await page.waitFor(timer);
 
-  await page.click('body > div:nth-child(1) > main > button')
+  await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
   await page.waitFor(timer);
   
   await page.focus('#NameStudent')
@@ -53,6 +61,8 @@ async function getCheckScreen() {
   await page.waitFor(timer);
   await page.focus('#SurnameStudent')
   page.keyboard.type(student.surname)
+  await page.waitFor(timer);
+  await page.select('select[name="idgroup"]', student.group);
   await page.waitFor(timer);
   await page.focus('input[name="Student.Login"]')
   page.keyboard.type(student.login)
@@ -63,12 +73,10 @@ async function getCheckScreen() {
   await page.click('#addStudent > div > div > div.modal-footer >  input.btn.btn-primary')
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Студенты.png'});
-  await page.goBack()
-  await page.goBack()
   await page.waitFor(timer);
   await browser.close();
   } catch (error) { 
-    console.log(error)
+    console.log(error.message)
 }
 }
 

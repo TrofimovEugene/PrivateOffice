@@ -9,13 +9,15 @@ async function getCheckScreen() {
     password:'test123' 
   }
 
+  let numberGroup = '2'
+
   let group = {
-    name: 'БИ-1-16'
+    name: 'ИСп-1-16-1'
   }
 
   const timer = 1000
   try {
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
     await page.waitFor(timer);
     await page.setViewport({width: 1000, height: 700})
   
@@ -33,9 +35,11 @@ async function getCheckScreen() {
     //редактирование группы
     await page.click('body > div:nth-child(1) > main > div.container-fluid.mt-3 > div.form-group > a')
     await page.waitFor(timer);
-    await page.click('body > div > main > form > table > tbody > tr > td:nth-child(3) > a:nth-child(2)')
+    await page.click(`body > div > main > form > table > tbody > tr:nth-child(${numberGroup}) > td:nth-child(3) > form > a:nth-child(2)`)
     await page.waitFor(timer);
-    await page.click('body > div > main > div.container.mt-5 > div > form > div > div.d-flex.justify-content-between > button')
+    await page.screenshot({path: './screens result/группа.png'});
+    await page.waitFor(timer);
+    await page.click('body > div:nth-child(1) > main > div.container-fluid.mt-3 > div > input.btn.btn-outline-primary.ml-auto.p-2.bd-highlight')
     await page.waitFor(timer);
     let searchInput = await page.$('#InputNameGroup');
     await page.waitFor(timer);
@@ -44,6 +48,7 @@ async function getCheckScreen() {
     await searchInput.press('Backspace'); 
     await page.waitFor(timer);
     page.keyboard.type(group.name)
+    await page.waitFor(timer);
     await page.click('#editGroup > div > div > form > div > div.modal-footer > input')
     await page.waitFor(timer);
     
