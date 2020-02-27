@@ -14,7 +14,7 @@ async function getCheckScreen() {
   
   try {
 
-  await page.goto('https://localhost:44326/');
+  await page.goto('http://www.teachersoffice.somee.com/');
   await page.waitFor(1000);
   await page.setViewport({width: 1000, height: 700})
   await page.screenshot({path: 'Главный экран.png'});

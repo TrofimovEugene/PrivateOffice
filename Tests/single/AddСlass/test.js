@@ -20,12 +20,13 @@ async function getCheckScreen() {
     password:'test123' 
   }
 
+  let course = '1'
+
   const timer = 1000
   try {
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
     await page.waitFor(timer);
     await page.setViewport({width: 1000, height: 700})
-  
   
     //вход  в кабинет
     await page.focus('#inputTeacherLogin')
@@ -39,7 +40,7 @@ async function getCheckScreen() {
     await page.waitFor(timer);
   
 //подробнее
-  await page.click('body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(1) > div > div > form:nth-child(1) > a')
+  await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${course}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Подробнее.png'});
 
@@ -47,7 +48,10 @@ async function getCheckScreen() {
 await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(1)')
 await page.waitFor(timer);
 
-await page.click('body > div > main > div.mt-3.ml-1.mb-1 > button')
+await page.screenshot({path: './screens result/Таблица занятий.png'});
+await page.waitFor(timer);
+
+await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
 await page.waitFor(timer);
 
 await page.click('#addNewClass > div > div > div.modal-body.pb-0 > div:nth-child(1)');
@@ -85,7 +89,7 @@ await page.waitFor(timer);
 await page.screenshot({path: './screens result/Добавление занятия.png'});
 await page.waitFor(timer);
 
-await page.click('#addNewClass > div > div > div.modal-footer > input.btn.btn-primary')
+await page.click('#addNewClass > div > div > div.modal-footer > input')
 await page.waitFor(timer);
 
 await browser.close();

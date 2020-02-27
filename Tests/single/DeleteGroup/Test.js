@@ -9,9 +9,11 @@ async function getCheckScreen() {
     password:'test123' 
   }
 
+  let group = '3'
+
   const timer = 1000
   try {
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
     await page.waitFor(timer);
     await page.setViewport({width: 1000, height: 700})
   
@@ -29,7 +31,8 @@ async function getCheckScreen() {
     //удаление группы
     await page.click('body > div:nth-child(1) > main > div.container-fluid.mt-3 > div.form-group > a')
     await page.waitFor(timer);
-    await page.click('body > div > main > form > table > tbody > tr:nth-child(1) > td:nth-child(4) > form > input.btn.btn-outline-danger')
+    await page.screenshot({path: './screens result/Таблица студентов.png'});
+    await page.click(`body > div > main > form > table > tbody > tr:nth-child(${group}) > td:nth-child(4) > form > input.btn.btn-outline-danger`)
     await page.waitFor(timer);
     await page.screenshot({path: './screens result/Удаление студента.png'});
     await page.waitFor(timer);
