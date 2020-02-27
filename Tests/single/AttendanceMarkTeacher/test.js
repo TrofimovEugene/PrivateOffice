@@ -34,13 +34,14 @@ async function getCheckScreen() {
 //подробнее
   await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${course}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
   await page.waitFor(timer);
-  await page.screenshot({path: './screens result/Подробнее.png'});
+  
 
 await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(1)')
 await page.waitFor(timer);
 
 await page.click(`body > div > main > form:nth-child(4) > table > tbody > tr:nth-child(${numbClass}) > td:nth-child(7) > div > a.bd-highlight`)
 await page.waitFor(timer);
+await page.screenshot({path: './screens result/Подробнее.png'});
 
 // await page.$$eval("input[type='checkbox']", checks => checks.forEach(c => c.checked = true));
 await page.click('#VisitedStudent_Visited')

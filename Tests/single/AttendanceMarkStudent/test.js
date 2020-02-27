@@ -33,7 +33,8 @@ async function getCheckScreen() {
 
   await page.screenshot({path: 'Личный кабинет студента.png'});
   await page.waitFor(1000);
-  await page.$$eval("input[type='checkbox']", checks => checks[1].checked='true');
+  // await page.$$eval("input[type='checkbox']", checks => checks[1].checked='true');
+  await page.click('#VisitedStudent_ConfirmVisited')
   await page.waitFor(2000);
   await page.screenshot({path: 'Отметка студента.png'});
 
