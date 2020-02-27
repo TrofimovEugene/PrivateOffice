@@ -128,7 +128,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 			if (timeValue == false)
 			{
-				return Redirect("./Task?id=" + idStudent);
+				return Redirect("./StudentClasses?id=" + idStudent);
 			}
 			else { 
 			if (VisitedStudents.Count == 0)
@@ -169,7 +169,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 
 			}
-			return Redirect("./Task?id=" + idStudent);
+			return Redirect("./StudentClasses?id=" + idStudent);
 			}
 		}
 		

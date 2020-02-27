@@ -22,7 +22,8 @@
         <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addStudent">
             Добавить студента
         </button>
-        </div>
+     
+    </div>
 </div>
 
         <div >
@@ -42,6 +43,7 @@
                     {
                         @foreach (var student in Model.Students)
                         {
+
                             <tr>
                                 <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => student.FirstName)</td>
                                 <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => student.SecondName)</td>
@@ -49,7 +51,8 @@
                                 <td style="border: solid   #0866C6 1px; background-color:white">
                                     <form method="post" class="d-flex justify-content-between">
                                         <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
-                                    
+                                        <a asp-page="/Teacher/StudentsTable/Tasks" asp-route-id="@student.IdStudent">Задания</a>
+
                                         <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
                                         <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
                                         <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />

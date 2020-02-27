@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrivateOfficeWebApp.Data;
@@ -21,6 +22,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Reports
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Report>>> GetReport()
         {
             return await _context.Report.ToListAsync();
@@ -28,6 +30,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Reports/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Report>> GetReport(int id)
         {
             var report = await _context.Report.FindAsync(id);
@@ -40,10 +43,31 @@ namespace PrivateOfficeWebApp.Controllers
             return report;
         }
 
+        // GET: api/Reports/5
+        [HttpGet("GetReportsFromStudent/id={id}")]
+        [Authorize]
+        public async Task<ICollection<Report>> GetReportsFromStudent(int id)
+        {
+            var report = await _context.Report.ToListAsync();
+            List<Report> result = new List<Report>();
+            foreach (var reports in report)
+            {
+                 if (reports.IdStudent == id)
+                {
+                    result.Add(reports);
+                }
+               
+            }
+          
+            return result;
+        }
+
+
         // PUT: api/Reports/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutReport(int id, Report report)
         {
             if (id != report.IdReport)
@@ -76,6 +100,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Report>> PostReport(Report report)
         {
             _context.Report.Add(report);
@@ -86,6 +111,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // DELETE: api/Reports/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Report>> DeleteReport(int id)
         {
             var report = await _context.Report.FindAsync(id);
