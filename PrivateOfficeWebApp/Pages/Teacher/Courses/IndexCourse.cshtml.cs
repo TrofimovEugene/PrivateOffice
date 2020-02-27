@@ -93,7 +93,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 			if(Request.Cookies["idTeacher"] != null)
-				return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher="+ Request.Cookies["idTeacher"]);
+				return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?id="+ Request.Cookies["idTeacher"]);
 			return NotFound();
 		}
 
@@ -116,7 +116,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 			var jsonRequest = JsonConvert.SerializeObject(Teacher);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
-			return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + Request.Cookies["idTeacher"]);
+			return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?id=" + Request.Cookies["idTeacher"]);
 		}
 
 		[JsonObject]
