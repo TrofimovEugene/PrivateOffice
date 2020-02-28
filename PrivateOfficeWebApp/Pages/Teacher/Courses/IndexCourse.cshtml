@@ -5,18 +5,20 @@
 	<nav class="navbar" style="background-color: #0866C6">
 		<a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
 		<form method="post" class="form-inline">
-			<input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white;" value="Выйти" asp-page-handler="LogOut" />
+			<input class="btn btn-outline-primary" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
 		</form>
 	</nav>
 </div>
 <div class="container-fluid mt-3">
-	<div class="form-group d-flex bd-highlight mb-3">
-		<a type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
-		@if (@Request.Cookies["role"] == "admin")
-		{
-			<input type="button" class="btn btn-secondary" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addTeacher" value="Добавить учителя" />
-		}
-	</div>
+    <div class="d-flex align-items-start flex-column bd-highlight mb-3">
+        @if (@Request.Cookies["role"] == "admin")
+        {
+            <input type="button" class="btn btn-secondary" style="		background-color: #0866C6;
+		color: white" data-toggle="modal" data-target="#addTeacher" value="Добавить учителя" />
+        }
+        <a type="button" class="btn btn-outline-primary  p-2 bd-highlight mt-2" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
+
+    </div>
 	<form action="" id="add_students" method="post" onsubmit="addRow();return false;">
 		<div class="modal fade" id="addTeacher" tabindex="-1" role="dialog"
 		     aria-labelledby="addTeacherTitle" aria-hidden="true">
@@ -59,7 +61,7 @@
 			@foreach (var item in Model.Courses)
 			{
 				<div class="col-xl-3  col-md-4 col-sm-6  p-4">
-					<div class="card " style="min-height: 300px; border-width:2px; border-radius: 5%; border-color: #0866C6">
+					<div class="card " style="min-height: 300px; border-width:2px; border-radius: 5%; border-color: #0866C6; box-shadow: 0.8em 0.8em 10px rgba(122,122,122,0.5)">
 						<div class="card-body">
 							<form method="post" class=" d-flex bd-highlight mb-1">
 								<input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
@@ -107,7 +109,7 @@
 			}
 		}
 		<div class="col-xl-3  col-md-4 col-sm-6  p-4">
-			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 379px; border-radius: 5%;border-width:2px; border-color: #0866C6" data-toggle="modal"
+			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 379px; border-radius: 5%;border-width:2px; border-color: #0866C6; background-color:white; box-shadow: 0.8em 0.8em 10px rgba(122,122,122,0.5)" data-toggle="modal;"
 					data-target="#exampleModalCenter">
 				<i class="fas fa-plus" style="font-size: 4rem;"></i>
 			</button>
