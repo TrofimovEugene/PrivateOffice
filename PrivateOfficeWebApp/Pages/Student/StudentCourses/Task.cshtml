@@ -4,5 +4,40 @@
     ViewData["Title"] = "Task";
 }
 
-<h1>Task</h1>
+<div>
+    <nav class="navbar" style="background-color: #0866C6">
+        <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+        <form method="post" class="form-inline">
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white; " value="Выйти" asp-page-handler="LogOut" />
+        </form>
+    </nav>
+</div>
+<div class="container-fluid mt-3">
+    <div class="form-group d-flex bd-highlight mb-3">
+        <a asp-page="../StudentsTable/StudentsTable" asp-route-id="@Model.Student.IdStudent" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
+    </div>
+</div>
 
+<div>
+    <table id="tab1" class="table table-bordered" style="border: solid #0866C6 2px; background-color:white; width:100%">
+        <thead>
+            <tr>
+                <th style="border: solid #0866C6 2px; background-color:white ">Название</th>
+                <th style="border: solid #0866C6 2px; background-color:white ">Занятие</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.Reports != null)
+            {
+                @foreach (var reports in Model.Reports)
+                {
+                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.NameReport)</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.Classes.NameClasses)</td>
+  
+                }
+            }
+        </tbody>
+    </table>
+</div>
