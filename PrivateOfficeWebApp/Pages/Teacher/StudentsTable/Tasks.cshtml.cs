@@ -90,5 +90,22 @@ namespace PrivateOfficeWebApp
            return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/Tasks?id=" + idStudent);
         }
 
+        public async Task<IActionResult> OnPostDelete(int id, int idStudent)
+        {
+            if (Request.Cookies["token_auth"] != null)
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
+            await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Reports/" + id);
+            return Redirect("https://localhost:44326/Teacher/StudentsTable/Tasks?id=" + idStudent);
+        }
+
+        public async Task<IActionResult> OnPostLogOut()
+        {
+            Response.Cookies.Delete("token_auth");
+            Response.Cookies.Delete("login");
+            Response.Cookies.Delete("idTeacher");
+            Response.Cookies.Delete("role");
+            return Redirect(AppSettings.WebAppUrl + "/Index");
+        }
     }
 }

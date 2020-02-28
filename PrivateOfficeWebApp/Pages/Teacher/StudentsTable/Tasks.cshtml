@@ -44,10 +44,8 @@
                         <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.Classes.NameClasses)</td>
                         <td style="border: solid   #0866C6 1px; background-color:white">
                             <form method="post" class="d-flex justify-content-between">
-
-
-                                <input hidden="hidden" type="number" name="id" value="@reports.IdClasses" />
-                                <input hidden="hidden" type="number" name="idreports" value="@reports.IdClasses" />
+                                <input hidden="hidden" type="number" name="id" value="@reports.IdReport" />
+                                <input hidden="hidden" type="number" name="idStudent" value="@reports.IdStudent" />
                                 <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
                             </form>
                         </td>
