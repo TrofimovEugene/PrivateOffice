@@ -12,7 +12,7 @@
 
 <div class="container-fluid mt-3">
 	<div class="form-group d-flex bd-highlight mb-3">
-		<input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+		<a asp-page="../StudentCourses/IndexStudentCourse" asp-route-id="@Model.Student.IdStudent" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
 	</div>
 	<div />
 	<a asp-page="/Student/StudentCourses/Task" asp-route-id="@Model.Student.IdStudent">Задания</a>

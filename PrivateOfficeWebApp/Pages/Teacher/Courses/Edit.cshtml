@@ -14,7 +14,7 @@
 </div>
 <div class="container-fluid mt-3">
 	<div class="form-group d-flex bd-highlight mb-3">
-		<input type="button" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+		<a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
 	</div>
 	</div>
 	<div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
