@@ -11,13 +11,13 @@
 </div>
 <div class="container-fluid mt-3">
     <div class="d-flex align-items-start flex-column bd-highlight mb-3">
+
+        <a type="button" class="btn btn-outline-primary  p-2 bd-highlight" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
         @if (@Request.Cookies["role"] == "admin")
         {
-            <input type="button" class="btn btn-secondary" style="		background-color: #0866C6;
-		color: white" data-toggle="modal" data-target="#addTeacher" value="Добавить учителя" />
+            <input type="button" class="btn btn-secondary mt-2" style="background-color: #0866C6;
+		color: white" data-toggle="modal" data-target="#addTeacher" value="Добавить преподавателя" />
         }
-        <a type="button" class="btn btn-outline-primary  p-2 bd-highlight mt-2" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
-
     </div>
 	<form action="" id="add_students" method="post" onsubmit="addRow();return false;">
 		<div class="modal fade" id="addTeacher" tabindex="-1" role="dialog"
@@ -109,7 +109,7 @@
 			}
 		}
 		<div class="col-xl-3  col-md-4 col-sm-6  p-4">
-			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 379px; border-radius: 5%;border-width:2px; border-color: #0866C6; background-color:white; box-shadow: 0.8em 0.8em 10px rgba(122,122,122,0.5)" data-toggle="modal;"
+			<button type="button" class="btn-outline-primary" style="width: 100%; min-height: 379px; border-radius: 5%;border-width:2px; border-color: #0866C6; background-color:white; box-shadow: 0.8em 0.8em 10px rgba(122,122,122,0.5)" data-toggle="modal"
 					data-target="#exampleModalCenter">
 				<i class="fas fa-plus" style="font-size: 4rem;"></i>
 			</button>
@@ -172,7 +172,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-								<input type="submit" class="btn btn-primary" value="Добавить курс" asp-page-handler="CreateCourse" />
+								<input type="submit" class="btn btn-primary" style="background-color:#0866C6" value="Добавить курс" asp-page-handler="CreateCourse" />
 							</div>
 						</div>
 					</form>
