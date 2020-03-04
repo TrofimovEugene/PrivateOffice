@@ -29,25 +29,21 @@
         </thead>
 
         <tbody>
-            @if (Model.Reports != null)
-            {
-                @foreach (var reports in Model.Reports)
-                {
+            <!--     
+                  <tr>
+                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
+                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
 
-                    <tr>
-                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.NameReport)</td>
-                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.Classes.NameClasses)</td>
-
-                        <form method="post" class="d-flex justify-content-between">
+                      <form method="post" class="d-flex justify-content-between">
 
 
-                            <input hidden="hidden" type="number" name="id" value="@reports.IdClasses" />
-                            <input hidden="hidden" type="number" name="idreports" value="@reports.IdClasses" />
-                        </form>
+                          <input hidden="hidden" type="number" name="id" value="" />
+                          <input hidden="hidden" type="number" name="idreports" value="" />
+                      </form>
 
-                    </tr>
-                }
-            }
+                  </tr>
+              }
+          }-->
         </tbody>
     </table>
 </div>

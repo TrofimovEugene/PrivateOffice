@@ -24,7 +24,7 @@ namespace PrivateOfficeWebApp
             _httpClient = new HttpClient(clientHandler);
         }
         [BindProperty]
-        public List<Report> Reports { get; set; }
+        public List<Homework> Homeworks { get; set; }
 
         [BindProperty]
         public Classes Classes { get; set; }
@@ -42,18 +42,18 @@ namespace PrivateOfficeWebApp
             if (Request.Cookies["token_auth"] != null)
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
-            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Reports/GetReportsFromStudent/id=" + id);
+            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Homework/GetHomeworkFromStudent/id=" + id);
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            Reports = JsonConvert.DeserializeObject<List<Report>>(jsonResponse);
+            Homeworks = JsonConvert.DeserializeObject<List<Homework>>(jsonResponse);
 
-            if (Reports != null)
+            if (Homeworks != null)
             {
-                foreach(var report in Reports)
+                foreach(var homework in Homeworks)
                 {
-                    response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + report.IdClasses);
+                    response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + homework.IdClasses);
                     jsonResponse = await response.Content.ReadAsStringAsync();
                     Classes = JsonConvert.DeserializeObject<Classes>(jsonResponse);
-                    report.Classes = Classes;
+                    homework.Classes = Classes;
                 }
             }
 
@@ -74,18 +74,18 @@ namespace PrivateOfficeWebApp
         }
 
         [BindProperty]
-        public Report Report { get; set; }
+        public Homework Homework { get; set; }
         public async Task<IActionResult> OnPostCreateTask(int idStudent, int Idclasses)
         {
             if (Request.Cookies["token_auth"] != null)
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
-            Report.IdStudent = idStudent;
-            Report.IdClasses = Idclasses;
+            Homework.IdStudent = idStudent;
+            Homework.IdClasses = Idclasses;
 
-            var jsonRequest = JsonConvert.SerializeObject(Report);
+            var jsonRequest = JsonConvert.SerializeObject(Homework);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Reports", httpContent);
+            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Homework", httpContent);
             //return Redirect(jsonRequest);
            return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/Tasks?id=" + idStudent);
         }
@@ -95,7 +95,7 @@ namespace PrivateOfficeWebApp
             if (Request.Cookies["token_auth"] != null)
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
-            await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Reports/" + id);
+            await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Homework/" + id);
             return Redirect("https://localhost:44326/Teacher/StudentsTable/Tasks?id=" + idStudent);
         }
 

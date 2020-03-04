@@ -3,7 +3,6 @@ using PrivateOfficeWebApp.Models;
 using Classes = PrivateOfficeWebApp.Models.Classes;
 using Course = PrivateOfficeWebApp.Models.Course;
 using Group = PrivateOfficeWebApp.Models.Group;
-using Report = PrivateOfficeWebApp.Models.Report;
 using Student = PrivateOfficeWebApp.Models.Student;
 using Teacher = PrivateOfficeWebApp.Models.Teacher;
 using TypeClasses = PrivateOfficeWebApp.Models.TypeClasses;
@@ -24,8 +23,7 @@ namespace PrivateOfficeWebApp.Data
         public DbSet<TypeClasses> TypeClasses { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<Student> Student { get; set; }
-
-        public DbSet<Report> Report { get; set; }
+        public DbSet<Homework> Homework { get; set; }
         public DbSet<VisitedStudent> VisitedStudents { get; set; }
 
         public DbSet<ControlMeasures> ControlMeasures { get; set; }
@@ -81,19 +79,24 @@ namespace PrivateOfficeWebApp.Data
                 .HasForeignKey(student => student.IdGroup)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            /*связь один ко многим между Student and Report*/
+            /*связь один ко многим между Student and Homework*/
 
             modelBuilder.Entity<Student>()
-                .HasMany(report => report.Report)
+                .HasMany(homework => homework.Homework)
                 .WithOne(student => student.Student)
-               .HasForeignKey(report => report.IdStudent);
+               .HasForeignKey(homework => homework.IdStudent);
 
+            /*связь один ко многим между Group and Homework*/
+            modelBuilder.Entity<Group>()
+                .HasMany(homework => homework.Homework)
+                .WithOne(group => group.Group)
+                .HasForeignKey(homework => homework.IdGroup);
 
-            /*связь один ко многим между Classes and Report*/
+            /*связь один ко многим между Classes and Homework*/
             modelBuilder.Entity<Classes>()
-                .HasMany(report => report.Report)
+                .HasMany(homework => homework.Homework)
                 .WithOne(classes => classes.Classes)
-                .HasForeignKey(report => report.IdClasses)
+                .HasForeignKey(homework => homework.IdClasses)
                 .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между ControlMeasures and Classes*/

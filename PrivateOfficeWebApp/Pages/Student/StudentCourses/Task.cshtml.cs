@@ -24,7 +24,7 @@ namespace PrivateOfficeWebApp
             _httpClient = new HttpClient(clientHandler);
         }
         [BindProperty]
-        public List<Report> Reports { get; set; }
+        public List<Homework> Homeworks { get; set; }
 
         [BindProperty]
         public Student Student { get; set; }
@@ -37,16 +37,16 @@ namespace PrivateOfficeWebApp
             if (Request.Cookies["token_auth"] != null)
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
-            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Reports/GetReportsFromStudent/id=" + id);
+            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Homework/GetHomeworkFromStudent/id=" + id);
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            Reports = JsonConvert.DeserializeObject<List<Report>>(jsonResponse);
+            Homeworks = JsonConvert.DeserializeObject<List<Homework>>(jsonResponse);
 
-            foreach (var report in Reports)
+            foreach (var homework in Homeworks)
             {
-                response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + report.IdClasses);
+                response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + homework.IdClasses);
                 jsonResponse = await response.Content.ReadAsStringAsync();
                 var classes = JsonConvert.DeserializeObject<Classes>(jsonResponse);
-                report.Classes = classes;
+                homework.Classes = classes;
             }
 
             response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);

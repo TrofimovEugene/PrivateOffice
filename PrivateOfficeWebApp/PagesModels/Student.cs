@@ -20,8 +20,8 @@ namespace PrivateOfficeWebApp.PagesModels
 		public string Password { get; set; }
 		[JsonProperty("group")]
 		public virtual PagesModels.Group Group { get; set; }
-		[JsonProperty("report")]
-		public virtual ICollection<PagesModels.Report> Report { get; set; }
+		[JsonProperty("homework")]
+		public virtual ICollection<PagesModels.Homework> Homework { get; set; }
         [JsonProperty("visitedStudents")]
 		public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
 	}

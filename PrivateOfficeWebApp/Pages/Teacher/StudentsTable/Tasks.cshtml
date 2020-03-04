@@ -34,26 +34,23 @@
         </thead>
 
         <tbody>
-            @if (Model.Reports != null)
-            {
-                @foreach (var reports in Model.Reports)
-                {
+            <!--    
 
-                    <tr>
-                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.NameReport)</td>
-                        <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => reports.Classes.NameClasses)</td>
-                        <td style="border: solid   #0866C6 1px; background-color:white">
-                            <form method="post" class="d-flex justify-content-between">
-                                <input hidden="hidden" type="number" name="id" value="@reports.IdReport" />
-                                <input hidden="hidden" type="number" name="idStudent" value="@reports.IdStudent" />
-                                <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
-                            </form>
-                        </td>
-                    </tr>
-                }
-            }
+                  <tr>
+                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
+                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
+                      <td style="border: solid   #0866C6 1px; background-color:white">
+                          <form method="post" class="d-flex justify-content-between">
+                              <input hidden="hidden" type="number" name="id" value="" />
+                              <input hidden="hidden" type="number" name="idStudent" value="" />
+                              <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
+                          </form>
+                      </td>
+                  </tr>
+              }
+          }-->
         </tbody>
-    </table>
+    </table>-->
 </div>
 
 
@@ -75,7 +72,7 @@
                     </div>
                     <div>
                         <label for="name">Название доклада</label>
-                        <input type="text" id="NameClasses" class="form-control" asp-for="Report.NameReport" value="" required />
+                        <!-- <input type="text" id="NameClasses" class="form-control" asp-for="Report.NameReport" value="" required />-->
                         <div class="invalid-feedback">
                             Пожалуйста введите название доклада
                         </div>

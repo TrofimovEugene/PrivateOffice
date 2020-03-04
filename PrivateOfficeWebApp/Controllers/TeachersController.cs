@@ -44,7 +44,7 @@ namespace PrivateOfficeWebApp.Controllers
                     .ThenInclude(classes => classes.Classes)
                         .ThenInclude(group => group.Group)
                             .ThenInclude(student => student.Student)
-                                .ThenInclude(report => report.Report)
+                                .ThenInclude(homework => homework.Homework)
                 .Include(course => course.Course)
                     .ThenInclude(classes => classes.Classes)
                         .ThenInclude(typeClasses => typeClasses.TypeClasses)
