@@ -27,9 +27,6 @@ namespace PrivateOfficeWebApp
         public List<Report> Reports { get; set; }
 
         [BindProperty]
-        public List<Classes> Classes { get; set; }
-
-        [BindProperty]
         public Student Student { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {

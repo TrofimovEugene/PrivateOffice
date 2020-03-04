@@ -59,6 +59,7 @@
 							<form method="post" asp-page-handler="VisitStudent">
 								<div class="form-group">
 									<input hidden="hidden" type="number" name="idClasses" value="@classes.IdClasses" />
+									<input hidden="hidden" type="number" name="id" value="@classes.IdCourse" />
 									<input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
 
 									@if (@Model.VisitedStudents.Count != 0)

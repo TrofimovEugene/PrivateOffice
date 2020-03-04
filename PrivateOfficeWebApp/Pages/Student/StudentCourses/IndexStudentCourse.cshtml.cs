@@ -34,8 +34,6 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 		public Classes Class { get; set; }
 		[BindProperty]
 		public Students Student { get; set; }
-		[BindProperty]
-		public Teachers Teacher { get; set; }
 
 		public async Task<IActionResult> OnGet(int? id)
 		{
@@ -71,7 +69,8 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 				{
 					response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Teachers/" + courses.IdTeacher);
 					jsonResponse = await response.Content.ReadAsStringAsync();
-					Teacher = JsonConvert.DeserializeObject<Teachers>(jsonResponse);
+					var teacher = JsonConvert.DeserializeObject<Models.Teacher>(jsonResponse);
+					courses.Teacher = teacher;
 					
 				}
 			}
@@ -81,7 +80,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 		[BindProperty] public VisitedStudent VisitedStudent { get; set; }
 		[BindProperty] public List<VisitedStudent> VisitedStudents { get; set; }
-		public async Task<IActionResult> OnPostVisited(int idStudent)
+		public async Task<IActionResult> OnPostVisited(int idStudent, int id)
 		{
 			if (Request.Cookies["token_auth"] != null)
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
@@ -128,7 +127,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 			if (timeValue == false)
 			{
-				return Redirect("./StudentClasses?id=" + idStudent);
+				return Redirect("./StudentClasses?id=" + id);
 			}
 			else { 
 			if (VisitedStudents.Count == 0)
@@ -169,7 +168,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 
 			}
-			return Redirect("./StudentClasses?id=" + idStudent);
+			return Redirect("./StudentClasses?id=" + id);
 			}
 		}
 		
@@ -191,27 +190,6 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 			[JsonProperty("password")]
 			public string Password { get; set; }
 
-
-		}
-		[JsonObject]
-		public class Teachers
-		{
-			[JsonProperty("idTeacher")]
-			public int IdTeacher { get; set; }
-			[JsonProperty("login")]
-			public string Login { get; set; }
-			[JsonProperty("password")]
-			public string Password { get; set; }
-			[JsonProperty("firstName")]
-			public string FirstName { get; set; }
-			[JsonProperty("secondName")]
-			public string SecondName { get; set; }
-			[JsonProperty("patronymic")]
-			public string Patronymic { get; set; }
-			[JsonProperty("role")]
-			public string Role { get; set; }
-			//[JsonProperty("course")]
-			//public virtual List<Course> Course { get; set; }
 
 		}
 

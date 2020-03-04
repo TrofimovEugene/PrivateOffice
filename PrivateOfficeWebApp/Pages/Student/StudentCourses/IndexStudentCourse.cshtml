@@ -30,7 +30,7 @@
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item card-text p-1 ">
-                                        Преподаватель:<br>@Model.Teacher.FirstName @Model.Teacher.SecondName
+                                        Преподаватель:<br>@item.Teacher.FirstName @item.Teacher.SecondName
                                     </li>
                                     
                                     @if (item.Classes != null)
@@ -57,6 +57,7 @@
                                 <form method="post">
                                     <div class="d-flex bd-highlight">
                                         <input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
+                                        <input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
                                         <input type="submit" class="btn btn-outline-primary my-2 my-sm-0" style="background-color:#0866C6; color:white;" value="Подробнее" asp-page-handler="Visited" />
                                         <!-- <a class="ml-auto bd-highlight" asp-page="/Student/StudentCourses/Task" >Подробнее</a>
     -->

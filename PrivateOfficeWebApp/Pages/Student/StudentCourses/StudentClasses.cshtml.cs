@@ -37,16 +37,17 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 	        if (Request.Cookies["token_auth"] != null)
 		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
-		
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
+			var idStudent = Request.Cookies["idStudent"];
+		 
+			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + idStudent);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Student = JsonConvert.DeserializeObject<IndexStudentModel.Students>(jsonResponse);
 
-			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/GetClassesFromGroup/id=" + Student.IdGroup);
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/GetClassesFromCourse/id=" + id);
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			Classes = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
 
-			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent/id=" + id);
+			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/GetVisitedFromStudent/id=" + idStudent);
 			jsonResponse = await response.Content.ReadAsStringAsync();
 			VisitedStudents = JsonConvert.DeserializeObject<List<VisitedStudent>>(jsonResponse);
 
@@ -66,7 +67,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 			return Page();
         }
 
-		public async Task<IActionResult> OnPostVisitStudent(int idClasses, int idStudent, bool visited)
+		public async Task<IActionResult> OnPostVisitStudent(int idClasses, int idStudent, bool visited, int id)
 		{
 			if (Request.Cookies["token_auth"] != null)
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
@@ -120,7 +121,7 @@ namespace PrivateOfficeWebApp.Pages.Student.StudentCourses
 
 			}
 
-			return Redirect("./StudentClasses?id=" + idStudent);
+			return Redirect("./StudentClasses?id=" + id);
 		}
 
 		public async Task<IActionResult> OnPostLogOut()

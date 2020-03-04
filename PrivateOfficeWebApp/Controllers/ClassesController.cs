@@ -61,6 +61,19 @@ namespace PrivateOfficeWebApp.Controllers
             return resultList;
         }
 
+        [HttpGet("GetClassesFromCourse/id={id}")]
+        [Authorize]
+        public async Task<ICollection<Classes>> GetClassesFromCourse(int id)
+        {
+            var classes = await _context.Classes.ToListAsync();
+            List<Classes> resultList = new List<Classes>();
+            foreach (var clas in classes)
+            {
+                if (clas.IdCourse == id)
+                    resultList.Add(clas);
+            }
+            return resultList;
+        }
 
         // GET: api/Classes/5
         [HttpGet("{id}")]
