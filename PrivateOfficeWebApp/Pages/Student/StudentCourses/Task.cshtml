@@ -24,26 +24,23 @@
             <tr>
                 <th style="border: solid #0866C6 2px; background-color:white ">Название</th>
                 <th style="border: solid #0866C6 2px; background-color:white ">Занятие</th>
-
+                <th style="border: solid #0866C6 2px; background-color:white ">Тип задания</th>
             </tr>
         </thead>
 
-        <tbody>
-            <!--     
-                  <tr>
-                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
-                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
+        <tbody>  
+            @if (Model.Homeworks != null)
+            {
+                @foreach (var homeworks in Model.Homeworks)
+                {
+            <tr>
+                <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.ContentHomework</td>
+                <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.Classes.NameClasses</td>
+                <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.TypeHomework</td>
 
-                      <form method="post" class="d-flex justify-content-between">
-
-
-                          <input hidden="hidden" type="number" name="id" value="" />
-                          <input hidden="hidden" type="number" name="idreports" value="" />
-                      </form>
-
-                  </tr>
+            </tr>
               }
-          }-->
+          }
         </tbody>
     </table>
 </div>
