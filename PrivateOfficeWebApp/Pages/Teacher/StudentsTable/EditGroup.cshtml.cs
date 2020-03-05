@@ -34,7 +34,13 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + id);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 Group = JsonConvert.DeserializeObject<Group>(jsonResponse);
-                return Page();
+
+                response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/GetCountHomeworkInGroup/id=" + id);
+                jsonResponse = await response.Content.ReadAsStringAsync();
+                var countHomeworkGroup = JsonConvert.DeserializeObject<int>(jsonResponse);
+                Group.CounttHomeworkGroup= countHomeworkGroup;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostEditGroups()

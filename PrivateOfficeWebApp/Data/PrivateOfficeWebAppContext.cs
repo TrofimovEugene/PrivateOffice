@@ -24,6 +24,7 @@ namespace PrivateOfficeWebApp.Data
         public DbSet<Group> Group { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<Homework> Homework { get; set; }
+        public DbSet<HomeworkGroup> HomeworkGroup { get; set; }
         public DbSet<VisitedStudent> VisitedStudents { get; set; }
 
         public DbSet<ControlMeasures> ControlMeasures { get; set; }
@@ -91,6 +92,20 @@ namespace PrivateOfficeWebApp.Data
                 .HasMany(homework => homework.Homework)
                 .WithOne(group => group.Group)
                 .HasForeignKey(homework => homework.IdGroup);
+
+
+            /*связь один ко многим между Group and HomeworkGroup*/
+            modelBuilder.Entity<Group>()
+                .HasMany(homeworkGroup => homeworkGroup.HomeworkGroup)
+                .WithOne(group => group.Group)
+                .HasForeignKey(homeworGroup => homeworGroup.IdGroup);
+               
+
+            /*связь один к одному между Classes and HomeworkGroup*/
+            modelBuilder.Entity<Classes>()
+                .HasOne(homeworkGroup => homeworkGroup.HomeworkGroup)
+                .WithOne(classes => classes.Classes)
+                .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Classes and Homework*/
             modelBuilder.Entity<Classes>()

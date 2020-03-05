@@ -23,6 +23,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		}
 		[BindProperty]
 		public PagesModels.Classes Class { get; set; }
+
         [BindProperty]
         public PagesModels.Course Course { get; set; }
         public async Task<IActionResult> OnGet(int? id)
@@ -37,7 +38,9 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Class = JsonConvert.DeserializeObject<PagesModels.Classes>(jsonResponse);
 
-
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/HomeworkGroups/GetHomeworkGroupForClasses/id=" + id);
+            jsonResponse = await response.Content.ReadAsStringAsync();
+            HomeworkGroup = JsonConvert.DeserializeObject<HomeworkGroup>(jsonResponse);
 
             response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + Class.IdCourse);
              jsonResponse = await response.Content.ReadAsStringAsync();
@@ -73,6 +76,24 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
             return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/ViewClasses?id=" + idCourse);
 		}
+
+        [BindProperty]
+        public HomeworkGroup HomeworkGroup { get; set; }
+        public async Task<IActionResult> OnPostCreateTask(int idGroup, int Idclasses, int idCourse)
+        {
+            if (Request.Cookies["token_auth"] != null)
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
+            HomeworkGroup.IdGroup = idGroup;
+            HomeworkGroup.IdClasses = Idclasses;
+
+            var jsonRequest = JsonConvert.SerializeObject(HomeworkGroup);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Homework", httpContent);
+            //return Redirect(jsonRequest);
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/ViewClasses?id=" + idCourse);
+        }
+
 
         public async Task<IActionResult> OnPostLogOut()
         {

@@ -57,6 +57,20 @@ namespace PrivateOfficeWebApp.Controllers
             return countStudent;
         }
 
+        [HttpGet("GetCountHomeworkInGroup/id={id}")]
+        [Authorize]
+        public async Task<int> GetCountHomeworkInGroup(int id)
+        {
+            var homeworkGroups = await _context.HomeworkGroup.ToListAsync();
+            var countHomeworkGroups = 0;
+            foreach (var homewrokgroup in homeworkGroups)
+            {
+                if (homewrokgroup.IdGroup == id)
+                    countHomeworkGroups++;
+            }
+            return countHomeworkGroups;
+        }
+
         // PUT: api/Groups/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

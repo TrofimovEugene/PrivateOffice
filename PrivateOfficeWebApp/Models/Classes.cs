@@ -30,6 +30,7 @@ namespace PrivateOfficeWebApp.Models
         public virtual Group Group { get; set; }
 
         public virtual ICollection<Homework> Homework { get; set; }
+        public virtual HomeworkGroup HomeworkGroup { get; set; }
         public virtual ICollection<ControlMeasures> ControlMeasures { get; set; }
         public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
 
