@@ -14,7 +14,7 @@
 </div>
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
-        <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+        <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
         <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClass">
             Редактировать
         </button>
