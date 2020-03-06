@@ -6,12 +6,15 @@
 
 <div>
     <nav class="navbar" style="background-color: #0866C6">
-        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+        <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+        <form method="post" class="form-inline">
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white; " value="Выйти" asp-page-handler="LogOut" />
+        </form>
     </nav>
 </div>
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
-        <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+        <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Classes.IdClasses" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
     </div>
 </div>
 <input value="@Model.Classes.NameClasses" type="text" class="form-control" id="InputFirstName" style="width:10%;border: solid   #0866C6 2px; border-radius:5px; background-color:white" required>

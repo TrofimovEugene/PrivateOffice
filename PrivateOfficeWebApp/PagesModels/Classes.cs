@@ -38,6 +38,8 @@ namespace PrivateOfficeWebApp.PagesModels
 		public string Cabinet { get; set; }
 		[JsonProperty("visitedStudents")]
         public virtual ICollection<VisitedStudent> VisitedStudents { get; set; }
+		[JsonProperty("homeworkGroup")]
+		public virtual HomeworkGroup HomeworkGroup { get; set; }
 
 	}
 }

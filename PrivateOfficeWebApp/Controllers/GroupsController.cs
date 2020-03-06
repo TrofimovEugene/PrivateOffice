@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrivateOfficeWebApp.Data;
@@ -21,6 +22,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Groups
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Group>>> GetGroup()
         {
             return await _context.Group.ToListAsync();
@@ -28,6 +30,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Groups/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
             var @group = await _context.Group.FindAsync(id);
@@ -41,6 +44,7 @@ namespace PrivateOfficeWebApp.Controllers
         }
         // GET: api/Groups/5
         [HttpGet("GetCountStudentInGroup/id={id}")]
+        [Authorize]
         public async Task<int> GetCountStudentInGroup(int id)
         {
             var students = await _context.Student.ToListAsync();
@@ -53,10 +57,25 @@ namespace PrivateOfficeWebApp.Controllers
             return countStudent;
         }
 
+        [HttpGet("GetCountHomeworkInGroup/id={id}")]
+        [Authorize]
+        public async Task<int> GetCountHomeworkInGroup(int id)
+        {
+            var homeworkGroups = await _context.HomeworkGroup.ToListAsync();
+            var countHomeworkGroups = 0;
+            foreach (var homewrokgroup in homeworkGroups)
+            {
+                if (homewrokgroup.IdGroup == id)
+                    countHomeworkGroups++;
+            }
+            return countHomeworkGroups;
+        }
+
         // PUT: api/Groups/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutGroup(int id, Group @group)
         {
             if (id != @group.IdGroup)
@@ -89,6 +108,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Group>> PostGroup(Group @group)
         {
             _context.Group.Add(@group);
@@ -99,6 +119,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // DELETE: api/Groups/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Group>> DeleteGroup(int id)
         {
             var @group = await _context.Group.FindAsync(id);

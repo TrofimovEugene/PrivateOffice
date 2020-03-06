@@ -17,6 +17,8 @@ namespace PrivateOfficeWebApp.PagesModels
         public string SecondName { get; set; }
         [JsonProperty("patronymic")]
         public string Patronymic { get; set; }
+        [JsonProperty("role")]
+        public string Role { get; set; }
         //[JsonProperty("course")]
         //public virtual List<Course> Course { get; set; }
 

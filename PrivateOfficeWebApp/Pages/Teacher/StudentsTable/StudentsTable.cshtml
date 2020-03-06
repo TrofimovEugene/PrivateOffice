@@ -10,16 +10,20 @@
 
 <div>
     <nav class="navbar" style="background-color: #0866C6">
-        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+        <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+        <form method="post" class="form-inline">
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
+        </form>
     </nav>
 </div>
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
-        <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
+        <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
         <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addStudent">
             Добавить студента
         </button>
-        </div>
+     
+    </div>
 </div>
 
         <div >
@@ -39,6 +43,7 @@
                     {
                         @foreach (var student in Model.Students)
                         {
+
                             <tr>
                                 <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => student.FirstName)</td>
                                 <td style="border: solid   #0866C6 1px; background-color:white">@Html.DisplayFor(item => student.SecondName)</td>
@@ -46,7 +51,8 @@
                                 <td style="border: solid   #0866C6 1px; background-color:white">
                                     <form method="post" class="d-flex justify-content-between">
                                         <a asp-page="/Teacher/StudentsTable/EditStudent" asp-route-id="@student.IdStudent">Подробнее</a>
-                                    
+                                        <a asp-page="/Teacher/StudentsTable/Tasks" asp-route-id="@student.IdStudent">Задания</a>
+
                                         <input hidden="hidden" type="number" name="id" value="@student.IdStudent" />
                                         <input hidden="hidden" type="number" name="idgroup" value="@student.IdGroup" />
                                         <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />

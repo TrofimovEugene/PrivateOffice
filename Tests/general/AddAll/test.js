@@ -4,74 +4,86 @@ async function getCheckScreen() {
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
 
-  let lesson = {
-      topic: 'Тест',
-      type:'2',
-      day:'Вторник',
-      timeStart:'12',
-      timeEnd:'14',
-      period:'каждую неделю'
-  }
-
   let user = {
     login:'test123',
     password:'test123' 
   }
 
-  let course = {
-      universiry: 'ИрГУПС',
-      group: '3',
-      nameCourse: 'Тест',
-      startCourse:'12 12 2019',
-      endCourse: '12 02 2020',
-      time: '140'
-  }
+  let numbCourse = '3'
 
   let student ={
-      name:'testname',
-      surname:'testsurname'
-  }
+    name:'testname',
+    surname:'testsurname',
+    group:'6',
+    login:'teststudent',
+    password:'teststudent'
+}
+
+let numberGroup = '3'
+
+  let course = {
+    universiry: 'ИрГУПС',
+    group: '6',
+    nameCourse: 'Тест',
+    startCourse:'12 12 2019',
+    endCourse: '12 04 2020',
+    time: '140'
+}
 
   let group = {
-    name: 'БИ-1-16'
+    name: 'Тест'
   }
 
+  let lesson = {
+    topic: 'Тест',
+    type:'2',
+    day:'Вторник',
+    date:'12032020',
+    cabinet:'D505',
+    starttime:'13:50',
+    endtime:'15:20',
+    replay:'каждую неделю'
+}
+
   const timer = 1000
-  
   try {
+    await page.goto('http://www.teachersoffice.somee.com/');
+    await page.waitFor(timer);
+    await page.setViewport({width: 1000, height: 700})
+  
+    //вход  в кабинет
+    await page.focus('#inputTeacherLogin')
+    page.keyboard.type(user.login)
+    await page.waitFor(timer);
+    await page.focus('#inputTeacherPassword')
+    page.keyboard.type(user.password)
+    await page.screenshot({path: './screens result/Заполненное окно входа.png'});
+    await page.waitFor(timer);
+    await page.click('#nav-teacher > form > div.d-flex.justify-content-between > input.btn.btn-primary')
+    await page.waitFor(timer);
+  
+    //добавление группы
+    await page.click('body > div:nth-child(1) > main > div.container-fluid.mt-3 > div.form-group > a')
+    await page.waitFor(timer);
+    await page.screenshot({path: './screens result/Таблица групп.png'});
+    await page.waitFor(timer);
+    await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
+    await page.waitFor(timer);
+    await page.focus('#NameGroup')
+    page.keyboard.type(group.name)
+    await page.screenshot({path: './screens result/Добавление группы.png'});
+    await page.waitFor(timer);
+    await page.click('#addGroups > div > div > div.modal-footer > input')
+    await page.waitFor(timer);
+    await page.screenshot({path: './screens result/Новая группа.png'});
+    await page.waitFor(timer);
+    await page.goBack()
+    await page.goBack()
+    await page.waitFor(timer);
 
-  await page.goto('https://localhost:44326/');
+    //создание курса
+  await page.screenshot({path: './screens result/Курсы.png'});
   await page.waitFor(timer);
-  await page.setViewport({width: 1000, height: 700})
-
-
-  //вход  в кабинет
-  await page.focus('#inputTeacherLogin')
-  page.keyboard.type(user.login)
-  await page.waitFor(timer);
-  await page.focus('#inputTeacherPassword')
-  page.keyboard.type(user.password)
-  await page.screenshot({path: './screens result/Заполненное окно входа.png'});
-  await page.waitFor(timer);
-  await page.click('#nav-teacher > form > div.d-flex.justify-content-between > input.btn.btn-primary')
-  await page.waitFor(timer);
-
-  //добавление группы
-  await page.click('body > div:nth-child(1) > main > div.container-fluid.mt-3 > div.form-group > a')
-  await page.waitFor(timer);
-  await page.click('body > div > main > button')
-  await page.waitFor(timer);
-  await page.focus('#NameGroup')
-  page.keyboard.type(group.name)
-  await page.screenshot({path: './screens result/Добавление студента.png'});
-  await page.waitFor(timer);
-  await page.click('#addGroups > div > div > div.modal-footer > input')
-  await page.waitFor(timer);
-  await page.goBack()
-  await page.goBack()
-  await page.waitFor(timer);
-
-  //создание курса
   await page.click('body > div:nth-child(1) > main > div.container-fluid.mt-3 > div.row > div > button.btn-outline-primary')
   await page.waitFor(timer);
   await page.focus('#InputUniveristy')
@@ -96,8 +108,7 @@ async function getCheckScreen() {
   await page.screenshot({path: './screens result/Страница курсов.png'});
   await page.waitFor(timer);
 
-  //подробнее
-  await page.click('body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(1) > div > div > form:nth-child(1) > a')
+  await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${numbCourse}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Подробнее.png'});
 
@@ -105,8 +116,10 @@ async function getCheckScreen() {
   await page.waitFor(timer);
   await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(3)')
   await page.waitFor(timer);
+  await page.screenshot({path: './screens result/Таблица студентов.png'});
+  await page.waitFor(timer);
 
-  await page.click('body > div:nth-child(1) > main > button')
+  await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
   await page.waitFor(timer);
   
   await page.focus('#NameStudent')
@@ -115,55 +128,74 @@ async function getCheckScreen() {
   await page.focus('#SurnameStudent')
   page.keyboard.type(student.surname)
   await page.waitFor(timer);
+  await page.select('select[name="idgroup"]', student.group);
+  await page.waitFor(timer);
+  await page.focus('input[name="Student.Login"]')
+  page.keyboard.type(student.login)
+  await page.waitFor(timer);
+  await page.focus('input[name="Student.Password"]')
+  page.keyboard.type(student.password)
+  await page.waitFor(timer);
   await page.click('#addStudent > div > div > div.modal-footer >  input.btn.btn-primary')
   await page.waitFor(timer);
   await page.screenshot({path: './screens result/Студенты.png'});
-
-  await page.goBack()
-  await page.goBack()
   await page.waitFor(timer);
+  await page.goBack()
+  await page.goBack()
 
-  //добавление занятия
   await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(1)')
-  await page.waitFor(timer);
+await page.waitFor(timer);
 
-  await page.click('body > div > main > div.mt-3.ml-1.mb-1 > button')
-  await page.waitFor(timer);
+await page.screenshot({path: './screens result/Таблица занятий.png'});
+await page.waitFor(timer);
 
-  await page.click('#addNewClass > div > div > div.modal-body.pb-0 > div:nth-child(1)');
-  page.keyboard.type(lesson.topic);
-  await page.waitFor(timer);
+await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
+await page.waitFor(timer);
 
-  await page.select('select[id="TypeClass"]', lesson.type);
-  await page.waitFor(timer);
+await page.click('#addNewClass > div > div > div.modal-body.pb-0 > div:nth-child(1)');
+page.keyboard.type(lesson.topic);
+await page.waitFor(timer);
 
-  await page.focus('#InputDay')
-  await page.select('select[id="InputDay"]', lesson.day);
-  await page.waitFor(timer);
+await page.select('select[id="TypeClass"]', lesson.type);
+await page.waitFor(timer);
 
-  await page.focus('#InputTimeBegin')
-  page.keyboard.type(lesson.timeStart)
-  await page.waitFor(timer);
+await page.focus('#InputDay')
+await page.select('select[name="Class.DaysWeek"]', lesson.day);
+await page.waitFor(timer);
 
-  await page.focus('#InputTimeEnd')
-  page.keyboard.type(lesson.timeEnd)
-  await page.waitFor(timer);
+await page.focus('input[name="Class.DateClasses"]')
+page.keyboard.type(lesson.date)
+await page.waitFor(timer);
 
-  await page.focus('#InputСountClass')
-  page.keyboard.type(lesson.period)
-  await page.screenshot({path: './screens result/Добавление занятия.png'});
-  await page.waitFor(timer);
+await page.focus('input[name="Class.Cabinet"]')
+page.keyboard.type(lesson.cabinet)
+await page.waitFor(timer);
 
-  await page.click('#addNewClass > div > div > div.modal-footer > input.btn.btn-primary')
-  await page.waitFor(timer);
+await page.focus('input[name="Class.StartTime"]')
+page.keyboard.type(lesson.starttime)
+await page.waitFor(timer);
 
-  await browser.close();
-  console.log('Тест успешно пройден')
+await page.focus('input[name="Class.EndTime"]')
+page.keyboard.type(lesson.endtime)
+await page.waitFor(timer);
 
+await page.focus('input[name="Class.ReplayClasses"]')
+page.keyboard.type(lesson.replay)
+await page.waitFor(timer);
+
+
+await page.screenshot({path: './screens result/Добавление занятия.png'});
+await page.waitFor(timer);
+
+await page.click('#addNewClass > div > div > div.modal-footer > input')
+await page.waitFor(timer);
+await page.screenshot({path: './screens result/Занятия.png'});
+await page.waitFor(timer);
+
+    await browser.close();
   } catch (error) { 
-      console.log(error)
-  }
-  
+    console.log(error)
+}
 }
 
-getCheckScreen();
+getCheckScreen()

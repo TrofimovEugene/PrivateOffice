@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrivateOfficeWebApp.Data;
@@ -21,6 +22,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/TypeClasses
         [HttpGet]
+        [Authorize]
         public async Task<List<TypeClasses>> GetTypeClasses()
         {
             return await _context.TypeClasses.ToListAsync();
@@ -28,6 +30,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/TypeClasses/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<TypeClasses>> GetTypeClasses(int id)
         {
             var typeClasses = await _context.TypeClasses.FindAsync(id);
@@ -44,6 +47,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutTypeClasses(int id, TypeClasses typeClasses)
         {
             if (id != typeClasses.IdTypeClasses)
@@ -76,6 +80,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<TypeClasses>> PostTypeClasses(TypeClasses typeClasses)
         {
             _context.TypeClasses.Add(typeClasses);
@@ -86,6 +91,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // DELETE: api/TypeClasses/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<TypeClasses>> DeleteTypeClasses(int id)
         {
             var typeClasses = await _context.TypeClasses.FindAsync(id);

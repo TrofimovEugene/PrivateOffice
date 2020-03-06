@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/VisitedStudents
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<VisitedStudent>>> GetVisitedStudents()
         {
             return await _context.VisitedStudents.ToListAsync();
@@ -30,6 +32,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/VisitedStudents/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<VisitedStudent>> GetVisitedStudent(int id)
         {
             var visitedStudent = await _context.VisitedStudents.FindAsync(id);
@@ -43,6 +46,7 @@ namespace PrivateOfficeWebApp.Controllers
         }
 
         [HttpGet("GetVisitedFromClasses/id={id}")]
+        [Authorize]
         public async Task<ICollection<VisitedStudent>> GetVisitedFromClasses(int id)
         {
             var visited = await _context.VisitedStudents.ToListAsync();
@@ -57,6 +61,7 @@ namespace PrivateOfficeWebApp.Controllers
 
 
         [HttpGet("GetVisitedFromStudent/id={id}")]
+        [Authorize]
         public async Task<List<VisitedStudent>> GetVisitedFromStudent(int id)
         {
             var visited = await _context.VisitedStudents.ToListAsync();
@@ -74,6 +79,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutVisitedStudent(int id, VisitedStudent visitedStudent)
         {
             if (id != visitedStudent.IdVisitedStudent)
@@ -107,6 +113,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<VisitedStudent>> PostVisitedStudent(VisitedStudent visitedStudent)
         {
             _context.VisitedStudents.Add(visitedStudent);
@@ -118,6 +125,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // DELETE: api/VisitedStudents/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<VisitedStudent>> DeleteVisitedStudent(int id)
         {
             var visitedStudent = await _context.VisitedStudents.FindAsync(id);
