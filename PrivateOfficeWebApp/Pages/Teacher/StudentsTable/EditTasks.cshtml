@@ -8,7 +8,7 @@
     <nav class="navbar" style="background-color: #0866C6">
         <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
         <form method="post" class="form-inline">
-            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white;" value="Выйти" asp-page-handler="LogOut" />
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6"  value="Выйти" asp-page-handler="LogOut" />
         </form>
     </nav>
 </div>
@@ -55,9 +55,7 @@
                         <div class="form-group">
                             <input hidden="hidden" type="number" id="idStudent" name="idStudent" value="@Model.Homework.IdStudent" />
                         </div>
-                        <div class="form-group">
-                            <input hidden="hidden" type="number" id="Idclasses" name="Idclasses" value="@Model.Homework.IdClasses" />
-                        </div>
+                      
                         <div class="form-group">
                             <input hidden="hidden" type="number" id="id" name="id" value="@Model.Homework.IdHomework" />
                         </div>
@@ -72,14 +70,17 @@
                         <div class="form-group">
                             <label for="InputGroup">Занятие</label>
                             <select class=" form-control" name="Idclasses" required>
-                                @foreach (var homework in Model.Clas)
+                                @if (Model.Clas != null)
                                 {
-                                    <option value="@homework.IdClasses">@Html.DisplayFor(item => homework.NameClasses)</option>
+                                    @foreach (var homework in Model.Clas)
+                                    {
+                                        <option value="@homework.IdClasses">@Html.DisplayFor(item => homework.NameClasses)</option>
+                                    }
                                 }
                             </select>
                         </div>
 
-                        <div class="form-university pt-0 mb-1">
+                        <div class="form-university  mb-2">
                             <label for="Inputid">Тип занятия</label>
                             <input asp-for="Homework.TypeHomework" type="text" class="form-control"
                                    id="Inputid">

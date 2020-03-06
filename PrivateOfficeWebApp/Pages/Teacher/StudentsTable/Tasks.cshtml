@@ -8,7 +8,7 @@
     <nav class="navbar" style="background-color: #0866C6">
         <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
         <form method="post" class="form-inline">
-            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white; " value="Выйти" asp-page-handler="LogOut" />
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
         </form>
     </nav>
 </div>
@@ -71,12 +71,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-id">                       
+                    <div class="form-id">
                         <input hidden="hidden" value="@Model.Student.IdStudent" name="idStudent" type="text" class="form-control" id="InputIdStudent">
+                    </div>
+                    <div class="form-id">
+                        <input hidden="hidden" value="@Model.Student.IdGroup" asp-for="Homework.Group" type="text" class="form-control" id="InputIdStudent">
                     </div>
                     <div>
                         <label for="name">Название задания</label>
-                            <input type="text" id="NameClasses" class="form-control" asp-for="Homework.ContentHomework" value="" required />
+                        <input type="text" id="NameClasses" class="form-control" asp-for="Homework.ContentHomework" value="" required />
                         <div class="invalid-feedback">
                             Пожалуйста введите название задания
                         </div>
@@ -98,7 +101,7 @@
                     </div>
                     <div>
                         <label for="class">Тип задания</label>
-                            <input type="text" id="NameClasses" class="form-control" asp-for="Homework.TypeHHomework" value="" required />
+                        <input type="text" id="NameClasses" class="form-control" asp-for="Homework.TypeHHomework" value="" required />
                         <div class="invalid-feedback">
                             Пожалуйста введите типы задания
                         </div>

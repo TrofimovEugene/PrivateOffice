@@ -5,7 +5,7 @@
     <nav class="navbar" style="background-color: #0866C6">
         <a asp-page="../StudentCourses/IndexStudentCourse" asp-route-id="@Request.Cookies["idStudent"]" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
         <form method="post" class="form-inline">
-            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#0866C6; color:white;" value="Выйти" asp-page-handler="LogOut" />
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
         </form>
     </nav>
 </div>
@@ -58,7 +58,7 @@
                                 <div class="d-flex justify-content-between">
                                     <input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
                                     <input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
-                                    <input type="submit" class="btn btn-outline-primary" style="background-color:#0866C6; color:white;" value="Подробнее" asp-page-handler="Visited" />
+                                    <input type="submit" class="btn btn-outline-primary mt-2" style="background-color:#0866C6; color:white;" value="Подробнее" asp-page-handler="Visited" />
                                 </div>
 
                             </form>
