@@ -46,8 +46,8 @@
                         <td style="border: solid   #0866C6 1px; background-color:white">
                             <form method="post" class="d-flex justify-content-between">
                                 <a asp-page="../StudentsTable/EditTasks" asp-route-id="@homeworks.IdHomework">Подробнее</a>
-                                <input hidden="hidden" type="number" name="id" value="" />
-                                <input hidden="hidden" type="number" name="idStudent" value="" />
+                                <input hidden="hidden" type="number" name="id" value="@homeworks.IdHomework" />
+                                <input hidden="hidden" type="number" name="idStudent" value="@homeworks.IdStudent" />
                                 <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
                             </form>
                         </td>
@@ -71,24 +71,36 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-id">
-                       
+                    <div class="form-id">                       
                         <input hidden="hidden" value="@Model.Student.IdStudent" name="idStudent" type="text" class="form-control" id="InputIdStudent">
                     </div>
                     <div>
-                        <label for="name">Название доклада</label>
-                        <!-- <input type="text" id="NameClasses" class="form-control" asp-for="Report.NameReport" value="" required />-->
+                        <label for="name">Название задания</label>
+                            <input type="text" id="NameClasses" class="form-control" asp-for="Homework.ContentHomework" value="" required />
                         <div class="invalid-feedback">
-                            Пожалуйста введите название доклада
+                            Пожалуйста введите название задания
                         </div>
                     </div>
-                    <div>
-                        <label for="class">Занятие</label>
+                    <div class="form-group">
+                        <label for="InputGroup">Занятие</label>
                         <select class=" form-control" name="Idclasses" required>
-                            
+                            @if (Model.Clas != null)
+                            {
+                                @foreach (var tasks in Model.Clas)
+                                {
+                                    <option value="@tasks.IdClasses">@Html.DisplayFor(item => tasks.NameClasses)</option>
+                                }
+                            }
                         </select>
                         <div class="invalid-feedback">
                             Пожалуйста введите занятие
+                        </div>
+                    </div>
+                    <div>
+                        <label for="class">Тип задания</label>
+                            <input type="text" id="NameClasses" class="form-control" asp-for="Homework.TypeHHomework" value="" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста введите типы задания
                         </div>
                     </div>
                 </div>
