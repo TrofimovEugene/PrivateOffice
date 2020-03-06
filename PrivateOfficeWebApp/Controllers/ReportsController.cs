@@ -10,48 +10,48 @@ namespace PrivateOfficeWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TypeClassesController : ControllerBase
+    public class ReportsController : ControllerBase
     {
         private readonly PrivateOfficeWebAppContext _context;
 
-        public TypeClassesController(PrivateOfficeWebAppContext context)
+        public ReportsController(PrivateOfficeWebAppContext context)
         {
             _context = context;
         }
 
-        // GET: api/TypeClasses
+        // GET: api/Reports
         [HttpGet]
-        public async Task<List<TypeClasses>> GetTypeClasses()
+        public async Task<ActionResult<IEnumerable<Report>>> GetReport()
         {
-            return await _context.TypeClasses.ToListAsync();
+            return await _context.Report.ToListAsync();
         }
 
-        // GET: api/TypeClasses/5
+        // GET: api/Reports/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TypeClasses>> GetTypeClasses(int id)
+        public async Task<ActionResult<Report>> GetReport(int id)
         {
-            var typeClasses = await _context.TypeClasses.FindAsync(id);
+            var report = await _context.Report.FindAsync(id);
 
-            if (typeClasses == null)
+            if (report == null)
             {
                 return NotFound();
             }
 
-            return typeClasses;
+            return report;
         }
 
-        // PUT: api/TypeClasses/5
+        // PUT: api/Reports/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTypeClasses(int id, TypeClasses typeClasses)
+        public async Task<IActionResult> PutReport(int id, Report report)
         {
-            if (id != typeClasses.IdTypeClasses)
+            if (id != report.IdReport)
             {
                 return BadRequest();
             }
 
-            _context.Entry(typeClasses).State = EntityState.Modified;
+            _context.Entry(report).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace PrivateOfficeWebApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TypeClassesExists(id))
+                if (!ReportExists(id))
                 {
                     return NotFound();
                 }
@@ -72,37 +72,37 @@ namespace PrivateOfficeWebApp.Controllers
             return NoContent();
         }
 
-        // POST: api/TypeClasses
+        // POST: api/Reports
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<TypeClasses>> PostTypeClasses(TypeClasses typeClasses)
+        public async Task<ActionResult<Report>> PostReport(Report report)
         {
-            _context.TypeClasses.Add(typeClasses);
+            _context.Report.Add(report);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTypeClasses", new { id = typeClasses.IdTypeClasses }, typeClasses);
+            return CreatedAtAction("GetReport", new { id = report.IdReport }, report);
         }
 
-        // DELETE: api/TypeClasses/5
+        // DELETE: api/Reports/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TypeClasses>> DeleteTypeClasses(int id)
+        public async Task<ActionResult<Report>> DeleteReport(int id)
         {
-            var typeClasses = await _context.TypeClasses.FindAsync(id);
-            if (typeClasses == null)
+            var report = await _context.Report.FindAsync(id);
+            if (report == null)
             {
                 return NotFound();
             }
 
-            _context.TypeClasses.Remove(typeClasses);
+            _context.Report.Remove(report);
             await _context.SaveChangesAsync();
 
-            return typeClasses;
+            return report;
         }
 
-        private bool TypeClassesExists(int id)
+        private bool ReportExists(int id)
         {
-            return _context.TypeClasses.Any(e => e.IdTypeClasses == id);
+            return _context.Report.Any(e => e.IdReport == id);
         }
     }
 }

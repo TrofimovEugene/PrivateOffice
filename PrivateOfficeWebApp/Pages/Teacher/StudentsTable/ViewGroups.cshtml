@@ -6,15 +6,16 @@
 
 <div>
     <nav class="navbar" style="background-color: #0866C6">
-        <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-        <form method="post" class="form-inline">
-            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
-        </form>
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+
+        <!-- <form class="form-inline">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+        </form> -->
     </nav>
 </div>
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
-        <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
+        <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white"  onclick="history.back();" value="Назад" />
         <button type="button"class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#addGroups">
     Добавить группу
 </button>
@@ -49,7 +50,7 @@
                             <td style="border: solid   #0866C6 1px;">
                                 <form method="post">
                                     <a asp-page="../StudentsTable/StudentsTable" asp-route-id="@item.IdGroup">Студенты</a> |
-                                    <a asp-page="../StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Подробнее</a>
+                                    <a asp-page="../StudentsTable/EditGroup" asp-route-id="@item.IdGroup">Редактировать</a>
                                 </form>
                             </td>
                             <td style="border: solid   #0866C6 1px;">

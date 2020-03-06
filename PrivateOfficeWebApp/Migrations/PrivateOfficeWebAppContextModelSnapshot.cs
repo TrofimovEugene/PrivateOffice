@@ -147,66 +147,6 @@ namespace PrivateOfficeWebApp.Migrations
                     b.ToTable("Group");
                 });
 
-            modelBuilder.Entity("PrivateOfficeWebApp.Models.Homework", b =>
-                {
-                    b.Property<int>("IdHomework")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentHomework")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IdClasses")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdGroup")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdStudent")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TypeHomework")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdHomework");
-
-                    b.HasIndex("IdClasses");
-
-                    b.HasIndex("IdGroup");
-
-                    b.HasIndex("IdStudent");
-
-                    b.ToTable("Homework");
-                });
-
-            modelBuilder.Entity("PrivateOfficeWebApp.Models.HomeworkGroup", b =>
-                {
-                    b.Property<int>("IdHomeworkGroup")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentHomeworkGroup")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IdClasses")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdGroup")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdHomeworkGroup");
-
-                    b.HasIndex("IdClasses")
-                        .IsUnique()
-                        .HasFilter("[IdClasses] IS NOT NULL");
-
-                    b.HasIndex("IdGroup");
-
-                    b.ToTable("HomeworkGroup");
-                });
-
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Questions", b =>
                 {
                     b.Property<int>("IdQuestions")
@@ -238,6 +178,31 @@ namespace PrivateOfficeWebApp.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("PrivateOfficeWebApp.Models.Report", b =>
+                {
+                    b.Property<int>("IdReport")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("IdClasses")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdStudent")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameReport")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdReport");
+
+                    b.HasIndex("IdClasses");
+
+                    b.HasIndex("IdStudent");
+
+                    b.ToTable("Report");
+                });
+
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Student", b =>
                 {
                     b.Property<int>("IdStudent")
@@ -255,9 +220,6 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
@@ -309,26 +271,18 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Patronymic")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdTeacher");
@@ -448,34 +402,6 @@ namespace PrivateOfficeWebApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PrivateOfficeWebApp.Models.Homework", b =>
-                {
-                    b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
-                        .WithMany("Homework")
-                        .HasForeignKey("IdClasses")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PrivateOfficeWebApp.Models.Group", "Group")
-                        .WithMany("Homework")
-                        .HasForeignKey("IdGroup");
-
-                    b.HasOne("PrivateOfficeWebApp.Models.Student", "Student")
-                        .WithMany("Homework")
-                        .HasForeignKey("IdStudent");
-                });
-
-            modelBuilder.Entity("PrivateOfficeWebApp.Models.HomeworkGroup", b =>
-                {
-                    b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
-                        .WithOne("HomeworkGroup")
-                        .HasForeignKey("PrivateOfficeWebApp.Models.HomeworkGroup", "IdClasses")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PrivateOfficeWebApp.Models.Group", "Group")
-                        .WithMany("HomeworkGroup")
-                        .HasForeignKey("IdGroup");
-                });
-
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Questions", b =>
                 {
                     b.HasOne("PrivateOfficeWebApp.Models.ControlMeasures", "ControlMeasures")
@@ -487,6 +413,18 @@ namespace PrivateOfficeWebApp.Migrations
                     b.HasOne("PrivateOfficeWebApp.Models.Ticket", "Ticket")
                         .WithMany("Questions")
                         .HasForeignKey("IdTicket");
+                });
+
+            modelBuilder.Entity("PrivateOfficeWebApp.Models.Report", b =>
+                {
+                    b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
+                        .WithMany("Report")
+                        .HasForeignKey("IdClasses")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PrivateOfficeWebApp.Models.Student", "Student")
+                        .WithMany("Report")
+                        .HasForeignKey("IdStudent");
                 });
 
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Student", b =>

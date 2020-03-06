@@ -3,17 +3,18 @@
 @* ReSharper disable CommentTypo *@
 @* ReSharper disable MarkupTextTypo *@
 	<div>
-        <nav class="navbar" style="background-color: #0866C6">
-            <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-            <form method="post" class="form-inline">
-                <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
-            </form>
-        </nav>
+		<nav class="navbar" style="background-color: #0866C6">
+
+			<a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+			<!-- <form class="form-inline">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+		</form> -->
+		</nav>
     </div>
 
     <div class="container-fluid mt-3">
         <div class="form-group d-flex bd-highlight mb-3">
-            <a asp-page="../Courses/Edit" asp-route-id="@Model.Course.IdCourse" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
+            <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
             <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal"
                     data-target="#addNewClass">
                 <span style="color: white">Добавить новое занятие</span>
@@ -115,7 +116,7 @@
                     <input hidden="hidden" type="number" id="idgroup" name="idgroup" value="@Model.Course.IdGroup" />
                 </div>
             </form>
-    
+            <form method="get">
                 <!--TODO:Добавить информацию о курсе(без редактирования)-->
                 <table  class="table table-bordered" style="border: solid   #0866C6 2px; background-color:white; width:100%">
                     <thead>
@@ -148,44 +149,44 @@
                         {
                             @foreach (var item in Model.Classes)
                             {
-                        <tr>
-                            <td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
-                                @Html.DisplayFor(modelItem => item.NameClasses)
-                            </td>
-                            <td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
-                                @item.DateClasses.ToShortDateString()
-                            </td>
-                            <td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
-                                @Html.DisplayFor(modelItem => item.DaysWeek)
-                            </td>
-                            <td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
-                                @Html.DisplayFor(modelItem => item.Cabinet)
-                            </td>
-                            <td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
-                                @Html.DisplayFor(modelItem => item.StartTime)
-                            </td>
-                            <td class=" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
-                                @Html.DisplayFor(modelItem => item.EndTime)
-                            </td>
-
-                            <td style="border: solid   #0866C6 1px; background-color:white">
-                                
-                                <form method="post" class="d-flex justify-content-between">
-                                    <a asp-page="../Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a> 
-                                    |<input hidden="hidden" type="number" name="id" value="@item.IdClasses" />
-                                    <input hidden="hidden" type="number" asp-for="Class.IdCourse" value="@item.IdCourse" />
-                                    <a class="bd-highlight" asp-page="../StudentsTable/VisitedStudent" asp-route-id="@item.IdClasses">Посещение студентов</a>
-                                    <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
-                                </form>
-                               
-                            </td>
-
-                        </tr>
+                                <tr>
+                                    <td class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+                                        @Html.DisplayFor(modelItem => item.NameClasses)
+                                    </td>
+                                    <td  class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+                                        @item.DateClasses.ToShortDateString()
+                                    </td>
+                                    <td class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+                                        @Html.DisplayFor(modelItem => item.DaysWeek)
+                                    </td>
+                                    <td class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+                                        @Html.DisplayFor(modelItem => item.Cabinet)
+                                    </td>
+                                    <td class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+                                        @Html.DisplayFor(modelItem => item.StartTime)
+                                    </td>
+                                    <td  class =" pb-0" style="border: solid   #0866C6 1px; background-color:white ">
+                                        @Html.DisplayFor(modelItem => item.EndTime)
+                                    </td>
+                                   
+                                    <td class =" pb-0"  style="border: solid   #0866C6 1px; background-color:white ">
+                                        <div class="d-flex bd-highlight mb-3 ">
+                                            <form method="post">
+                                                <input hidden="hidden" type="number" name="id" value="@item.IdClasses" />
+                                                <input hidden="hidden" type="number" asp-for="Class.IdCourse" value="@item.IdCourse" />
+                                                <a asp-page="../Classes/EditClass" asp-route-id="@item.IdClasses">Подробнее</a> |
+                                                <a  class="bd-highlight" asp-page="../StudentsTable/VisitedStudent" asp-route-id="@item.IdClasses">Посещение студентов</a>
+                                                <input type="submit" value="Удалить" class="btn btn-outline-danger ml-auto  bd-highlight" asp-page-handler="Delete" />
+                                            </form>
+                                        </div>
+                                    </td>
+                      
+                                </tr>
                             }
                         }
                     </tbody>
                 </table>
-      
+            </form>
 
             <script>
                 (function () {

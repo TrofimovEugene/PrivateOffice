@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -33,9 +32,6 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			if (id == null)
 				return NotFound();
 
-			if (Request.Cookies["token_auth"] != null)
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
-
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			var jsonResponse = await response.Content.ReadAsStringAsync();
 			Student = JsonConvert.DeserializeObject<PagesModels.Student>(jsonResponse);
@@ -57,9 +53,6 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 
 		public async Task<IActionResult> OnPostEditStudent(int idgroup)
 		{
-			if (Request.Cookies["token_auth"] != null)
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
-
 			var reqStudent = new PagesModels.Student
 			{
 				IdStudent = Student.IdStudent,
@@ -70,20 +63,12 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 				IdGroup = idgroup
 			};
 
+
 			var jsonRequest = JsonConvert.SerializeObject(reqStudent);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Students/" + Student.IdStudent, httpContent);
 
 			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
-		}
-
-		public async Task<IActionResult> OnPostLogOut()
-		{
-			Response.Cookies.Delete("token_auth");
-			Response.Cookies.Delete("login");
-			Response.Cookies.Delete("idTeacher");
-			Response.Cookies.Delete("role");
-			return Redirect(AppSettings.WebAppUrl + "/Index");
 		}
 	}
 }

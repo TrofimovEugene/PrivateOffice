@@ -7,10 +7,10 @@
 <div>
 	<nav class="navbar" style="background-color: #0866C6">
 
-		<a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
+		<a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
 		<!-- <form class="form-inline">
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
-	</form> -->
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+		</form> -->
 	</nav>
 </div>
 <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse">Просмотреть все занятия</a>
