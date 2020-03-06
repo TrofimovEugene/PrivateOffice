@@ -46,6 +46,15 @@ namespace PrivateOfficeWebApp
             var jsonResponse = await response.Content.ReadAsStringAsync();
             Homework = JsonConvert.DeserializeObject<Homework>(jsonResponse);
 
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + Homework.IdClasses);
+            jsonResponse = await response.Content.ReadAsStringAsync();
+            Classes = JsonConvert.DeserializeObject<Classes>(jsonResponse);
+            Homework.Classes = Classes;
+
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/GetClassesFromGroup/id=" + Homework.IdGroup);
+            jsonResponse = await response.Content.ReadAsStringAsync();
+            Clas = JsonConvert.DeserializeObject<List<Classes>>(jsonResponse);
+
             return Page();
         }
 
@@ -60,7 +69,7 @@ namespace PrivateOfficeWebApp
 
             var jsonRequest = JsonConvert.SerializeObject(Homework);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Homework", httpContent);
+            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Homework/" + id, httpContent);
             //return Redirect(jsonRequest);
             return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/Tasks?id=" + idStudent);
         }
