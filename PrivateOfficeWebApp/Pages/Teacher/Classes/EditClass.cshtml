@@ -15,6 +15,7 @@
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
         <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
+        
         <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClass">
             Редактировать
         </button>
@@ -23,7 +24,9 @@
                 Добавить групповое задание
             </button>
         </div>
-    </div></div>
+    </div>    
+</div>
+
 <div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
     <div class="d-flex justify-content-start">
         <form method="get">

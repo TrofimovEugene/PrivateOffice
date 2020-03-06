@@ -34,23 +34,21 @@
         </thead>
 
         <tbody>
-            <!--    
-
-                  <tr>
-                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
-                      <td style="border: solid   #0866C6 1px; background-color:white"></td>
-                      <td style="border: solid   #0866C6 1px; background-color:white">
-                          <form method="post" class="d-flex justify-content-between">
-                              <input hidden="hidden" type="number" name="id" value="" />
-                              <input hidden="hidden" type="number" name="idStudent" value="" />
-                              <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
-                          </form>
-                      </td>
-                  </tr>
+            <tr>
+                <td style="border: solid   #0866C6 1px; background-color:white"></td>
+                <td style="border: solid   #0866C6 1px; background-color:white"></td>
+                <td style="border: solid   #0866C6 1px; background-color:white">
+                    <form method="post" class="d-flex justify-content-between">
+                        <input hidden="hidden" type="number" name="id" value="" />
+                        <input hidden="hidden" type="number" name="idStudent" value="" />
+                        <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
+                    </form>
+                </td>
+            </tr>
               }
-          }-->
+          }
         </tbody>
-    </table>-->
+    </table>
 </div>
 
 
@@ -80,11 +78,11 @@
                     <div>
                         <label for="class">Занятие</label>
                         <select class=" form-control" name="Idclasses" required>
-                            @if (Model.Clas != null)
+                            @if (Model.Homeworks != null)
                             {
-                            @foreach (var classes in Model.Clas)
+                            @foreach (var classes in Model.Homeworks)
                             {
-                                <option value="@classes.IdClasses">@Html.DisplayFor(item => classes.NameClasses)</option>
+                                
                             }
                             }
                         </select>

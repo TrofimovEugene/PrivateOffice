@@ -15,8 +15,7 @@
         <a type="button" class="btn btn-outline-primary  p-2 bd-highlight" style="background-color:#0866C6; color:white" asp-page="../StudentsTable/ViewGroups">Просмотреть группы</a>
         @if (@Request.Cookies["role"] == "admin")
         {
-            <input type="button" class="btn btn-secondary mt-2" style="background-color: #0866C6;
-		color: white" data-toggle="modal" data-target="#addTeacher" value="Добавить преподавателя" />
+            <input type="button" class="btn btn-secondary mt-2" style="background-color: #0866C6; color: white" data-toggle="modal" data-target="#addTeacher" value="Добавить преподавателя" />
         }
     </div>
 	<form action="" id="add_students" method="post" onsubmit="addRow();return false;">
