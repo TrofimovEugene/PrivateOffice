@@ -28,25 +28,32 @@
             <tr>
                 <th style="border: solid   #0866C6 2px; background-color:white ">Название</th>
                 <th style="border: solid   #0866C6 2px; background-color:white ">Занятие</th>
-                <th style="border: solid   #0866C6 2px; background-color:white"></th>
+                <th style="border: solid   #0866C6 2px; background-color:white ">Тип задания</th>
+                <th style="border: solid   #0866C6 2px; background-color:white "></th>
 
             </tr>
         </thead>
 
         <tbody>
-            <tr>
-                <td style="border: solid   #0866C6 1px; background-color:white"></td>
-                <td style="border: solid   #0866C6 1px; background-color:white"></td>
-                <td style="border: solid   #0866C6 1px; background-color:white">
-                    <form method="post" class="d-flex justify-content-between">
-                        <input hidden="hidden" type="number" name="id" value="" />
-                        <input hidden="hidden" type="number" name="idStudent" value="" />
-                        <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
-                    </form>
-                </td>
-            </tr>
-              }
-          }
+            @if (Model.Homeworks != null)
+            {
+                @foreach (var homeworks in Model.Homeworks)
+                {
+                    <tr>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.ContentHomework</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.Classes.NameClasses</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.TypeHHomework</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">
+                            <form method="post" class="d-flex justify-content-between">
+                                <a asp-page="../StudentsTable/EditTasks" asp-route-id="@homeworks.IdHomework">Подробнее</a>
+                                <input hidden="hidden" type="number" name="id" value="" />
+                                <input hidden="hidden" type="number" name="idStudent" value="" />
+                                <input type="submit" value="Удалить" class="btn btn-outline-danger" asp-page-handler="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>
@@ -78,13 +85,7 @@
                     <div>
                         <label for="class">Занятие</label>
                         <select class=" form-control" name="Idclasses" required>
-                            @if (Model.Homeworks != null)
-                            {
-                            @foreach (var classes in Model.Homeworks)
-                            {
-                                
-                            }
-                            }
+                            
                         </select>
                         <div class="invalid-feedback">
                             Пожалуйста введите занятие
