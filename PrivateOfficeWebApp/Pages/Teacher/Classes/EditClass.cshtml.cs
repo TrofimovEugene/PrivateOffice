@@ -79,7 +79,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
         [BindProperty]
         public HomeworkGroup HomeworkGroup { get; set; }
-        public async Task<IActionResult> OnPostCreateTask(int idGroup, int Idclasses, int idCourse)
+        public async Task<IActionResult> OnPostCreateTask(int idGroup, int Idclasses)
         {
             if (Request.Cookies["token_auth"] != null)
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
@@ -89,9 +89,9 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 
             var jsonRequest = JsonConvert.SerializeObject(HomeworkGroup);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Homework", httpContent);
+            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/HomeworkGroups", httpContent);
             //return Redirect(jsonRequest);
-            return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/ViewClasses?id=" + idCourse);
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + Idclasses);
         }
 
 
