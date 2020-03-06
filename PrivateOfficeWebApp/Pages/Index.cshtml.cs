@@ -1,11 +1,9 @@
 ﻿using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using PrivateOfficeWebApp.Pages.Teacher.Courses;
 
 namespace PrivateOfficeWebApp.Pages
 {
@@ -25,30 +23,23 @@ namespace PrivateOfficeWebApp.Pages
 	        public string login { get; set; }
 	        public string password { get; set; }
         }
-        public class ResponseLoginTeacher
-        {
-	        public string access_token { get; set; }
-            public string username { get; set; }
-            public int idTeacher { get; set; }
-            public string Role { get; set; }
-        }
-
-        [BindProperty]
-        public IndexCourseModel.RequestTeacher Teacher { get; set; }
-
         public async Task<IActionResult> OnPostLoginTeacher(string login, string password)
         {
-	        HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers/token?username=" + login+"&password=" + password, null);
+	        RequestLogin requestLogin = new RequestLogin {login = login, password = password};
+	        var jsonRequest = JsonConvert.SerializeObject(requestLogin);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers/GetTeacherLogin", httpContent);
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-	            var responseLogin = JsonConvert.DeserializeObject<ResponseLoginTeacher>(responseStr);
-	            Response.Cookies.Append("token_auth", responseLogin.access_token); 
-	            Response.Cookies.Append("login", responseLogin.username);
-                Response.Cookies.Append("idTeacher", responseLogin.idTeacher.ToString());
-                Response.Cookies.Append("role", responseLogin.Role);
-                return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?id=" +
-		                            responseLogin.idTeacher);
+	            var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Teacher>(responseStr);
+	            if (jsonResponse.Login == login && jsonResponse.Password == password)
+	            {
+		            Response.Cookies.Append("login", jsonResponse.Login);
+                    Response.Cookies.Append("idTeacher", jsonResponse.IdTeacher.ToString());
+                    return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?idTeacher=" + jsonResponse.IdTeacher);
+	            }
+	            return Redirect(AppSettings.WebAppUrl); 
             }
             catch
             {
@@ -56,37 +47,54 @@ namespace PrivateOfficeWebApp.Pages
             }
             
         }
-        public class ResponseLoginStudent
+        [BindProperty]
+        public RequestTeacher Teacher { get; set; }
+        public async Task<IActionResult> OnPostRegistryTeacher()
         {
-	        public string access_token { get; set; }
-	        public string username { get; set; }
-	        public int idStudent { get; set; }
+	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
+	        return Page();
+        }
+        [JsonObject]
+        public class RequestTeacher
+        {
+	        [JsonProperty("login")]
+	        public string Login { get; set; }
+	        [JsonProperty("password")]
+	        public string Password { get; set; }
+	        [JsonProperty("firstName")]
+	        public string FirstName { get; set; }
+	        [JsonProperty("secondName")]
+	        public string SecondName { get; set; }
+	        [JsonProperty("patronymic")]
+	        public string Patronymic { get; set; }
+	        //[JsonProperty("course")]
+	        //public virtual List<Course> Course { get; set; }
+
         }
         public async Task<IActionResult> OnPostLoginStudent(string login, string password)
         {
-            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students/StudentToken?username="+login+"&password="+password, null);
+            RequestLogin requestLogin = new RequestLogin { login = login, password = password };
+            var jsonRequest = JsonConvert.SerializeObject(requestLogin);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students/GetStudentLogin", httpContent);
             var responseStr = await response.Content.ReadAsStringAsync();
             try
             {
-                var jsonResponse = JsonConvert.DeserializeObject<ResponseLoginStudent>(responseStr);
-                Response.Cookies.Append("token_auth", jsonResponse.access_token);
-	            Response.Cookies.Append("login", jsonResponse.username);
-	            Response.Cookies.Append("idStudent", jsonResponse.idStudent.ToString());
-	            return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?id=" + 
-	                            jsonResponse.idStudent);
+                var jsonResponse = JsonConvert.DeserializeObject<PagesModels.Student>(responseStr);
+                if (jsonResponse.Login == login && jsonResponse.Password == password)
+                {
+                    Response.Cookies.Append("login", jsonResponse.Login);
+                    Response.Cookies.Append("idStudent", jsonResponse.IdStudent.ToString());
+                    return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?idStudent=" + jsonResponse.IdStudent);
+                }
+                return Redirect(AppSettings.WebAppUrl);
             }
             catch
             {
                 return NotFound();
             }
-        }
-
-        public async Task<IActionResult> OnPostRegistryTeacher()
-        {
-	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
-	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-	        await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
-	        return Page();
         }
     }
 }

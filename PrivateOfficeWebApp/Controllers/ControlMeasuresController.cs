@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,6 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/ControlMeasures
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<ControlMeasures>>> GetControlMeasures()
         {
             return await _context.ControlMeasures.ToListAsync();
@@ -32,7 +30,6 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/ControlMeasures/5
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<ControlMeasures>> GetControlMeasures(int id)
         {
             var controlMeasures = await _context.ControlMeasures.FindAsync(id);
@@ -49,7 +46,6 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> PutControlMeasures(int id, ControlMeasures controlMeasures)
         {
             if (id != controlMeasures.IdControlMeasures)
@@ -82,7 +78,6 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<ControlMeasures>> PostControlMeasures(ControlMeasures controlMeasures)
         {
             _context.ControlMeasures.Add(controlMeasures);
@@ -93,7 +88,6 @@ namespace PrivateOfficeWebApp.Controllers
 
         // DELETE: api/ControlMeasures/5
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<ActionResult<ControlMeasures>> DeleteControlMeasures(int id)
         {
             var controlMeasures = await _context.ControlMeasures.FindAsync(id);

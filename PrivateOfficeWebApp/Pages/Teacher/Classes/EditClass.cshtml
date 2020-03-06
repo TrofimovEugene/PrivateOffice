@@ -6,104 +6,49 @@
 @* ReSharper disable MarkupTextTypo *@
 <div>
     <nav class="navbar" style="background-color: #0866C6">
-        <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
-        <form method="post" class="form-inline">
-            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
-        </form>
+        <a href="/Index" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
     </nav>
 </div>
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
-        <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a> 
+        <input type="button" class="btn btn-outline-primary" style="background-color:#0866C6; color:white" onclick="history.back();" value="Назад" />
         <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClass">
             Редактировать
         </button>
-    </div>
-    <div class="d-flex align-items-end flex-column bd-highlight mb-3">
-        <button type="button" class="btn btn-primary mt-1" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClassHome">
-            Добавить групповое задание
-        </button>
-        <div>
-        </div>
-        </div>
-    </div>
-
-    <div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
-        <div class="d-flex justify-content-start">
-            <form method="get">
-                <div class="modal-body">
-                    <div class="form-class">
-                        <label><strong>Тема занятия:</strong> @Html.DisplayFor(model => model.Class.NameClasses)</label>
-                    </div>
-                    <div class="form-nameCourse">
-                        <label><strong>День недели:</strong> @Html.DisplayFor(model => model.Class.DaysWeek)</label>
-                    </div>
-                    <div class="form-DateClass">
-                        <label><strong>Дата занятия:</strong> @Model.Class.DateClasses.ToShortDateString()</label>
-                    </div>
-                    <div class="form-nameCabinet">
-                        <label><strong>Аудитория:</strong> @Html.DisplayFor(model => model.Class.Cabinet)</label>
-                    </div>
-                    <div class="form-startTime">
-                        <label><strong>Время начала:</strong> @Html.DisplayFor(model => model.Class.StartTime)</label>
-                    </div>
-                    <div class="form-data">
-                        <label><strong>Время окончания:</strong> @Html.DisplayFor(model => model.Class.EndTime)</label>
-                    </div>
-                    <div class="form-time">
-                        <label><strong>Занятий в неделю:</strong> @Html.DisplayFor(model => model.Class.ReplayClasses)</label>
-                    </div>
-                    @if (@Model.HomeworkGroup.IdClasses != null)
-                    {
-                    <div class="form-time">
-                    
-                        <label><strong>Групповое задание:</strong> @Html.DisplayFor(model => model.HomeworkGroup.ContentHomeworkGroup)</label>
-                        
-                    </div>
-                    }
-                    <div class="form-group">
-                        <input hidden="hidden" type="number" id="idgroup" value="@Model.Class.IdGroup" />
-                    </div>
-                    <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Class.IdCourse">Просмотреть все занятия</a>
+    </div></div>
+<div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
+    <div class="d-flex justify-content-start">
+        <form method="get">
+            <div class="modal-body" >
+                <div class="form-class">
+                    <label><strong>Тема занятия:</strong> @Html.DisplayFor(model => model.Class.NameClasses)</label>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal fade" id="editClassHome" tabindex="-1" role="dialog"
-         aria-labelledby="editClassHome" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editClassHome">Добавить групповое задание</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="form-nameCourse">
+                    <label><strong>День недели:</strong> @Html.DisplayFor(model => model.Class.DaysWeek)</label>
                 </div>
-                <div class="modal-body">
-                    <form method="post" class="needs-validation" novalidate>
-                        <div class="form-group">
-                            <input hidden="hidden" type="number" id="Idclasses" name="Idclasses" value="@Model.Class.IdClasses" />
-                        </div>
-                        <div class="form-group">
-                            <input hidden="hidden" type="number" id="idgroup" name="idGroup" value="@Model.Class.IdGroup" />
-                        </div>
-                    
-                            <div class="form-university pt-0 mb-1">
-                                <label for="InputUniveristy">Название</label>
-                                <input asp-for="HomeworkGroup.ContentHomeworkGroup" type="text" class="form-control"
-                                       id="InputUniveristy">
-                            </div>
-                        
-                            <div class="modal-footer m-0 p-0 pt-2">
-                                <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
-                                <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="CreateTask" />
-                            </div>
-                        </form>
+                <div class="form-DateClass">
+                    <label><strong>Дата занятия:</strong> @Model.Class.DateClasses.ToShortDateString()</label>
                 </div>
+                <div class="form-nameCabinet">
+                    <label><strong>Аудитория:</strong> @Html.DisplayFor(model => model.Class.Cabinet)</label>
+                </div>
+                <div class="form-startTime">
+                    <label><strong>Время начала:</strong> @Html.DisplayFor(model => model.Class.StartTime)</label>
+                </div>
+                <div class="form-data">
+                    <label><strong>Время окончания:</strong> @Html.DisplayFor(model => model.Class.EndTime)</label>
+                </div>
+                <div class="form-time">
+                    <label><strong>Занятий в неделю:</strong> @Html.DisplayFor(model => model.Class.ReplayClasses)</label>
+                </div>
+                <div class="form-group">
+                    <input hidden="hidden" type="number" id="idgroup" value="@Model.Class.IdGroup" />
+                </div>
+                <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Class.IdCourse">Просмотреть все занятия</a>
             </div>
-        </div>
+        </form>
     </div>
+</div>
 
 
     <div class="modal fade" id="editClass" tabindex="-1" role="dialog"
@@ -178,22 +123,6 @@
                                 Пожалуйста введите переодичность
                             </div>
                         </div>
-                        @if (@Model.HomeworkGroup.IdClasses != null)
-                        {
-                    <div class="form-group">
-                        <label for="InputGroup">Групповое задание</label>
-                        <input type="text" class="form-control" id="InputСountClass" asp-for="HomeworkGroup.ContentHomeworkGroup" required>
-                        <div class="invalid-feedback">
-                            Пожалуйста введите групповое задание
-                        </div>
-                        <input hidden="hidden" asp-for="HomeworkGroup.IdHomeworkGroup" name="idHomework" type="text" class="form-control"
-                               id="InputIdCourse">
-                        <input hidden="hidden" asp-for="HomeworkGroup.IdGroup"  value="@Model.Class.IdGroup" type="text" class="form-control"
-                               id="InputIdCourse">
-                        <input hidden="hidden" asp-for="HomeworkGroup.IdClasses" value="@Model.Class.IdClasses" type="text" class="form-control"
-                               id="InputIdCourse">
-                    </div>
-                        }
                         <div class="modal-footer m-0 p-0 pt-2">
                             <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
                             <!-- -->

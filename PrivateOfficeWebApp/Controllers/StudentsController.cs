@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using PrivateOfficeWebApp.Data;
 using PrivateOfficeWebApp.Models;
 
@@ -26,14 +21,12 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Students
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
             return await _context.Student.ToListAsync();
         }
 
         [HttpGet("GetStudentFromGroup/id={id}")]
-        [Authorize]
         public async Task<ICollection<Student>> GetStudentFromGroup(int id)
         {
 	        var students = await _context.Student.ToListAsync();
@@ -46,79 +39,34 @@ namespace PrivateOfficeWebApp.Controllers
 	        return resultList;
         }
 
-        public class Response
+        public class RequestLogin
         {
-            public string access_token { get; set; }
-            public string username { get; set; }
-            public int idStudent { get; set; }
+            public string login { get; set; }
+            public string password { get; set; }
         }
+    
 
-        [HttpPost("StudentToken")]
-        public async Task<ActionResult<Response>> StudentToken(string username, string password)
+        [HttpPost("GetStudentLogin")]
+        public async Task<ActionResult<Student>> GetStudentLogin(RequestLogin requestLogin)
         {
-            var identity = GetIdentity(username, password);
-            if (identity == null)
-            {
-                return BadRequest(new { errorText = "Invalid username or password." });
-            }
-
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
             var students = await _context.Student.ToListAsync();
 
+            if (students == null)
+            {
+                return NotFound();
+            }
             foreach (var student in students)
             {
-                if (student.Login == identity.Name)
-                    return new Response
-                    {
-                        access_token = encodedJwt,
-                        username = identity.Name,
-                        idStudent = student.IdStudent
-                    };
+                if (student.Login == requestLogin.login)
+                    if (student.Password == requestLogin.password)
+                        return student;
             }
 
-            return null;
-        }
-
-        private ClaimsIdentity GetIdentity(string username, string password)
-        {
-            var students = _context.Student.ToList();
-            Student student = null;
-            foreach (var student_elem in students)
-            {
-                if (student_elem.Login == username)
-                    if (student_elem.Password == password)
-                        student = student_elem;
-            }
-            if (student != null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, student.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, student.Role)
-                };
-                ClaimsIdentity claimsIdentity =
-                    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                        ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
-            }
-
-            // если пользователя не найдено
-            return null;
+            return NotFound();
         }
 
         // GET: api/Students/5
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
             var student = await _context.Student.FindAsync(id);
@@ -135,7 +83,6 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> PutStudent(int id, Student student)
         {
             if (id != student.IdStudent)
@@ -168,27 +115,16 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-	        var existsStudents = await _context.Student.ToListAsync();
-	        var checkStudent = existsStudents.Find(x => x.Login == student.Login);
-	        if (checkStudent == null)
-	        {
-		        _context.Student.Add(student);
-		        await _context.SaveChangesAsync();
+            _context.Student.Add(student);
+            await _context.SaveChangesAsync();
 
-		        return CreatedAtAction("GetStudent", new {id = student.IdStudent}, student);
-	        }
-	        else
-	        {
-		        return NotFound();
-	        }
+            return CreatedAtAction("GetStudent", new { id = student.IdStudent }, student);
         }
 
         // DELETE: api/Students/5
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<ActionResult<Student>> DeleteStudent(int id)
         {
             var student = await _context.Student.FindAsync(id);

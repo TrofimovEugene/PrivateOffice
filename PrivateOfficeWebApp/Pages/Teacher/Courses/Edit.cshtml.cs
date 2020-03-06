@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 			    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
 		    };
 		    _httpClient = new HttpClient(clientHandler);
-		}
+	    }
 
 	    [BindProperty]
 	    public Course Course { get; set; }
@@ -34,17 +33,11 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 	        if (id == null)
 		        return NotFound();
 
-	        if (Request.Cookies["token_auth"] != null)
-		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
-
-			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
+	        HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Courses/" + id);
 	        var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Course = JsonConvert.DeserializeObject<Course>(jsonResponse);
 
-	        if (Course == null)
-		        return NotFound();
-
-			response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Course.IdGroup);
+	        response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/" + Course.IdGroup);
 	        jsonResponse = await response.Content.ReadAsStringAsync();
 	        var group = JsonConvert.DeserializeObject<Group>(jsonResponse);
 	        Course.Group = group;
@@ -58,14 +51,13 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
             var countStudents = JsonConvert.DeserializeObject<int>(jsonResponse);
             group.CountStudents = countStudents;
 
-            return Page();
+			if (Course == null)
+		        return NotFound();
+	        return Page();
         }
 
 		public async Task<IActionResult> OnPostAsync(int idgroup)
 		{
-			if (Request.Cookies["token_auth"] != null)
-				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
-
 			var reqCourse = new RequestCourse
 			{
 				IdCourse = Course.IdCourse,
@@ -104,13 +96,5 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Courses
 			public int? IdGroup { get; set; }
 		}
 
-		public async Task<IActionResult> OnPostLogOut()
-		{
-			Response.Cookies.Delete("token_auth");
-			Response.Cookies.Delete("login");
-			Response.Cookies.Delete("idTeacher");
-			Response.Cookies.Delete("role");
-			return Redirect(AppSettings.WebAppUrl + "/Index");
-		}
-	}
+    }
 }

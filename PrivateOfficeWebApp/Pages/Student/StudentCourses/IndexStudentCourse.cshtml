@@ -3,72 +3,79 @@
 @* ReSharper disable MarkupTextTypo *@
 <div>
     <nav class="navbar" style="background-color: #0866C6">
-        <a asp-page="../StudentCourses/IndexStudentCourse" asp-route-id="@Request.Cookies["idStudent"]" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
-        <form method="post" class="form-inline">
-            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut" />
-        </form>
+        <a href="/Index" class="navbar-brand" style="color: white">@Model.Student.SecondName @Model.Student.FirstName</a>
     </nav>
 </div>
+<p class="text-center">Занятия на сегодня</p>
 
-<div class="container-fluid mt-3">
-    <div class="row">
-        @if (Model.Courses != null)
-        {
-            @foreach (var item in Model.Courses)
+<div class=" mt-1">
+    <table id="tab1" class="table table-bordered" style=" background-color:white; width:190vh">
+        <thead>
+            <tr>
+                <th scope="col">Предмет</th>
+                <th scope="col">Время начала занятия</th>
+                <th scope="col">Время окончания занятия</th>
+                <th scope="col">Тема</th>
+                <th scope="col">Аудитория</th>
+                <th scope="col">Присутсвие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Classes != null)
             {
-                <div class="col-xl-3  col-md-4 col-sm-6  p-4">
-                    <div class="card " style="min-height: 300px; border-width:2px; border-radius: 5%; border-color: #0866C6">
-                        <div class="card-body">
-                            <form method="post" class=" d-flex bd-highlight mb-1">
-                                <input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
-                            </form>
-                            <div class="card-course">
-                                <div class="d-flex bd-highlight">
-                                    <h4 class="card-title mr-auto  bd-highlight"> @Html.DisplayFor(indexModel => item.NameCourse)</h4>
-                                </div>
-                                <hr class="bg-black m-0 pb-3" />
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item card-text p-1 ">
-                                    Преподаватель:<br>@item.Teacher.FirstName @item.Teacher.SecondName
-                                </li>
+                @foreach (var classes in Model.Classes)
+                {
+                    <tr>
 
-                                @if (item.Classes != null)
-                                {
-                                    @foreach (var clas in item.Classes)
+                        <td>@Html.DisplayFor(item => classes.Course.NameCourse)</td>
+                        <td>@Html.DisplayFor(item => classes.StartTime)</td>
+                        <td>@Html.DisplayFor(item => classes.EndTime)</td>
+                        <td>@Html.DisplayFor(item => classes.NameClasses)</td>
+                        <td>@Html.DisplayFor(item => classes.Cabinet)</td>
+                        <td>
+                            <form method="post" asp-page-handler="UpdateStudent">
+                                <div class="form-group">
+                                    <input hidden="hidden" type="number" name="idClasses" value="@classes.IdClasses" />
+                                    <input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
+
+                                    @if (@Model.VisitedStudents.Count != 0)
+                                    {
+                                        @foreach (var confirmVisit in Model.VisitedStudents)
+                                        {
+                                            @if (confirmVisit.IdClasses == classes.IdClasses)
+                                            {
+                                                @if (confirmVisit.ConfirmVisited == false)
+                                                {
+                                                    <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();">
+                                                }
+                                                else
+                                                {
+                                                    <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" checked name="visited" onchange="this.form.submit();">
+                                                }
+                                            }
+                                        } @if (Model.VisitedStudents.Find(x => x.IdClasses.Equals(classes.IdClasses)) == null)
+                                        {
+                                            <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
+                                      
+                                        }
+
+                                    }
+                                    else { 
+                                    @if (@Model.VisitedStudents.Count == 0)
                                     {
 
-                                        @if (clas.DateClasses >= DateTime.Now && !(clas.DateClasses >= DateTime.Now.AddDays(7)))
-                                        {
-                                            <ul class="list-group list-group-flush  mt-2">
-                                                <li class="list-group-item card-text p-1 ">
-                                                    Ближайшее занятие:<br>@Html.DisplayFor(indexModel => clas.NameClasses)<br />
-                                                    @Html.DisplayFor(indexModel => clas.StartTime)-@Html.DisplayFor(indexModel => clas.EndTime)
-                                                </li>
-
-                                            </ul>
-                                            break;
-                                        }
+                                        <input class="custom-checkbox" asp-for="VisitedStudent.ConfirmVisited" name="visited" onchange="this.form.submit();" />
+                                  
                                     }
-                                }
-                                <li class="list-group-item card-text p-1 ">Продолжительность курса: <br>c @item.StartDate.ToShortDateString() по @item.EndDate.ToShortDateString()</li>
-
-                            </ul>
-                            <form method="post" class="form-inline">
-                                <div class="d-flex justify-content-between">
-                                    <input hidden="hidden" type="number" name="idStudent" value="@Model.Student.IdStudent" />
-                                    <input hidden="hidden" type="number" name="id" value="@item.IdCourse" />
-                                    <input type="submit" class="btn btn-outline-primary mt-2" style="background-color:#0866C6; color:white;" value="Подробнее" asp-page-handler="Visited" />
+                                    }
                                 </div>
-
                             </form>
-                        </div>
-                    </div>
-                </div>
-        }
-        }
+                        </td>
+                    </tr>
+                }
 
-    </div>
-</div>
-
-
+            }
+            </tbody>
+            <input type="button" class="btn btn-outline-primary" onclick="history.back();" value="Назад" />
+            </table>
+            </div>
