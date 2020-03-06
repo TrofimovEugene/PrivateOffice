@@ -38,6 +38,12 @@ namespace PrivateOfficeWebApp.Migrations
                     table.PrimaryKey("PK_Teacher", x => x.IdTeacher);
                 });
 
+            migrationBuilder.InsertData(
+                 table: "Teacher",
+                 columns:new[] { "Login", "Password", "FirstName", "SecondName", "Patronymic", "Role" },
+                 values: new object[] { "Olga", "1111", "Ольга", "Курганская", "Викторовна", "admin" }
+                );
+
             migrationBuilder.CreateTable(
                 name: "TypeClasses",
                 columns: table => new
