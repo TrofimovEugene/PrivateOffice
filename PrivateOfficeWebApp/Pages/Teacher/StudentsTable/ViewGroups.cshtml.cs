@@ -57,10 +57,35 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
              return Redirect("./ViewGroups");
         }
 
+        [BindProperty]
+        public List<Homework> Homework { get; set; }
+        [BindProperty]
+        public List<HomeworkGroup> HomeworkGroups { get; set; }
         public async Task<IActionResult> OnPostDelete(int id)
         {
 	        if (Request.Cookies["token_auth"] != null)
 		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
+            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Homework/GetHomeworkFromGroup/id=" + id);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Homework = JsonConvert.DeserializeObject<List<Homework>>(jsonResponse);
+            if (Homework != null)
+            {
+                foreach (var homeworks in Homework)
+                {
+                    await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Homework/" + homeworks.IdHomework);
+                }
+            }
+
+             response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/HomeworkGroups/GetHomeworkGroupFromGroup/id=" + id);
+             jsonResponse = await response.Content.ReadAsStringAsync();
+            HomeworkGroups = JsonConvert.DeserializeObject<List<HomeworkGroup>>(jsonResponse);
+            if(HomeworkGroups != null) { 
+                foreach (var homeworksGroup in HomeworkGroups)
+                {
+                    await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Homework/" + homeworksGroup.IdHomeworkGroup);
+                }
+            }
 
             await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Groups/" + id);
             return RedirectToPage("./ViewGroups");

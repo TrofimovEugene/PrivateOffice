@@ -92,11 +92,14 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			public string Role { get; set; }
 
 		}
+		[BindProperty]
+		public List<Homework> Homeworks { get; set; }
 		[BindProperty] public List<VisitedStudent> VisitedStudents { get; set; }
 		public async Task<IActionResult> OnPostDelete(int id, int idgroup)
 		{
 			if (Request.Cookies["token_auth"] != null)
 				_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
 
 			HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl +
 												  "/api/VisitedStudents/GetVisitedFromStudent/id=" + id);
@@ -107,7 +110,20 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 			{
 				await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/VisitedStudents/" + visitStudent.IdVisitedStudent);
 			}
-			
+
+			 response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Homework/GetHomeworkFromStudent/id=" + id);
+			 jsonResponse = await response.Content.ReadAsStringAsync();
+			Homeworks = JsonConvert.DeserializeObject<List<Homework>>(jsonResponse);
+
+			if (Homeworks != null)
+			{
+				foreach (var homework in Homeworks)
+				{
+					await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Homework/" + homework.IdHomework);
+				}
+			}
+
+
 			await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
 			return Redirect("https://localhost:44326/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}

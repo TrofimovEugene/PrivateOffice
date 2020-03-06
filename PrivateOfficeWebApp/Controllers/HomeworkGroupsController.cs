@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +57,20 @@ namespace PrivateOfficeWebApp.Controllers
                 }
             }
                     return homeworkGroups;
+        }
+
+        [HttpGet("GetHomeworkGroupFromGroup/id={id}")]
+        [Authorize]
+        public async Task<ICollection<HomeworkGroup>> GetHomeworkGroupFromGroup(int id)
+        {
+            var homeworks = await _context.HomeworkGroup.ToListAsync();
+            List<HomeworkGroup> resultList = new List<HomeworkGroup>();
+            foreach (var homework in homeworks)
+            {
+                if (homework.IdGroup == id)
+                    resultList.Add(homework);
+            }
+            return resultList;
         }
 
         // PUT: api/HomeworkGroups/5

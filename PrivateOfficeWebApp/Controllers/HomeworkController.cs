@@ -58,7 +58,19 @@ namespace PrivateOfficeWebApp.Controllers
             }
             return resultList;
         }
-
+        [HttpGet("GetHomeworkFromGroup/id={id}")]
+        [Authorize]
+        public async Task<ICollection<Homework>> GetHomeworkFromGroup(int id)
+        {
+            var homeworks = await _context.Homework.ToListAsync();
+            List<Homework> resultList = new List<Homework>();
+            foreach (var homework in homeworks)
+            {
+                if (homework.IdGroup == id)
+                    resultList.Add(homework);
+            }
+            return resultList;
+        }
         // PUT: api/Homework/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

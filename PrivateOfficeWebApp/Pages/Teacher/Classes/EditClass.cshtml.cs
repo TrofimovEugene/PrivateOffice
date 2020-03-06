@@ -50,7 +50,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             return Page();
             }
 
-        public async Task<IActionResult> OnPostEditClass(int TypeClass, int idgroup, int idCourse)
+        public async Task<IActionResult> OnPostEditClass(int TypeClass, int idgroup, int idCourse, int idHomework)
         {
 	        if (Request.Cookies["token_auth"] != null)
 		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
@@ -67,12 +67,18 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 EndTime = Class.EndTime,
                 Cabinet = Class.Cabinet,
                 DaysWeek = Class.DaysWeek,
-                ReplayClasses = Class.ReplayClasses
+                ReplayClasses = Class.ReplayClasses,
             };
+
+            HomeworkGroup.IdHomeworkGroup = idHomework;
 
             var jsonRequest = JsonConvert.SerializeObject(reqClasses);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Classes/" + Class.IdClasses, httpContent);
+
+            jsonRequest = JsonConvert.SerializeObject(HomeworkGroup);
+            httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/HomeworkGroups/" + idHomework, httpContent);
 
             return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/ViewClasses?id=" + idCourse);
 		}
