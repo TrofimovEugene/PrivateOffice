@@ -26,7 +26,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
         public Group Group { get; set; }
 		public async Task<IActionResult> OnGet()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups/");
+            HttpResponseMessage response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Groups");
 	         var jsonResponse = await response.Content.ReadAsStringAsync();
 	        Groups = JsonConvert.DeserializeObject<List<Group>>(jsonResponse);
 
