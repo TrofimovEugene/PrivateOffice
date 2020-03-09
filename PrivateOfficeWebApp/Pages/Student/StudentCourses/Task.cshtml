@@ -28,19 +28,31 @@
             </tr>
         </thead>
 
-        <tbody>  
+        <tbody>
             @if (Model.Homeworks != null)
             {
                 @foreach (var homeworks in Model.Homeworks)
                 {
-            <tr>
-                <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.ContentHomework</td>
-                <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.Classes.NameClasses</td>
-                <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.TypeHomework</td>
+                    <tr>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.ContentHomework</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.Classes.NameClasses</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.TypeHomework</td>
 
-            </tr>
-              }
-          }
+                    </tr>
+                }
+            }
+            @if (Model.HomeworkGroup != null)
+            {
+                @foreach (var homeworks in Model.HomeworkGroup)
+                {
+                    <tr>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.ContentHomeworkGroup</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">@homeworks.Classes.NameClasses</td>
+                        <td style="border: solid   #0866C6 1px; background-color:white">-</td>
+
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>

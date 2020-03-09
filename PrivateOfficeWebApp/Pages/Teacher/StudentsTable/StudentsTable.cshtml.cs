@@ -62,11 +62,11 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 		        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
 			Student.IdGroup = idgroup;
-			Student.Role = "user";
+			//Student.Role = "user";
             var jsonRequest = JsonConvert.SerializeObject(Student);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Students", httpContent);
-
+	
             return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
         }
 

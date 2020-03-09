@@ -28,6 +28,9 @@ namespace PrivateOfficeWebApp
 
         [BindProperty]
         public Student Student { get; set; }
+
+        [BindProperty]
+        public List<HomeworkGroup> HomeworkGroup { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
 
@@ -52,6 +55,21 @@ namespace PrivateOfficeWebApp
             response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Students/" + id);
             jsonResponse = await response.Content.ReadAsStringAsync();
             Student = JsonConvert.DeserializeObject<Student>(jsonResponse);
+
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/HomeworkGroups/GetHomeworkGroupFromGroup/id=" + Student.IdGroup);
+            jsonResponse = await response.Content.ReadAsStringAsync();
+            HomeworkGroup = JsonConvert.DeserializeObject<List<HomeworkGroup>>(jsonResponse);
+
+            if (HomeworkGroup != null)
+            {
+                foreach (var homeworkGroup in HomeworkGroup)
+                {
+                    response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/Classes/" + homeworkGroup.IdClasses);
+                    jsonResponse = await response.Content.ReadAsStringAsync();
+                    var clas = JsonConvert.DeserializeObject<Classes>(jsonResponse);
+                    homeworkGroup.Classes = clas;
+                }
+            }
 
             return Page();
         }
