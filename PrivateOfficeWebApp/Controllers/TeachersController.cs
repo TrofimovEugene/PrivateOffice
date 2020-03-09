@@ -151,7 +151,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Teachers/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+     
         public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
             var teacher = await _context.Teacher.FindAsync(id);
