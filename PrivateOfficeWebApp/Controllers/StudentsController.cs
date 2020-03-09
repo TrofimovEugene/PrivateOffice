@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -25,12 +26,14 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Students
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
             return await _context.Student.ToListAsync();
         }
 
         [HttpGet("GetStudentFromGroup/id={id}")]
+        [Authorize]
         public async Task<ICollection<Student>> GetStudentFromGroup(int id)
         {
 	        var students = await _context.Student.ToListAsync();
@@ -41,32 +44,6 @@ namespace PrivateOfficeWebApp.Controllers
 					resultList.Add(student);
 	        }
 	        return resultList;
-        }
-
-        public class RequestLogin
-        {
-            public string login { get; set; }
-            public string password { get; set; }
-        }
-    
-
-        [HttpPost("GetStudentLogin")]
-        public async Task<ActionResult<Student>> GetStudentLogin(RequestLogin requestLogin)
-        {
-            var students = await _context.Student.ToListAsync();
-
-            if (students == null)
-            {
-                return NotFound();
-            }
-            foreach (var student in students)
-            {
-                if (student.Login == requestLogin.login)
-                    if (student.Password == requestLogin.password)
-                        return student;
-            }
-
-            return NotFound();
         }
 
         public class Response
@@ -141,6 +118,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Students/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
             var student = await _context.Student.FindAsync(id);
@@ -157,6 +135,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutStudent(int id, Student student)
         {
             if (id != student.IdStudent)
@@ -189,16 +168,27 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-            _context.Student.Add(student);
-            await _context.SaveChangesAsync();
+	        var existsStudents = await _context.Student.ToListAsync();
+	        var checkStudent = existsStudents.Find(x => x.Login == student.Login);
+	        if (checkStudent == null)
+	        {
+		        _context.Student.Add(student);
+		        await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudent", new { id = student.IdStudent }, student);
+		        return CreatedAtAction("GetStudent", new {id = student.IdStudent}, student);
+	        }
+	        else
+	        {
+		        return NotFound();
+	        }
         }
 
         // DELETE: api/Students/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Student>> DeleteStudent(int id)
         {
             var student = await _context.Student.FindAsync(id);

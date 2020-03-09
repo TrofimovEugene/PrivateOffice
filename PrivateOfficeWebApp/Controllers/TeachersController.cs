@@ -76,28 +76,7 @@ namespace PrivateOfficeWebApp.Controllers
 
             return teachers;
         }
-		// GET: api/Teachers/GetTeacherLogin
-        [HttpPost("GetTeacherLogin")]
-        [Authorize(Roles = "admin")]
-        public async Task<ActionResult<Teacher>> GetTeacherLogin(string requestLogin)
-        {
-	        var teachers = await _context.Teacher.ToListAsync();
-
-	        if (teachers == null)
-	        {
-		        return NotFound();
-	        }
-
-	        foreach (var teacher in teachers)
-	        {
-		        if (teacher.Login == requestLogin)
-			        return teacher;
-	        }
-
-	        return NotFound();
-        }
-      
-
+		
         public class Response
         {
 	        public string access_token { get; set; }
@@ -172,6 +151,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Teachers/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
             var teacher = await _context.Teacher.FindAsync(id);
@@ -221,12 +201,22 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
-            _context.Teacher.Add(teacher);
-            await _context.SaveChangesAsync();
+	        var existsTeachers = await _context.Teacher.ToListAsync();
+	        var checkTeacher = existsTeachers.Find(x => x.Login == teacher.Login);
+	        if (checkTeacher == null)
+	        {
+		        _context.Teacher.Add(teacher);
+		        await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTeacher", new { id = teacher.IdTeacher }, teacher);
+		        return CreatedAtAction("GetTeacher", new {id = teacher.IdTeacher}, teacher);
+	        }
+	        else
+	        {
+		        return NotFound();
+	        }
         }
 
         // DELETE: api/Teachers/5

@@ -15,7 +15,7 @@ namespace PrivateOfficeWebApp.Models
         public string Patronymic { get; set; }
         public string? Role { get; set; }
 
-        public virtual ICollection<Course> Course { get; set; }
+        public virtual ICollection<Course>? Course { get; set; }
 
 
     }
