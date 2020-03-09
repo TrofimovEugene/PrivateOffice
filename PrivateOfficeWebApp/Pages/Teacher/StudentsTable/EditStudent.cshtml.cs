@@ -67,13 +67,14 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
 				SecondName = Student.SecondName,
 				Login = Student.Login,
 				Password = Student.Password, 
-				IdGroup = idgroup
+				IdGroup = idgroup,
+				Role = Student.Role
 			};
 
 			var jsonRequest = JsonConvert.SerializeObject(reqStudent);
 			HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 			await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/Students/" + Student.IdStudent, httpContent);
-
+			//return Redirect(jsonRequest);
 			return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/StudentsTable?id=" + idgroup);
 		}
 

@@ -56,6 +56,7 @@
                                         <div class="form-id">
                                             <label hidden="hidden" for="InputIdStudent">Id студента</label>
                                             <input hidden="hidden" asp-for="Student.IdStudent" type="text" class="form-control" id="InputIdStudent">
+
                                         </div>
                                         <div class="form-firstName mb-2">
                                             <label for="InputFirstName">Имя</label>
@@ -100,6 +101,7 @@
                                                 Пожалуйста введите группу
                                             </div>
                                         </div>
+                                        <input hidden="hidden" type="text" asp-for="Student.Role" value="user" />
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

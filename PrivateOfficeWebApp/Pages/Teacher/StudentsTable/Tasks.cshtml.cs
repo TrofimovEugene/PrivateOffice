@@ -96,7 +96,7 @@ namespace PrivateOfficeWebApp
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
 
             await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Homework/" + id);
-            return Redirect("https://localhost:44326/Teacher/StudentsTable/Tasks?id=" + idStudent);
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/StudentsTable/Tasks?id=" + idStudent);
         }
 
         public async Task<IActionResult> OnPostLogOut()

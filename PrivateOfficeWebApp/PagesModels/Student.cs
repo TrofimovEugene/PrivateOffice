@@ -18,6 +18,8 @@ namespace PrivateOfficeWebApp.PagesModels
 		public string Login { get; set; }
         [JsonProperty("password")]
 		public string Password { get; set; }
+		[JsonProperty("role")]
+		public string Role { get; set; }
 		[JsonProperty("group")]
 		public virtual PagesModels.Group Group { get; set; }
 		[JsonProperty("homework")]
