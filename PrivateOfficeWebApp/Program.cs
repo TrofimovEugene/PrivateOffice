@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace PrivateOfficeWebApp
 {
@@ -14,7 +15,12 @@ namespace PrivateOfficeWebApp
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
-					webBuilder.UseStartup<Startup>();
+					webBuilder.ConfigureKestrel(serverOptions =>
+					{
+						//params	
+					})
+					.UseUrls("http://127.0.0.1:5000") //only http
+					.UseStartup<Startup>();
 				});
 	}
 }
