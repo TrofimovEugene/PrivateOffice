@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PrivateOfficeWebApp.Data;
+using Microsoft.AspNetCore.HttpOverrides; //не помню, надо ли где
 
 namespace PrivateOfficeWebApp
 {
@@ -49,7 +50,7 @@ namespace PrivateOfficeWebApp
 				app.UseHsts();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection(); //не нужно, только http
 			app.UseStaticFiles();
 
 			app.UseRouting();
@@ -60,6 +61,12 @@ namespace PrivateOfficeWebApp
 			{
 				endpoints.MapRazorPages();
 				endpoints.MapControllers();
+			});
+			
+			//для nginx
+			app.UseForwardedHeaders(new ForwardedHeadersOptions
+			{
+				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 			});
 		}
 	}
