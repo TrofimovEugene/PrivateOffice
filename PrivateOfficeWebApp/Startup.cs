@@ -61,7 +61,7 @@ namespace PrivateOfficeWebApp
 					.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 			services.AddDbContext<PrivateOfficeWebAppContext>(options =>
-				options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=PrivateOffice;Integrated Security=True"));
+				options.UseSqlite("Filename=./privateOfficeTeacher.db"));
 
 		}
 
