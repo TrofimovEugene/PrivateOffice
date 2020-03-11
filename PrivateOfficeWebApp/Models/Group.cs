@@ -12,5 +12,7 @@ namespace PrivateOfficeWebApp.Models
         public virtual ICollection<Course> Course { get; set; }
         public virtual ICollection<Classes> Classes { get; set; }
         public virtual ICollection<Student> Student { get; set; }
+        public virtual ICollection<Homework> Homework { get; set; }
+        public virtual ICollection<HomeworkGroup> HomeworkGroup { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using PrivateOfficeWebApp.Data;
 namespace PrivateOfficeWebApp.Migrations
 {
     [DbContext(typeof(PrivateOfficeWebAppContext))]
-    [Migration("20200212102331_BD")]
-    partial class BD
+    [Migration("20200304160424_HomeworkDb")]
+    partial class HomeworkDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace PrivateOfficeWebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Cabinet")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateClasses")
                         .HasColumnType("date");
@@ -138,15 +141,45 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountStudents")
-                        .HasColumnType("int");
-
                     b.Property<string>("NameGroup")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdGroup");
 
                     b.ToTable("Group");
+                });
+
+            modelBuilder.Entity("PrivateOfficeWebApp.Models.Homework", b =>
+                {
+                    b.Property<int>("IdHomework")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentHomework")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("IdClasses")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdGroup")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdStudent")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeHomework")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdHomework");
+
+                    b.HasIndex("IdClasses");
+
+                    b.HasIndex("IdGroup");
+
+                    b.HasIndex("IdStudent");
+
+                    b.ToTable("Homework");
                 });
 
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Questions", b =>
@@ -180,40 +213,12 @@ namespace PrivateOfficeWebApp.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("PrivateOfficeWebApp.Models.Report", b =>
-                {
-                    b.Property<int>("IdReport")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("IdClasses")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdStudent")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NameReport")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdReport");
-
-                    b.HasIndex("IdClasses");
-
-                    b.HasIndex("IdStudent");
-
-                    b.ToTable("Report");
-                });
-
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Student", b =>
                 {
                     b.Property<int>("IdStudent")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("ConfirmVisit")
-                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -227,11 +232,11 @@ namespace PrivateOfficeWebApp.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecondName")
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Visited")
-                        .HasColumnType("bit");
+                    b.Property<string>("SecondName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdStudent");
 
@@ -279,18 +284,26 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Patronymic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdTeacher");
@@ -336,6 +349,34 @@ namespace PrivateOfficeWebApp.Migrations
                     b.ToTable("TypeClasses");
                 });
 
+            modelBuilder.Entity("PrivateOfficeWebApp.Models.VisitedStudent", b =>
+                {
+                    b.Property<int>("IdVisitedStudent")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("ConfirmVisited")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("IdClasses")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdStudent")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Visited")
+                        .HasColumnType("bit");
+
+                    b.HasKey("IdVisitedStudent");
+
+                    b.HasIndex("IdClasses");
+
+                    b.HasIndex("IdStudent");
+
+                    b.ToTable("VisitedStudents");
+                });
+
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Classes", b =>
                 {
                     b.HasOne("PrivateOfficeWebApp.Models.Course", "Course")
@@ -346,8 +387,7 @@ namespace PrivateOfficeWebApp.Migrations
 
                     b.HasOne("PrivateOfficeWebApp.Models.Group", "Group")
                         .WithMany("Classes")
-                        .HasForeignKey("IdGroup")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdGroup");
 
                     b.HasOne("PrivateOfficeWebApp.Models.TypeClasses", "TypeClasses")
                         .WithMany("Classes")
@@ -373,13 +413,30 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     b.HasOne("PrivateOfficeWebApp.Models.Group", "Group")
                         .WithMany("Course")
-                        .HasForeignKey("IdGroup");
+                        .HasForeignKey("IdGroup")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PrivateOfficeWebApp.Models.Teacher", "Teacher")
                         .WithMany("Course")
                         .HasForeignKey("IdTeacher")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PrivateOfficeWebApp.Models.Homework", b =>
+                {
+                    b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
+                        .WithMany("Homework")
+                        .HasForeignKey("IdClasses")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PrivateOfficeWebApp.Models.Group", "Group")
+                        .WithMany("Homework")
+                        .HasForeignKey("IdGroup");
+
+                    b.HasOne("PrivateOfficeWebApp.Models.Student", "Student")
+                        .WithMany("Homework")
+                        .HasForeignKey("IdStudent");
                 });
 
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Questions", b =>
@@ -393,17 +450,6 @@ namespace PrivateOfficeWebApp.Migrations
                     b.HasOne("PrivateOfficeWebApp.Models.Ticket", "Ticket")
                         .WithMany("Questions")
                         .HasForeignKey("IdTicket");
-                });
-
-            modelBuilder.Entity("PrivateOfficeWebApp.Models.Report", b =>
-                {
-                    b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
-                        .WithMany("Report")
-                        .HasForeignKey("IdClasses");
-
-                    b.HasOne("PrivateOfficeWebApp.Models.Student", "Student")
-                        .WithMany("Report")
-                        .HasForeignKey("IdStudent");
                 });
 
             modelBuilder.Entity("PrivateOfficeWebApp.Models.Student", b =>
@@ -435,6 +481,18 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasForeignKey("IdControlMeasures")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PrivateOfficeWebApp.Models.VisitedStudent", b =>
+                {
+                    b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
+                        .WithMany("VisitedStudents")
+                        .HasForeignKey("IdClasses")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PrivateOfficeWebApp.Models.Student", "Student")
+                        .WithMany("VisitedStudents")
+                        .HasForeignKey("IdStudent");
                 });
 #pragma warning restore 612, 618
         }

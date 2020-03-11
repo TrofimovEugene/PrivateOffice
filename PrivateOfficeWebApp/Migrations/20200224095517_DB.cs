@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PrivateOfficeWebApp.Migrations
 {
-    public partial class BD : Migration
+    public partial class DB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,7 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     IdGroup = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NameGroup = table.Column<string>(nullable: true),
-                    CountStudents = table.Column<int>(nullable: false)
+                    NameGroup = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,16 +26,23 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     IdTeacher = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    SecondName = table.Column<string>(nullable: true),
-                    Patronymic = table.Column<string>(nullable: true)
+                    Login = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    SecondName = table.Column<string>(nullable: false),
+                    Patronymic = table.Column<string>(nullable: false),
+                    Role = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teacher", x => x.IdTeacher);
                 });
+
+            migrationBuilder.InsertData(
+                 table: "Teacher",
+                 columns:new[] { "Login", "Password", "FirstName", "SecondName", "Patronymic", "Role" },
+                 values: new object[] { "Olga", "1111", "Ольга", "Курганская", "Викторовна", "admin" }
+                );
 
             migrationBuilder.CreateTable(
                 name: "TypeClasses",
@@ -49,12 +55,13 @@ namespace PrivateOfficeWebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TypeClasses", x => x.IdTypeClasses);
+
                 });
             migrationBuilder.InsertData(
-                table: "TypeClasses",
-                column: "TypeClass",
-                value: "Лабораторная работа"
-                );
+             table: "TypeClasses",
+             column: "TypeClass",
+             value: "Лабораторная работа"
+             );
             migrationBuilder.InsertData(
                 table: "TypeClasses",
                 column: "TypeClass",
@@ -74,8 +81,6 @@ namespace PrivateOfficeWebApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdGroup = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    Visited = table.Column<bool>(nullable: false),
-                    ConfirmVisit = table.Column<bool>(nullable: false),
                     SecondName = table.Column<string>(nullable: true),
                     Login = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true)
@@ -113,7 +118,7 @@ namespace PrivateOfficeWebApp.Migrations
                         column: x => x.IdGroup,
                         principalTable: "Group",
                         principalColumn: "IdGroup",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Course_Teacher_IdTeacher",
                         column: x => x.IdTeacher,
@@ -136,6 +141,7 @@ namespace PrivateOfficeWebApp.Migrations
                     EndTime = table.Column<TimeSpan>(nullable: false),
                     DateClasses = table.Column<DateTime>(type: "date", nullable: false),
                     DaysWeek = table.Column<string>(nullable: true),
+                    Cabinet = table.Column<string>(nullable: true),
                     ReplayClasses = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -152,7 +158,7 @@ namespace PrivateOfficeWebApp.Migrations
                         column: x => x.IdGroup,
                         principalTable: "Group",
                         principalColumn: "IdGroup",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Classes_TypeClasses_IdTypeClasses",
                         column: x => x.IdTypeClasses,
@@ -207,9 +213,37 @@ namespace PrivateOfficeWebApp.Migrations
                         column: x => x.IdClasses,
                         principalTable: "Classes",
                         principalColumn: "IdClasses",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Report_Student_IdStudent",
+                        column: x => x.IdStudent,
+                        principalTable: "Student",
+                        principalColumn: "IdStudent",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VisitedStudents",
+                columns: table => new
+                {
+                    IdVisitedStudent = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdStudent = table.Column<int>(nullable: true),
+                    IdClasses = table.Column<int>(nullable: true),
+                    Visited = table.Column<bool>(nullable: false),
+                    ConfirmVisited = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VisitedStudents", x => x.IdVisitedStudent);
+                    table.ForeignKey(
+                        name: "FK_VisitedStudents_Classes_IdClasses",
+                        column: x => x.IdClasses,
+                        principalTable: "Classes",
+                        principalColumn: "IdClasses",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VisitedStudents_Student_IdStudent",
                         column: x => x.IdStudent,
                         principalTable: "Student",
                         principalColumn: "IdStudent",
@@ -369,6 +403,16 @@ namespace PrivateOfficeWebApp.Migrations
                 name: "IX_Ticket_IdControlMeasures",
                 table: "Ticket",
                 column: "IdControlMeasures");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VisitedStudents_IdClasses",
+                table: "VisitedStudents",
+                column: "IdClasses");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VisitedStudents_IdStudent",
+                table: "VisitedStudents",
+                column: "IdStudent");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -381,6 +425,9 @@ namespace PrivateOfficeWebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Task");
+
+            migrationBuilder.DropTable(
+                name: "VisitedStudents");
 
             migrationBuilder.DropTable(
                 name: "Ticket");

@@ -10,8 +10,8 @@ using PrivateOfficeWebApp.Data;
 namespace PrivateOfficeWebApp.Migrations
 {
     [DbContext(typeof(PrivateOfficeWebAppContext))]
-    [Migration("20200218131123_UpdateDb")]
-    partial class UpdateDb
+    [Migration("20200224142146_RoleStudentDb")]
+    partial class RoleStudentDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace PrivateOfficeWebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Cabinet")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateClasses")
                         .HasColumnType("date");
@@ -138,9 +141,6 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountStudents")
-                        .HasColumnType("int");
-
                     b.Property<string>("NameGroup")
                         .HasColumnType("nvarchar(max)");
 
@@ -224,6 +224,9 @@ namespace PrivateOfficeWebApp.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
@@ -273,18 +276,26 @@ namespace PrivateOfficeWebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Patronymic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdTeacher");
@@ -368,8 +379,7 @@ namespace PrivateOfficeWebApp.Migrations
 
                     b.HasOne("PrivateOfficeWebApp.Models.Group", "Group")
                         .WithMany("Classes")
-                        .HasForeignKey("IdGroup")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdGroup");
 
                     b.HasOne("PrivateOfficeWebApp.Models.TypeClasses", "TypeClasses")
                         .WithMany("Classes")
@@ -395,7 +405,8 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     b.HasOne("PrivateOfficeWebApp.Models.Group", "Group")
                         .WithMany("Course")
-                        .HasForeignKey("IdGroup");
+                        .HasForeignKey("IdGroup")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PrivateOfficeWebApp.Models.Teacher", "Teacher")
                         .WithMany("Course")
@@ -421,7 +432,8 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
                         .WithMany("Report")
-                        .HasForeignKey("IdClasses");
+                        .HasForeignKey("IdClasses")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PrivateOfficeWebApp.Models.Student", "Student")
                         .WithMany("Report")
@@ -463,7 +475,8 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     b.HasOne("PrivateOfficeWebApp.Models.Classes", "Classes")
                         .WithMany("VisitedStudents")
-                        .HasForeignKey("IdClasses");
+                        .HasForeignKey("IdClasses")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PrivateOfficeWebApp.Models.Student", "Student")
                         .WithMany("VisitedStudents")

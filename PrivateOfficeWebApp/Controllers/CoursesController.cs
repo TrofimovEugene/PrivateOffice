@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrivateOfficeWebApp.Data;
@@ -22,6 +23,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // GET: api/Courses
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<Course>>> GetCourses()
         {
 	        return await _context.Course.ToListAsync();
@@ -29,6 +31,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         //GET: api/Courses/WithTeacher/id=5
         [HttpGet("WithTeacher/id={id}")]
+        [Authorize]
         public async Task<List<Course>> GetCourseWithTeacher(int id)
         {
 	        var courses = new List<Course>();
@@ -46,8 +49,28 @@ namespace PrivateOfficeWebApp.Controllers
 	        return courses;
         }
 
+        [HttpGet("GetCourseFromGroup/id={id}")]
+        public async Task<ICollection<Course>> GetCousreFromGroup(int id)
+        {
+            var courses = await _context.Course.ToListAsync();
+            List<Course> resultList = new List<Course>();
+            foreach (var course in courses)
+            {
+                if (course.IdGroup == id)
+                    resultList.Add(course);
+                foreach (var Class in await _context.Classes.ToListAsync())
+                {
+                    Class.DateClasses.Add(Class.StartTime);
+                    if (Class.IdCourse == course.IdCourse)
+                        course.Classes.Add(Class);
+                }
+            }
+            return resultList;
+        }
+
         // GET: api/Courses/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
             var course = await _context.Course.FindAsync(id);
@@ -63,6 +86,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutCourse(int id, Course course)
         {
             if (id != course.IdCourse)
@@ -95,6 +119,7 @@ namespace PrivateOfficeWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
             _context.Course.Add(course);
@@ -105,6 +130,7 @@ namespace PrivateOfficeWebApp.Controllers
 
         // DELETE: api/Courses/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Course>> DeleteCourse(int id)
         {
             var course = await _context.Course.FindAsync(id);

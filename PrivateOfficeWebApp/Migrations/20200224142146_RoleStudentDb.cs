@@ -2,21 +2,21 @@
 
 namespace PrivateOfficeWebApp.Migrations
 {
-    public partial class UpdateContextBDAndClasses : Migration
+    public partial class RoleStudentDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Cabinet",
-                table: "Classes",
+                name: "Role",
+                table: "Student",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Cabinet",
-                table: "Classes");
+                name: "Role",
+                table: "Student");
         }
     }
 }

@@ -6,26 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\**" />
-    <Content Remove="Migrations\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <None Remove="Migrations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Migrations\20200212102331_BD.cs" />
-    <Compile Include="Migrations\20200212102331_BD.Designer.cs" />
-    <Compile Include="Migrations\20200218131123_UpdateDb.cs" />
-    <Compile Include="Migrations\20200218131123_UpdateDb.Designer.cs" />
-    <Compile Include="Migrations\20200221073601_Update.cs" />
-    <Compile Include="Migrations\20200221073601_Update.Designer.cs" />
-    <Compile Include="Migrations\20200221085737_UpdateContextBDAndClasses.cs" />
-    <Compile Include="Migrations\20200221085737_UpdateContextBDAndClasses.Designer.cs" />
-    <Compile Include="Migrations\PrivateOfficeWebAppContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20200304160056_HomeworkDb.cs" />
+    <Compile Remove="Migrations\20200304160056_HomeworkDb.Designer.cs" />
+    <Compile Remove="Migrations\20200306162728_UpdateDb.cs" />
+    <Compile Remove="Migrations\20200306162728_UpdateDb.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="jQuery" Version="3.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
