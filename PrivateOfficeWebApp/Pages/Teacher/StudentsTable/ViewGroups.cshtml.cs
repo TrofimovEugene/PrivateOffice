@@ -83,7 +83,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.StudentsTable
             if(HomeworkGroups != null) { 
                 foreach (var homeworksGroup in HomeworkGroups)
                 {
-                    await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/Homework/" + homeworksGroup.IdHomeworkGroup);
+                    await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/HomeworkGroups/" + homeworksGroup.IdHomeworkGroup);
                 }
             }
 
