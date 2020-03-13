@@ -63,7 +63,8 @@ namespace PrivateOfficeWebApp.Data
             modelBuilder.Entity<Group>()
                 .HasMany(classes => classes.Classes)
                 .WithOne(group => group.Group)
-                .HasForeignKey(classes => classes.IdGroup);
+                .HasForeignKey(classes => classes.IdGroup)
+                .OnDelete(DeleteBehavior.Cascade);
 
             /*связь один ко многим между Course and Group*/
             modelBuilder.Entity<Group>()

@@ -15,7 +15,7 @@ namespace PrivateOfficeWebApp.PagesModels
 		[JsonProperty("countHomeworkGroup")]
 		public int CounttHomeworkGroup { get; set; }
 		[JsonProperty("classes")]
-		public virtual Models.Classes? Classes { get; set; }
+		public virtual IList<Classes>? Classes { get; set; }
 		[JsonProperty("student")]
 		public virtual IList<Student>? Student { get; set; }
 		[JsonProperty("course")]

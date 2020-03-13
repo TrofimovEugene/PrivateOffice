@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PrivateOfficeWebApp.Migrations
 {
-    public partial class DB : Migration
+    public partial class BD : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdGroup = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     NameGroup = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -25,7 +25,7 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdTeacher = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Login = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: false),
@@ -37,10 +37,9 @@ namespace PrivateOfficeWebApp.Migrations
                 {
                     table.PrimaryKey("PK_Teacher", x => x.IdTeacher);
                 });
-
             migrationBuilder.InsertData(
                  table: "Teacher",
-                 columns:new[] { "Login", "Password", "FirstName", "SecondName", "Patronymic", "Role" },
+                 columns: new[] { "Login", "Password", "FirstName", "SecondName", "Patronymic", "Role" },
                  values: new object[] { "Olga", "1111", "Ольга", "Курганская", "Викторовна", "admin" }
                 );
 
@@ -49,19 +48,19 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdTypeClasses = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     TypeClass = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TypeClasses", x => x.IdTypeClasses);
-
                 });
+
             migrationBuilder.InsertData(
-             table: "TypeClasses",
-             column: "TypeClass",
-             value: "Лабораторная работа"
-             );
+            table: "TypeClasses",
+            column: "TypeClass",
+            value: "Лабораторная работа"
+            );
             migrationBuilder.InsertData(
                 table: "TypeClasses",
                 column: "TypeClass",
@@ -73,17 +72,19 @@ namespace PrivateOfficeWebApp.Migrations
                 value: "Семинар"
                 );
 
+
             migrationBuilder.CreateTable(
                 name: "Student",
                 columns: table => new
                 {
                     IdStudent = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     IdGroup = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     SecondName = table.Column<string>(nullable: true),
                     Login = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
+                    Password = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,7 +102,7 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdCourse = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     NameCourse = table.Column<string>(nullable: true),
                     IdGroup = table.Column<int>(nullable: true),
                     IdTeacher = table.Column<int>(nullable: false),
@@ -132,7 +133,7 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdClasses = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     IdTypeClasses = table.Column<int>(nullable: false),
                     IdCourse = table.Column<int>(nullable: false),
                     IdGroup = table.Column<int>(nullable: true),
@@ -158,7 +159,7 @@ namespace PrivateOfficeWebApp.Migrations
                         column: x => x.IdGroup,
                         principalTable: "Group",
                         principalColumn: "IdGroup",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Classes_TypeClasses_IdTypeClasses",
                         column: x => x.IdTypeClasses,
@@ -172,7 +173,7 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdControlMeasures = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     IdClasses = table.Column<int>(nullable: false),
                     IdStudent = table.Column<int>(nullable: true),
                     NameControlMeasures = table.Column<string>(nullable: true),
@@ -196,29 +197,64 @@ namespace PrivateOfficeWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Report",
+                name: "Homework",
                 columns: table => new
                 {
-                    IdReport = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdHomework = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     IdStudent = table.Column<int>(nullable: true),
                     IdClasses = table.Column<int>(nullable: true),
-                    NameReport = table.Column<string>(nullable: true)
+                    IdGroup = table.Column<int>(nullable: true),
+                    ContentHomework = table.Column<string>(nullable: true),
+                    TypeHomework = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Report", x => x.IdReport);
+                    table.PrimaryKey("PK_Homework", x => x.IdHomework);
                     table.ForeignKey(
-                        name: "FK_Report_Classes_IdClasses",
+                        name: "FK_Homework_Classes_IdClasses",
                         column: x => x.IdClasses,
                         principalTable: "Classes",
                         principalColumn: "IdClasses",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Report_Student_IdStudent",
+                        name: "FK_Homework_Group_IdGroup",
+                        column: x => x.IdGroup,
+                        principalTable: "Group",
+                        principalColumn: "IdGroup",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Homework_Student_IdStudent",
                         column: x => x.IdStudent,
                         principalTable: "Student",
                         principalColumn: "IdStudent",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HomeworkGroup",
+                columns: table => new
+                {
+                    IdHomeworkGroup = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IdClasses = table.Column<int>(nullable: true),
+                    IdGroup = table.Column<int>(nullable: true),
+                    ContentHomeworkGroup = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HomeworkGroup", x => x.IdHomeworkGroup);
+                    table.ForeignKey(
+                        name: "FK_HomeworkGroup_Classes_IdClasses",
+                        column: x => x.IdClasses,
+                        principalTable: "Classes",
+                        principalColumn: "IdClasses",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HomeworkGroup_Group_IdGroup",
+                        column: x => x.IdGroup,
+                        principalTable: "Group",
+                        principalColumn: "IdGroup",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -227,7 +263,7 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdVisitedStudent = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     IdStudent = table.Column<int>(nullable: true),
                     IdClasses = table.Column<int>(nullable: true),
                     Visited = table.Column<bool>(nullable: false),
@@ -255,7 +291,7 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdTicket = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     NumberTicket = table.Column<int>(nullable: false),
                     CountTicket = table.Column<int>(nullable: false),
                     IdControlMeasures = table.Column<int>(nullable: false)
@@ -276,12 +312,12 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdQuestions = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     IdTicket = table.Column<int>(nullable: true),
                     IdControlMeasures = table.Column<int>(nullable: false),
                     ContentQuestions = table.Column<string>(nullable: true),
                     CountQuestions = table.Column<int>(nullable: false),
-                    Point = table.Column<float>(type: "real", nullable: false)
+                    Point = table.Column<double>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -305,12 +341,12 @@ namespace PrivateOfficeWebApp.Migrations
                 columns: table => new
                 {
                     IdTask = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     IdTicket = table.Column<int>(nullable: true),
                     IdControlMeasures = table.Column<int>(nullable: false),
                     ContentTask = table.Column<string>(nullable: true),
                     CountTask = table.Column<int>(nullable: false),
-                    Point = table.Column<float>(type: "real", nullable: false)
+                    Point = table.Column<double>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -365,6 +401,32 @@ namespace PrivateOfficeWebApp.Migrations
                 column: "IdTeacher");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Homework_IdClasses",
+                table: "Homework",
+                column: "IdClasses");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Homework_IdGroup",
+                table: "Homework",
+                column: "IdGroup");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Homework_IdStudent",
+                table: "Homework",
+                column: "IdStudent");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HomeworkGroup_IdClasses",
+                table: "HomeworkGroup",
+                column: "IdClasses",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HomeworkGroup_IdGroup",
+                table: "HomeworkGroup",
+                column: "IdGroup");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Questions_IdControlMeasures",
                 table: "Questions",
                 column: "IdControlMeasures");
@@ -373,16 +435,6 @@ namespace PrivateOfficeWebApp.Migrations
                 name: "IX_Questions_IdTicket",
                 table: "Questions",
                 column: "IdTicket");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Report_IdClasses",
-                table: "Report",
-                column: "IdClasses");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Report_IdStudent",
-                table: "Report",
-                column: "IdStudent");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Student_IdGroup",
@@ -418,10 +470,13 @@ namespace PrivateOfficeWebApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Homework");
 
             migrationBuilder.DropTable(
-                name: "Report");
+                name: "HomeworkGroup");
+
+            migrationBuilder.DropTable(
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "Task");
