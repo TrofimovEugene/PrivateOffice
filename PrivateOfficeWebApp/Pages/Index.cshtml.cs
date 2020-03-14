@@ -81,12 +81,15 @@ namespace PrivateOfficeWebApp.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostRegistryTeacher()
+        public async Task<IActionResult> OnGet()
         {
-	        var jsonRequest = JsonConvert.SerializeObject(Teacher);
-	        HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-	        await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/Teachers", httpContent);
-	        return Page();
+            if(Request.Cookies["idTeacher"] != null)
+                return Redirect(AppSettings.WebAppUrl + "/Teacher/Courses/IndexCourse?id=" +
+                                    Request.Cookies["idTeacher"]);
+            if(Request.Cookies["idStudent"] != null)
+                return Redirect(AppSettings.WebAppUrl + "/Student/StudentCourses/IndexStudentCourse?id=" +
+                                    Request.Cookies["idStudent"]);
+            return Page();
         }
     }
 }
