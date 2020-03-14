@@ -340,4 +340,4 @@ ASALocalRun/
 healthchecksdb
 
 # Database files
-privateOfficeTeacher.db
+*.db
