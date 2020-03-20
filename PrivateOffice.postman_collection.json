@@ -1647,6 +1647,153 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TypeClasses",
+			"item": [
+				{
+					"name": "GetTypeClasses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTypeClasses",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"typeClass\": \"Открытая лекция\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTypeClass",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTypeClass",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses/4",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTypeClass",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTypeClasses\": 4,\r\n    \"typeClass\": \"Открытая лабораторная работа\"\r\n\t\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses/4",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
