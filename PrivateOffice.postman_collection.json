@@ -409,7 +409,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idGroup\": 1,\r\n    \"firstName\": \"Юлия\",\r\n    \"secondName\": \"Негодяева\",\r\n    \"login\": \"Julia\",\r\n    \"password\": \"0000\",\r\n    \"role\": \"user\",\r\n    \"group\": null,\r\n    \"homework\": null,\r\n    \"controlMeasures\": null,\r\n    \"visitedStudents\": null\r\n}",
+							"raw": "{\r\n    \"idGroup\": 3,\r\n    \"firstName\": \"Сергей\",\r\n    \"secondName\": \"Сафонов\",\r\n    \"login\": \"Saff\",\r\n    \"password\": \"0000\",\r\n    \"role\": \"user\",\r\n    \"group\": null,\r\n    \"homework\": null,\r\n    \"controlMeasures\": null,\r\n    \"visitedStudents\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1122,6 +1122,1489 @@
 								"Groups",
 								"GetCountHomeworkInGroup",
 								"id=1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "GetTasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Tasks",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTask",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Tasks/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTask",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Tasks/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTask",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTask\": 1,\r\n    \"idTicket\": 1,\r\n    \"idControlMeasures\": 3,\r\n    \"contentTask\": \"Content\",\r\n    \"countTask\": 1,\r\n    \"point\": 4.5,\r\n    \"controlMeasures\": null,\r\n    \"ticket\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Tasks/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTask",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idTicket\":1,\n\t\"idControlMeasures\":3,\n\t\"contentTask\":\"Content\",\n\t\"countTask\":1,\n\t\"point\": 3.45\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Tasks",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tasks"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ControlMeasures",
+			"item": [
+				{
+					"name": "GetControlMeasures",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/ControlMeasures",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"ControlMeasures"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateControlMeasures",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idClasses\": 7,\n\t\"idStudent\": 13,\n\t\"NameControlMeasures\": \"КР\",\n\t\"CountControlMeasures\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/ControlMeasures",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"ControlMeasures"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetControlMeasure",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/ControlMeasures/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"ControlMeasures",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteControlMeasure",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/ControlMeasures/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"ControlMeasures",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateControlMeasure",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idControlMeasures\": 1,\r\n    \"idClasses\": 1,\r\n    \"idStudent\": 1,\r\n    \"nameControlMeasures\": \"Контрольная работа\",\r\n    \"countControlMeasures\": 1,\r\n    \"task\": null,\r\n    \"questions\": null,\r\n    \"ticket\": null,\r\n    \"classes\": null,\r\n    \"student\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/ControlMeasures/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"ControlMeasures",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tickets",
+			"item": [
+				{
+					"name": "GetTickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Tickets",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTicket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Tickets/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tickets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTicket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Tickets/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tickets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTicket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTicket\": 1,\r\n    \"numberTicket\": 1,\r\n    \"countTicket\": 1,\r\n    \"idControlMeasures\": 3,\r\n    \"controlMeasures\": null,\r\n    \"task\": null,\r\n    \"questions\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Tickets/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tickets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTickets",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"numberTicket\":1,\n\t\"countTicket\":1,\n\t\"idControlMeasures\":3\n}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Tickets",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Tickets"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "GetQuestions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Questions",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetQuestion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Questions/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Questions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteQuestion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Questions/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Questions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateQuestion",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idQuestions\": 1,\r\n    \"idTicket\": 1,\r\n    \"idControlMeasures\": 3,\r\n    \"contentQuestions\": \"content\",\r\n    \"countQuestions\": 1,\r\n    \"point\": 0.0,\r\n    \"ticket\": null,\r\n    \"controlMeasures\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Questions/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Questions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateQuestion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idTicket\":1,\n\t\"idControlmeasures\":3,\n\t\"contentQuestions\":\"content\",\n\t\"countQuestions\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Questions",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Questions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TypeClasses",
+			"item": [
+				{
+					"name": "GetTypeClasses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTypeClasses",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"typeClass\": \"Открытая лекция\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTypeClass",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTypeClass",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses/4",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTypeClass",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTypeClasses\": 4,\r\n    \"typeClass\": \"Открытая лабораторная работа\"\r\n\t\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/TypeClasses/4",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"TypeClasses",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Homework",
+			"item": [
+				{
+					"name": "GetHomework",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Homework/12",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Homework",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHomeworks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Homework",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Homework"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHomeworkFromStudent",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Homework/GetHomeworkFromStudent/id=7",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Homework",
+								"GetHomeworkFromStudent",
+								"id=7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHomeworkFromGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Homework/GetHomeworkFromGroup/id=3",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Homework",
+								"GetHomeworkFromGroup",
+								"id=3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateHomework",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idHomework\": 12,\r\n    \"idStudent\": 7,\r\n    \"idClasses\": 1,\r\n    \"idGroup\": 3,\r\n    \"contentHomework\": \"История\",\r\n    \"typeHomework\": \"Конспект\",\r\n    \"group\": null,\r\n    \"student\": null,\r\n    \"classes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Homework/12",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Homework",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateHomework",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idStudent\": 13,\r\n    \"idClasses\": 1,\r\n    \"idGroup\": 8,\r\n    \"contentHomework\": \"История\",\r\n    \"typeHomework\": \"Доклад\",\r\n    \"group\": null,\r\n    \"student\": null,\r\n    \"classes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Homework",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Homework"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteHomework",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Homework/15",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Homework",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "HomeworkGroups",
+			"item": [
+				{
+					"name": "GetHomeworkGroups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/HomeworkGroups",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"HomeworkGroups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHomeworkGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/HomeworkGroups/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"HomeworkGroups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHomeworkGroupForClasses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/HomeworkGroups/GetHomeworkGroupForClasses/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"HomeworkGroups",
+								"GetHomeworkGroupForClasses",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHomeworkGroupFromGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/HomeworkGroups/GetHomeworkGroupFromGroup/id=3",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"HomeworkGroups",
+								"GetHomeworkGroupFromGroup",
+								"id=3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateHomeworkGroup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idClasses\": 4,\r\n    \"idGroup\": 3,\r\n    \"contentHomeworkGroup\": \"Привет\",\r\n    \"group\": null,\r\n    \"classes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/HomeworkGroups",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"HomeworkGroups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateHomeworkGroup",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"idHomeworkGroup\": 5,\r\n    \"idClasses\": 4,\r\n    \"idGroup\": 3,\r\n    \"contentHomeworkGroup\": \"Дописать лекцию\",\r\n    \"group\": null,\r\n    \"classes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/HomeworkGroups/5",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"HomeworkGroups",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteHomeworkGroup",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/HomeworkGroups/5",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"HomeworkGroups",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PlanClasses",
+			"item": [
+				{
+					"name": "GetPlanClasses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/PlanClasses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"PlanClasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPlanClassesId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/PlanClasses/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"PlanClasses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPlanClassesFromClasses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/PlanClasses/GetPlanClassesFromClasses/id=4",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"PlanClasses",
+								"GetPlanClassesFromClasses",
+								"id=4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePlanClasses",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idClasses\": 4,\r\n    \"idGroup\": 3,\r\n    \"Theme\": \"Основные определения\",\r\n    \"Poll\": \"не была дописана лекция\",\r\n    \"Block\": \"необходимо доделать недостающие фрагменты лабы\",\r\n    \"Classes\" : null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/PlanClasses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"PlanClasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePlanClasses",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idClasses\": 4,\r\n    \"idGroup\": 3,\r\n    \"Theme\": \"Основные определения\",\r\n    \"Poll\": \"не были дописаны определения\",\r\n    \"Block\": \"необходимо доделать недостающие фрагменты лабы\",\r\n    \"Classes\" : null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/PlanClasses/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"PlanClasses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePlanClasses",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/PlanClasses/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"PlanClasses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "VisitedStudents",
+			"item": [
+				{
+					"name": "GetVisitedStudents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/VisitedStudents",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"VisitedStudents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetVisitedStudentId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/VisitedStudents/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"VisitedStudents",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetVisitedFromClasses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/VisitedStudents/GetVisitedFromClasses/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"VisitedStudents",
+								"GetVisitedFromClasses",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetVisitedFromStudent",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/VisitedStudents/GetVisitedFromStudent/id=7",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"VisitedStudents",
+								"GetVisitedFromStudent",
+								"id=7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateVisitedStudents",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n\r\n        \"idStudent\": 13,\r\n        \"idClasses\": 5,\r\n        \"visited\": true,\r\n        \"confirmVisited\": false,\r\n        \"student\": null,\r\n        \"classes\": null\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/VisitedStudents",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"VisitedStudents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateVisitedStudents",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idVisitedStudent\": 1,\r\n    \"idStudent\": 7,\r\n    \"idClasses\": 1,\r\n    \"visited\": true,\r\n    \"confirmVisited\": true,\r\n    \"student\": null,\r\n    \"classes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/VisitedStudents/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"VisitedStudents",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteVisitedStudents",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/VisitedStudents/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"VisitedStudents",
+								"1"
 							]
 						}
 					},
