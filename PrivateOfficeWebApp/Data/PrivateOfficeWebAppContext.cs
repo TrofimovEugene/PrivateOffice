@@ -30,7 +30,7 @@ namespace PrivateOfficeWebApp.Data
         public DbSet<ControlMeasures> ControlMeasures { get; set; }
 
         public DbSet<Ticket> Ticket { get; set; }
-
+        public DbSet<PlanClasses> PlanClasses { get; set; }
         public DbSet<Task> Task { get; set; }
 
         public DbSet<Questions> Questions { get; set; }
@@ -166,7 +166,12 @@ namespace PrivateOfficeWebApp.Data
                 .HasMany(visitedStudent => visitedStudent.VisitedStudents)
                 .WithOne(classes => classes.Classes)
                 .HasForeignKey(visitedStudent => visitedStudent.IdClasses)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Classes>()
+                .HasOne(planClasses => planClasses.PlanClasses)
+                .WithOne(classes => classes.Classes)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -25,6 +25,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
 		public PagesModels.Classes Class { get; set; }
 
         [BindProperty]
+        public PagesModels.PlanClasses PlanClasses { get; set; }
+        [BindProperty]
         public PagesModels.Course Course { get; set; }
         public async Task<IActionResult> OnGet(int? id)
         {
@@ -46,7 +48,10 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
              jsonResponse = await response.Content.ReadAsStringAsync();
             Course = JsonConvert.DeserializeObject<PagesModels.Course>(jsonResponse);
 
-           
+            response = await _httpClient.GetAsync(AppSettings.DataBaseUrl + "/api/PlanClasses/GetPlanClassesFromClasses/id=" + id);
+            jsonResponse = await response.Content.ReadAsStringAsync();
+            PlanClasses = JsonConvert.DeserializeObject<PagesModels.PlanClasses>(jsonResponse);
+
             return Page();
             }
 
@@ -98,6 +103,20 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/HomeworkGroups", httpContent);
             //return Redirect(jsonRequest);
             return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + Idclasses);
+        }
+
+        public async Task<IActionResult> OnPostCreatePlanClasses(int idClasses)
+        {
+            if (Request.Cookies["token_auth"] != null)
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
+            PlanClasses.IdClasses = idClasses;
+
+            var jsonRequest = JsonConvert.SerializeObject(PlanClasses);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/PlanClasses", httpContent);
+
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
         }
 
 
