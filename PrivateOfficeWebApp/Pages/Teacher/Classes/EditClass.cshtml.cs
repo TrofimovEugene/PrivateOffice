@@ -115,7 +115,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             var jsonRequest = JsonConvert.SerializeObject(PlanClasses);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/PlanClasses", httpContent);
-
+            //return Redirect(jsonRequest);
             return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
         }
 
