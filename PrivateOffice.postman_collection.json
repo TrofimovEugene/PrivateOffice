@@ -1,0 +1,1135 @@
+{
+	"info": {
+		"_postman_id": "2e46d572-19c0-4447-9dff-a8e9f6a6232e",
+		"name": "PrivateOffice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "LoginTeacher",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "018b6517-d4bc-4de4-8f62-6bac4b50ef54",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"idTeacher\", jsonData.idTeacher);",
+									"pm.environment.set(\"authorization\", \"Bearer \" + jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Teachers/token?username={{Login}}&password={{Password}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Teachers",
+								"token"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{Login}}"
+								},
+								{
+									"key": "password",
+									"value": "{{Password}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTeacherDetails",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Teachers/GetTeacherDetails/{{idTeacher}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Teachers",
+								"GetTeacherDetails",
+								"{{idTeacher}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTeacher",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Teachers/{{idTeacher}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Teachers",
+								"{{idTeacher}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutTeacher",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTeacher\": 1,\r\n    \"login\": \"Trofimov9\",\r\n    \"password\": \"1111\",\r\n    \"firstName\": \"Евгений\",\r\n    \"secondName\": \"Трофимов\",\r\n    \"patronymic\": \"Сергеевич\",\r\n    \"role\": \"admin\",\r\n    \"course\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Teachers/{{idTeacher}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Teachers",
+								"{{idTeacher}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTeacher",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Teachers/6",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Teachers",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTeacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"Trofimov11\",\r\n    \"password\": \"1111\",\r\n    \"firstName\": \"Евгений\",\r\n    \"secondName\": \"Трофимов\",\r\n    \"patronymic\": \"Сергеевич\",\r\n    \"role\": \"admin\",\r\n    \"course\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Teachers",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Teachers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "GetStudents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Students",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStudentFromGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Students/GetStudentFromGroup/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Students",
+								"GetStudentFromGroup",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginStudetnt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f6df7f77-4d7b-4a04-92bc-5dcb4dd42a0e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"idStudent\", jsonData.idStudent);",
+									"pm.environment.set(\"authorization\", \"Bearer \" + jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/Students/StudentToken?username={{Login}}&password={{Password}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Students",
+								"StudentToken"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{Login}}"
+								},
+								{
+									"key": "password",
+									"value": "{{Password}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStudent",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Students/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Students",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateStudent",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idStudent\": 1,\r\n    \"idGroup\": 1,\r\n    \"firstName\": \"Юлия\",\r\n    \"secondName\": \"Негодяева\",\r\n    \"login\": \"Julia55\",\r\n    \"password\": \"1111\",\r\n    \"role\": \"user\",\r\n    \"group\": null,\r\n    \"homework\": null,\r\n    \"controlMeasures\": null,\r\n    \"visitedStudents\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Students/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Students",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateStudent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idGroup\": 1,\r\n    \"firstName\": \"Юлия\",\r\n    \"secondName\": \"Негодяева\",\r\n    \"login\": \"Julia\",\r\n    \"password\": \"0000\",\r\n    \"role\": \"user\",\r\n    \"group\": null,\r\n    \"homework\": null,\r\n    \"controlMeasures\": null,\r\n    \"visitedStudents\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Students",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteStudent",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Students/2",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Students",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "GetCourses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Courses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCourse",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Courses/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Courses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCourse Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Courses/3",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Courses",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCourse",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idCourse\": 1,\r\n    \"nameCourse\": \"Теория принятия решений\",\r\n    \"idGroup\": 1,\r\n    \"idTeacher\": 1,\r\n    \"startDate\": \"2020-02-01T00:00:00\",\r\n    \"endDate\": \"2020-02-29T00:00:00\",\r\n    \"countTime\": 140,\r\n    \"nameUniversity\": \"ИрГУПС\",\r\n    \"teacher\": null,\r\n    \"group\": null,\r\n    \"classes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Courses/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Courses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCourse",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameCourse\": \"Теория принятия решений\",\r\n    \"idGroup\": 1,\r\n    \"idTeacher\": 1,\r\n    \"startDate\": \"2020-02-01T00:00:00\",\r\n    \"endDate\": \"2020-02-29T00:00:00\",\r\n    \"countTime\": 140,\r\n    \"nameUniversity\": \"ИрГУПС\",\r\n    \"teacher\": null,\r\n    \"group\": null,\r\n    \"classes\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Courses",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCoursesWithTeacher",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Courses/WithTeacher/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Courses",
+								"WithTeacher",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCourseFromGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Courses/GetCourseFromGroup/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Courses",
+								"GetCourseFromGroup",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Classes",
+			"item": [
+				{
+					"name": "GetClasses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateClass",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTypeClasses\": 1,\r\n    \"idCourse\": 1,\r\n    \"idGroup\": 1,\r\n    \"nameClasses\": \"Лабораторная работа №2\",\r\n    \"startTime\": \"08:30:00\",\r\n    \"endTime\": \"10:00:00\",\r\n    \"dateClasses\": \"2020-02-29T00:00:00\",\r\n    \"daysWeek\": \"Суббота\",\r\n    \"cabinet\": \"Д-507\",\r\n    \"replayClasses\": \"Еженедельно\",\r\n    \"course\": null,\r\n    \"typeClasses\": null,\r\n    \"group\": null,\r\n    \"homework\": null,\r\n    \"homeworkGroup\": null,\r\n    \"controlMeasures\": null,\r\n    \"visitedStudents\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteClass",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTypeClasses\": 1,\r\n    \"idCourse\": 1,\r\n    \"idGroup\": 1,\r\n    \"nameClasses\": \"Лабораторная работа №2\",\r\n    \"startTime\": \"08:30:00\",\r\n    \"endTime\": \"10:00:00\",\r\n    \"dateClasses\": \"2020-02-29T00:00:00\",\r\n    \"daysWeek\": \"Суббота\",\r\n    \"cabinet\": \"Д-507\",\r\n    \"replayClasses\": \"Еженедельно\",\r\n    \"course\": null,\r\n    \"typeClasses\": null,\r\n    \"group\": null,\r\n    \"homework\": null,\r\n    \"homeworkGroup\": null,\r\n    \"controlMeasures\": null,\r\n    \"visitedStudents\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes/2",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClassesFromGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes/GetClassesFromGroup/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes",
+								"GetClassesFromGroup",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClassesFromCourse",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes/GetClassesFromCourse/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes",
+								"GetClassesFromCourse",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClassesCourse",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClass",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateClass",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idClasses\": 1,\r\n    \"idTypeClasses\": 1,\r\n    \"idCourse\": 1,\r\n    \"idGroup\": 1,\r\n    \"nameClasses\": \"Лабораторная работа №1\",\r\n    \"startTime\": \"08:30:00\",\r\n    \"endTime\": \"10:00:00\",\r\n    \"dateClasses\": \"2020-02-29T00:00:00\",\r\n    \"daysWeek\": \"Суббота\",\r\n    \"cabinet\": \"Д-507\",\r\n    \"replayClasses\": \"Еженедельно\",\r\n    \"course\": null,\r\n    \"typeClasses\": null,\r\n    \"group\": null,\r\n    \"homework\": null,\r\n    \"homeworkGroup\": null,\r\n    \"controlMeasures\": null,\r\n    \"visitedStudents\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Classes/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Classes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "GetGroups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Groups",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Groups/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Groups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteGroup",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Groups/2",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Groups",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateGroup",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idGroup\": 1,\r\n    \"nameGroup\": \"ПИ-1-17-1\",\r\n    \"course\": null,\r\n    \"classes\": null,\r\n    \"student\": null,\r\n    \"homework\": null,\r\n    \"homeworkGroup\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Groups/1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Groups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateGroup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameGroup\": \"ПИ-1-16-1\",\r\n    \"course\": null,\r\n    \"classes\": null,\r\n    \"student\": null,\r\n    \"homework\": null,\r\n    \"homeworkGroup\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/Groups",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCountStudentInGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Groups/GetCountStudentInGroup/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Groups",
+								"GetCountStudentInGroup",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCountHomeworkInGroup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{authorization}}"
+							}
+						],
+						"url": {
+							"raw": "{{BaseURL}}/api/Groups/GetCountHomeworkInGroup/id=1",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"Groups",
+								"GetCountHomeworkInGroup",
+								"id=1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
