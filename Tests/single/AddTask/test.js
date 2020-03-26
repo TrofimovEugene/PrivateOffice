@@ -9,7 +9,7 @@ async function getCheckScreen() {
 
     let task = {
         name: 'тест',
-        class: '3',
+        class: '5',
         typeTask: 'тест'
     }
 
@@ -20,11 +20,11 @@ async function getCheckScreen() {
         password: 'test123'
       }
 
-    let numberGroup = '1'
+    let numberGroup = '3'
 
     const timer = 1000
     try {
-        await page.goto('https://localhost:44326/');
+        await page.goto('http://www.teachersoffice.somee.com/');
         await page.waitFor(timer);
         await page.setViewport({
             width: 1366,
@@ -51,7 +51,7 @@ async function getCheckScreen() {
             path: './screens result/Таблица групп.png'
         });
         await page.waitFor(timer);
-        await page.click(`body > div > main > form > table > tbody > tr:nth-child(${numberGroup}) > td:nth-child(3) > a:nth-child(1)`)
+        await page.click(`body > div > main > form > table > tbody > tr:nth-child(3) > td:nth-child(3) > form > a:nth-child(1)`)
         await page.waitFor(timer);
         await page.click(`#tab1 > tbody > tr:nth-child(${numbStudent}) > td:nth-child(4) > form > a:nth-child(2)`)
         await page.waitFor(timer);

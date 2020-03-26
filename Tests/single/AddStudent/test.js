@@ -14,7 +14,7 @@ async function getCheckScreen() {
   let student = {
     name: 'testname',
     surname: 'testsurname',
-    group: '2',
+    group: '8',
     login: 'teststudent',
     password: 'teststudent'
   }
@@ -24,8 +24,8 @@ async function getCheckScreen() {
 
   const timer = 1000
   try {
-    // await page.goto('http://www.teachersoffice.somee.com/');
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
+    // await page.goto('https://localhost:44326/');
 
     await page.waitFor(timer);
     await page.setViewport({
@@ -59,7 +59,7 @@ async function getCheckScreen() {
 
     //добавление студента
     await page.waitFor(timer);
-    await page.click(`body > div > main > form > table > tbody > tr:nth-child(2) > td:nth-child(3) > form > a:nth-child(1)`)
+    await page.click(`body > div > main > form > table > tbody > tr:nth-child(3) > td:nth-child(3) > form > a:nth-child(1)`)
     // await page.click(`body > div > main > form > table > tbody > tr:nth-child(${numberGroup}) > td:nth-child(3) > form > a:nth-child(1)`)
 
     await page.waitFor(timer);

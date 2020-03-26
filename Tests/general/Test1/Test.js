@@ -17,7 +17,7 @@ async function getCheckScreen() {
   let student = {
     name: 'testname',
     surname: 'testsurname',
-    group: '1',
+    group: '1', // нужно менять если другаю группа
     login: 'teststudent',
     password: 'teststudent'
   }
@@ -26,7 +26,7 @@ async function getCheckScreen() {
 
   let course = {
     universiry: 'ИрГУПС',
-    group: '1',
+    group: '1', // нужно менять если другаю группа
     nameCourse: 'Тест',
     startCourse: '12 12 2019',
     endCourse: '12 04 2020',
@@ -51,6 +51,7 @@ async function getCheckScreen() {
   const timer = 1000
   try {
     await page.goto('https://localhost:44326/');
+    // await page.goto('http://www.teachersoffice.somee.com/');
     await page.waitFor(timer);
     await page.setViewport({
       width: 1366,

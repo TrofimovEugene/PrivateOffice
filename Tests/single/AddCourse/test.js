@@ -13,10 +13,10 @@ async function getCheckScreen() {
 
   let course = {
     universiry: 'ИрГУПС',
-    group: '1',
+    group: '8',
     nameCourse: 'Тест',
     startCourse: '12 12 2019',
-    endCourse: '12 04 2020',
+    endCourse: '12 05 2020',
     time: '140'
   }
 
@@ -24,7 +24,7 @@ async function getCheckScreen() {
 
   try {
 
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
     await page.waitFor(timer);
     await page.setViewport({
       width: 1000,
@@ -88,3 +88,4 @@ async function getCheckScreen() {
 }
 
 getCheckScreen();
+

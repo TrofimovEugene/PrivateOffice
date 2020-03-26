@@ -28,8 +28,8 @@ async function getCheckScreen() {
 
   const timer = 1000
   try {
-    // await page.goto('http://www.teachersoffice.somee.com/');
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
+    // await page.goto('https://localhost:44326/');
     await page.waitFor(timer);
     await page.setViewport({
       width: 1000,
@@ -61,7 +61,7 @@ async function getCheckScreen() {
     await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(1)')
     await page.waitFor(timer);
 
-    await page.click(`body > div > main > form:nth-child(4) > table > tbody > tr:nth-child(${numberClass}) > td:nth-child(7) > div > a:nth-child(3)`)
+    await page.click(`body > div > main > table > tbody > tr > td:nth-child(7) > form > a:nth-child(1)`)
     await page.waitFor(timer);
 
     await page.screenshot({

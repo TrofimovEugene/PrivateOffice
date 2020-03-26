@@ -26,8 +26,8 @@ async function getCheckScreen() {
 
   try {
 
-    // await page.goto('http://www.teachersoffice.somee.com/');
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
+    // await page.goto('https://localhost:44326/');
     await page.waitFor(timer);
     await page.setViewport({
       width: 1000,
