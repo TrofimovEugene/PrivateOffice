@@ -131,8 +131,8 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             var jsonRequest = JsonConvert.SerializeObject(PlanClasses);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/PlanClasses/" + id, httpContent);
-            return Redirect(jsonRequest);
-          //  return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
+            //return Redirect(jsonRequest);
+          return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
         }
 
         public async Task<IActionResult> OnPostDelete(int id, int idClasses)
