@@ -149,8 +149,6 @@ async function getCheckScreen() {
 
     await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
     await page.waitFor(timer);
-    //   await page.click('#addStudent > div > div > div.modal-footer >  input.btn.btn-primary')
-    // await page.waitFor(timer);
 
     await page.focus('#NameStudent')
     page.keyboard.type(student.name)
@@ -178,9 +176,6 @@ async function getCheckScreen() {
     await page.waitFor(timer);
     await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(1)')
     await page.waitFor(timer);
-
-    // await page.screenshot({path: './screens result/Таблица занятий.png'});
-    // await page.waitFor(timer);
 
     await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
     await page.waitFor(timer);

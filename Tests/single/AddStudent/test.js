@@ -53,15 +53,11 @@ async function getCheckScreen() {
     await page.screenshot({
       path: './screens result/Подробнее.png'
     });
-    // await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${course}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
-    // await page.waitFor(timer);
-    // await page.screenshot({path: './screens result/Подробнее.png'});
 
     //добавление студента
     await page.waitFor(timer);
     await page.click(`body > div > main > form > table > tbody > tr:nth-child(3) > td:nth-child(3) > form > a:nth-child(1)`)
-    // await page.click(`body > div > main > form > table > tbody > tr:nth-child(${numberGroup}) > td:nth-child(3) > form > a:nth-child(1)`)
-
+   
     await page.waitFor(timer);
     await page.screenshot({
       path: './screens result/Таблица студентов.png'

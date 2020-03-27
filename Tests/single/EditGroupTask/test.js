@@ -7,13 +7,7 @@ async function getCheckScreen() {
     });
     const page = await browser.newPage();
 
-    let task = {
-        name: 'тест'
-    }
-
     let numbCourse = '1'
-
-    let numbClass = '2'
 
     let user = {
         login: 'test123',
@@ -21,8 +15,6 @@ async function getCheckScreen() {
     }
 
     let groupTask = 'test'
-
-    let numberGroup = '1'
 
     const timer = 1000
     try {
