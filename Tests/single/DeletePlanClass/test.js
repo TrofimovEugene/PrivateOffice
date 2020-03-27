@@ -8,23 +8,26 @@ async function getCheckScreen() {
     const page = await browser.newPage();
 
     let task = {
-        name: 'тест',
-        class: '3', //меняется если другое занятие
-        typeTask: 'тест'
+        name: 'тест'
     }
 
-    let numbStudent = '1'
+    let numbCourse = '1'
 
     let user = {
         login: 'test123',
         password: 'test123'
-      }
+    }
+
+    let planClass = {
+        name: 'test',
+        poll: 'test',
+        block: 'test'
+    }
 
     const timer = 1000
     try {
+        await page.goto('https://localhost:44326/')
         // await page.goto('http://www.teachersoffice.somee.com/');
-        await page.goto('https://localhost:44326/');
-        
         await page.waitFor(timer);
         await page.setViewport({
             width: 1366,
@@ -44,35 +47,31 @@ async function getCheckScreen() {
         await page.click('#nav-teacher > form > div.d-flex.justify-content-end > input')
         await page.waitFor(timer);
 
-        //добавление задания
-        await page.click('body > div > main > div.container-fluid.mt-3 > div.d-flex.align-items-start.flex-column.bd-highlight.mb-3 > a')
+        await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${numbCourse}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
         await page.waitFor(timer);
         await page.screenshot({
-            path: './screens result/Таблица групп.png'
+            path: './screens result/Подробнее.png'
         });
+
+        await page.click(`body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(1)`)
         await page.waitFor(timer);
-        await page.click(`body > div > main > table > tbody > tr:nth-child(1) > td:nth-child(3) > form > a:nth-child(1)`)
+
+        await page.click(`body > div > main > table > tbody > tr > td:nth-child(7) > form > a:nth-child(1)`)
         await page.waitFor(timer);
-        await page.click(`#tab1 > tbody > tr:nth-child(${numbStudent}) > td:nth-child(4) > form > a:nth-child(2)`)
-        await page.waitFor(timer);
-        await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
-        await page.waitFor(timer);
-        await page.focus('input[name="Homework.ContentHomework"]')
-        page.keyboard.type(task.name)
-        await page.select('select[name="Idclasses"]', task.class);
-        await page.waitFor(timer);
-        await page.focus('input[name="Homework.TypeHHomework"]')
-        page.keyboard.type(task.typeTask)
-        await page.waitFor(timer);
+
         await page.screenshot({
-            path: './screens result/Добавление задания.png'
+            path: './screens result/Занятие.png'
         });
-        await page.click('#addStudent > div > div > div.modal-footer > input')
+
+        await page.click(`body > div > main > div:nth-child(4) > div > div > form.d-flex.bd-highlight.mb-1 > input.btn.btn-outline-danger.ml-auto.p-1.bd-highlight`)
         await page.waitFor(timer);
+
         await page.screenshot({
-            path: './screens result/Задания.png'
+            path: './screens result/План занятия.png'
         });
         await page.waitFor(timer);
+
+
         await browser.close();
 
 
