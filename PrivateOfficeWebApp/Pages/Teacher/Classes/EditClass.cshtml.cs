@@ -115,10 +115,34 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             var jsonRequest = JsonConvert.SerializeObject(PlanClasses);
             HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
             await _httpClient.PostAsync(AppSettings.DataBaseUrl + "/api/PlanClasses", httpContent);
-
+            //return Redirect(jsonRequest);
             return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
         }
 
+
+        public async Task<IActionResult> OnPostEditPlanClasses(int idClasses, int id)
+        {
+            if (Request.Cookies["token_auth"] != null)
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+
+            PlanClasses.IdClasses = idClasses;
+            PlanClasses.IdPlanClasses = id;
+
+            var jsonRequest = JsonConvert.SerializeObject(PlanClasses);
+            HttpContent httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            await _httpClient.PutAsync(AppSettings.DataBaseUrl + "/api/PlanClasses/" + id, httpContent);
+            //return Redirect(jsonRequest);
+          return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
+        }
+
+        public async Task<IActionResult> OnPostDelete(int id, int idClasses)
+        {
+            if (Request.Cookies["token_auth"] != null)
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
+            await _httpClient.DeleteAsync(AppSettings.DataBaseUrl + "/api/PlanClasses/" + id);
+            return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
+
+        }
 
         public async Task<IActionResult> OnPostLogOut()
         {
