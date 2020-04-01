@@ -30,7 +30,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(stream).Secrets,
                 Scopes,
-                "admin",
+                "user",
                 CancellationToken.None,
                 new FileDataStore(credPath, true)).Result;
             }
@@ -42,14 +42,15 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 ApplicationName = ApplicationName,
             });
 
-            var presentationId = "1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc";
             Presentation presentation1 = new Presentation();
 
-            presentation1.Title = "planClasses";
+             presentation1.Title = "planClasses";
 
-            var request = service.Presentations.Create(presentation1);
-            request.Fields = presentationId;
-            request.Execute();
+            PresentationsResource.CreateRequest request = service.Presentations.Create(presentation1);
+            presentation1 = request.Execute();
+
+          
+     
         }
     }
 }
