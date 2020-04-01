@@ -17,16 +17,15 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
     {
 
         static string[] Scopes = { SlidesService.Scope.Presentations };
-        static string ApplicationName = "PrivateOffice";
+        static string ApplicationName = "PrivateOfficeWebApp";
 
-        public void slides()
+        public void Slides()
         {
             UserCredential credential;
 
             using (var stream =
             new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
             {
-
                 string credPath = "token.json";
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(stream).Secrets,
@@ -43,7 +42,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 ApplicationName = ApplicationName,
             });
 
-            String presentationId = "1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc";
+            var presentationId = "1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc";
             Presentation presentation1 = new Presentation();
 
             presentation1.Title = "planClasses";

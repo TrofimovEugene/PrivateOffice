@@ -126,7 +126,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
             
             var googleSlides = new GoogleSlides();
-            googleSlides.slides();
+            googleSlides.Slides();
 
             PlanClasses.IdClasses = idClasses;
             PlanClasses.IdPlanClasses = id;
