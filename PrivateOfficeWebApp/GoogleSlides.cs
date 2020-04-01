@@ -42,15 +42,56 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
                 ApplicationName = ApplicationName,
             });
 
-            Presentation presentation1 = new Presentation();
+            Presentation presentation = new Presentation();
 
-             presentation1.Title = "planClasses";
+             presentation.Title = "Командная разработка";
 
-            PresentationsResource.CreateRequest request = service.Presentations.Create(presentation1);
-            presentation1 = request.Execute();
+            PresentationsResource.CreateRequest request = service.Presentations.Create(presentation);
+            presentation = request.Execute();
 
-          
-     
+            var requestCreateSlides = new List<Request>();
+            requestCreateSlides.Add(new Request()
+            {
+                CreateSlide = new CreateSlideRequest()
+                {
+                    SlideLayoutReference = new LayoutReference()
+                    {
+                        PredefinedLayout = "TITLE_AND_BODY"
+                    }
+                }
+            });
+            var bodySlides = new BatchUpdatePresentationRequest();
+
+            bodySlides.Requests = requestCreateSlides;
+            var response = service
+                .Presentations
+                .BatchUpdate(bodySlides, presentation.PresentationId)
+                .Execute();
+
+            PresentationsResource.GetRequest getPresentation = service.Presentations.Get(presentation.PresentationId);
+            var presentationSlides = getPresentation.Execute();
+            
+            IList<Page> slides = presentationSlides.Slides;
+            var requestAddText = new List<Request>();
+            for (int i = 0; i< slides.Count; i++)
+            { 
+                var slide = slides[i];
+               var objectIdSlides =  slide.PageElements[0].ObjectId;
+                requestAddText.Add(new Request()
+                {
+                    InsertText = new InsertTextRequest()
+                    {
+                        ObjectId = objectIdSlides,
+                        Text ="Блок"
+                    }
+                });
+
+                bodySlides.Requests = requestAddText;
+                response = service
+                   .Presentations
+                   .BatchUpdate(bodySlides, presentation.PresentationId)
+                   .Execute();
+            }
         }
     }
 }
