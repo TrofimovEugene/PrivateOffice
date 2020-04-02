@@ -11,7 +11,7 @@ async function getCheckScreen() {
     password: 'test123'
   }
 
-  let numberGroup = '2'
+  let numberGroup = '3'
 
   let group = {
     name: 'ИСп-1-16-1'
@@ -19,8 +19,8 @@ async function getCheckScreen() {
 
   const timer = 1000
   try {
-    // await page.goto('http://www.teachersoffice.somee.com/');
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
+    // await page.goto('https://localhost:44326/');
     await page.waitFor(timer);
     await page.setViewport({
       width: 1000,

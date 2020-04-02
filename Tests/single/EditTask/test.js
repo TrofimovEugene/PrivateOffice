@@ -18,13 +18,13 @@ async function getCheckScreen() {
     let user = {
         login: 'test123',
         password: 'test123'
-      }
+    }
 
     const timer = 1000
     try {
         // await page.goto('http://www.teachersoffice.somee.com/');
         await page.goto('https://localhost:44326/');
-        
+
         await page.waitFor(timer);
         await page.setViewport({
             width: 1366,
@@ -55,17 +55,39 @@ async function getCheckScreen() {
         await page.waitFor(timer);
         await page.click(`#tab1 > tbody > tr:nth-child(${numbStudent}) > td:nth-child(4) > form > a:nth-child(2)`)
         await page.waitFor(timer);
+        await page.click('#tab1 > tbody > tr:nth-child(1) > td:nth-child(4) > form > a')
+        await page.waitFor(timer);
         await page.click('body > div > main > div.container-fluid.mt-3 > div > button')
         await page.waitFor(timer);
-        await page.focus('input[name="Homework.ContentHomework"]')
-        page.keyboard.type(task.name)
-        await page.select('select[name="Idclasses"]', task.class);
+
+        let searchContent = await page.$('input[name="Homework.ContentHomework"]');
         await page.waitFor(timer);
-        await page.focus('input[name="Homework.TypeHHomework"]')
-        page.keyboard.type(task.typeTask)
+        await searchContent.click({
+            clickCount: 10
+        });
+        await page.waitFor(timer);
+        await searchContent.press('Backspace');
+        await page.waitFor(timer);
+        page.keyboard.type(task.name)
+        await page.waitFor(timer);
+
+        let searchType = await page.$('input[name="Homework.TypeHHomework"]');
+        await page.waitFor(timer);
+        await searchType.click({
+            clickCount: 10
+        });
+        await page.waitFor(timer);
+        await searchType.press('Backspace');
+        await page.waitFor(timer);
+        page.keyboard.type(task.name)
+        await page.waitFor(timer);
+
+
+        await page.select('select[name="Idclasses"]', task.class);;
+
         await page.waitFor(timer);
         await page.screenshot({
-            path: './screens result/Добавление задания.png'
+            path: './screens result/Редактирование задания.png'
         });
         await page.click('#addStudent > div > div > div.modal-footer > input')
         await page.waitFor(timer);

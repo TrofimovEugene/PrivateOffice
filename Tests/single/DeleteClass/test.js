@@ -13,8 +13,6 @@ async function getCheckScreen() {
 
   let course = '1'
 
-  let numbclass = '2'
-
   const timer = 1000
   try {
     // await page.goto('http://www.teachersoffice.somee.com/');
@@ -56,7 +54,6 @@ async function getCheckScreen() {
     await page.waitFor(timer);
 
     await page.click(`body > div > main > form:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(7) > div > form > input.btn.btn-outline-danger.ml-auto.bd-highlight`)
-    // await page.click(`body > div > main > form:nth-child(4) > table > tbody > tr:nth-child(${numbclass}) > td:nth-child(7) > div > form > input.btn.btn-outline-danger.ml-auto.bd-highlight`)
     await page.waitFor(timer);
 
 

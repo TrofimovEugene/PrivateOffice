@@ -47,7 +47,7 @@ async function getCheckScreen() {
             path: './screens result/Таблица групп.png'
         });
         await page.waitFor(timer);
-        await page.click(`body > div > main > form > table > tbody > tr:nth-child(${numberGroup}) > td:nth-child(3) > a:nth-child(1)`)
+        await page.click(`body > div > main > table > tbody > tr:nth-child(1) > td:nth-child(3) > form > a:nth-child(1)`)
         await page.waitFor(timer);
         await page.click(`#tab1 > tbody > tr:nth-child(${numbStudent}) > td:nth-child(4) > form > a:nth-child(2)`)
         await page.waitFor(timer);

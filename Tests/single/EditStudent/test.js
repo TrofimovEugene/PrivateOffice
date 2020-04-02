@@ -14,21 +14,17 @@ async function getCheckScreen() {
   let student = {
     name: 'testname',
     surname: 'testsurname',
-    group: '1',
+    group: '8',
     login: 'teststudent',
     password: 'teststudent'
   }
 
-  let numberCourse = '1'
-
   let numberStudent = '1'
-
-  let numbgroup = '1'
 
   const timer = 1000
   try {
-    // await page.goto('http://www.teachersoffice.somee.com/');
-    await page.goto('https://localhost:44326/');
+    await page.goto('http://www.teachersoffice.somee.com/');
+    // await page.goto('https://localhost:44326/');
     await page.waitFor(timer);
     await page.setViewport({
       width: 1000,
@@ -49,23 +45,13 @@ async function getCheckScreen() {
     await page.click('#nav-teacher > form > div.d-flex.justify-content-end > input')
     await page.waitFor(timer);
 
-    //подробнее
-    // await page.click(`body > div > main > div.container-fluid.mt-3 > div.row > div:nth-child(${numberCourse}) > div > div > form:nth-child(2) > div.d-flex.bd-highlight > a`)
-    //   await page.waitFor(timer);
-    //   await page.screenshot({path: './screens result/Подробнее.png'});
-
-    //редактирование студента
-    // await page.waitFor(timer);
-    // await page.click('body > div > main > div.container.mt-5 > div > div.modal-body > div.d-flex.justify-content-between > a:nth-child(3)')
-    // await page.waitFor(timer);
-
     await page.click('body > div > main > div.container-fluid.mt-3 > div.d-flex.align-items-start.flex-column.bd-highlight.mb-3 > a')
     await page.waitFor(timer);
     await page.screenshot({
       path: './screens result/Группы.png'
     });
     await page.waitFor(timer);
-    await page.click(`body > div > main > form > table > tbody > tr:nth-child(${numbgroup}) > td:nth-child(3) > a:nth-child(1)`)
+    await page.click(`body > div > main > form > table > tbody > tr:nth-child(3) > td:nth-child(3) > form > a:nth-child(1)`)
     await page.waitFor(timer);
     await page.click(`#tab1 > tbody > tr:nth-child(${numberStudent}) > td:nth-child(4) > form > a`)
     await page.waitFor(timer);

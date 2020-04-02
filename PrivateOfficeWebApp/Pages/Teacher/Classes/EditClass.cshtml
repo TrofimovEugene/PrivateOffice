@@ -15,12 +15,7 @@
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
         <a asp-page="../Classes/ViewClasses" asp-route-id="@Model.Course.IdCourse" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
-        <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClass">
-            Редактировать
-        </button>
-    </div>
-    <div class="d-flex align-items-end flex-column bd-highlight mb-3">
-        <button type="button" class="btn btn-primary mt-1" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClassHome">
+        <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClassHome">
             Добавить групповое задание
         </button>
     </div>
@@ -57,13 +52,16 @@
                     }
                 </ul>
             </form>
+            <div class="modal-footer m-0 p-0 pt-2">
+                <input type="submit" class="btn btn-primary" value="Редактировать" data-toggle="modal" data-target="#editClass">
+            </div>
         </div>
     </div>
 </div>
 @if (Model.PlanClasses != null)
 {
 <div class="col-xl-3  col-md-4 col-sm-6  p-4">
-    <div class="card " style="width: 100%; min-height: 379px; border-width:2px; border-radius: 5%; border-color: #0866C6; box-shadow: 0.8em 0.8em 10px rgba(122,122,122,0.5)">
+    <div class="card " style="width: 100%; min-height: 300px; border-width:2px; border-radius: 5%; border-color: #0866C6; box-shadow: 0.8em 0.8em 10px rgba(122,122,122,0.5)">
         <div class="card-body">
             <form method="post" class=" d-flex bd-highlight mb-1">
                 <input hidden="hidden" type="number" name="id" value="@Model.PlanClasses.IdPlanClasses" />
@@ -102,7 +100,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editPlanClasses">Добавить план занятия</h5>
+                <h5 class="modal-title" id="editPlanClasses">Редактировать план занятия</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -131,7 +129,7 @@
                     </div>
                     <div class="modal-footer m-0 p-0 pt-2">
                         <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
-                        <input type="submit" class="btn btn-primary" value="Добавить" asp-page-handler="EditPlanClasses" />
+                        <input type="submit" class="btn btn-primary" value="Изменить" asp-page-handler="EditPlanClasses" />
                     </div>
                 </form>
             </div>
@@ -161,13 +159,13 @@
                     </div>
                     <div class="form-university pt-0 mb-1">
                         <label for="InputPoll">Опрос</label>
-                        <input asp-for="PlanClasses.Poll" type="text" class="form-control"
-                               id="InputPoll">
+                        <textarea asp-for="PlanClasses.Poll" type="text" class="form-control"
+                               id="InputPoll" cols="30" rows="7"></textarea>
                     </div>
                     <div class="form-university pt-0 mb-1">
                         <label for="InputBlock">Блок</label>
-                        <input asp-for="PlanClasses.Block" type="text" class="form-control"
-                               id="InputBlock">
+                        <textarea asp-for="PlanClasses.Block" type="text" class="form-control"
+                               id="InputBlock" cols="30" rows="7"></textarea>
                     </div>
                     <div class="modal-footer m-0 p-0 pt-2">
                         <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
@@ -222,7 +220,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editClassTitle">Редактирование</h5>
+                <h5 class="modal-title" id="editClassTitle">Редактировать занятие</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -7,20 +7,14 @@ async function getCheckScreen() {
     });
     const page = await browser.newPage();
 
-    let task = {
-        name: 'тест'
-    }
-
     let numbCourse = '1'
-
-    let numbClass = '2'
 
     let user = {
         login: 'test123',
         password: 'test123'
     }
 
-    let numberGroup = '1'
+    let groupTask = 'test'
 
     const timer = 1000
     try {
@@ -61,24 +55,23 @@ async function getCheckScreen() {
             path: './screens result/Занятие.png'
         });
 
-        await page.click(`body > div > main > div.container-fluid.mt-3 > div.d-flex.align-items-end.flex-column.bd-highlight.mb-3 > button`)
+        await page.click(`body > div:nth-child(1) > main > div.container-fluid.mt-3 > div.form-group.d-flex.bd-highlight.mb-3 > button`)
         await page.waitFor(timer);
-
-        await page.focus('input[name="HomeworkGroup.ContentHomeworkGroup"]')
-        page.keyboard.type(task.name)
-        await page.screenshot({
-            path: './screens result/Заполненное окно.png'
-        });
-
-        await page.click(`#editClassHome > div > div > div.modal-body > form > div.modal-footer.m-0.p-0.pt-2 > input.btn.btn-primary`)
+        let searchInput = await page.$('#InputСountClass');
         await page.waitFor(timer);
-        page.keyboard.type(task.name)
-        await page.screenshot({
-            path: './screens result/Новое занятие.png'
+        await searchInput.click({
+            clickCount: 10
         });
         await page.waitFor(timer);
-
-
+        await searchInput.press('Backspace');
+        await page.waitFor(timer);
+        page.keyboard.type(groupTask)
+        await page.screenshot({
+            path: './screens result/Задание.png'
+        });
+        await page.waitFor(timer);
+        await page.click(`#editClass > div > div > div.modal-body > form > div.modal-footer.m-0.p-0.pt-2 > input.btn.btn-primary`)
+        await page.waitFor(timer);
         await browser.close();
 
 

@@ -13,14 +13,16 @@ async function getCheckScreen() {
 
     let numbCourse = '1'
 
-    let numbClass = '2'
-
     let user = {
         login: 'test123',
         password: 'test123'
     }
 
-    let numberGroup = '1'
+    let planClass = {
+        name: 'test',
+        poll: 'test',
+        block: 'test'
+    }
 
     const timer = 1000
     try {
@@ -61,23 +63,53 @@ async function getCheckScreen() {
             path: './screens result/Занятие.png'
         });
 
-        await page.click(`body > div > main > div.container-fluid.mt-3 > div.d-flex.align-items-end.flex-column.bd-highlight.mb-3 > button`)
+        await page.click(`body > div > main > div:nth-child(4) > div > div > button`)
+
+        let searchTheme = await page.$('#InputTheme');
+        await page.waitFor(timer);
+        await searchTheme.click({
+            clickCount: 10
+        });
+        await page.waitFor(timer);
+        await searchTheme.press('Backspace');
+        await page.waitFor(timer);
+        page.keyboard.type(planClass.name)
         await page.waitFor(timer);
 
-        await page.focus('input[name="HomeworkGroup.ContentHomeworkGroup"]')
-        page.keyboard.type(task.name)
+        let searchPoll = await page.$('#InputPoll');
+        await page.waitFor(timer);
+        await searchPoll.click({
+            clickCount: 10
+        });
+        await page.waitFor(timer);
+        await searchPoll.press('Backspace');
+        await page.waitFor(timer);
+        page.keyboard.type(planClass.poll)
+        await page.waitFor(timer);
+
+        let searchBlock = await page.$('#InputBlock');
+        await page.waitFor(timer);
+        await searchBlock.click({
+            clickCount: 10
+        });
+        await page.waitFor(timer);
+        await searchBlock.press('Backspace');
+        await page.waitFor(timer);
+        page.keyboard.type(planClass.block)
+        await page.waitFor(timer);
+
+        await page.waitFor(timer);
         await page.screenshot({
             path: './screens result/Заполненное окно.png'
         });
 
-        await page.click(`#editClassHome > div > div > div.modal-body > form > div.modal-footer.m-0.p-0.pt-2 > input.btn.btn-primary`)
+        await page.click(`#editPlanClasses > div > div > div.modal-body > form > div.modal-footer.m-0.p-0.pt-2 > input.btn.btn-primary`)
         await page.waitFor(timer);
         page.keyboard.type(task.name)
         await page.screenshot({
-            path: './screens result/Новое занятие.png'
+            path: './screens result/План занятия.png'
         });
         await page.waitFor(timer);
-
 
         await browser.close();
 
