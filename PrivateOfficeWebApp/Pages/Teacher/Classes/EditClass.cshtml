@@ -85,6 +85,12 @@
             <button type="button" class="btn btn-primary mt-1" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editPlanClasses">
                 Редактировать
             </button>
+            <form method="post" class=" d-flex bd-highlight mb-1">
+                <input hidden="hidden" type="text" name="theme" value="@Model.PlanClasses.Theme" />
+                <input hidden="hidden" type="text" name="roll" value="@Model.PlanClasses.Poll" />
+                <input hidden="hidden" type="text" name="block" value="@Model.PlanClasses.Block" />
+                <input type="submit" class="btn btn-primary" value="Сгенерировать google презентацию" asp-page-handler="CreateGoogleSlides" />
+            </form>
         </div>
     </div>
 </div>

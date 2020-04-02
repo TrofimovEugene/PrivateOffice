@@ -119,14 +119,18 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             return Redirect(AppSettings.WebAppUrl + "/Teacher/Classes/EditClass?id=" + idClasses);
         }
 
+        public async Task<IActionResult> OnPostCreateGoogleSlides(string theme, string roll, string block)
+        {
+            var googleSlides = new GoogleSlides();
+            googleSlides.createSlides(theme, roll, block);
 
-        public async Task<IActionResult> OnPostEditPlanClasses(int idClasses, int id)
+            return Redirect("https://docs.google.com/presentation/u/0/");
+        }
+
+            public async Task<IActionResult> OnPostEditPlanClasses(int idClasses, int id)
         {
             if (Request.Cookies["token_auth"] != null)
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["token_auth"]);
-            
-            var googleSlides = new GoogleSlides();
-            googleSlides.Slides();
 
             PlanClasses.IdClasses = idClasses;
             PlanClasses.IdPlanClasses = id;

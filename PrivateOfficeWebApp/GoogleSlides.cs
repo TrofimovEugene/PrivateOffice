@@ -19,7 +19,7 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
         static string[] Scopes = { SlidesService.Scope.Presentations };
         static string ApplicationName = "PrivateOfficeWebApp";
 
-        public void Slides()
+        public void createSlides(string theme, string roll, string block)
         {
             UserCredential credential;
 
@@ -50,16 +50,19 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             presentation = request.Execute();
 
             var requestCreateSlides = new List<Request>();
-            requestCreateSlides.Add(new Request()
+            for (int i = 0; i <= 1; i++)
             {
-                CreateSlide = new CreateSlideRequest()
+                requestCreateSlides.Add(new Request()
                 {
-                    SlideLayoutReference = new LayoutReference()
+                    CreateSlide = new CreateSlideRequest()
                     {
-                        PredefinedLayout = "TITLE_AND_BODY"
+                        SlideLayoutReference = new LayoutReference()
+                        {
+                            PredefinedLayout = "TITLE_AND_BODY"
+                        }
                     }
-                }
-            });
+                });
+            }
             var bodySlides = new BatchUpdatePresentationRequest();
 
             bodySlides.Requests = requestCreateSlides;
@@ -73,25 +76,57 @@ namespace PrivateOfficeWebApp.Pages.Teacher.Classes
             
             IList<Page> slides = presentationSlides.Slides;
             var requestAddText = new List<Request>();
-            for (int i = 0; i< slides.Count; i++)
+
+            var title = "";
+            var subText = "";
+
+            for (int indexSlide = 0; indexSlide < slides.Count; indexSlide++)
             { 
-                var slide = slides[i];
-               var objectIdSlides =  slide.PageElements[0].ObjectId;
+                var slide = slides[indexSlide];
+                var objectIdSlidesTitle =  slide.PageElements[0].ObjectId;
+                var objectIdSlidessubText = slide.PageElements[1].ObjectId;
+
+                switch (indexSlide)
+                {
+                    case 0:
+                        title = "Тема";
+                        subText = theme;
+                        break;
+                    case 1:
+                        title = "Опрос";
+                        subText = roll;
+                        break;
+                    case 2:
+                        title = "Блок";
+                        subText = block;
+                        break;
+                }
+
                 requestAddText.Add(new Request()
                 {
                     InsertText = new InsertTextRequest()
                     {
-                        ObjectId = objectIdSlides,
-                        Text ="Блок"
+                        ObjectId = objectIdSlidesTitle,
+                        Text = title
                     }
                 });
 
-                bodySlides.Requests = requestAddText;
-                response = service
-                   .Presentations
-                   .BatchUpdate(bodySlides, presentation.PresentationId)
-                   .Execute();
+                requestAddText.Add(new Request()
+                {
+                    InsertText = new InsertTextRequest()
+                    {
+                        ObjectId = objectIdSlidessubText,
+                        Text = subText
+                    }
+                });
+                    
             }
+
+            bodySlides.Requests = requestAddText;
+            response = service
+               .Presentations
+               .BatchUpdate(bodySlides, presentation.PresentationId)
+               .Execute();
         }
     }
 }
