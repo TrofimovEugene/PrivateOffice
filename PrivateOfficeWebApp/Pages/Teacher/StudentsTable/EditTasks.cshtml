@@ -8,18 +8,18 @@
     <nav class="navbar" style="background-color: #0866C6">
         <a asp-page="../Courses/IndexCourse" asp-route-id="@Request.Cookies["idTeacher"]" class="navbar-brand" style="color: white">АРМ Преподавателя</a>
         <form method="post" class="form-inline">
-            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6"  value="Выйти" asp-page-handler="LogOut" />
+            <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="background-color:#E5E5E5; color:#0866C6" value="Выйти" asp-page-handler="LogOut"/>
         </form>
     </nav>
 </div>
 <div class="container-fluid mt-3">
     <div class="form-group d-flex bd-highlight mb-3">
         <a asp-page="../StudentsTable/Tasks" asp-route-id="@Model.Homework.IdStudent" class="btn btn-outline-primary p-2 bd-highlight" style="background-color:#0866C6; color:white">Назад</a>
-        
+
         <button type="button" class="btn btn-outline-primary ml-auto p-2 bd-highlight" style="background-color:#0866C6; color:white" data-toggle="modal" data-target="#editClass">
             Редактировать
         </button>
-    </div>    
+    </div>
 </div>
 
 <div class="container mt-5" style="border: solid   #0866C6 2px; border-radius:5px; background-color:white">
@@ -27,72 +27,80 @@
         <form method="get">
             <div class="modal-body">
                 <div class="form-class">
-                    <label><strong>Название задания:</strong> @Html.DisplayFor(model => model.Homework.ContentHomework)</label>
+                    <label>
+                        <strong>Название задания:</strong> @Html.DisplayFor(model => model.Homework.ContentHomework)
+                    </label>
                 </div>
                 <div class="form-nameCourse">
-                    <label><strong>Занятие:</strong> @Html.DisplayFor(model => model.Homework.Classes.NameClasses)</label>
+                    <label>
+                        <strong>Занятие:</strong> @Html.DisplayFor(model => model.Homework.Classes.NameClasses)
+                    </label>
                 </div>
                 <div class="form-DateClass">
-                    <label><strong>Тип задания:</strong> @Html.DisplayFor(model => model.Homework.TypeHomework)</label>
+                    <label>
+                        <strong>Тип задания:</strong> @Html.DisplayFor(model => model.Homework.TypeHomework)
+                    </label>
                 </div>
+            </div>
         </form>
     </div>
 </div>
 
 
-    <div class="modal fade" id="editClass" tabindex="-1" role="dialog"
-         aria-labelledby="editClassTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editClassTitle">Редактирование</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" class="needs-validation" novalidate>
-                        <div class="form-group">
-                            <input hidden="hidden" type="number" id="idStudent" name="idStudent" value="@Model.Homework.IdStudent" />
-                        </div>
-                      
-                        <div class="form-group">
-                            <input hidden="hidden" type="number" id="id" name="id" value="@Model.Homework.IdHomework" />
-                        </div>
-                        <div class="form-group">
-                            <input hidden="hidden" type="number" asp-for="Homework.IdGroup" value="@Model.Homework.IdGroup" />
-                        </div>
-                        <div class="form-university pt-0 mb-1">
-                            <label for="InputIdclasses">Название задания</label>
-                            <input asp-for="Homework.ContentHomework" type="text" class="form-control"
-                                   id="InputIdclasses">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputGroup">Занятие</label>
-                            <select class=" form-control" name="Idclasses" required>
-                                @if (Model.Clas != null)
+<div class="modal fade" id="editClass" tabindex="-1" role="dialog"
+     aria-labelledby="editClassTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editClassTitle">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <input hidden="hidden" type="number" id="idStudent" name="idStudent" value="@Model.Homework.IdStudent"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input hidden="hidden" type="number" id="id" name="id" value="@Model.Homework.IdHomework"/>
+                    </div>
+                    <div class="form-group">
+                        <input hidden="hidden" type="number" asp-for="Homework.IdGroup" value="@Model.Homework.IdGroup"/>
+                    </div>
+                    <div class="form-university pt-0 mb-1">
+                        <label for="InputIdclasses">Название задания</label>
+                        <input asp-for="Homework.ContentHomework" type="text" class="form-control"
+                               id="InputIdclasses">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputGroup">Занятие</label>
+                        <select class=" form-control" name="Idclasses" required>
+                            @if (Model.Clas != null)
+                            {
+                                @foreach (var homework in Model.Clas)
                                 {
-                                    @foreach (var homework in Model.Clas)
-                                    {
-                                        <option value="@homework.IdClasses">@Html.DisplayFor(item => homework.NameClasses)</option>
-                                    }
+                                    <option value="@homework.IdClasses">@Html.DisplayFor(item => homework.NameClasses)</option>
                                 }
-                            </select>
-                        </div>
+                            }
+                        </select>
+                    </div>
 
-                        <div class="form-university  mb-2">
-                            <label for="Inputid">Тип занятия</label>
-                            <input asp-for="Homework.TypeHomework" type="text" class="form-control"
-                                   id="Inputid">
-                        </div>
+                    <div class="form-university  mb-2">
+                        <label for="Inputid">Тип занятия</label>
+                        <input asp-for="Homework.TypeHomework" type="text" class="form-control"
+                               id="Inputid">
+                    </div>
 
-                        <div class="modal-footer m-0 p-0 pt-2">
-                            <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть" />
-                            <!-- -->
-                            <input type="submit" class="btn btn-primary" value="Редактировать" asp-page-handler="EditTask" />
+                    <div class="modal-footer m-0 p-0 pt-2">
+                        <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Закрыть"/>
+                        <!-- -->
+                        <input type="submit" class="btn btn-primary" value="Редактировать" asp-page-handler="EditTask"/>
 
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
